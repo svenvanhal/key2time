@@ -11,7 +11,7 @@ namespace Application.Tests
     {
 
         [Test]
-        public void AssignToVolunteer_StartAndEndDateBeforeExistingCommitment()
+        public void ExampleTest()
         {
             Assert.IsNotNull("Test");
         }
