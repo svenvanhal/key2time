@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEP", "BEP.csproj", "{2E9F822F-947E-43EE-A440-33C280785651}"
 EndProject
 Global
@@ -13,5 +14,11 @@ Global
 		{2E9F822F-947E-43EE-A440-33C280785651}.Debug|x86.Build.0 = Debug|x86
 		{2E9F822F-947E-43EE-A440-33C280785651}.Release|x86.ActiveCfg = Release|x86
 		{2E9F822F-947E-43EE-A440-33C280785651}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C94714AC-3051-44F5-892C-B59819ED827A}
 	EndGlobalSection
 EndGlobal

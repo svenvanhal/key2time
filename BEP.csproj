@@ -31,7 +31,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="timetable\Application.Tests\Class1.cs" />
+    <Compile Include="timetable\Application.Tests\ApplicationTest.cs" />
     <Compile Include="timetable\Application\Main.cs" />
   </ItemGroup>
   <ItemGroup>
