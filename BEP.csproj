@@ -52,6 +52,7 @@
     <None Include=".travis.yml" />
     <None Include="packages.config" />
     <None Include=".gitignore" />
+    <None Include="Resources\fet-cl" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

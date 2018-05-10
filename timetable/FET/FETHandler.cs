@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 
 namespace BEP.timetable.FET
 {
@@ -12,12 +10,20 @@ namespace BEP.timetable.FET
 
         public FETHandler()
         {
-            SetFETFilePath("fet-cl.exe");
+          
+            if (Environment.OSVersion.Platform.ToString().Equals("Unix"))
+            {
+                SetFETFilePath("fet-cl");
+            }
+            else
+            {
+                SetFETFilePath("fet-cl.exe");
+            }
         }
 
 
         public void SetFilePath(string _filePath){
-            if(!_filePath.EndsWith(".fet")){
+            if(!_filePath.Substring(_filePath.Length - 4).Equals(".fet")){
                 Console.Write("[Error] This is not a .fet file");
             }
 
@@ -41,13 +47,15 @@ namespace BEP.timetable.FET
         }
 
         public void connect(){
-            Process.Start(GetFETFilePath());
+            String arg = "--inputfile=" + filePath;
+            System.Diagnostics.Process.Start(GetFETFilePath(), arg);
         }
 
         static void Main()
         {
             FETHandler fETHandler = new FETHandler();
-            fETHandler.connect();
+            fETHandler.SetFilePath("/Users/karimosman/Downloads/fet-5.35.6/examples/Greece/Corfu/THE-2008-2009-exams-sep.fet");
+           fETHandler.connect();
         }
 
     }
