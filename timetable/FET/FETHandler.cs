@@ -10,15 +10,15 @@ namespace BEP.timetable.FET
         private string filePath;
         private string FETFilePath;
 
-        public FETHandler(string _filePath)
+        public FETHandler()
         {
-            SetFilePath(_filePath);
+            SetFETFilePath("fet-cl.exe");
         }
 
 
         public void SetFilePath(string _filePath){
             if(!_filePath.EndsWith(".fet")){
-                Console.Write("[Error] not a .fet file");
+                Console.Write("[Error] This is not a .fet file");
             }
 
             filePath = _filePath;
@@ -29,24 +29,25 @@ namespace BEP.timetable.FET
             var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             string dir = Path.Combine(projectPath, "Resources");
             string finalString = Path.Combine(dir, _FETFilePath);
-
-            Console.Write(finalString);
             FETFilePath = finalString;
         }
 
         public string GetFETFilePath(){
             if (FETFilePath == null)
             {
-                Console.Write("[Error] not a FET file initialized");
+                Console.Write("[Error] A FET file is not initialized");
             }
             return FETFilePath;
         }
 
+        public void connect(){
+            Process.Start(GetFETFilePath());
+        }
+
         static void Main()
         {
-            FETHandler fETHandler = new FETHandler(".fet");
-            fETHandler.SetFETFilePath("fet-cl.exe");
-            Process.Start(fETHandler.GetFETFilePath());
+            FETHandler fETHandler = new FETHandler();
+            fETHandler.connect();
         }
 
     }
