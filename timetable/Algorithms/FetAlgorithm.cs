@@ -77,7 +77,7 @@ namespace Timetable.Algorithm
             }
             catch (Win32Exception e2)
             {
-                Util.WriteError("Error: FET binary not found.");
+                Util.WriteError("Error: FET binary not found at location: " + startInfo.FileName);
                 throw e2;
             }
         }
@@ -104,7 +104,7 @@ namespace Timetable.Algorithm
             var items = args.AllKeys.SelectMany(args.GetValues, (k, v) => new { key = k, value = v });
             foreach (var item in items)
             {
-                startInfo.Arguments += String.Format("--{0}={1}", Util.EncodeParameterArgument(item.key), Util.EncodeParameterArgument(item.value));
+                startInfo.Arguments += String.Format(" --{0}={1}", Util.EncodeParameterArgument(item.key), Util.EncodeParameterArgument(item.value));
             }
 
             return startInfo;

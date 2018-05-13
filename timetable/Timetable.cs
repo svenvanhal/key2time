@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
 using Timetable.Algorithm;
 
 namespace Timetable
@@ -7,16 +10,16 @@ namespace Timetable
     {
         public static void Main(string[] args)
         {
-
             // Instantiate algorithm
-            var fetAlgo = new FetAlgorithm("lib/fet/fet-cl");
+            var fetAlgo = new FetAlgorithm(Util.GetAppSetting("FetAlgorithmExecutableLocation"));
 
             // Generate timetable
-            Generate(fetAlgo, "testdata/fet/Italy/2007/simple/simpler-italian.fet");
+            Generate(fetAlgo, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
 
+#if DEBUG
             // Keep console window open
             Console.Read();
-
+#endif
         }
 
         /// <summary>

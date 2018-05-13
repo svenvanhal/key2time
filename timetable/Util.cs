@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text.RegularExpressions;
 
 namespace Timetable
@@ -32,6 +33,12 @@ namespace Timetable
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(error);
             Console.ResetColor();
+        }
+
+        // TODO: error handling
+        public static string GetAppSetting(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
         }
 
     }

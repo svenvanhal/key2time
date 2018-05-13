@@ -31,46 +31,33 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="timetable\Algorithm.Tests\ApplicationTest.cs" />
-    <Compile Include="timetable\Algorithm\FetAlgorithm.cs" />
+    <Compile Include="timetable\Algorithms.Tests\ApplicationTest.cs" />
+    <Compile Include="timetable\Algorithms\FetAlgorithm.cs" />
     <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
-    <Compile Include="timetable\Algorithm\IAlgorithm.cs" />
+    <Compile Include="timetable\Algorithms\IAlgorithm.cs" />
     <Compile Include="timetable\Timetable.cs" />
     <Compile Include="timetable\Resources\Timetable.cs" />
     <Compile Include="timetable\Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="GAF.461">
-      <HintPath>packages\GAF.2.3.1\lib\net461\GAF.461.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".travis.yml" />
+    <None Include="app.config" />
     <None Include="lib\fet\fet-cl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include=".gitignore" />
-    <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\Italy\2007\simple\simpler-italian.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\Italy\2009\liceo-scientifico.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\Italy\2010\base2010-23.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\Italy\2010\Liceo-2010.fet">
+    <None Include="testdata\fet\United-Kingdom\Hopwood\Hopwood.fet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
