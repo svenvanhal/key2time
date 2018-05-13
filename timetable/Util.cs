@@ -27,5 +27,16 @@ namespace Timetable
             return Regex.Replace(value, @"^(.*\s.*?)(\\*)$", "\"$1$2$2\"", RegexOptions.Singleline);
         }
 
+        /// <summary>
+        /// Todo: remove and set-up full-featured logger.
+        /// </summary>
+        public static void WriteError(string error)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(error);
+            Console.ResetColor();
+        }
+
     }
 }

@@ -35,7 +35,6 @@
     <Compile Include="timetable\Algorithm\FetAlgorithm.cs" />
     <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
     <Compile Include="timetable\Algorithm\IAlgorithm.cs" />
-    <Compile Include="timetable\Generator\TimetableGenerator.cs" />
     <Compile Include="timetable\Timetable.cs" />
     <Compile Include="timetable\Resources\Timetable.cs" />
     <Compile Include="timetable\Util.cs" />
