@@ -33,7 +33,30 @@
   <ItemGroup>
     <Compile Include="timetable\Application.Tests\ApplicationTest.cs" />
     <Compile Include="timetable\Application\Main.cs" />
-    <Compile Include="timetable\DB\DBConnect.cs" />
+    <Compile Include="timetable\DB\School_TeacherSubjects.cs" />
+    <Compile Include="timetable\DB\DataModel.cs" />
+    <Compile Include="timetable\DB\HR_MasterData_Employees.cs" />
+    <Compile Include="timetable\DB\Lookup_Month.cs" />
+    <Compile Include="timetable\DB\Lookup_Year.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Class.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Grade.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Section.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Stage.cs" />
+    <Compile Include="timetable\DB\School_TeacherClass_Subjects.cs" />
+    <Compile Include="timetable\DB\Section_WeekEnd.cs" />
+    <Compile Include="timetable\DB\Subject_MasterData_Subject.cs" />
+    <Compile Include="timetable\DB\Subject_SubjectGrade.cs" />
+    <Compile Include="timetable\DB\SubjectClassLesson.cs" />
+    <Compile Include="timetable\DB\TeacherClassSubjectGroup.cs" />
+    <Compile Include="timetable\DB\tt_Break.cs" />
+    <Compile Include="timetable\DB\tt_BreakGrade.cs" />
+    <Compile Include="timetable\DB\tt_Class.cs" />
+    <Compile Include="timetable\DB\tt_ClassGroup.cs" />
+    <Compile Include="timetable\DB\tt_GradeLesson.cs" />
+    <Compile Include="timetable\DB\tt_SectionLessonConfiguration.cs" />
+    <Compile Include="timetable\DB\tt_TeacherAcademicInfo.cs" />
+    <Compile Include="timetable\DB\tt_TimeOff.cs" />
+    <Compile Include="timetable\XML\XmlCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -53,6 +76,7 @@
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".travis.yml" />
@@ -63,6 +87,7 @@
   <ItemGroup />
   <ItemGroup>
     <Folder Include="timetable\DB\" />
+    <Folder Include="timetable\XML\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

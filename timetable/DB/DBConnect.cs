@@ -2,41 +2,33 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data.Entity;
 
 namespace Timetable.timetable.DB
 {
-    public class DBConnect
+    public class DBConnect : System.Data.Entity.DbContext
     {
-        string connectionString;
-
-        SqlConnection sqlConnection;
-
-        public DBConnect()
+ 
+        public DBConnect() : base("name = DataModel")
         {
-            connectionString = ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString;
-            sqlConnection = new SqlConnection(connectionString);
+                
         }
 
         public void Connect(){
-            sqlConnection.Open();
-            Console.Write("Connection Open  !");
-
-            SqlCommand myCommand = new SqlCommand( "SELECT * FROM sysdiagrams", sqlConnection);
-
-            SqlDataReader dataReader = myCommand.ExecuteReader();
-            while (dataReader.Read())
-            {
-                Console.Write(dataReader.GetString(0));
-              
-            }
-            sqlConnection.Close();
+          
         }
 
+        public virtual DbSet<tt_Class> Classes { get; set; }
 
 
-        public static void Main(){
+
+        public static void Main()
+        {
             DBConnect dB = new DBConnect();
-            dB.Connect();
+            tt_Class _Class = new tt_Class { Id = 4, className = "test3", color = 0, gradeId = 1 , IsHome = true, IsShared = false, shortName = "testShort", supervisorId = 0 };
+            dB.Classes.Add(_Class);
+            dB.SaveChanges();
+
            
         }
     }

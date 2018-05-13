@@ -5,6 +5,7 @@ namespace Timetable.timetable.DB
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Timetable.timetable.XML;
 
     public partial class tt_Class
     {
@@ -36,5 +37,8 @@ namespace Timetable.timetable.DB
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tt_ClassGroup> tt_ClassGroup { get; set; }
+
+      
+      
     }
 }

@@ -4,6 +4,9 @@ namespace Timetable.timetable.DB
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Xml;
+    using Timetable.timetable.XML;
+    using System.Xml.Linq;
 
     public partial class DataModel : DbContext
     {
@@ -92,5 +95,26 @@ namespace Timetable.timetable.DB
                 .HasOptional(e => e.tt_TeacherAcademicInfo1)
                 .WithRequired(e => e.tt_TeacherAcademicInfo2);
         }
+
+    
+        public static void Main()
+        {
+            DataModel dB = new DataModel();
+            XmlCreator xmlCreator = XmlCreator.Instance;
+
+            var l = dB.School_Lookup_Class;
+  
+            xmlCreator.Writer().Add(new XElement("List", l.AsEnumerable().Select(g => new XElement("grade", new XElement("ClassID", g.ClassID)
+                                                                             ,
+                                                                                             new XElement("Classname", g.ClassName)))));
+
+            xmlCreator.Writer().Element("List").Add(new XElement("test", "test"));
+            Console.WriteLine(xmlCreator.Writer());
+
+        }
+
     }
+
+
+
 }
