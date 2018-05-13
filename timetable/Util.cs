@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Timetable
 {
-    class Util
+    static class Util
     {
 
         /// <summary>

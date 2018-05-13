@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 
 namespace Timetable.Algorithm
 {
@@ -12,7 +13,7 @@ namespace Timetable.Algorithm
         /// <summary>
         /// Location of the FET program.
         /// </summary>
-        private string executableLocation;
+        private readonly string executableLocation;
 
         /// <summary>
         /// Instantiate new FET Algorithm instance.
@@ -70,15 +71,15 @@ namespace Timetable.Algorithm
                 }
 
             }
-            catch (InvalidOperationException e1)
+            catch (InvalidOperationException)
             {
                 Util.WriteError("Error: no filename provided or invalid StartProcessInfo arguments.");
-                throw e1;
+                throw;
             }
-            catch (Win32Exception e2)
+            catch (Win32Exception)
             {
                 Util.WriteError("Error: FET binary not found at location: " + startInfo.FileName);
-                throw e2;
+                throw;
             }
         }
 
@@ -102,10 +103,13 @@ namespace Timetable.Algorithm
 
             // Add command line parameters
             var items = args.AllKeys.SelectMany(args.GetValues, (k, v) => new { key = k, value = v });
+
+            var sb = new StringBuilder();
             foreach (var item in items)
             {
-                startInfo.Arguments += String.Format(" --{0}={1}", Util.EncodeParameterArgument(item.key), Util.EncodeParameterArgument(item.value));
+                sb.AppendFormat(" --{0}={1}", Util.EncodeParameterArgument(item.key), Util.EncodeParameterArgument(item.value));
             }
+            startInfo.Arguments = sb.ToString();
 
             return startInfo;
         }
