@@ -16,6 +16,7 @@ namespace Timetable.timetable.XML
             DateTime localDate = DateTime.Now;
             pathName = "Timetable:"+localDate +".xml";
             xDocument = new XDocument();
+            xDocument.Add(new XElement("fet"));
          
         }
 
@@ -32,6 +33,10 @@ namespace Timetable.timetable.XML
 
         public XDocument Writer(){
             return xDocument;
+        }
+
+        public void Add(XElement xElement){
+            xDocument.Element("fet").Add(xElement);
         }
 
     }

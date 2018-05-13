@@ -103,13 +103,14 @@ namespace Timetable.timetable.DB
             XmlCreator xmlCreator = XmlCreator.Instance;
 
             var l = dB.School_Lookup_Class;
-  
-            xmlCreator.Writer().Add(new XElement("List", l.AsEnumerable().Select(g => new XElement("grade", new XElement("ClassID", g.ClassID)
+
+            xmlCreator.AddToRoot(new XElement("Institution", "Inst"));
+            xmlCreator.AddToRoot(new XElement("List", l.AsEnumerable().Select(g => new XElement("grade", new XElement("ClassID", g.ClassID)
                                                                              ,
                                                                                              new XElement("Classname", g.ClassName)))));
 
-            xmlCreator.Writer().Element("List").Add(new XElement("test", "test"));
-            Console.WriteLine(xmlCreator.Writer());
+
+            xmlCreator.Writer().Save("test.xml");
 
         }
 
