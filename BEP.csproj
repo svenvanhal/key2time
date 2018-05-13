@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="timetable\Application.Tests\ApplicationTest.cs" />
     <Compile Include="timetable\Application\Main.cs" />
+    <Compile Include="timetable\FET\FETHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GAF.461">
@@ -45,13 +46,24 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".travis.yml" />
     <None Include="packages.config" />
     <None Include=".gitignore" />
+    <None Include="Resources\fet-cl" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="timetable\FET\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\fet-cl.exe">
+      <LogicalName>BEP.timetable.FET.fet-cl.exe</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
