@@ -31,8 +31,14 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="timetable\Application.Tests\ApplicationTest.cs" />
-    <Compile Include="timetable\Application\Main.cs" />
+    <Compile Include="timetable\Algorithm.Tests\ApplicationTest.cs" />
+    <Compile Include="timetable\Algorithm\FetAlgorithm.cs" />
+    <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
+    <Compile Include="timetable\Algorithm\IAlgorithm.cs" />
+    <Compile Include="timetable\Generator\TimetableGenerator.cs" />
+    <Compile Include="timetable\Timetable.cs" />
+    <Compile Include="timetable\Resources\Timetable.cs" />
+    <Compile Include="timetable\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GAF.461">
@@ -48,10 +54,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".travis.yml" />
+    <None Include="lib\fet\fet-cl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include=".gitignore" />
+    <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\fet\Italy\2007\simple\simpler-italian.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\fet\Italy\2009\liceo-scientifico.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\fet\Italy\2010\base2010-23.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\fet\Italy\2010\Liceo-2010.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="lib\fet\fet-cl.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fet\libeay32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fet\libgcc_s_dw2-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fet\libstdc++-6.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fet\libwinpthread-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\fet\Qt5Core.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
