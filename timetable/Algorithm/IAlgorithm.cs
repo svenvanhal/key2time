@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Timetable.Algorithm
+﻿namespace Timetable.Algorithm
 {
+
+    /// <summary>
+    /// Timetable generation algorithm interface.
+    /// </summary>
     interface IAlgorithm
     {
 
         /// <summary>
-        /// Executes the algorithm.
+        /// Runs the algorithm on a data set.
         /// 
         /// TODO: change string to DataRepository input argument, generate FET inputfile via FetAlgorithm class.
         /// </summary>
