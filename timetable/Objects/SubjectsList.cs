@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using Timetable.timetable.DB;
 
@@ -14,13 +15,13 @@ namespace Timetable.timetable.Objects
 
 		public override void Create()
 		{
-			var query = dB.Subject_MasterData_Subject;
+			var query = dB.Subject_MasterData_Subject.Select(subject => subject.SubjectName);
 
 			foreach (var subject in query)
 			{
 
 				list.Add(new XElement("Subject",
-									  new XElement("Name", subject.SubjectName)));
+									  new XElement("Name", subject)));
 			}
 		}
 	}

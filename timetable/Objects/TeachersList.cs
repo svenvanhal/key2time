@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Timetable.timetable.DB;
@@ -20,14 +21,14 @@ namespace Timetable.timetable.Objects
 
 		public override void Create()
 		{
-			var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true);
+			var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true).Select(teacher => teacher.EmployeeID);
 
-			foreach (var teacher in query)
+			foreach (var item in query)
 			{
+				list.Add(new XElement("Teacher", new XElement("Name", item))) ;
 
-				list.Add(new XElement("Teacher",
-											  new XElement("Name", teacher.EmployeeID)));
 			}
+			
 		}
 	}
 }

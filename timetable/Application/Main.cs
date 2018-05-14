@@ -13,15 +13,19 @@ namespace Timetable
             DataModel dB = new DataModel();
             XmlCreator xmlCreator = XmlCreator.Instance;
 
+			DaysList daysList = new DaysList(dB);
+            daysList.Create();
+
 			TeachersList teachersList = new TeachersList(dB);
 			teachersList.Create();
 
 			SubjectsList subjectsList = new SubjectsList(dB);
 			subjectsList.Create();
-		
 
+           
             xmlCreator.AddToRoot(new XElement("Institution"));
-          
+
+			xmlCreator.AddToRoot(daysList.GetList());
 			xmlCreator.AddToRoot(teachersList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
 
