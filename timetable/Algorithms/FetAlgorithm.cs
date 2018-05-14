@@ -36,6 +36,8 @@ namespace Timetable.Algorithm
             // Define additional arguments
             var args = new NameValueCollection()
             {
+
+                // TODO: maybe check if input file exists
                 { "inputfile", inputFileLocation },
 
                 #if DEBUG

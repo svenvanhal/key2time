@@ -10,8 +10,11 @@ namespace Timetable
     {
         public static void Main(string[] args)
         {
+
+            var fetPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
+
             // Instantiate algorithm
-            var fetAlgo = new FetAlgorithm(Util.GetAppSetting("FetAlgorithmExecutableLocation"));
+            var fetAlgo = new FetAlgorithm(fetPath);
 
             // Generate timetable
             Generate(fetAlgo, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
