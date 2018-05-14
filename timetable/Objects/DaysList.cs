@@ -13,6 +13,9 @@ namespace Timetable.timetable.Objects
 			SetListElement("Days_List");
 		}
 
+        /// <summary>
+        /// Create this number of days element, and adds each day
+        /// </summary>
 		public override void Create()
 		{
 

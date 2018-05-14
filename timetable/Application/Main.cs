@@ -22,12 +22,15 @@ namespace Timetable
 			SubjectsList subjectsList = new SubjectsList(dB);
 			subjectsList.Create();
 
+			ActivitiesList activitiesList = new ActivitiesList(dB);
+			activitiesList.Create();
            
             xmlCreator.AddToRoot(new XElement("Institution"));
 
 			xmlCreator.AddToRoot(daysList.GetList());
 			xmlCreator.AddToRoot(teachersList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
+			xmlCreator.AddToRoot(activitiesList.GetList());
 
 
 			xmlCreator.Save();

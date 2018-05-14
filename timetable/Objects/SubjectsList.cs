@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Timetable.timetable.DB;
@@ -12,10 +13,13 @@ namespace Timetable.timetable.Objects
 			SetListElement("Subjects_List");
 
 		}
-
+        /// <summary>
+        /// Create the subjects elements list.
+        /// </summary>
 		public override void Create()
 		{
-			var query = dB.Subject_MasterData_Subject.Select(subject => subject.SubjectName);
+			var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
+			              .Select(subject => subject.SubjectID);
 
 			foreach (var subject in query)
 			{

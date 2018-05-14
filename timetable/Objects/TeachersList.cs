@@ -21,7 +21,8 @@ namespace Timetable.timetable.Objects
 
 		public override void Create()
 		{
-			var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true).Select(teacher => teacher.EmployeeID);
+			var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true && teacher.IsActive == true )
+			              .Select(teacher => teacher.EmployeeID);
 
 			foreach (var item in query)
 			{
