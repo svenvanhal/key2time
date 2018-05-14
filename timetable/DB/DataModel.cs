@@ -38,6 +38,8 @@ namespace Timetable.timetable.DB
         public virtual DbSet<tt_TeacherAcademicInfo> tt_TeacherAcademicInfo { get; set; }
         public virtual DbSet<tt_TimeOff> tt_TimeOff { get; set; }
 
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<HR_MasterData_Employees>()
@@ -94,28 +96,6 @@ namespace Timetable.timetable.DB
             modelBuilder.Entity<tt_TeacherAcademicInfo>()
                 .HasOptional(e => e.tt_TeacherAcademicInfo1)
                 .WithRequired(e => e.tt_TeacherAcademicInfo2);
-        }
-
-    
-        public static void Main()
-        {
-            DataModel dB = new DataModel();
-            XmlCreator xmlCreator = XmlCreator.Instance;
-
-            var l = dB.School_Lookup_Class;
-
-            xmlCreator.AddToRoot(new XElement("Institution", "Inst"));
-            xmlCreator.AddToRoot(new XElement("List", l.AsEnumerable().Select(g => new XElement("grade", new XElement("ClassID", g.ClassID)
-                                                                             ,
-                                                                                             new XElement("Classname", g.ClassName)))));
-
-
-            xmlCreator.Writer().Save("test.xml");
-
-        }
-
-    }
-
-
-
+        }   
+    }   
 }
