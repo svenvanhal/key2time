@@ -40,7 +40,7 @@ namespace Timetable
 			xmlCreator.AddToRoot(teachersList.GetList());
 			xmlCreator.AddToRoot(yearsList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
-			//xmlCreator.AddToRoot(activitiesList.GetList());
+			xmlCreator.AddToRoot(activitiesList.GetList());
 			xmlCreator.AddToRoot(timeConstraintsList.GetList());
 			xmlCreator.AddToRoot(spaceConstraintsList.GetList());
 

@@ -7,11 +7,17 @@ namespace Timetable.timetable.Objects
 {
 	public class ActivitiesList : AbstractList
 	{
+		/// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetable.timetable.Objects.ActivitiesList"/> class.
+        /// </summary>
+        /// <param name="_db">Database model</param>
 		public ActivitiesList(DataModel _db) : base(_db)
 		{
 			SetListElement("Activities_List");
 		}
-
+        /// <summary>
+        /// Create the list with Activity XElements
+        /// </summary>
 		public override void Create()
 		{
 			var query = from activity in dB.School_TeacherClass_Subjects
@@ -31,11 +37,7 @@ namespace Timetable.timetable.Objects
 								)
 							);
 			}
-			//var query = from lesson in dB.School_TeacherClass_Subjects
-			//join t in dB.HR_MasterData_Employees on lesson.TeacherID equals t.EmployeeID
-			//join c in dB.School_Lookup_Class on lesson.ClassID equals c.ClassID
-			//join s in dB.Subject_MasterData_Subject on lesson.SubjectID equals s.SubjectID
-			//select new {t.EmployeeID, c.ClassID, s.SubjectID, 
+
 
 		}
 	}

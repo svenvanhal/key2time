@@ -8,6 +8,10 @@ namespace Timetable.timetable.Objects
 {
 	public class SubjectsList : AbstractList
 	{
+		/// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetable.timetable.Objects.SubjectsList"/> class.
+        /// </summary>
+        /// <param name="_dB">Database Model.</param>
 		public SubjectsList(DataModel _dB) : base(_dB)
 		{
 			SetListElement("Subjects_List");

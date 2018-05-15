@@ -9,11 +9,17 @@ namespace Timetable.timetable.Objects
 {
 	public class YearsList : AbstractList
 	{
+		/// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetable.timetable.Objects.YearsList"/> class.
+        /// </summary>
+        /// <param name="_dB">Database Model</param>
 		public YearsList(DataModel _dB) : base(_dB)
 		{
 			SetListElement("Students_List");
 		}
-      
+      /// <summary>
+      /// Create grades, with corresponding groups and subgroups
+      /// </summary>
 		public override void Create()
 		{
 			var query = dB.School_Lookup_Grade.Where(grade => grade.IsActive == true).Select(grade => grade.GradeName);

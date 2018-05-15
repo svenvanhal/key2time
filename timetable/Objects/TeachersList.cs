@@ -11,7 +11,10 @@ namespace Timetable.timetable.Objects
 	public class TeachersList : AbstractList
 	{
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetable.timetable.Objects.TeachersList"/> class.
+        /// </summary>
+        /// <param name="_dB">Database model.</param>
 		public TeachersList(DataModel _dB) : base(_dB)
 		{
 			SetListElement("Teachers_List");

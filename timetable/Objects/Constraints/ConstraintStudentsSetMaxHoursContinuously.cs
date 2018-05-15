@@ -9,7 +9,12 @@ namespace Timetable.timetable.Objects
 	{
 		int numberOfHours;
 		string gradeName;
-
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Timetable.timetable.Objects.ConstraintStudentsSetMaxHoursContinuously"/> class.
+        /// </summary>
+        /// <param name="_numberOfHours">Number of hours.</param>
+        /// <param name="_gradeName">Grade name.</param>
 		public ConstraintStudentsSetMaxHoursContinuously(int _numberOfHours, string _gradeName)
 		{
 
@@ -18,7 +23,11 @@ namespace Timetable.timetable.Objects
 			numberOfHours = _numberOfHours;
 			gradeName = _gradeName;
 		}
-              
+        
+        /// <summary>
+        /// Returns the XElement
+        /// </summary>
+        /// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
 			constraint.Add(new XElement("Maximum_Hours_Continuously", numberOfHours),
