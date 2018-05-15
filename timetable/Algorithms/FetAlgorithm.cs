@@ -35,7 +35,7 @@ namespace Timetabling.Algorithm
         /// <summary>
         /// Unique string to identify the current run of the algorithm. The FET output is stored using this identifier.
         /// </summary>
-        private string currentRunIdentifier;
+        public string CurrentRunIdentifier { get; private set; }
 
         /// <summary>
         /// Instantiate new FET Algorithm instance.
@@ -46,7 +46,6 @@ namespace Timetabling.Algorithm
         {
             this.executableLocation = executableLocation;
             this.args = args ?? new CommandLineArguments();
-
         }
 
         /// <summary>
@@ -67,6 +66,19 @@ namespace Timetabling.Algorithm
         }
 
         /// <summary>
+        /// Get a FET-CL command line argument.
+        /// </summary>
+        /// <param name="name">Name of the argument.</param>
+        /// <return>Value of the argument. Null if argument not set.</return>
+        /// <exception cref="KeyNotFoundException">Throws exception if <paramref name="name"/> not found.</exception>
+        public string GetArgument(string name)
+        {
+            return args[name];
+        }
+
+
+
+        /// <summary>
         /// Defines a new input file for the algorithm.
         /// </summary>
         /// <param name="inputFileLocation">Location of the FET input data file.</param>
@@ -79,7 +91,7 @@ namespace Timetabling.Algorithm
             inputFile = inputFileLocation;
             SetArgument("inputfile", inputFile);
 
-            outputDir = Util.CreateTempFolder(currentRunIdentifier);
+            outputDir = Util.CreateTempFolder(CurrentRunIdentifier);
             SetArgument("outputdir", outputDir);
         }
 
@@ -201,7 +213,7 @@ namespace Timetabling.Algorithm
         /// </summary>
         private void RefreshIdentifier()
         {
-            currentRunIdentifier = Guid.NewGuid().ToString("B");
+            CurrentRunIdentifier = Guid.NewGuid().ToString("B");
         }
 
     }
