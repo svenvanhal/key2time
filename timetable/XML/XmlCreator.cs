@@ -64,5 +64,16 @@ namespace Timetable.timetable.XML
 			xDocument.Element("fet").Add(xElement);
 		}
 
+		/// <summary>
+        /// Adds an element to the root element
+        /// 
+        /// </summary>
+        /// <param name="xElement">the new element to be added.</param>
+        public void AddToRoot(Array xElements)
+        {
+            xDocument.Element("fet").Add(xElements);
+        }
+       
+
 	}
 }

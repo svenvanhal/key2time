@@ -64,6 +64,12 @@
     <Compile Include="timetable\Objects\ActivityTagList.cs" />
     <Compile Include="timetable\Objects\RoomsList.cs" />
     <Compile Include="timetable\Objects\ActivitiesList.cs" />
+    <Compile Include="timetable\Objects\YearsList.cs" />
+    <Compile Include="timetable\Objects\AbstractConstraint.cs" />
+    <Compile Include="timetable\Objects\TimeConstraintsList.cs" />
+    <Compile Include="timetable\Objects\ConstraintBasicCompulsorySpace.cs" />
+    <Compile Include="timetable\Objects\SpaceConstraintsList.cs" />
+    <Compile Include="timetable\Objects\ConstraintBasicCompulsoryTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
