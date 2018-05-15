@@ -1,0 +1,15 @@
+﻿version: 1.0.{build}
+skip_tags: true
+configuration: Release
+environment:
+  CODECOVIO:
+    secure: cfM6kgSC1gtQJuawy1IG2Uu4QSNYIUINm7FUPFwk3pgWWXL7XzaC1ATWFrxiGMcp
+before_build:
+  - nuget restore
+build:
+  project: BEP.sln
+  verbosity: minimal
+test_script:
+ - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe "-targetargs:".\bin\Debug\BEP.exe" -filter:"+[Timetabling*]* -[*.Tests*]*" -output:opencoverCoverage.xml
+ - Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+ - codecov.sh -f "opencoverCoverage.xml" -t $env:CODECOVIO
