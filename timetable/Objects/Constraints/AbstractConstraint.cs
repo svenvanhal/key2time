@@ -8,17 +8,28 @@ namespace Timetable.timetable.Objects
 	{
 		protected int weight { get; set; }
 		protected XElement constraint { get; set; }
-		protected DataModel dB { get; set; }
-
-
-		public AbstractConstraint(DataModel _dB)
-		{
-			dB = _dB;
-		}
+              
 
 		public void SetWeight(int w)
 		{
 			weight = w;
+			if (constraint != null)
+			{
+				var el = constraint.Element("Weight_Percentage");
+				if (el == null)
+				{
+
+					constraint.Add(new XElement("Weight_Percentage", weight));
+
+				}
+				else{
+					el.SetValue(w);
+				}
+			}
+			else
+			{
+				Console.WriteLine("[Error] no element set");
+			}
 		}
 
 		public void SetElement(string s)
@@ -27,7 +38,6 @@ namespace Timetable.timetable.Objects
 		}
 
 		public abstract XElement ToXelement();
-		public abstract void Create();
 
 	}
 }

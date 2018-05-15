@@ -8,14 +8,14 @@ namespace Timetable.timetable.Objects
 
 {
 	using System.Linq;
-	public class TimeConstraintsList : AbstractList
+	public class SpaceConstraintsList : AbstractList
 	{
 
 		List<AbstractConstraint> constraints;
 
-		public TimeConstraintsList(DataModel _dB) : base(_dB)
+		public SpaceConstraintsList(DataModel _dB) : base(_dB)
 		{
-			SetListElement("Time_Constraints_List");
+			SetListElement("Space_Constraints_List");
 			constraints = new List<AbstractConstraint>();
 		}
 
@@ -25,10 +25,14 @@ namespace Timetable.timetable.Objects
 			list.Add(constraints.Select(constraint => constraint.ToXelement()).ToArray());
 		}
 
-		private void CreateConstraints(){
-			constraints.Add(new ConstraintBasicCompulsoryTime(dB));
+		private void CreateConstraints()
+		{
+			constraints.Add(new ConstraintBasicCompulsorySpace());
+
+	
+
 
 		}
-
+        
 	}
 }

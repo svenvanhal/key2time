@@ -7,20 +7,16 @@ namespace Timetable.timetable.Objects
 	public class ConstraintBasicCompulsorySpace : AbstractConstraint
 	{
 
-		public ConstraintBasicCompulsorySpace(DataModel _dB) : base(_dB)
+		public ConstraintBasicCompulsorySpace() 
 		{
-			SetWeight(100);
 			SetElement("ConstraintBasicCompulsorySpace");
+			SetWeight(100);
 		}
 
-		public override void Create()
-		{
-
-		}
+  
 
 		public override XElement ToXelement()
 		{
-			constraint.Add(new XElement("Weight", weight));
 
 			return constraint;
 		}
