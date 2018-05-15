@@ -1,4 +1,4 @@
-﻿namespace Timetable.Resources
+﻿namespace Timetabling.Resources
 {
 
     /// <summary>

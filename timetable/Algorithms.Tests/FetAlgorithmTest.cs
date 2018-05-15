@@ -2,9 +2,10 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Reflection;
+using Timetabling.Helper;
+using Timetabling.Resources;
 
-namespace Timetable.Algorithm.Tests
+namespace Timetabling.Algorithm.Tests
 {
 
     class FetAlgorithmTest
@@ -18,7 +19,10 @@ namespace Timetable.Algorithm.Tests
 
             // Instantiate FET algorithm and run on Hopwood test file
             FetAlgorithm fet = new FetAlgorithm(fetPath);
-            Timetable result = fet.Run("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
+            fet.Initialize("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
+            fet.Run();
+
+            var result = fet.GetResult();
 
             Assert.IsNotNull(result);
         }
@@ -31,7 +35,7 @@ namespace Timetable.Algorithm.Tests
             FetAlgorithm fet = new FetAlgorithm(null);
 
             // Should throw a InvalidOperationException
-            Assert.Throws<InvalidOperationException>(() => fet.Run(""));
+            Assert.Throws<InvalidOperationException>(() => fet.Run());
 
         }
 
@@ -43,7 +47,7 @@ namespace Timetable.Algorithm.Tests
             FetAlgorithm fet = new FetAlgorithm("non_existing_file");
 
             // Should throw a Win32Exception
-            Assert.Throws<Win32Exception>(() => fet.Run(""));
+            Assert.Throws<Win32Exception>(() => fet.Run());
 
         }
 

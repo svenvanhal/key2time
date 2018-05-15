@@ -1,11 +1,13 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
+using Timetabling.Exceptions;
+using Timetabling.Helper;
+using Timetabling.Resources;
 
-namespace Timetable.Algorithm
+namespace Timetabling.Algorithm
 {
     class FetAlgorithm : IAlgorithm
     {
@@ -16,60 +18,116 @@ namespace Timetable.Algorithm
         private readonly string executableLocation;
 
         /// <summary>
+        /// FET-CL command line arguments.
+        /// </summary>
+        private CommandLineArguments args;
+
+        /// <summary>
+        /// Algorithm input file.
+        /// </summary>
+        private string inputFile;
+
+        /// <summary>
+        /// Algorithm output directory.
+        /// </summary>
+        private string outputDir;
+
+        /// <summary>
+        /// Unique string to identify the current run of the algorithm. The FET output is stored using this identifier.
+        /// </summary>
+        private string currentRunIdentifier;
+
+        /// <summary>
         /// Instantiate new FET Algorithm instance.
         /// <param name="executableLocation">Location of the FET binary.</param>
+        /// <param name="args">Additional command line arguments.</param>
         /// </summary>
-        public FetAlgorithm(string executableLocation)
+        public FetAlgorithm(string executableLocation, CommandLineArguments args = null)
         {
             this.executableLocation = executableLocation;
+            this.args = args ?? new CommandLineArguments();
+
         }
 
         /// <summary>
-        /// Executes the GET algorithm.
+        /// Set a FET-CL command line argument.
+        /// </summary>
+        /// <param name="name">Name of the argument.</param>
+        /// <param name="value">Value of the argument. If null, the argument is removed.</param>
+        public void SetArgument(string name, string value)
+        {
+            if (value == null)
+            {
+                args.Remove(name);
+            }
+            else
+            {
+                args[name] = value;
+            }
+        }
+
+        /// <summary>
+        /// Defines a new input file for the algorithm.
         /// </summary>
         /// <param name="inputFileLocation">Location of the FET input data file.</param>
-        /// <returns>A Timetable object.</returns>
-        /// <exception cref="AlgorithmException">Error message during algorithm execution.</exception>
-        public Timetable Run(string inputFileLocation)
+        public void Initialize(string inputFileLocation)
         {
 
-            // Define additional arguments
-            var args = new NameValueCollection()
-            {
+            // Create unique identifier
+            RefreshIdentifier();
 
-                // TODO: maybe check if input file exists
-                { "inputfile", inputFileLocation },
+            inputFile = inputFileLocation;
+            SetArgument("inputfile", inputFile);
 
-                #if DEBUG
-                { "verbose", "true" }
-                #endif
-            };
+            outputDir = Util.CreateTempFolder(currentRunIdentifier);
+            SetArgument("outputdir", outputDir);
+        }
 
-            // Create process info
-            var startInfo = CreateProcessInfo(args);
+        /// <summary>
+        /// Executes the FET algorithm.
+        /// </summary>
+        /// <exception cref="AlgorithmException">Error message during algorithm execution.</exception>
+        public void Run()
+        {
 
             // Run FET
-            StartProcess(startInfo);
+            StartProcess();
 
-            // TODO: read output files and construct timetable object
-            var tt = new Timetable();
+        }
 
-            return tt;
-
+        /// <summary>
+        /// Fetches the FET output files and generates a Timetable object.
+        /// </summary>
+        /// <returns>A Timetable object.</returns>
+        public Timetable GetResult()
+        {
+            return new Timetable();
         }
 
         /// <summary>
         /// Creates and starts a new FET process.
         /// </summary>
-        /// <param name="startInfo">Process information</param>
-        private void StartProcess(ProcessStartInfo startInfo)
+        private void StartProcess()
         {
+
+            // Create new FET process
+            Process fetProcess = CreateProcess();
+
+            // Run the FET program
             try
             {
-                // Start the FET program
-                using (Process proc = Process.Start(startInfo))
+                fetProcess.Start();
+
+                Console.WriteLine("Started fet-cl with the following arguments:");
+                Util.WriteError(fetProcess.StartInfo.Arguments);
+
+                fetProcess.WaitForExit();
+
+                if (fetProcess.ExitCode != 0)
                 {
-                    proc.WaitForExit();
+                    Util.WriteError("Process exited with error code " + fetProcess.ExitCode);
+
+                    // TODO: read from stderr/stdout to retrieve actual error message
                 }
 
             }
@@ -80,17 +138,20 @@ namespace Timetable.Algorithm
             }
             catch (Win32Exception)
             {
-                Util.WriteError("Error: FET binary not found at location: " + startInfo.FileName);
+                Util.WriteError("Error: FET binary not found at location: " + fetProcess.StartInfo.FileName);
                 throw;
+            }
+            finally
+            {
+                fetProcess.Dispose();
             }
         }
 
         /// <summary>
         /// Set-up process info for the FET program.
         /// </summary>
-        /// <param name="args">Command-line arguments</param>
         /// <returns>ProcessStartInfo object</returns>
-        private ProcessStartInfo CreateProcessInfo(NameValueCollection args)
+        private Process CreateProcess()
         {
 
             ProcessStartInfo startInfo = new ProcessStartInfo
@@ -99,21 +160,48 @@ namespace Timetable.Algorithm
                 // Hide window
                 UseShellExecute = false,
 
-                // Set executable location and required inputfile argument
-                FileName = executableLocation
+                // Set executable location and arguments
+                FileName = executableLocation,
+                Arguments = ConstructCommandLineArguments(args)
             };
 
-            // Add command line parameters
-            var items = args.AllKeys.SelectMany(args.GetValues, (k, v) => new { key = k, value = v });
-
-            var sb = new StringBuilder();
-            foreach (var item in items)
+            Process fetProcess = new Process
             {
-                sb.AppendFormat(" --{0}={1}", Util.EncodeParameterArgument(item.key), Util.EncodeParameterArgument(item.value));
-            }
-            startInfo.Arguments = sb.ToString();
+                StartInfo = startInfo,
+                EnableRaisingEvents = true
+            };
 
-            return startInfo;
+            return fetProcess;
+        }
+
+        private string ConstructCommandLineArguments(CommandLineArguments cla)
+        {
+
+            // Defaults
+            var defaults = new CommandLineArguments();
+
+            var args = defaults.Combine(cla);
+
+            // Construct argument string
+            var sb = new StringBuilder();
+            foreach (KeyValuePair<string, string> arg in args)
+            {
+                sb.AppendFormat(
+                    " --{0}={1}",
+                    CommandLineArguments.EncodeArgument(arg.Key),
+                    CommandLineArguments.EncodeArgument(arg.Value)
+                );
+            }
+            return sb.ToString();
+
+        }
+
+        /// <summary>
+        /// Generates a new identifier.
+        /// </summary>
+        private void RefreshIdentifier()
+        {
+            currentRunIdentifier = Guid.NewGuid().ToString("B");
         }
 
     }

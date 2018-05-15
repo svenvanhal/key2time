@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{2E9F822F-947E-43EE-A440-33C280785651}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Timetable</RootNamespace>
+    <RootNamespace>Timetabling</RootNamespace>
     <AssemblyName>BEP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
@@ -33,13 +33,15 @@
     <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="timetable\Algorithms.Tests\ApplicationTest.cs" />
+    <Compile Include="timetable\Algorithms.Tests\FetAlgorithmTest.cs" />
     <Compile Include="timetable\Algorithms\FetAlgorithm.cs" />
     <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
     <Compile Include="timetable\Algorithms\IAlgorithm.cs" />
-    <Compile Include="timetable\Timetable.cs" />
+    <Compile Include="timetable\Application.cs" />
+    <Compile Include="timetable\Helper.Tests\CommandLineArgumentsTest.cs" />
     <Compile Include="timetable\Resources\Timetable.cs" />
-    <Compile Include="timetable\Util.cs" />
+    <Compile Include="timetable\Helper\CommandLineArguments.cs" />
+    <Compile Include="timetable\Helper\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -76,13 +78,14 @@
     <LibWindows Include="$(ProjectDir)lib\windowsnt\**\*.*" />
     <LibMacOS Include="$(ProjectDir)lib\unix\*.*" />
   </ItemGroup>
+  <ItemGroup />
   <Target Name="BeforeBuild">
     <RemoveDir Directories="$(TargetDir)lib\" />
   </Target>
   <Target Name="AfterBuild">
     <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows->'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
-	<!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
-	<Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
-	<Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />
+    <!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
+    <Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
+    <Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />
   </Target>
 </Project>
