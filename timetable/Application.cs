@@ -25,7 +25,7 @@ namespace Timetabling
             var fetAlgo = new FetAlgorithm(fetPath);
 
             // Generate timetable
-            fetAlgo.Initialize("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
+            fetAlgo.Initialize("testdata/fet/United-Kingdom/Hopwood/Hopwood.feta");
             fetAlgo.Run();
 
 #if DEBUG

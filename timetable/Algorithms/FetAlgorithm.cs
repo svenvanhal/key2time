@@ -76,8 +76,6 @@ namespace Timetabling.Algorithm
             return args[name];
         }
 
-
-
         /// <summary>
         /// Defines a new input file for the algorithm.
         /// </summary>
@@ -129,29 +127,17 @@ namespace Timetabling.Algorithm
             try
             {
                 fetProcess.Start();
+                fetProcess.BeginOutputReadLine();
 
                 Console.WriteLine("Started fet-cl with the following arguments:");
                 Util.WriteError(fetProcess.StartInfo.Arguments);
 
                 fetProcess.WaitForExit();
 
-                if (fetProcess.ExitCode != 0)
-                {
-                    Util.WriteError("Process exited with error code " + fetProcess.ExitCode);
-
-                    // TODO: read from stderr/stdout to retrieve actual error message
-                }
-
             }
-            catch (InvalidOperationException)
+            catch (Exception ex)
             {
-                Util.WriteError("Error: no filename provided or invalid StartProcessInfo arguments.");
-                throw;
-            }
-            catch (Win32Exception)
-            {
-                Util.WriteError("Error: FET binary not found at location: " + fetProcess.StartInfo.FileName);
-                throw;
+                throw new AlgorithmException("Could not execute FET algorithm.", ex);
             }
             finally
             {
@@ -166,7 +152,7 @@ namespace Timetabling.Algorithm
         private Process CreateProcess()
         {
 
-            ProcessStartInfo startInfo = new ProcessStartInfo
+            var startInfo = new ProcessStartInfo
             {
 
                 // Hide window
@@ -174,14 +160,22 @@ namespace Timetabling.Algorithm
 
                 // Set executable location and arguments
                 FileName = executableLocation,
-                Arguments = ConstructCommandLineArguments(args)
+                Arguments = ConstructCommandLineArguments(args),
+
+                // Redirect stdout and stderr
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
             };
 
-            Process fetProcess = new Process
+            var fetProcess = new Process
             {
                 StartInfo = startInfo,
-                EnableRaisingEvents = true
+                EnableRaisingEvents = true,
             };
+
+            // Add listenerse
+            fetProcess.OutputDataReceived += LogConsoleOutput;
+            fetProcess.Exited += CheckProcessExitCode;
 
             return fetProcess;
         }
@@ -189,14 +183,14 @@ namespace Timetabling.Algorithm
         private string ConstructCommandLineArguments(CommandLineArguments cla)
         {
 
-            // Defaults
+            // Defaults (empty for now)
             var defaults = new CommandLineArguments();
 
-            var args = defaults.Combine(cla);
+            var arguments = defaults.Combine(cla);
 
             // Construct argument string
             var sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> arg in args)
+            foreach (KeyValuePair<string, string> arg in arguments)
             {
                 sb.AppendFormat(
                     " --{0}={1}",
@@ -214,6 +208,40 @@ namespace Timetabling.Algorithm
         private void RefreshIdentifier()
         {
             CurrentRunIdentifier = Guid.NewGuid().ToString("B");
+        }
+
+        /// <summary>
+        /// Logs FET console output line.
+        /// </summary>
+        /// <param name="sender">Originating process.</param>
+        /// <param name="eventArgs">Event data.</param>
+        private static void LogConsoleOutput(object sender, DataReceivedEventArgs eventArgs)
+        {
+
+            var data = eventArgs.Data;
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+
+                // TODO: Log console output lines here
+
+            }
+
+        }
+
+        /// <summary>
+        /// Checks the FET process exit code and throws an exception if the exit code is non-zero.
+        /// </summary>
+        /// <param name="sender">Originating process.</param>
+        /// <param name="eventArgs">Event data.</param>
+        private static void CheckProcessExitCode(object sender, EventArgs eventArgs)
+        {
+
+            var proc = (Process)sender;
+            if (proc.HasExited && proc.ExitCode > 0)
+            {
+                throw new AlgorithmException("The FET process has exited with a non-zero exit code. Please check the logs for information about this error.");
+            }
+
         }
 
     }

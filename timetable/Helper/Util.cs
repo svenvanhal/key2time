@@ -38,5 +38,9 @@ namespace Timetabling.Helper
             return tempDirectory;
         }
 
+        internal static void WriteError(StreamReader standardError)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
