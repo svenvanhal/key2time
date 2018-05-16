@@ -1,15 +1,14 @@
 ﻿version: 1.0.{build}
 skip_tags: true
-configuration: Release
+configuration: Debug
 environment:
   CODECOVIO:
     secure: cfM6kgSC1gtQJuawy1IG2Uu4QSNYIUINm7FUPFwk3pgWWXL7XzaC1ATWFrxiGMcp
-before_build:
-  - nuget restore
+  COVERALLS:
+    secure: xFkK4ui4vFS0k7ZIWBL7qGaHk6AfxLmMe+QwPDhEvHD2qrjxcp65AYlT5+0pQ1zH
 build:
   project: BEP.sln
-  verbosity: minimal
+  verbosity: normal
 test_script:
- - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit3-console.exe "-targetargs:".\bin\Debug\BEP.exe" -filter:"+[Timetabling*]* -[*.Tests*]*" -output:opencoverCoverage.xml
- - Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
- - codecov.sh -f "opencoverCoverage.xml" -t $env:CODECOVIO
+  - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -targetargs:".\bin\Debug\BEP.exe" -filter:"+[BEP]* -[BEP]*.Tests*" -output:opencover.xml
+  - packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover opencover.xml -r $env:COVERALLS

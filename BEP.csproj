@@ -78,7 +78,9 @@
     <LibWindows Include="$(ProjectDir)lib\windowsnt\**\*.*" />
     <LibMacOS Include="$(ProjectDir)lib\unix\*.*" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="appveyor.yml" />
+  </ItemGroup>
   <Target Name="BeforeBuild">
     <RemoveDir Directories="$(TargetDir)lib\" />
   </Target>

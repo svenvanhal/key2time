@@ -1,7 +1,0 @@
-﻿language: csharp
-solution: BEP.sln
-os: osx
-
-script:
-  - msbuild /p:Configuration=Release BEP.sln
-  - mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./bin/Release/BEP.exe

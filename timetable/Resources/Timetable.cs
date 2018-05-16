@@ -6,5 +6,6 @@
     /// </summary>
     class Timetable
     {
+        public Timetable() { }
     }
 }
