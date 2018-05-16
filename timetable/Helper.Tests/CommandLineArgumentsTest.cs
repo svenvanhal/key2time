@@ -1,7 +1,6 @@
-﻿using System.ComponentModel;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Timetabling.Helper
+namespace Timetabling.Helper.Tests
 {
 
     class CommandLineArgumentsTest

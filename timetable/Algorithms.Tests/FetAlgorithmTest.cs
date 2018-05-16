@@ -6,7 +6,7 @@ using System.IO;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 
-namespace Timetabling.Algorithms
+namespace Timetabling.Algorithms.Tests
 {
 
     [TestFixture(null, null)]
@@ -176,7 +176,7 @@ namespace Timetabling.Algorithms
         }
 
         [Test]
-        [MaxTime(2000)]
+        [MaxTime(5000)] // Safe margin
         public void RunTestTimelimitExceeded()
         {
 
