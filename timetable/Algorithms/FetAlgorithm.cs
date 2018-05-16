@@ -12,6 +12,8 @@ namespace Timetabling.Algorithm
     class FetAlgorithm : IAlgorithm
     {
 
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Location of the FET program.
         /// </summary>
@@ -83,6 +85,8 @@ namespace Timetabling.Algorithm
         public void Initialize(string inputFileLocation)
         {
 
+            logger.Debug("Initializing FET algorithm.");
+
             // Create unique identifier
             RefreshIdentifier();
 
@@ -100,6 +104,8 @@ namespace Timetabling.Algorithm
         public void Run()
         {
 
+            logger.Debug("Running FET algorithm.");
+
             // Run FET
             StartProcess();
 
@@ -111,6 +117,9 @@ namespace Timetabling.Algorithm
         /// <returns>A Timetable object.</returns>
         public Timetable GetResult()
         {
+
+            logger.Debug("Getting FET algorithm results.");
+
             return new Timetable();
         }
 
@@ -120,18 +129,17 @@ namespace Timetabling.Algorithm
         private void StartProcess()
         {
 
+            logger.Debug("Starting FET process.");
+
             // Create new FET process
-            Process fetProcess = CreateProcess();
+            var fetProcess = CreateProcess();
 
             // Run the FET program
             try
             {
+
                 fetProcess.Start();
                 fetProcess.BeginOutputReadLine();
-
-                Console.WriteLine("Started fet-cl with the following arguments:");
-                Util.WriteError(fetProcess.StartInfo.Arguments);
-
                 fetProcess.WaitForExit();
 
             }
@@ -152,6 +160,8 @@ namespace Timetabling.Algorithm
         private Process CreateProcess()
         {
 
+            logger.Debug("Creating FET process.");
+
             var startInfo = new ProcessStartInfo
             {
 
@@ -164,7 +174,7 @@ namespace Timetabling.Algorithm
 
                 // Redirect stdout and stderr
                 RedirectStandardOutput = true,
-                RedirectStandardError = true,
+                RedirectStandardError = true
             };
 
             var fetProcess = new Process
@@ -173,14 +183,17 @@ namespace Timetabling.Algorithm
                 EnableRaisingEvents = true,
             };
 
-            // Add listenerse
+            // Add listeners
             fetProcess.OutputDataReceived += LogConsoleOutput;
             fetProcess.Exited += CheckProcessExitCode;
+
+            logger.Debug("Process arguments: " + startInfo.Arguments);
 
             return fetProcess;
         }
 
-        private string ConstructCommandLineArguments(CommandLineArguments cla)
+        // TODO: maybe move to CommandLineArguments
+        private static string ConstructCommandLineArguments(CommandLineArguments cla)
         {
 
             // Defaults (empty for now)
@@ -221,9 +234,7 @@ namespace Timetabling.Algorithm
             var data = eventArgs.Data;
             if (!string.IsNullOrWhiteSpace(data))
             {
-
-                // TODO: Log console output lines here
-
+                logger.Debug(data);
             }
 
         }
@@ -237,10 +248,10 @@ namespace Timetabling.Algorithm
         {
 
             var proc = (Process)sender;
-            if (proc.HasExited && proc.ExitCode > 0)
-            {
-                throw new AlgorithmException("The FET process has exited with a non-zero exit code. Please check the logs for information about this error.");
-            }
+            if (!proc.HasExited || proc.ExitCode == 0) return;
+
+            logger.Error("The FET process has exited with a non-zero exit code.");
+            throw new AlgorithmException("The FET process has exited with a non-zero exit code. Please check the logs for information about this error.");
 
         }
 
