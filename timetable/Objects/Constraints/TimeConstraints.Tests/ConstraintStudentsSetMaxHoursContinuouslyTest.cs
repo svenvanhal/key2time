@@ -20,7 +20,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 
 		{
 			ConstraintStudentsSetMaxHoursContinuously constraint = new ConstraintStudentsSetMaxHoursContinuously(1, "test");
-			Assert.AreEqual("<ConstraintStudentsSetMaxHoursContinuously>\n  <Weight_Percentage>100</Weight_Percentage>\n  <Maximum_Hours_Continuously>1</Maximum_Hours_Continuously>\n  <Students>test</Students>\n</ConstraintStudentsSetMaxHoursContinuously>", constraint.ToXelement().ToString());
+			Assert.AreEqual("<ConstraintStudentsSetMaxHoursContinuously>"+System.Environment.NewLine+"  <Weight_Percentage>100</Weight_Percentage>"+System.Environment.NewLine+"  <Maximum_Hours_Continuously>1</Maximum_Hours_Continuously>" + System.Environment.NewLine + "  <Students>test</Students>" + System.Environment.NewLine + "</ConstraintStudentsSetMaxHoursContinuously>", constraint.ToXelement().ToString());
 		}
 	}
 
