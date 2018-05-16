@@ -65,7 +65,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="lib\unix\fet\fet-cl" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
