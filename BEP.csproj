@@ -74,6 +74,10 @@
     <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
     <Compile Include="timetable\Objects\Constraints\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursContinuouslyTest.cs" />
+    <Compile Include="timetable\Objects.Tests\TeachersListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\DaysListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\SubjectsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\ActiviteitsListTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
@@ -94,6 +98,22 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
+      <HintPath>packages\Microsoft.CodeCoverage.1.0.3\lib\netstandard1.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Moq">
+      <HintPath>packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include=".travis.yml" />
@@ -112,6 +132,7 @@
     <Folder Include="timetable\Objects\Constraints\SpaceConstraints\" />
     <Folder Include="timetable\Objects\Constraints\TimeConstraints.Tests\" />
     <Folder Include="timetable\Objects\Constraints\SpaceConstraints.Tests\" />
+    <Folder Include="timetable\Objects.Tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
