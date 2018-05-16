@@ -9,9 +9,9 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 		public void TestWeight()
 		{
 			ConstraintBasicCompulsoryTime constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
-			Assert.IsTrue(constraintBasicCompulsoryTime.ToXelement().Element("Weight_Percentage").Value.Equals("100"));
+			Assert.AreEqual(constraintBasicCompulsoryTime.weight, 100);
 		}
-
+        
 		[Test()]
 		public void TestToXElement()
 		{

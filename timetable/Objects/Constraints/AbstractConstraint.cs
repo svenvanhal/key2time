@@ -6,8 +6,8 @@ namespace Timetable.timetable.Objects
 {
 	public abstract class AbstractConstraint
 	{
-		protected int weight { get; set; }
-		protected XElement constraint { get; set; }
+		public int weight { get; set; }
+		public XElement constraint { get; set; }
               
         /// <summary>
         /// Sets the weight.

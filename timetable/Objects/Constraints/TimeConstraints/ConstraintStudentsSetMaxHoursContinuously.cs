@@ -7,8 +7,8 @@ namespace Timetable.timetable.Objects
 {
 	public class ConstraintStudentsSetMaxHoursContinuously : AbstractConstraint
 	{
-		int numberOfHours;
-		string gradeName;
+		public int numberOfHours { get; }
+		public string gradeName { get; }
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="T:Timetable.timetable.Objects.ConstraintStudentsSetMaxHoursContinuously"/> class.
