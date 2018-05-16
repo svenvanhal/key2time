@@ -36,7 +36,7 @@
     <Compile Include="timetable\Algorithms.Tests\FetAlgorithmTest.cs" />
     <Compile Include="timetable\Algorithms\FetAlgorithm.cs" />
     <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
-    <Compile Include="timetable\Algorithms\IAlgorithm.cs" />
+    <Compile Include="timetable\Algorithms\Algorithm.cs" />
     <Compile Include="timetable\Application.cs" />
     <Compile Include="timetable\Helper.Tests\CommandLineArgumentsTest.cs" />
     <Compile Include="timetable\Resources\Timetable.cs" />
@@ -65,6 +65,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="lib\unix\fet\fet-cl" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -72,7 +73,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include=".gitignore" />
+    <None Include="testdata\fet\activities_missing.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="testdata\fet\United-Kingdom\Hopwood\Hopwood.fet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -90,6 +97,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="appveyor.yml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="testdata\books.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="BeforeBuild">
     <RemoveDir Directories="$(TargetDir)lib\" />

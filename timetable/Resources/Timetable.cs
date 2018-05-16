@@ -4,8 +4,12 @@
     /// <summary>
     /// Dummy class to function as algorithm output.
     /// </summary>
-    class Timetable
+    public class Timetable
     {
+
+        /// <summary>
+        /// Create a new Timetable instance.
+        /// </summary>
         public Timetable() { }
     }
 }

@@ -1,22 +1,10 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.IO;
 
 namespace Timetabling.Helper
 {
     static class Util
     {
-
-        /// <summary>
-        /// Todo: remove and set-up full-featured logger.
-        /// </summary>
-        public static void WriteError(string error)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(error);
-            Console.ResetColor();
-        }
 
         // TODO: error handling
         public static string GetAppSetting(string key)
@@ -33,14 +21,10 @@ namespace Timetabling.Helper
         {
 
             // TODO: make a global setting / const for the app directory
-            string tempDirectory = Path.Combine(Path.GetTempPath(), "bachelorproject", dirname);
+            var tempDirectory = Path.Combine(Path.GetTempPath(), "bachelorproject", dirname);
             Directory.CreateDirectory(tempDirectory);
             return tempDirectory;
         }
 
-        internal static void WriteError(StreamReader standardError)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

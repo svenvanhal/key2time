@@ -1,11 +1,11 @@
 ﻿using System;
-using Timetabling.Algorithm;
+using Timetabling.Algorithms;
 
 namespace Timetabling.Exceptions
 {
 
     /// <summary>
-    /// Exceptions to be thrown from <see cref="IAlgorithm">IAlgorithm</see> classes.
+    /// Exceptions to be thrown from <see cref="Algorithm"/> classes.
     /// Only use when the exception is related to the algorithm logic.
     /// </summary>
     [Serializable()]

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
 
-namespace Timetabling.Algorithm
+namespace Timetabling.Algorithms
 {
-    class FetAlgorithm : IAlgorithm
+
+    /// <summary>
+    /// The FET-CL wrapper. Visit the <a href="https://lalescu.ro/liviu/fet/">official FET website</a> for more information about the program and the algorithm.
+    /// </summary>
+    public class FetAlgorithm : Algorithm
     {
 
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Location of the FET program.
@@ -22,7 +24,7 @@ namespace Timetabling.Algorithm
         /// <summary>
         /// FET-CL command line arguments.
         /// </summary>
-        private CommandLineArguments args;
+        private readonly CommandLineArguments args;
 
         /// <summary>
         /// Algorithm input file.
@@ -57,14 +59,8 @@ namespace Timetabling.Algorithm
         /// <param name="value">Value of the argument. If null, the argument is removed.</param>
         public void SetArgument(string name, string value)
         {
-            if (value == null)
-            {
-                args.Remove(name);
-            }
-            else
-            {
-                args[name] = value;
-            }
+            if (value == null) args.Remove(name);
+            else args[name] = value;
         }
 
         /// <summary>
@@ -78,14 +74,24 @@ namespace Timetabling.Algorithm
             return args[name];
         }
 
+        /// <inheritdoc />
+        public override Timetable Execute(string inputFile)
+        {
+
+            Initialize(inputFile);
+            Run();
+            return GetResult();
+
+        }
+
         /// <summary>
         /// Defines a new input file for the algorithm.
         /// </summary>
         /// <param name="inputFileLocation">Location of the FET input data file.</param>
-        public void Initialize(string inputFileLocation)
+        protected override void Initialize(string inputFileLocation)
         {
 
-            logger.Debug("Initializing FET algorithm.");
+            Logger.Info("Initializing FET algorithm");
 
             // Create unique identifier
             RefreshIdentifier();
@@ -101,46 +107,26 @@ namespace Timetabling.Algorithm
         /// Executes the FET algorithm.
         /// </summary>
         /// <exception cref="AlgorithmException">Error message during algorithm execution.</exception>
-        public void Run()
+        protected override void Run()
         {
 
-            logger.Debug("Running FET algorithm.");
-
-            // Run FET
-            StartProcess();
-
-        }
-
-        /// <summary>
-        /// Fetches the FET output files and generates a Timetable object.
-        /// </summary>
-        /// <returns>A Timetable object.</returns>
-        public Timetable GetResult()
-        {
-
-            logger.Debug("Getting FET algorithm results.");
-
-            return new Timetable();
-        }
-
-        /// <summary>
-        /// Creates and starts a new FET process.
-        /// </summary>
-        private void StartProcess()
-        {
-
-            logger.Debug("Starting FET process.");
+            Logger.Info("Running FET algorithm");
 
             // Create new FET process
             var fetProcess = CreateProcess();
 
-            // Run the FET program
             try
             {
 
+                Logger.Info("Starting FET process");
+
+                // Run the FET program
                 fetProcess.Start();
                 fetProcess.BeginOutputReadLine();
                 fetProcess.WaitForExit();
+
+                // Verify that FET executed successfully
+                CheckProcessExitCode(fetProcess.ExitCode);
 
             }
             catch (Exception ex)
@@ -151,6 +137,19 @@ namespace Timetabling.Algorithm
             {
                 fetProcess.Dispose();
             }
+
+        }
+
+        /// <summary>
+        /// Fetches the FET output files and generates a Timetable object.
+        /// </summary>
+        /// <returns>A Timetable object.</returns>
+        protected override Timetable GetResult()
+        {
+
+            Logger.Info("Retrieving FET algorithm results");
+
+            return new Timetable();
         }
 
         /// <summary>
@@ -160,7 +159,13 @@ namespace Timetabling.Algorithm
         private Process CreateProcess()
         {
 
-            logger.Debug("Creating FET process.");
+            Logger.Info("Creating FET process");
+
+            // Default arguments
+            var defaults = new CommandLineArguments
+            {
+                { "verbose", "true" }
+            };
 
             var startInfo = new ProcessStartInfo
             {
@@ -170,7 +175,7 @@ namespace Timetabling.Algorithm
 
                 // Set executable location and arguments
                 FileName = executableLocation,
-                Arguments = ConstructCommandLineArguments(args),
+                Arguments = defaults.Combine(args).ToString(),
 
                 // Redirect stdout and stderr
                 RedirectStandardOutput = true,
@@ -180,39 +185,15 @@ namespace Timetabling.Algorithm
             var fetProcess = new Process
             {
                 StartInfo = startInfo,
-                EnableRaisingEvents = true,
+                EnableRaisingEvents = true
             };
 
             // Add listeners
             fetProcess.OutputDataReceived += LogConsoleOutput;
-            fetProcess.Exited += CheckProcessExitCode;
 
-            logger.Debug("Process arguments: " + startInfo.Arguments);
+            Logger.Debug("Process arguments: " + startInfo.Arguments);
 
             return fetProcess;
-        }
-
-        // TODO: maybe move to CommandLineArguments
-        private static string ConstructCommandLineArguments(CommandLineArguments cla)
-        {
-
-            // Defaults (empty for now)
-            var defaults = new CommandLineArguments();
-
-            var arguments = defaults.Combine(cla);
-
-            // Construct argument string
-            var sb = new StringBuilder();
-            foreach (KeyValuePair<string, string> arg in arguments)
-            {
-                sb.AppendFormat(
-                    " --{0}={1}",
-                    CommandLineArguments.EncodeArgument(arg.Key),
-                    CommandLineArguments.EncodeArgument(arg.Value)
-                );
-            }
-            return sb.ToString();
-
         }
 
         /// <summary>
@@ -234,7 +215,7 @@ namespace Timetabling.Algorithm
             var data = eventArgs.Data;
             if (!string.IsNullOrWhiteSpace(data))
             {
-                logger.Debug(data);
+                Logger.Debug(data);
             }
 
         }
@@ -242,17 +223,11 @@ namespace Timetabling.Algorithm
         /// <summary>
         /// Checks the FET process exit code and throws an exception if the exit code is non-zero.
         /// </summary>
-        /// <param name="sender">Originating process.</param>
-        /// <param name="eventArgs">Event data.</param>
-        private static void CheckProcessExitCode(object sender, EventArgs eventArgs)
+        /// <param name="exitCode">The exit code of a process.</param>
+        /// <exception cref="AlgorithmException">Throws AlgorithmException if non-zero error code.</exception>
+        private static void CheckProcessExitCode(int exitCode)
         {
-
-            var proc = (Process)sender;
-            if (!proc.HasExited || proc.ExitCode == 0) return;
-
-            logger.Error("The FET process has exited with a non-zero exit code.");
-            throw new AlgorithmException("The FET process has exited with a non-zero exit code. Please check the logs for information about this error.");
-
+            if (exitCode != 0) throw new AlgorithmException($"The FET process has exited with a non-zero exit code ({exitCode}).");
         }
 
     }

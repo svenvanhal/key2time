@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using Timetabling.Algorithm;
-using Timetabling.Helper;
-using Timetabling.Resources;
+using Timetabling.Algorithms;
 
 namespace Timetabling
 {
@@ -25,8 +23,7 @@ namespace Timetabling
             var fetAlgo = new FetAlgorithm(fetPath);
 
             // Generate timetable
-            fetAlgo.Initialize("testdata/fet/United-Kingdom/Hopwood/Hopwood.feta");
-            fetAlgo.Run();
+            fetAlgo.Execute("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
 
 #if DEBUG
             // Keep console window open
