@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".travis.yml" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

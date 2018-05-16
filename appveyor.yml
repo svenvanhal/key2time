@@ -6,6 +6,8 @@ environment:
     secure: cfM6kgSC1gtQJuawy1IG2Uu4QSNYIUINm7FUPFwk3pgWWXL7XzaC1ATWFrxiGMcp
   COVERALLS:
     secure: xFkK4ui4vFS0k7ZIWBL7qGaHk6AfxLmMe+QwPDhEvHD2qrjxcp65AYlT5+0pQ1zH
+before_build:
+  - nuget restore
 build:
   project: BEP.sln
   verbosity: normal
