@@ -31,7 +31,9 @@ namespace Timetabling.Algorithms.Tests
         {
 
             var fet = new FetAlgorithm(fetPath);
-            //Assert.AreEqual(fetPath, fet.);
+
+            // Check that the inner argument store is created when no addition arguments are passed in the constructor
+            Assert.DoesNotThrow(() => fet.SetArgument("name", "value"));
 
         }
 
