@@ -1,9 +1,6 @@
 ﻿version: 1.0.{build}
 skip_tags: true
 configuration: Debug
-environment:
-  COVERALLS:
-    secure: "HobKj9CWHWwV9LmS5N8vK7YZU9+AmzwJJCdMxQz6L7slWsPOpIp8psdq5jaCX5sa"
 before_build:
   - nuget restore
 build:
@@ -11,4 +8,4 @@ build:
   verbosity: normal
 test_script:
   - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -targetargs:".\bin\Debug\BEP.exe" -filter:"+[BEP]* -[BEP]*.Tests*" -output:opencover.xml
-  - packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover opencover.xml -r $env:COVERALLS
+  - packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover opencover.xml
