@@ -1,20 +1,27 @@
 ﻿using Timetabling.Exceptions;
 using Timetabling.Resources;
 
-namespace Timetabling.Algorithm
+namespace Timetabling.Algorithms
 {
 
     /// <summary>
     /// Timetable generation algorithm interface.
     /// </summary>
-    interface IAlgorithm
+    public abstract class Algorithm
     {
+
+        /// <summary>
+        /// Initialize and execute algorithm, return results.
+        /// </summary>
+        /// <param name="input">Input to run the algorithm on.</param>
+        /// <returns>A Timetable object.</returns>
+        public abstract Timetable Execute(string input);
 
         /// <summary>
         /// Algorithm initialization phase.
         /// </summary>
         /// <param name="input">Input to run the algorithm on.</param>
-        void Initialize(string input);
+        protected abstract void Initialize(string input);
 
         /// <summary>
         /// Runs the algorithm on a data set. Implementation should be asynchronous.
@@ -22,12 +29,12 @@ namespace Timetabling.Algorithm
         /// TODO: change string to DataRepository input argument, generate FET inputfile via FetAlgorithm class.
         /// </summary>
         /// <exception cref="AlgorithmException">Thrown when an error occurred during algorithm execution.</exception>
-        void Run();
+        protected abstract void Run();
 
         /// <summary>
         /// Generates a <see cref="Timetable"/> from the algorithm output.
         /// </summary>
         /// <returns>A Timetable object.</returns>
-        Timetable GetResult();
+        protected abstract Timetable GetResult();
     }
 }

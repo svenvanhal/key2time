@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
-using System.ComponentModel;
-using System.IO;
-using Timetabling.Helper;
-using Timetabling.Resources;
 
-namespace Timetabling.Algorithm.Tests
+namespace Timetabling.Helper.Tests
 {
 
     class CommandLineArgumentsTest
@@ -82,6 +77,23 @@ namespace Timetabling.Algorithm.Tests
             var expected = "\"\"";
 
             Assert.AreEqual(expected, CommandLineArguments.EncodeArgument(unencoded));
+
+        }
+
+        [Test]
+        public void OutputStyleTests()
+        {
+
+            var cla = new CommandLineArguments
+            {
+                { "key", "value" }
+            };
+
+            Assert.AreEqual(" --key=value", cla.ToString(CommandLineArguments.OutputStyle.DoubleDashEquals));
+            Assert.AreEqual(" -key=value", cla.ToString(CommandLineArguments.OutputStyle.DashEquals));
+            Assert.AreEqual(" /key:value", cla.ToString(CommandLineArguments.OutputStyle.SlashColon));
+            Assert.AreEqual(" /key=value", cla.ToString(CommandLineArguments.OutputStyle.SlashEquals));
+            Assert.AreEqual(" /key value", cla.ToString(CommandLineArguments.OutputStyle.SlashSpace));
 
         }
 
