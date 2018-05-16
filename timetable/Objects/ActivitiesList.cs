@@ -29,9 +29,9 @@ namespace Timetable.timetable.Objects
 				list.Add(new XElement("Activity",
 									  new XElement("Teacher", item.TeacherID),
 									  new XElement("Subject", item.SubjectID),
-									  new XElement("Students", item.ClassName),
+									  new XElement("Students", item.ClassName), //This is only for one group, what about multiselect?
 									  new XElement("Id", item.ID),
-									  new XElement("Activity_Group_Id", "0"),
+									  new XElement("Activity_Group_Id", "0"), //Needs to change to some group id.
 									  new XElement("Duration", '1'),
 									  new XElement("Total_Duration", '1')
 								)

@@ -1,18 +1,24 @@
 ﻿using System;
+using System.Xml.Linq;
 using Timetable.timetable.DB;
 
 namespace Timetable.timetable.Objects
 {
 	public class HoursList : AbstractList
-    {
-		public HoursList(DataModel _db)  : base(_db)
-        {
+	{
+		public HoursList(DataModel _db) : base(_db)
+		{
 			SetListElement("Hours_List");
-        }
+		}
 
 		public override void Create()
 		{
-			throw new NotImplementedException();
+			var numberOfHours = 8; //TO DO:Retrieve from DB
+			list.Add(new XElement("Number_of_Hours", numberOfHours));
+			for (int i = 1; i <= numberOfHours; i++)
+			{
+				list.Add(new XElement("Hour", new XElement("Name", i)));
+			}
 		}
 	}
 }

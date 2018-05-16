@@ -16,6 +16,9 @@ namespace Timetable
 			DaysList daysList = new DaysList(dB);
             daysList.Create();
 
+			HoursList hoursList = new HoursList(dB);
+			hoursList.Create();
+
 			TeachersList teachersList = new TeachersList(dB);
 			teachersList.Create();
 
@@ -33,14 +36,13 @@ namespace Timetable
 
 			SpaceConstraintsList spaceConstraintsList = new SpaceConstraintsList(dB);
 			spaceConstraintsList.Create();
-
-            xmlCreator.AddToRoot(new XElement("Institution"));
-
+            
 			xmlCreator.AddToRoot(daysList.GetList());
+			xmlCreator.AddToRoot(hoursList.GetList());
 			xmlCreator.AddToRoot(teachersList.GetList());
 			xmlCreator.AddToRoot(yearsList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
-			xmlCreator.AddToRoot(activitiesList.GetList());
+		//	xmlCreator.AddToRoot(activitiesList.GetList());
 			xmlCreator.AddToRoot(timeConstraintsList.GetList());
 			xmlCreator.AddToRoot(spaceConstraintsList.GetList());
 
