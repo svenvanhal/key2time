@@ -8,8 +8,8 @@ namespace Timetable.timetable.Objects
 {
 	public class ConstraintStudentsSetMaxHoursDaily : AbstractConstraint
 	{
-		int maxHoursDaily { get; set; }
-		string gradeName { get; set; }
+		public int maxHoursDaily { get; set; }
+		public string gradeName { get; set; }
 
 
 
