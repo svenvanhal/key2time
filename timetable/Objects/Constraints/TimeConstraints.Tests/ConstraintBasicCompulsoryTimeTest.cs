@@ -25,5 +25,12 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 			ConstraintBasicCompulsoryTime constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
 			Assert.IsTrue(constraintBasicCompulsoryTime.ToXelement().HasElements);
 		}
+
+		[Test]
+		public void CreateTest(){
+			ConstraintBasicCompulsoryTime constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
+			Assert.IsNull(constraintBasicCompulsoryTime.Create(null));
+		}
+
 	}
 }

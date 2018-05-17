@@ -26,5 +26,11 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 			ConstraintBasicCompulsorySpace constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
 			Assert.IsTrue(constraintBasicCompulsorySpace.ToXelement().HasElements);
 		}
+
+		[Test]
+		public void CreateTest(){
+			ConstraintBasicCompulsorySpace constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
+			Assert.IsNull(constraintBasicCompulsorySpace.Create(null));
+		}
 	}
 }
