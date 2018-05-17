@@ -23,7 +23,7 @@ namespace Timetabling
             var fetAlgo = new FetAlgorithm(fetPath);
 
             // Generate timetable
-            fetAlgo.Execute("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
+            fetAlgo.Execute("./testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
 
 #if DEBUG
             // Keep console window open

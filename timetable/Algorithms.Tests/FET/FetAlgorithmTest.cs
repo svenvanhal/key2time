@@ -21,9 +21,8 @@ namespace Timetabling.Algorithms.Tests
 
             // Instantiate FET algorithm and run on Hopwood test file
             var fet = new FetAlgorithm(fetPath);
-            var result = fet.Execute("testdata/fet/United-Kingdom/Hopwood/Hopwood.fet");
 
-            Assert.IsNotNull(result);
+            Assert.DoesNotThrow(() => fet.Execute(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet")));
         }
 
         [Test]
@@ -189,8 +188,11 @@ namespace Timetabling.Algorithms.Tests
             });
 
             // Italy 2007 difficult usually takes more than one seconds
-            Assert.DoesNotThrow(() => fet.Execute("testdata/fet/Italy/2007/difficult/highschool-Ancona.fet"));
+            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/Italy/2007/difficult/highschool-Ancona.fet")));
 
+            // Check that no input is generated
+            // TODO: better test / implement this
+            Assert.That(ex.InnerException, Is.TypeOf<FileNotFoundException>());
         }
 
         [Test]

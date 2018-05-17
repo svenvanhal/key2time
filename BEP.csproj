@@ -75,13 +75,13 @@
     </None>
     <None Include=".gitignore" />
     <None Include="testdata\fet\activities_missing.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="testdata\fet\United-Kingdom\Hopwood\Hopwood.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -101,9 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="testdata\books.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="testdata\fet\United-Kingdom\Hopwood\output.xml" />
+    <Content Include="testdata\fet\United-Kingdom\Hopwood\output.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Target Name="BeforeBuild">
     <RemoveDir Directories="$(TargetDir)lib\" />

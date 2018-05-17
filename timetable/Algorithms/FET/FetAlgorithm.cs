@@ -81,7 +81,15 @@ namespace Timetabling.Algorithms
 
             Initialize(input);
             Run();
-            return GetResult();
+
+            try
+            {
+                return GetResult();
+            }
+            catch (FileNotFoundException ex)
+            {
+                throw new AlgorithmException("No timetable is generated: the FET output file could not be found.", ex);
+            }
 
         }
 
@@ -115,6 +123,7 @@ namespace Timetabling.Algorithms
         {
 
             Logger.Info("Running FET algorithm");
+            Logger.Debug("FET-CL executable location: " + executableLocation);
 
             // Create new FET process
             var fetProcess = CreateProcess();
