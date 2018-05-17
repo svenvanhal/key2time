@@ -52,6 +52,7 @@ namespace Timetable.timetable.XML
 		public void Save()
 		{
 			xDocument.Save(pathName);
+
 		}
 
 		/// <summary>
@@ -65,10 +66,10 @@ namespace Timetable.timetable.XML
 		}
 
 		/// <summary>
-        /// Adds an element to the root element
+        /// Adds an arry of elements to the root element
         /// 
         /// </summary>
-        /// <param name="xElement">the new element to be added.</param>
+        /// <param name="xElements">the new element to be added.</param>
         public void AddToRoot(Array xElements)
         {
             xDocument.Element("fet").Add(xElements);

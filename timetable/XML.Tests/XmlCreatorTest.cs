@@ -45,5 +45,13 @@ namespace Timetable.timetable.XML
             Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 3);
         }
 
+		[Test]
+        public void CheckSave()
+        {
+            XmlCreator xmlCreator = XmlCreator.Instance;
+           
+			Assert.IsTrue(xmlCreator.Save());
+        }
+
     }
 }
