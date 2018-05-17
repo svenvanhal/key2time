@@ -97,7 +97,7 @@ namespace Timetabling.Algorithms
         /// Defines a new input file for the algorithm.
         /// </summary>
         /// <param name="inputFileLocation">Location of the FET input data file.</param>
-        protected override void Initialize(string inputFileLocation)
+        protected override void Initialize(string input)
         {
 
             Logger.Info("Initializing FET algorithm");
@@ -105,7 +105,7 @@ namespace Timetabling.Algorithms
             // Create unique identifier
             RefreshIdentifier();
 
-            inputFile = inputFileLocation;
+            inputFile = input;
             SetArgument("inputfile", inputFile);
 
             outputDir = Util.CreateTempFolder(CurrentRunIdentifier);

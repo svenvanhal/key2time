@@ -8,7 +8,7 @@ namespace Timetabling
     /// <summary>
     /// Program entrypoint.
     /// </summary>
-    public class Application
+    public static class Application
     {
 
         /// <summary>

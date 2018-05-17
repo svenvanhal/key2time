@@ -54,7 +54,7 @@ namespace Timetabling.Helper.Tests
 
             CommandLineArguments merged = cla.Combine(cla2);
 
-            Assert.AreEqual(merged["key1"], "new_value");
+            Assert.AreEqual("new_value", merged["key1"]);
 
         }
 
