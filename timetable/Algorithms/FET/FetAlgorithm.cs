@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
@@ -75,10 +76,10 @@ namespace Timetabling.Algorithms
         }
 
         /// <inheritdoc />
-        public override Timetable Execute(string inputFile)
+        public override Timetable Execute(string input)
         {
 
-            Initialize(inputFile);
+            Initialize(input);
             Run();
             return GetResult();
 
@@ -101,6 +102,9 @@ namespace Timetabling.Algorithms
 
             outputDir = Util.CreateTempFolder(CurrentRunIdentifier);
             SetArgument("outputdir", outputDir);
+
+            Logger.Debug("Inputfile: " + inputFile);
+            Logger.Debug("Outputdir: " + outputDir);
         }
 
         /// <summary>
@@ -149,7 +153,11 @@ namespace Timetabling.Algorithms
 
             Logger.Info("Retrieving FET algorithm results");
 
-            return new Timetable();
+            // Output is stored in the /timetables/[FET file name]/ folder
+            var inputName = Path.GetFileNameWithoutExtension(inputFile); // TODO might need this name at more locations, so could make a classvar at the start
+            var outputProcessor = new FetOutputProcessor(inputName, Path.Combine(outputDir, "timetables", inputName));
+
+            return outputProcessor.GetTimetable();
         }
 
         /// <summary>
