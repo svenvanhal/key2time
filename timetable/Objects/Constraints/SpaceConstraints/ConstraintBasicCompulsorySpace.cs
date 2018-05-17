@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 using Timetable.timetable.DB;
 
@@ -15,11 +16,16 @@ namespace Timetable.timetable.Objects
 			SetWeight(100);
 		}
 
-  
-        /// <summary>
-        /// Returns the XElement
-        /// </summary>
-        /// <returns>The xelement.</returns>
+		public override XElement[] Create(DataModel dB)
+		{
+			return null;
+		}
+
+
+		/// <summary>
+		/// Returns the XElement
+		/// </summary>
+		/// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using Timetable.timetable.DB;
+using System.Linq;
 
 namespace Timetable.timetable.Objects
 {
@@ -47,6 +48,6 @@ namespace Timetable.timetable.Objects
         /// </summary>
         /// <returns>The xelement.</returns>
 		public abstract XElement ToXelement();
-
+		public abstract XElement[] Create(DataModel dB);
 	}
 }

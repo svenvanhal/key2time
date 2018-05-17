@@ -35,8 +35,9 @@ namespace Timetable.timetable.Objects
         /// </summary>
 		private void CreateConstraints()
 		{
-			constraints.Add(new ConstraintBasicCompulsorySpace());
-
+			list.Add(new ConstraintBasicCompulsorySpace().ToXelement());
+     
+            constraints.ForEach(item => list.Add(item.Create(dB)));
 	
 
 

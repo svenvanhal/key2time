@@ -98,7 +98,6 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
 		public void SubGroupRightTest()
 		{
-			Console.WriteLine(test);
 			Assert.AreEqual(test.Elements("Year").Elements("Group").Elements("Subgroup").Where(item => item.Value.Equals("sub1")).Count(), 1);
 			Assert.AreEqual(test.Elements("Year").Elements("Group").Elements("Subgroup").Where(item => item.Value.Equals("sub2")).Count(), 0);
 

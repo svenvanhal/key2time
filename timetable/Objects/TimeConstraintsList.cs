@@ -8,15 +8,19 @@ namespace Timetable.timetable.Objects
 
 {
 	using System.Linq;
+	using System.Xml.Linq;
+
 	public class TimeConstraintsList : AbstractList
 	{
 
 		List<AbstractConstraint> constraints;
+		List<XElement> result;
 
 		public TimeConstraintsList(DataModel _dB) : base(_dB)
 		{
 			SetListElement("Time_Constraints_List");
 			constraints = new List<AbstractConstraint>();
+			result = new List<XElement>();
 		}
         /// <summary>
         /// Create the XElements of the constraints.
@@ -30,40 +34,11 @@ namespace Timetable.timetable.Objects
         /// Creates the constraints.
         /// </summary>
 		private void CreateConstraints(){
-			constraints.Add(new ConstraintBasicCompulsoryTime());
-			CreateConstraintStudentsSetMaxHoursContinuously();
-			CreateConstraintStudentsSetMaxHoursDaily();
-
+			list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
+			constraints.Add(new ConstraintStudentsSetMaxHoursDaily());
+			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+            
+			constraints.ForEach(item => list.Add(item.Create(dB)));
 		}
-        /// <summary>
-        /// Creates the constraint students set max hours continuously.
-        /// </summary>
-		private void CreateConstraintStudentsSetMaxHoursContinuously(){
-
-			var query = from g in dB.tt_GradeLesson
-                        join l in dB.School_Lookup_Grade on g.gradeId equals l.GradeID
-                        select new { g.numberOfLessons, l.GradeName };
-
-            foreach(var item in query){
-                constraints.Add(new ConstraintStudentsSetMaxHoursContinuously(item.numberOfLessons, item.GradeName));
-            } 
-		}
-
-        /// <summary>
-        /// Creates the constraint students set max hours daily.
-        /// </summary>
-		private void CreateConstraintStudentsSetMaxHoursDaily()
-        {
-
-            var query = from g in dB.tt_GradeLesson
-                        join l in dB.School_Lookup_Grade on g.gradeId equals l.GradeID
-                        select new { g.numberOfLessons, l.GradeName };
-
-            foreach (var item in query)
-            {
-                constraints.Add(new ConstraintStudentsSetMaxHoursContinuously(item.numberOfLessons, item.GradeName));
-            }
-        }
-
 	}
 }
