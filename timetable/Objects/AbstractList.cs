@@ -25,13 +25,9 @@ namespace Timetable.timetable.Objects
         /// </summary>
         /// <param name="s">S.</param>
 		public void SetListElement(String s){
-			if (list == null)
-			{
+
 				list = new XElement(s);
-			}
-			else
-				Console.Write("[Error] List is already Set"); //Temp Excepetion
-           
+		
 			}
         /// <summary>
         /// Gets the list.
