@@ -38,7 +38,7 @@ namespace Timetable.timetable.Objects
 		}
 
 		public override XElement[] Create(DataModel dB)
-		{
+		{ //TO DO: Check query
 			var query = from g in dB.tt_GradeLesson
 						join l in dB.School_Lookup_Grade on g.gradeId equals l.GradeID
 						select new { g.numberOfLessons, l.GradeName };
