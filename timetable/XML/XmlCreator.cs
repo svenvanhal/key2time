@@ -42,7 +42,7 @@ namespace Timetable.timetable.XML
 
 
 		public XDocument Writer()
-		{ //Temp, Should me private
+		{ 
 			return xDocument;
 		}
 

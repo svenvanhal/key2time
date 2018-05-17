@@ -10,31 +10,31 @@ namespace Timetable
     {
 		public static void Main()
         {
-            DataModel dB = new DataModel();
+            var dB = new DataModel();
             XmlCreator xmlCreator = XmlCreator.Instance;
 
-			DaysList daysList = new DaysList(dB);
+			var daysList = new DaysList(dB);
             daysList.Create();
-
-			HoursList hoursList = new HoursList(dB);
+            
+			var hoursList = new HoursList(dB);
 			hoursList.Create();
 
-			TeachersList teachersList = new TeachersList(dB);
+			var teachersList = new TeachersList(dB);
 			teachersList.Create();
-
-			SubjectsList subjectsList = new SubjectsList(dB);
+            
+			var subjectsList = new SubjectsList(dB);
 			subjectsList.Create();
 
-			ActivitiesList activitiesList = new ActivitiesList(dB);
+			var activitiesList = new ActivitiesList(dB);
 			activitiesList.Create();
 
-			YearsList yearsList = new YearsList(dB);
+			var yearsList = new YearsList(dB);
 			yearsList.Create();
-
-			TimeConstraintsList timeConstraintsList = new TimeConstraintsList(dB);
+            
+			var timeConstraintsList = new TimeConstraintsList(dB);
 			timeConstraintsList.Create();
 
-			SpaceConstraintsList spaceConstraintsList = new SpaceConstraintsList(dB);
+			var spaceConstraintsList = new SpaceConstraintsList(dB);
 			spaceConstraintsList.Create();
             
 			xmlCreator.AddToRoot(daysList.GetList());

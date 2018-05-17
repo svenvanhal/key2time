@@ -177,36 +177,12 @@ namespace Timetable.timetable.DB
 		[StringLength(150)]
 		public string EmergencyAddress { get; set; }
 
-		public int? RelationshipID { get; set; }
 
-		[StringLength(70)]
-		public string NationalID { get; set; }
 
 		public bool? IsActive { get; set; }
 
 		public int? JobType { get; set; }
-
-		public int? HRJobID { get; set; }
-
-		[Column(TypeName = "date")]
-		public DateTime? ResignationDate { get; set; }
-
-		public int? ResignationReasonID { get; set; }
-
-		public string ResignationNotes { get; set; }
-
-		[Column(TypeName = "date")]
-		public DateTime? JoinDate { get; set; }
-
-		[StringLength(150)]
-		public string InsuranceNumber { get; set; }
-
-		[StringLength(150)]
-		public string InsuranceOffice { get; set; }
-
-		[Column(TypeName = "date")]
-		public DateTime? InsuranceDate { get; set; }
-
+              
 		public double? BasicValue { get; set; }
 
 		public double? BasicPersent { get; set; }
@@ -221,48 +197,20 @@ namespace Timetable.timetable.DB
 
 		public bool? IsSupervisorFloor { get; set; }
 
-		public bool? IsSupervisorBus { get; set; }
-
 		public bool? IsSupervisorSubject { get; set; }
 
 		public int? SectionType { get; set; }
-
-		public int? VacationBalanceClassification { get; set; }
-
-		public int? Position { get; set; }
-
-		public int? GoReturn { get; set; }
-
-		public int? RouteID { get; set; }
-
-		public int? StopPointID { get; set; }
-
-		public int? ReturnStopPointID { get; set; }
-
-		public int? DiscountTypeID { get; set; }
-
-		public int? ReturnRouteID { get; set; }
-
+        
+     
 		public int? ISspecialized { get; set; }
 
-		public string BankName { get; set; }
-
-		public string BankAccountNumber { get; set; }
 
 		[StringLength(100)]
 		public string TotalWorkedTime { get; set; }
-
-		public int? BankID { get; set; }
-
+  
 		public int? TotalWorkDays { get; set; }
 
-		public string TotalWorkExperience { get; set; }
-
-		public bool Contractor { get; set; }
-
-		public int? HrRole { get; set; }
-
-		public int? FingerId { get; set; }
+	
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<HR_MasterData_Employees> HR_MasterData_Employees1 { get; set; }
