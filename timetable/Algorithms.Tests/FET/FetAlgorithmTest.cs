@@ -13,7 +13,7 @@ namespace Timetabling.Algorithms.Tests
     public class FetAlgorithmTest : FetAlgorithm
     {
 
-        readonly string fetPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
+        readonly string fetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
 
         [Test]
         public void IntegrationTest()

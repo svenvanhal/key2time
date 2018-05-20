@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Xml.Schema;
 
@@ -14,7 +14,7 @@ namespace Timetabling.Resources
         /// List of all activities in this timetable.
         /// </summary>
         [XmlElement("Activity")]
-        public TimetableActivity[] Activities { get; set; }
+        public List<TimetableActivity> Activities { get; set; }
 
         /// <summary>
         /// Timetable activity, consisting of an id, a day, an hour and a room.

@@ -15,10 +15,32 @@ namespace Timetabling.Algorithms
     public class FetAlgorithm : Algorithm
     {
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// Algorithm .fet input file.
+        /// </summary>
+        protected string InputFile;
+
+        /// <summary>
+        /// Algorithm output directory.
+        /// </summary>
+        protected string OutputDir;
+
+        /// <summary>
+        /// Location of the FET program.
+        /// </summary>
+        protected readonly string ExecutableLocation;
+
+        /// <summary>
+        /// FET-CL command line arguments.
+        /// </summary>
+        protected readonly CommandLineArguments Arguments;
+
         /// <summary>
         /// FET-CL default command line arguments. Limits the output to only the necessary.
         /// </summary>
-        protected static readonly CommandLineArguments FET_DEFAULTS = new CommandLineArguments
+        protected static readonly CommandLineArguments DefaultArgs = new CommandLineArguments
         {
             { "htmllevel", "0" },
             { "writetimetablesdayshorizontal", "false" },
@@ -35,28 +57,6 @@ namespace Timetabling.Algorithms
             { "verbose", "true" },
         };
 
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// Location of the FET program.
-        /// </summary>
-        private readonly string executableLocation;
-
-        /// <summary>
-        /// FET-CL command line arguments.
-        /// </summary>
-        private readonly CommandLineArguments args;
-
-        /// <summary>
-        /// Algorithm input file.
-        /// </summary>
-        private string inputFile;
-
-        /// <summary>
-        /// Algorithm output directory.
-        /// </summary>
-        private string outputDir;
-
         /// <summary>
         /// Unique string to identify the current run of the algorithm. The FET output is stored using this identifier.
         /// </summary>
@@ -69,8 +69,8 @@ namespace Timetabling.Algorithms
         /// </summary>
         public FetAlgorithm(string executableLocation, CommandLineArguments args = null)
         {
-            this.executableLocation = executableLocation;
-            this.args = args ?? new CommandLineArguments();
+            ExecutableLocation = executableLocation;
+            Arguments = args ?? new CommandLineArguments();
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Timetabling.Algorithms
         /// <param name="value">Value of the argument. If null, the argument is removed.</param>
         public void SetArgument(string name, string value)
         {
-            if (value == null) args.Remove(name);
-            else args[name] = value;
+            if (value == null) Arguments.Remove(name);
+            else Arguments[name] = value;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Timetabling.Algorithms
         /// <exception cref="KeyNotFoundException">Throws exception if <paramref name="name"/> not found.</exception>
         public string GetArgument(string name)
         {
-            return args[name];
+            return Arguments[name];
         }
 
         /// <inheritdoc />
@@ -125,14 +125,14 @@ namespace Timetabling.Algorithms
             // Create unique identifier
             RefreshIdentifier();
 
-            inputFile = input;
-            SetArgument("inputfile", inputFile);
+            InputFile = input;
+            SetArgument("inputfile", InputFile);
 
-            outputDir = Util.CreateTempFolder(CurrentRunIdentifier);
-            SetArgument("outputdir", outputDir);
+            OutputDir = Util.CreateTempFolder(CurrentRunIdentifier);
+            SetArgument("outputdir", OutputDir);
 
-            Logger.Debug("Inputfile: " + inputFile);
-            Logger.Debug("Outputdir: " + outputDir);
+            Logger.Debug("Inputfile: " + InputFile);
+            Logger.Debug("Outputdir: " + OutputDir);
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Timetabling.Algorithms
         {
 
             Logger.Info("Running FET algorithm");
-            Logger.Debug("FET-CL executable location: " + executableLocation);
+            Logger.Debug("FET-CL executable location: " + ExecutableLocation);
 
             // Create new FET process
             var fetProcess = CreateProcess();
@@ -183,10 +183,11 @@ namespace Timetabling.Algorithms
             Logger.Info("Retrieving FET algorithm results");
 
             // Output is stored in the /timetables/[FET file name]/ folder
-            var inputName = Path.GetFileNameWithoutExtension(inputFile); // TODO might need this name at more locations, so could make a classvar at the start
-            var outputProcessor = new FetOutputProcessor(inputName, Path.Combine(outputDir, "timetables", inputName));
+            var inputName = Path.GetFileNameWithoutExtension(InputFile); // TODO might need this name at more locations, so could make a classvar at the start
 
-            return outputProcessor.GetTimetable();
+            var fop = new FetOutputProcessor(inputName, Path.Combine(OutputDir, "timetables", inputName));
+            return fop.GetTimetable();
+
         }
 
         /// <summary>
@@ -205,8 +206,8 @@ namespace Timetabling.Algorithms
                 UseShellExecute = false,
 
                 // Set executable location and arguments
-                FileName = executableLocation,
-                Arguments = FET_DEFAULTS.Combine(args).ToString(),
+                FileName = ExecutableLocation,
+                Arguments = DefaultArgs.Combine(Arguments).ToString(),
 
                 // Redirect stdout and stderr
                 RedirectStandardOutput = true,
