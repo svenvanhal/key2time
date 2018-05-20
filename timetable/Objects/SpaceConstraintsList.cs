@@ -27,7 +27,7 @@ namespace Timetable.timetable.Objects
 		public override void Create()
 		{
 			CreateConstraints();
-			list.Add(constraints.Select(constraint => constraint.ToXelement()).ToArray());
+			constraints.ForEach(item => list.Add(item.Create(dB)));
 		}
 
         /// <summary>
@@ -35,13 +35,7 @@ namespace Timetable.timetable.Objects
         /// </summary>
 		private void CreateConstraints()
 		{
-			list.Add(new ConstraintBasicCompulsorySpace().ToXelement());
-     
-            constraints.ForEach(item => list.Add(item.Create(dB)));
-	
-
-
-		}
-        
+			list.Add(new ConstraintBasicCompulsorySpace().ToXelement());         
+		}       
 	}
 }

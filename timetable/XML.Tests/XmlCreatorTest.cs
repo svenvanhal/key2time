@@ -1,8 +1,11 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Xml.Linq;
+using System.IO;
 
 namespace Timetable.timetable.XML
 {
@@ -44,6 +47,5 @@ namespace Timetable.timetable.XML
 			xmlCreator.AddToRoot(list.ToArray());
             Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 3);
         }
-
     }
 }

@@ -22,23 +22,22 @@ namespace Timetable.timetable.Objects
 			constraints = new List<AbstractConstraint>();
 			result = new List<XElement>();
 		}
-        /// <summary>
-        /// Create the XElements of the constraints.
-        /// </summary>
+		/// <summary>
+		/// Create the XElements of the constraints.
+		/// </summary>
 		public override void Create()
 		{
 			CreateConstraints();
-			list.Add(constraints.Select(constraint => constraint.ToXelement()).ToArray());
+			constraints.ForEach(item => list.Add(item.Create(dB)));
 		}
-        /// <summary>
-        /// Creates the constraints.
-        /// </summary>
-		private void CreateConstraints(){
+		/// <summary>
+		/// Creates the constraints.
+		/// </summary>
+		private void CreateConstraints()
+		{
 			list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
 			constraints.Add(new ConstraintStudentsSetMaxHoursDaily());
 			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
-            
-			constraints.ForEach(item => list.Add(item.Create(dB)));
 		}
 	}
 }

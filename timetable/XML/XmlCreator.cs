@@ -7,10 +7,10 @@ namespace Timetable.timetable.XML
 {
 	public class XmlCreator
 	{
-		private XDocument xDocument;
+		private XDocument xDocument { get; set; }
 		private static XmlCreator instance;
 		private string pathName { get; set; }
-
+        
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:Timetable.timetable.XML.XmlCreator"/> class.
