@@ -34,7 +34,7 @@ namespace Timetabling.Algorithms
         {
 
             // Remove unnecessary files
-            CleanupOutputDir();
+            //CleanupOutputDir();
 
             Logger.Info("Looking for FET-CL activities output file.");
 

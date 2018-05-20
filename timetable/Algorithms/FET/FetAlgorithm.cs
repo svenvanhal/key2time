@@ -15,6 +15,26 @@ namespace Timetabling.Algorithms
     public class FetAlgorithm : Algorithm
     {
 
+        /// <summary>
+        /// FET-CL default command line arguments. Limits the output to only the necessary.
+        /// </summary>
+        protected static readonly CommandLineArguments FET_DEFAULTS = new CommandLineArguments
+        {
+            { "htmllevel", "0" },
+            { "writetimetablesdayshorizontal", "false" },
+            { "writetimetablesdaysvertical", "false" },
+            { "writetimetablestimehorizontal", "false" },
+            { "writetimetablestimevertical", "false" },
+            { "writetimetablessubgroups", "false" },
+            { "writetimetablesgroups", "false" },
+            { "writetimetablesyears", "false" },
+            { "writetimetablesteachers", "false" },
+            { "writetimetablesteachersfreeperiods", "false" },
+            { "writetimetablesrooms", "false" },
+            { "writetimetablessubjects", "false" },
+            { "verbose", "true" },
+        };
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
@@ -96,7 +116,7 @@ namespace Timetabling.Algorithms
         /// <summary>
         /// Defines a new input file for the algorithm.
         /// </summary>
-        /// <param name="inputFileLocation">Location of the FET input data file.</param>
+        /// <param name="input">Location of the FET input data file.</param>
         protected override void Initialize(string input)
         {
 
@@ -178,12 +198,6 @@ namespace Timetabling.Algorithms
 
             Logger.Info("Creating FET process");
 
-            // Default arguments
-            var defaults = new CommandLineArguments
-            {
-                { "verbose", "true" }
-            };
-
             var startInfo = new ProcessStartInfo
             {
 
@@ -192,7 +206,7 @@ namespace Timetabling.Algorithms
 
                 // Set executable location and arguments
                 FileName = executableLocation,
-                Arguments = defaults.Combine(args).ToString(),
+                Arguments = FET_DEFAULTS.Combine(args).ToString(),
 
                 // Redirect stdout and stderr
                 RedirectStandardOutput = true,
