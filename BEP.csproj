@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('packages\NUnit.3.10.1\build\NUnit.props')" />
@@ -10,7 +10,8 @@
     <RootNamespace>Timetable</RootNamespace>
     <AssemblyName>BEP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-	<DocumentationFile>bin\Debug\Documentation.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -29,7 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-	<DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="timetable\Algorithms.Tests\FET\FetOutputProcessorTest.cs" />
@@ -43,7 +44,6 @@
     <Compile Include="timetable\Resources\Timetable.cs" />
     <Compile Include="timetable\Helper\CommandLineArguments.cs" />
     <Compile Include="timetable\Helper\Util.cs" />
-    <Compile Include="timetable\Application\Main.cs" />
     <Compile Include="timetable\DB\School_TeacherSubjects.cs" />
     <Compile Include="timetable\DB\DataModel.cs" />
     <Compile Include="timetable\DB\HR_MasterData_Employees.cs" />
@@ -106,24 +106,24 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-	<Reference Include="System.Runtime.Serialization" />
-	<Reference Include="System.Xml" />
-	<Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Abstractions, Version=2.1.0.178, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
       <HintPath>packages\System.IO.Abstractions.2.1.0.178\lib\net40\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Compression" />
-	<Reference Include="System.Configuration" />
-	<Reference Include="EntityFramework">
+    <Reference Include="System.Configuration" />
+    <Reference Include="EntityFramework">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-	<Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml.Linq" />
-	<Reference Include="Castle.Core">
+    <Reference Include="Castle.Core">
       <HintPath>packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceModel" />
@@ -150,11 +150,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config"></None>
+    <None Include="app.config">
+    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config"></None>
+    <None Include="packages.config">
+    </None>
     <None Include=".gitignore" />
     <None Include="testdata\fet\activities_missing.fet">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
