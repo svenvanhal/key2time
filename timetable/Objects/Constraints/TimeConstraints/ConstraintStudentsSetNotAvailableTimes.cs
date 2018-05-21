@@ -22,7 +22,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 
 		public override XElement[] Create(DataModel dB)
 		{
-			var query = from tf in dB.tt_TimeOff
+			var query = from tf in dB.Tt_TimeOff
 						join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
 						where tf.ItemType == 3
 

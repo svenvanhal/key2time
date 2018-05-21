@@ -15,6 +15,8 @@ namespace Timetable.timetable.DB
 
         public int? GradeID { get; set; }
 
+		public int NumberOfLlessonsPerWeek { get; set; }
+
         public virtual School_Lookup_Grade School_Lookup_Grade { get; set; }
 
         public virtual School_Lookup_Grade School_Lookup_Grade1 { get; set; }

@@ -22,7 +22,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 
 		public override XElement[] Create(DataModel dB)
 		{
-			var query = from tf in dB.tt_TimeOff
+			var query = from tf in dB.Tt_TimeOff
 						where tf.ItemType == 1
 
 						select new { tf.day, tf.ItemId, tf.lessonIndex };
