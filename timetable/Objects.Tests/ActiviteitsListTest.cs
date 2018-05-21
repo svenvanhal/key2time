@@ -54,60 +54,60 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual(test.Name.ToString(), "Activities_List");
+			Assert.AreEqual("Activities_List",test.Name.ToString());
         }
         
 		[Test]
         public void ActivityIDRightTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Id").Where(item => item.Value.Equals("1")).Count(), 1);
+			Assert.AreEqual(1,test.Elements("Activity").Elements("Id").Count(item => item.Value.Equals("1")));
 
         }
 
         [Test]
         public void ActivityIDWrongTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Id").Where(item => item.Value.Equals("3")).Count(), 0);
+			Assert.AreEqual(0,test.Elements("Activity").Elements("Id").Count(item => item.Value.Equals("3")));
 
         }
         [Test]
 		public void ActivityTeacherRightTest(){
-			Assert.AreEqual(test.Elements("Activity").Elements("Teacher").Where(item => item.Value.Equals("0")).Count(), 1);
+			Assert.AreEqual(1,test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
 
 		}
 
 		[Test]
         public void ActivityTeacherWrongTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Teacher").Where(item => item.Value.Equals("3")).Count(), 0);
+			Assert.AreEqual(0,test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("3")));
 
         }
 
 		[Test]
         public void ActivitySubjectRightTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Subject").Where(item => item.Value.Equals("0")).Count(), 1);
+			Assert.AreEqual(1,test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
 
         }
 
         [Test]
         public void ActivitySubjectWrongTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Subject").Where(item => item.Value.Equals("3")).Count(), 0);
+			Assert.AreEqual(0,test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("3")));
 
         }
 
 		[Test]
         public void ActivityClassRightTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Students").Where(item => item.Value.Equals("test")).Count(), 1);
+			Assert.AreEqual(1,test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test")));
 
         }
 
         [Test]
         public void ActivityClassWrongTest()
         {
-            Assert.AreEqual(test.Elements("Activity").Elements("Students").Where(item => item.Value.Equals("wrond")).Count(), 0);
+			Assert.AreEqual(0,test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("wrong")));
 
         }
     }

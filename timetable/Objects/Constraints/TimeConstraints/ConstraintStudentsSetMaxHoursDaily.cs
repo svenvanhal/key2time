@@ -36,19 +36,16 @@ namespace Timetable.timetable.Objects
 						   new XElement("Students", gradeName));
 			return constraint;
 		}
-
+        
 		public override XElement[] Create(DataModel dB)
-		{ 
-			var query = from g in dB.tt_GradeLesson
+		{ //TO DO: Check query
+			var query = from g in dB.Tt_GradeLesson
 						join l in dB.School_Lookup_Grade on g.gradeId equals l.GradeID
-						join sec in dB.School_Lookup_Stage on l.StageID equals sec.StageID
-						join con in dB.tt_SectionLessonConfiguration on sec.SectionID equals con.sectionId
-
-						select new { con.lessonPerDay, l.GradeName };
+						select new { g.numberOfLessons, l.GradeName };
 
 
 			List<XElement> result = new List<XElement>();
-			query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursDaily { maxHoursDaily = item.lessonPerDay, gradeName = item.GradeName }.ToXelement())
+			query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursDaily { maxHoursDaily = item.numberOfLessons, gradeName = item.GradeName }.ToXelement())
 						  );
 			return result.ToArray();
 		}

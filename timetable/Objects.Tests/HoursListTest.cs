@@ -29,14 +29,14 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual(test.Name.ToString(), "Hours_List");
+			Assert.AreEqual("Hours_List", test.Name.ToString() );
         }
 
 
         [Test]
 		public void NumberOfDaysElementTest(){
            
-            Assert.AreEqual(test.Elements("Number_of_Hours").First().Value, "8");
+			Assert.AreEqual("8", test.Elements("Number_of_Hours").First().Value );
 		}
     }
 }

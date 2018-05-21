@@ -47,19 +47,19 @@ namespace Timetable.timetable.DB.Tests
 
         [Test]
 		public void TeacherRightTest(){
-			Assert.AreEqual(test.Elements("Teacher").Elements("Name").Where(item => item.Value.Equals("0")).Count(), 1);
+			Assert.AreEqual(1, test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("0")));
 
 		}
 
         [Test]
 		public void TeacherNotTeacher(){
-			Assert.AreEqual(test.Elements("Teacher").Elements("Name").Where(item => item.Value.Equals("1")).Count(), 0);    
+			Assert.AreEqual(0,test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("1")));    
 
 		}
 
         [Test]
 		public void TeacherNotActive(){
-			Assert.AreEqual(test.Elements("Teacher").Elements("Name").Where(item => item.Value.Equals("2")).Count(), 0);    
+			Assert.AreEqual(0, test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("2")));    
        
 		}
     }

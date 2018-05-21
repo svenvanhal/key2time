@@ -29,14 +29,12 @@ namespace Timetable.timetable.DB
         public virtual DbSet<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
         public virtual DbSet<SubjectClassLesson> SubjectClassLessons { get; set; }
         public virtual DbSet<TeacherClassSubjectGroup> TeacherClassSubjectGroups { get; set; }
-        public virtual DbSet<tt_Break> tt_Break { get; set; }
-        public virtual DbSet<tt_BreakGrade> tt_BreakGrade { get; set; }
-        public virtual DbSet<tt_Class> tt_Class { get; set; }
-        public virtual DbSet<tt_ClassGroup> tt_ClassGroup { get; set; }
-        public virtual DbSet<tt_GradeLesson> tt_GradeLesson { get; set; }
-        public virtual DbSet<tt_SectionLessonConfiguration> tt_SectionLessonConfiguration { get; set; }
-        public virtual DbSet<tt_TeacherAcademicInfo> tt_TeacherAcademicInfo { get; set; }
-        public virtual DbSet<tt_TimeOff> tt_TimeOff { get; set; }
+		public virtual DbSet<Tt_Class> Tt_Class { get; set; }
+        public virtual DbSet<Tt_ClassGroup> Tt_ClassGroup { get; set; }
+        public virtual DbSet<Tt_GradeLesson> Tt_GradeLesson { get; set; }
+        public virtual DbSet<Tt_SectionLessonConfiguration> Tt_SectionLessonConfiguration { get; set; }
+        public virtual DbSet<Tt_TeacherAcademicInfo> Tt_TeacherAcademicInfo { get; set; }
+        public virtual DbSet<Tt_TimeOff> Tt_TimeOff { get; set; }
 
 
 
@@ -81,21 +79,17 @@ namespace Timetable.timetable.DB
                 .Property(e => e.GroupId)
                 .IsFixedLength();
 
-            modelBuilder.Entity<tt_Break>()
-                .HasMany(e => e.tt_BreakGrade)
-                .WithRequired(e => e.tt_Break)
-                .HasForeignKey(e => e.breakId)
-                .WillCascadeOnDelete(false);
+         
 
-            modelBuilder.Entity<tt_Class>()
-                .HasMany(e => e.tt_ClassGroup)
-                .WithRequired(e => e.tt_Class)
+            modelBuilder.Entity<Tt_Class>()
+                .HasMany(e => e.Tt_ClassGroup)
+                .WithRequired(e => e.Tt_Class)
                 .HasForeignKey(e => e.classId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<tt_TeacherAcademicInfo>()
-                .HasOptional(e => e.tt_TeacherAcademicInfo1)
-                .WithRequired(e => e.tt_TeacherAcademicInfo2);
+            modelBuilder.Entity<Tt_TeacherAcademicInfo>()
+                .HasOptional(e => e.Tt_TeacherAcademicInfo1)
+                .WithRequired(e => e.Tt_TeacherAcademicInfo2);
         }   
     }   
 }

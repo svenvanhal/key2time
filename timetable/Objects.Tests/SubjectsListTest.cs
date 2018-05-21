@@ -43,25 +43,25 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual(test.Name.ToString(), "Subjects_List");
+			Assert.AreEqual("Subjects_List", test.Name.ToString() );
         }
 
 
         [Test]
 		public void SubjectRightTest(){
-			Assert.AreEqual(test.Elements("Subject").Elements("Name").Where(item => item.Value.Equals("0")).Count(), 1);
+			Assert.AreEqual(1,test.Elements("Subject").Elements("Name").Count(item => item.Value.Equals("0")));
 
 		}
 
         [Test]
 		public void SubjectNotInDB(){
-			Assert.AreEqual(test.Elements("Subject").Elements("Name").Where(item => item.Value.Equals("4")).Count(), 0);    
+			Assert.AreEqual(0,test.Elements("Subject").Elements("Name").Count(item => item.Value.Equals("4")));    
 
 		}
-
+        
         [Test]
 		public void SubjectNotActive(){
-			Assert.AreEqual(test.Elements("Subject").Elements("Name").Where(item => item.Value.Equals("1")).Count(), 0);    
+			Assert.AreEqual(0,test.Elements("Subject").Elements("Name").Count(item => item.Value.Equals("1")));    
        
 		}
     }

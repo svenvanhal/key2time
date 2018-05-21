@@ -6,7 +6,7 @@ namespace Timetable.timetable.DB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tt_GradeLesson
+    public partial class Tt_GradeLesson
     {
         public int Id { get; set; }
 

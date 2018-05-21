@@ -6,7 +6,7 @@ namespace Timetable.timetable.DB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tt_ClassGroup
+    public partial class Tt_ClassGroup
     {
         public int Id { get; set; }
 
@@ -16,6 +16,6 @@ namespace Timetable.timetable.DB
         [StringLength(100)]
         public string groupName { get; set; }
 
-        public virtual tt_Class tt_Class { get; set; }
+        public virtual Tt_Class Tt_Class { get; set; }
     }
 }

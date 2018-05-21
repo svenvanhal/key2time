@@ -8,15 +8,15 @@ namespace Timetable.timetable.DB
 	using System.Xml.Linq;
 	using Timetable.timetable.XML;
 
-	public partial class tt_Class
+	public partial class Tt_Class
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Timetable.timetable.DB.tt_Class"/> class.
+		/// Initializes a new instance of the <see cref="T:Timetable.timetable.DB.Tt_Class"/> class.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-		public tt_Class()
+		public Tt_Class()
 		{
-			tt_ClassGroup = new HashSet<tt_ClassGroup>();
+			Tt_ClassGroup = new HashSet<Tt_ClassGroup>();
 		}
 		/// <summary>
 		/// Gets or sets the identifier.
@@ -55,24 +55,14 @@ namespace Timetable.timetable.DB
 
 		public bool IsShared { get; set; }
 		/// <summary>
-		/// Gets or sets a value indicating whether this <see cref="T:Timetable.timetable.DB.tt_Class"/> is home.
+		/// Gets or sets a value indicating whether this <see cref="T:Timetable.timetable.DB.Tt_Class"/> is home.
 		/// </summary>
 		/// <value><c>true</c> if is home; otherwise, <c>false</c>.</value>
 		public bool IsHome { get; set; }
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<tt_ClassGroup> tt_ClassGroup { get; set; }
-
-
-		/// <summary>
-		/// Returns the XElement representation of class
-		/// </summary>
-		/// <returns>The XElement.</returns>
-		public XElement ToXElement()
-		{
-			return new XElement("grade", new XElement("ClassID", this.Id),
-								new XElement("Classname", this.className));
-		}
+		public virtual ICollection<Tt_ClassGroup> Tt_ClassGroup { get; set; }
+      
 
 	}
 }

@@ -35,19 +35,19 @@ namespace Timetable.timetable.Objects
 
 			foreach (var item in grades)
 			{
-				list.Elements("Year").Where(grade => grade.Element("Name").Value.Equals(item.GradeName)).First().
+				list.Elements("Year").First(grade => grade.Element("Name").Value.Equals(item.GradeName)).
 					Add(new XElement("Group",
 									 new XElement("Name", item.ClassName)));
 			}
 
-			var groups = from g in dB.tt_ClassGroup
+			var groups = from g in dB.Tt_ClassGroup
 						 join c in dB.School_Lookup_Class on g.classId equals c.ClassID
 
 						 select new { c.ClassName, g.groupName };
             
 			foreach (var item in groups)
             {
-				list.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName)).First().
+				list.Elements("Year").Elements("Group").First(g => g.Element("Name").Value.Equals(item.ClassName)).
 				    Add(new XElement("Subgroup",
 				                     new XElement("Name", item.groupName)));
             }
