@@ -18,7 +18,7 @@ namespace Timetable.timetable.Objects
 
 		public override XElement[] Create(DataModel dB)
 		{
-			return null;
+			return new XElement[0];
 		}
 
 

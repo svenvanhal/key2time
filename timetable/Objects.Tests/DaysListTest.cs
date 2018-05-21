@@ -42,31 +42,31 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual(test.Name.ToString(), "Days_List");
+			Assert.AreEqual( "Days_List", test.Name.ToString());
         }
 
 
         [Test]
 		public void NumberOfDaysElementTest(){
            
-            Assert.AreEqual(test.Elements("Number_of_Days").First().Value, "4");
+			Assert.AreEqual("4",test.Elements("Number_of_Days").First().Value );
 		}
 
 		[Test]
 		public void NumberOfDaysTest()
         {
-			Assert.AreEqual(test.Elements("Day").Count(), 4);
+			Assert.AreEqual(4,test.Elements("Day").Count());
         }
 
 		[Test]
 		public void WeekendDayTest(){
-			Assert.AreEqual(test.Elements("Day").Elements("Name").Where(item => item.Value.Equals(Days.Sunday.ToString())).Count(), 0);
+			Assert.AreEqual(0,test.Elements("Day").Elements("Name").Count(item => item.Value.Equals(Days.Sunday.ToString())));
 		}
 
 		[Test]
         public void WeekDayTest()
         {
-			Assert.AreEqual(test.Elements("Day").Elements("Name").Where(item => item.Value.Equals(Days.Tuesday.ToString())).Count(), 1);
+			Assert.AreEqual(1, test.Elements("Day").Elements("Name").Count(item => item.Value.Equals(Days.Tuesday.ToString())));
         }
     }
 }

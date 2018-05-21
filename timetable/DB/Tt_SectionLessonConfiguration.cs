@@ -6,14 +6,12 @@ namespace Timetable.timetable.DB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tt_BreakGrade
+    public partial class Tt_SectionLessonConfiguration
     {
         public int Id { get; set; }
 
-        public int breakId { get; set; }
+        public int lessonPerDay { get; set; }
 
-        public int gradeId { get; set; }
-
-        public virtual tt_Break tt_Break { get; set; }
+        public int sectionId { get; set; }
     }
 }

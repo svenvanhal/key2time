@@ -45,13 +45,11 @@
     <Compile Include="timetable\DB\Subject_SubjectGrade.cs" />
     <Compile Include="timetable\DB\SubjectClassLesson.cs" />
     <Compile Include="timetable\DB\TeacherClassSubjectGroup.cs" />
-    <Compile Include="timetable\DB\tt_Break.cs" />
-    <Compile Include="timetable\DB\tt_BreakGrade.cs" />
-    <Compile Include="timetable\DB\tt_Class.cs" />
-    <Compile Include="timetable\DB\tt_ClassGroup.cs" />
-    <Compile Include="timetable\DB\tt_GradeLesson.cs" />
-    <Compile Include="timetable\DB\tt_SectionLessonConfiguration.cs" />
-    <Compile Include="timetable\DB\tt_TeacherAcademicInfo.cs" />
+    <Compile Include="timetable\DB\Tt_Class.cs" />
+    <Compile Include="timetable\DB\Tt_ClassGroup.cs" />
+    <Compile Include="timetable\DB\Tt_GradeLesson.cs" />
+    <Compile Include="timetable\DB\Tt_SectionLessonConfiguration.cs" />
+    <Compile Include="timetable\DB\Tt_TeacherAcademicInfo.cs" />
     <Compile Include="timetable\DB\tt_TimeOff.cs" />
     <Compile Include="timetable\XML\XmlCreator.cs" />
     <Compile Include="timetable\Objects\TeachersList.cs" />
@@ -82,9 +80,6 @@
     <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursDailyTest.cs" />
     <Compile Include="timetable\Objects.Tests\HoursListTest.cs" />
     <Compile Include="timetable\XML.Tests\XmlCreatorTest.cs" />
-    <Compile Include="timetable\Algorithms\Algorithm.cs" />
-    <Compile Include="timetable\Algorithms\FetAlgorithm.cs" />
-    <Compile Include="timetable\Algorithms.Tests\FetAlgorithmTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">

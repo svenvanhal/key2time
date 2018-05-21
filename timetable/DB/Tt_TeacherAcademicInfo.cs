@@ -6,7 +6,7 @@ namespace Timetable.timetable.DB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tt_TeacherAcademicInfo
+    public partial class Tt_TeacherAcademicInfo
     {
         public int Id { get; set; }
 
@@ -22,8 +22,8 @@ namespace Timetable.timetable.DB
 
         public int substitutionlessonsPerWeek { get; set; }
 
-        public virtual tt_TeacherAcademicInfo tt_TeacherAcademicInfo1 { get; set; }
+        public virtual Tt_TeacherAcademicInfo Tt_TeacherAcademicInfo1 { get; set; }
 
-        public virtual tt_TeacherAcademicInfo tt_TeacherAcademicInfo2 { get; set; }
+        public virtual Tt_TeacherAcademicInfo Tt_TeacherAcademicInfo2 { get; set; }
     }
 }

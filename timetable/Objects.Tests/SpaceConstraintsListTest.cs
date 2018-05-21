@@ -31,7 +31,7 @@ namespace Timetable.timetable.DB.Tests
 		[Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual(test.Name.ToString(), "Space_Constraints_List");
+			Assert.AreEqual("Space_Constraints_List", test.Name.ToString() );
         }
         
     }

@@ -16,8 +16,8 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 		public void TestToXElement()
 		{
 			ConstraintBasicCompulsorySpace constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
-			Assert.AreEqual(constraintBasicCompulsorySpace.ToXelement().ToString(), "<ConstraintBasicCompulsorySpace>" +System.Environment.NewLine+
-			                "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine +"</ConstraintBasicCompulsorySpace>");
+			Assert.AreEqual( "<ConstraintBasicCompulsorySpace>" +System.Environment.NewLine+
+			                "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine +"</ConstraintBasicCompulsorySpace>", constraintBasicCompulsorySpace.ToXelement().ToString());
 		}
 
 		[Test()]
@@ -30,7 +30,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 		[Test]
 		public void CreateTest(){
 			ConstraintBasicCompulsorySpace constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
-			Assert.IsNull(constraintBasicCompulsorySpace.Create(null));
+			Assert.IsEmpty(constraintBasicCompulsorySpace.Create(null));
 		}
 	}
 }
