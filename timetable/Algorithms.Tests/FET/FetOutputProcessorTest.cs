@@ -6,7 +6,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Text;
 using Timetabling.Exceptions;
 
-namespace Timetabling.Algorithms.Tests
+namespace Timetabling.Algorithms.FET.Tests
 {
 
     [TestFixture]

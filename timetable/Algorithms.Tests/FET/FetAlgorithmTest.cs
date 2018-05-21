@@ -6,30 +6,28 @@ using System.IO;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 
-namespace Timetabling.Algorithms.Tests
+namespace Timetabling.Algorithms.FET.Tests
 {
 
-    [TestFixture(null, null)]
+    [TestFixture(null)]
     public class FetAlgorithmTest : FetAlgorithm
     {
-
-        readonly string fetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
 
         [Test]
         public void IntegrationTest()
         {
 
             // Instantiate FET algorithm and run on Hopwood test file
-            var fet = new FetAlgorithm(fetPath);
+            var fet = new FetAlgorithm();
 
-            Assert.DoesNotThrow(() => fet.Execute(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet")));
+            Assert.DoesNotThrow(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet")));
         }
 
         [Test]
         public void ConstructorTestMissingArgs()
         {
 
-            var fet = new FetAlgorithm(fetPath);
+            var fet = new FetAlgorithm();
 
             // Check that the inner argument store is created when no addition arguments are passed in the constructor
             Assert.DoesNotThrow(() => fet.SetArgument("name", "value"));
@@ -40,7 +38,7 @@ namespace Timetabling.Algorithms.Tests
         public void ConstructorTestArgs()
         {
 
-            var fet = new FetAlgorithm(fetPath, new CommandLineArguments
+            var fet = new FetAlgorithm(new CommandLineArguments
             {
                 { "key", "value" }
             });
@@ -50,28 +48,17 @@ namespace Timetabling.Algorithms.Tests
         }
 
         [Test]
-        public void NoExecutableProvidedTest()
-        {
-
-            // Instantiate FET algorithm with a null argument
-            var fet = new FetAlgorithmTest(null);
-
-            // Should throw a InvalidOperationException
-            var ex = Assert.Throws<AlgorithmException>(() => fet.Run());
-            Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
-
-        }
-
-        [Test]
         public void ExecutableNotFoundTest()
         {
 
             // Instantiate FET algorithm with a non existing executable
-            var fet = new FetAlgorithmTest("non_existing_file");
+            var fet = new FetAlgorithmTest();
 
             // Should throw a Win32Exception
             var ex = Assert.Throws<AlgorithmException>(() => fet.Run());
             Assert.That(ex.InnerException, Is.TypeOf<Win32Exception>());
+
+            Assert.Fail();
 
         }
 
@@ -80,7 +67,7 @@ namespace Timetabling.Algorithms.Tests
         {
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithm(null);
+            var fet = new FetAlgorithm();
 
             fet.SetArgument("testargument", "testvalue");
             var expected = "testvalue";
@@ -95,7 +82,7 @@ namespace Timetabling.Algorithms.Tests
         {
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithm(null);
+            var fet = new FetAlgorithm();
 
             // Add argument
             fet.SetArgument("testargument", "testvalue");
@@ -107,22 +94,7 @@ namespace Timetabling.Algorithms.Tests
 
         }
 
-        [Test]
-        public void InitializeTestRefreshId()
-        {
-
-            // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
-
-            // Initialize twice
-            fet.Initialize("path_to_inputfile");
-            var pre_id = fet.CurrentRunIdentifier;
-            fet.Initialize("path_to_inputfile");
-
-            // Check if identifier is refreshed
-            Assert.AreNotEqual(pre_id, fet.CurrentRunIdentifier);
-
-        }
+        
 
         [Test]
         public void InitializeTestInputfileArgument()
@@ -131,7 +103,7 @@ namespace Timetabling.Algorithms.Tests
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
+            var fet = new FetAlgorithmTest();
 
             // Initialize
             fet.Initialize(inputfile);
@@ -148,7 +120,7 @@ namespace Timetabling.Algorithms.Tests
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
+            var fet = new FetAlgorithmTest();
 
             // Initialize
             fet.Initialize(inputfile);
@@ -165,7 +137,7 @@ namespace Timetabling.Algorithms.Tests
             var inputfile = "non_existing_file";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(fetPath);
+            var fet = new FetAlgorithmTest();
 
             // Initialize
             fet.Initialize(inputfile);
@@ -182,13 +154,13 @@ namespace Timetabling.Algorithms.Tests
         {
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithm(fetPath, new CommandLineArguments
+            var fet = new FetAlgorithm(new CommandLineArguments
             {
                 {"timelimitseconds", "1" }
             });
 
             // Italy 2007 difficult usually takes more than one seconds
-            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/Italy/2007/difficult/highschool-Ancona.fet")));
+            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/fet/Italy/2007/difficult/highschool-Ancona.fet"));
 
             // Check that no input is generated
             // TODO: better test / implement this
@@ -198,18 +170,18 @@ namespace Timetabling.Algorithms.Tests
         [Test]
         public void RunTestInvalidFetFile()
         {
-            var fet = new FetAlgorithm(fetPath);
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testdata/fet/activities_missing.fet"));
+            var fet = new FetAlgorithm();
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/fet/activities_missing.fet"));
         }
 
         [Test]
         public void RunTestInvalidNoFetFileExtension()
         {
-            var fet = new FetAlgorithm(fetPath);
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testdata/books.xml"));
+            var fet = new FetAlgorithm();
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/books.xml"));
         }
 
-        public FetAlgorithmTest(string executableLocation, CommandLineArguments args = null) : base(executableLocation, args)
+        public FetAlgorithmTest(CommandLineArguments args = null) : base(args)
         {
         }
     }

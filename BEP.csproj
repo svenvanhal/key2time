@@ -6,8 +6,8 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{2E9F822F-947E-43EE-A440-33C280785651}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Timetable</RootNamespace>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Timetabling</RootNamespace>
     <AssemblyName>BEP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
@@ -32,14 +32,18 @@
     <PlatformTarget>x86</PlatformTarget>
     <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="timetable\Algorithms.Tests\FET\FetOutputProcessorTest.cs" />
     <Compile Include="timetable\Algorithms.Tests\FET\FetAlgorithmTest.cs" />
     <Compile Include="timetable\Algorithms\FET\FetAlgorithm.cs" />
+    <Compile Include="timetable\Algorithms\FET\FetInputGenerator.cs" />
     <Compile Include="timetable\Algorithms\FET\FetOutputProcessor.cs" />
     <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
     <Compile Include="timetable\Algorithms\Algorithm.cs" />
-    <Compile Include="timetable\Application.cs" />
+    <Compile Include="timetable\TimetableGenerator.cs" />
     <Compile Include="timetable\Helper.Tests\CommandLineArgumentsTest.cs" />
     <Compile Include="timetable\Resources\Timetable.cs" />
     <Compile Include="timetable\Helper\CommandLineArguments.cs" />
@@ -167,6 +171,7 @@
     <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="timetable\TimetableGenerator.Test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

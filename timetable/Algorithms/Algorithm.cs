@@ -13,9 +13,10 @@ namespace Timetabling.Algorithms
         /// <summary>
         /// Initialize and execute algorithm, return results.
         /// </summary>
+        /// <param name="identifier">Unique identifier for this algorithm run.</param>
         /// <param name="input">Input to run the algorithm on.</param>
         /// <returns>A Timetable object.</returns>
-        public abstract Timetable Execute(string input);
+        public abstract Timetable Execute(string identifier, string input);
 
         /// <summary>
         /// Algorithm initialization phase.

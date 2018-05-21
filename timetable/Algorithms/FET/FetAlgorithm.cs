@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Timetabling.DB;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
 
-namespace Timetabling.Algorithms
+namespace Timetabling.Algorithms.FET
 {
 
     /// <summary>
@@ -18,6 +19,11 @@ namespace Timetabling.Algorithms
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
+        /// Location of the FET program.
+        /// </summary>
+        private static readonly string ExecutableLocation = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
+
+        /// <summary>
         /// Algorithm .fet input file.
         /// </summary>
         protected string InputFile;
@@ -26,11 +32,6 @@ namespace Timetabling.Algorithms
         /// Algorithm output directory.
         /// </summary>
         protected string OutputDir;
-
-        /// <summary>
-        /// Location of the FET program.
-        /// </summary>
-        protected readonly string ExecutableLocation;
 
         /// <summary>
         /// FET-CL command line arguments.
@@ -58,18 +59,12 @@ namespace Timetabling.Algorithms
         };
 
         /// <summary>
-        /// Unique string to identify the current run of the algorithm. The FET output is stored using this identifier.
-        /// </summary>
-        public string CurrentRunIdentifier { get; private set; }
-
-        /// <summary>
         /// Instantiate new FET Algorithm instance.
         /// <param name="executableLocation">Location of the FET binary.</param>
         /// <param name="args">Additional command line arguments.</param>
         /// </summary>
-        public FetAlgorithm(string executableLocation, CommandLineArguments args = null)
+        public FetAlgorithm(CommandLineArguments args = null)
         {
-            ExecutableLocation = executableLocation;
             Arguments = args ?? new CommandLineArguments();
         }
 
@@ -96,8 +91,13 @@ namespace Timetabling.Algorithms
         }
 
         /// <inheritdoc />
-        public override Timetable Execute(string input)
+        public override Timetable Execute(string identifier, string input)
         {
+
+            // Set output dir
+            OutputDir = Util.CreateTempFolder(identifier);
+
+
 
             Initialize(input);
             Run();
@@ -122,13 +122,10 @@ namespace Timetabling.Algorithms
 
             Logger.Info("Initializing FET algorithm");
 
-            // Create unique identifier
-            RefreshIdentifier();
+            var inputGenerator = new FetInputGenerator();
+            InputFile = inputGenerator.GenerateFetFile(new DataModel(), OutputDir);
 
-            InputFile = input;
             SetArgument("inputfile", InputFile);
-
-            OutputDir = Util.CreateTempFolder(CurrentRunIdentifier);
             SetArgument("outputdir", OutputDir);
 
             Logger.Debug("Inputfile: " + InputFile);
@@ -226,14 +223,6 @@ namespace Timetabling.Algorithms
             Logger.Debug("Process arguments: " + startInfo.Arguments);
 
             return fetProcess;
-        }
-
-        /// <summary>
-        /// Generates a new identifier.
-        /// </summary>
-        private void RefreshIdentifier()
-        {
-            CurrentRunIdentifier = Guid.NewGuid().ToString("B");
         }
 
         /// <summary>

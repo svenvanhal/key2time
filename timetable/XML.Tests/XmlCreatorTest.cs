@@ -12,35 +12,26 @@ namespace Timetabling.XML
     [TestFixture()]
     public class XmlCreatorTest
     {
-        [Test()]
-        public void SingletonTest()
-        {
-			XmlCreator xmlCreator = XmlCreator.Instance;
-			XmlCreator xmlCreator2 = XmlCreator.Instance;
-
-			Assert.AreEqual(xmlCreator, xmlCreator2);
-
-        }
 
 		[Test]
 		public void CheckCorrectFetElement(){
-			XmlCreator xmlCreator = XmlCreator.Instance;
+			var xmlCreator = new XmlCreator();
 
 			Assert.AreEqual(xmlCreator.Writer().Elements("fet").Count(), 1);
 		}
 		[Test]
         public void CheckCorrectAddElement()
         {
-            XmlCreator xmlCreator = XmlCreator.Instance;
-			xmlCreator.AddToRoot(new XElement("test", "value"));
+            var xmlCreator = new XmlCreator();
+            xmlCreator.AddToRoot(new XElement("test", "value"));
 			Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 1);
         }
 
 		[Test]
         public void CheckCorrectAddElementArray()
         {
-            XmlCreator xmlCreator = XmlCreator.Instance;
-			List<XElement> list = new List<XElement>();
+            var xmlCreator = new XmlCreator();
+            List<XElement> list = new List<XElement>();
 			list.Add(new XElement("test", "value"));
 			list.Add(new XElement("test", "value2"));
             

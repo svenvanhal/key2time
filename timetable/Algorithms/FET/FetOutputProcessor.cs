@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using Timetabling.Exceptions;
 using Timetabling.Resources;
 
-namespace Timetabling.Algorithms
+namespace Timetabling.Algorithms.FET
 {
     internal class FetOutputProcessor
     {
