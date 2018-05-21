@@ -26,7 +26,7 @@ namespace Timetable.timetable.XML
         /// Gets the instance, if already created. If not, it creates an instance
         /// </summary>
         /// <value>The instance.</value>
-        public static XmlCreator Instance => instance ?? new XmlCreator();
+        public static XmlCreator Instance => instance ?? (instance = new XmlCreator());
 
         /// <summary>
         /// Retrieves the xDocument associated with the XmlCreator.
