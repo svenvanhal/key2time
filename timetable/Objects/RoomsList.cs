@@ -1,5 +1,6 @@
 ﻿using System;
-
+using System.Linq;
+using System.Xml.Linq;
 using Timetable.timetable.DB;
 namespace Timetable.timetable.Objects
 
@@ -10,10 +11,18 @@ namespace Timetable.timetable.Objects
 		{
 			SetListElement("Rooms_List");
 		}
-        
+
 		public override void Create()
 		{
-			throw new NotImplementedException();
+			var query = dB.School_BuildingsUnits.Where(room => room.IsActive == true)
+						  .Select(room => room.ID);
+
+			foreach (var room in query)
+			{
+
+				list.Add(new XElement("Room",
+									  new XElement("Name", room)));
+			}
 		}
 	}
 }

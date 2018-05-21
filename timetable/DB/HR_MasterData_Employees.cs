@@ -210,7 +210,8 @@ namespace Timetable.timetable.DB
   
 		public int? TotalWorkDays { get; set; }
 
-	
+		public int timeOffConstraint { get; set; }
+
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<HR_MasterData_Employees> HR_MasterData_Employees1 { get; set; }

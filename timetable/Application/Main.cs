@@ -25,6 +25,9 @@ namespace Timetable
 			var subjectsList = new SubjectsList(dB);
 			subjectsList.Create();
 
+			var roomsList = new RoomsList(dB);
+			roomsList.Create();
+
 			var activitiesList = new ActivitiesList(dB);
 			activitiesList.Create();
 
@@ -41,6 +44,7 @@ namespace Timetable
 			xmlCreator.AddToRoot(hoursList.GetList());
 			xmlCreator.AddToRoot(teachersList.GetList());
 			xmlCreator.AddToRoot(yearsList.GetList());
+			xmlCreator.AddToRoot(roomsList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
 			xmlCreator.AddToRoot(activitiesList.GetList());
 			xmlCreator.AddToRoot(timeConstraintsList.GetList());

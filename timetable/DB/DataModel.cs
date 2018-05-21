@@ -35,7 +35,9 @@ namespace Timetable.timetable.DB
         public virtual DbSet<Tt_SectionLessonConfiguration> Tt_SectionLessonConfiguration { get; set; }
         public virtual DbSet<Tt_TeacherAcademicInfo> Tt_TeacherAcademicInfo { get; set; }
         public virtual DbSet<Tt_TimeOff> Tt_TimeOff { get; set; }
-
+		public virtual DbSet<School_BuildingaUnitType> School_BuildingaUnitType { get; set; }
+        public virtual DbSet<School_BuildingsUnits> School_BuildingsUnits { get; set; }
+        public virtual DbSet<Subject_Category> Subject_Category { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
