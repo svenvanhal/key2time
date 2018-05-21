@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('packages\NUnit.3.10.1\build\NUnit.props')" />
   <PropertyGroup>
@@ -7,11 +6,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{2E9F822F-947E-43EE-A440-33C280785651}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Timetabling</RootNamespace>
+    <RootNamespace>Timetable</RootNamespace>
     <AssemblyName>BEP</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +20,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <DocumentationFile>bin\Debug\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>true</Optimize>
@@ -30,57 +27,123 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
-    <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="timetable\Algorithms.Tests\FetAlgorithmTest.cs" />
-    <Compile Include="timetable\Algorithms\FetAlgorithm.cs" />
-    <Compile Include="timetable\Exceptions\AlgorithmException.cs" />
-    <Compile Include="timetable\Algorithms\Algorithm.cs" />
-    <Compile Include="timetable\Application.cs" />
-    <Compile Include="timetable\Helper.Tests\CommandLineArgumentsTest.cs" />
-    <Compile Include="timetable\Resources\Timetable.cs" />
-    <Compile Include="timetable\Helper\CommandLineArguments.cs" />
-    <Compile Include="timetable\Helper\Util.cs" />
+    <Compile Include="timetable\Application\Main.cs" />
+    <Compile Include="timetable\DB\School_TeacherSubjects.cs" />
+    <Compile Include="timetable\DB\DataModel.cs" />
+    <Compile Include="timetable\DB\HR_MasterData_Employees.cs" />
+    <Compile Include="timetable\DB\Lookup_Month.cs" />
+    <Compile Include="timetable\DB\Lookup_Year.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Class.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Grade.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Section.cs" />
+    <Compile Include="timetable\DB\School_Lookup_Stage.cs" />
+    <Compile Include="timetable\DB\School_TeacherClass_Subjects.cs" />
+    <Compile Include="timetable\DB\Section_WeekEnd.cs" />
+    <Compile Include="timetable\DB\Subject_MasterData_Subject.cs" />
+    <Compile Include="timetable\DB\Subject_SubjectGrade.cs" />
+    <Compile Include="timetable\DB\SubjectClassLesson.cs" />
+    <Compile Include="timetable\DB\TeacherClassSubjectGroup.cs" />
+    <Compile Include="timetable\DB\tt_Class.cs" />
+    <Compile Include="timetable\DB\tt_ClassGroup.cs" />
+    <Compile Include="timetable\DB\tt_GradeLesson.cs" />
+    <Compile Include="timetable\DB\tt_SectionLessonConfiguration.cs" />
+    <Compile Include="timetable\DB\tt_TeacherAcademicInfo.cs" />
+    <Compile Include="timetable\DB\tt_TimeOff.cs" />
+    <Compile Include="timetable\XML\XmlCreator.cs" />
+    <Compile Include="timetable\Objects\TeachersList.cs" />
+    <Compile Include="timetable\Objects\AbstractList.cs" />
+    <Compile Include="timetable\Objects\SubjectsList.cs" />
+    <Compile Include="timetable\Objects\DaysList.cs" />
+    <Compile Include="timetable\Objects\Days.cs" />
+    <Compile Include="timetable\Objects\HoursList.cs" />
+    <Compile Include="timetable\Objects\ActivityTagList.cs" />
+    <Compile Include="timetable\Objects\RoomsList.cs" />
+    <Compile Include="timetable\Objects\ActivitiesList.cs" />
+    <Compile Include="timetable\Objects\YearsList.cs" />
+    <Compile Include="timetable\Objects\TimeConstraintsList.cs" />
+    <Compile Include="timetable\Objects\Constraints\AbstractConstraint.cs" />
+    <Compile Include="timetable\Objects\SpaceConstraintsList.cs" />
+    <Compile Include="timetable\Objects\Constraints\SpaceConstraints\ConstraintBasicCompulsorySpace.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintBasicCompulsoryTime.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursContinuously.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursDaily.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursContinuouslyTest.cs" />
+    <Compile Include="timetable\Objects.Tests\TeachersListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\DaysListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\SubjectsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\ActiviteitsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\YearsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\TimeConstraintsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\SpaceConstraintsListTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursDailyTest.cs" />
+    <Compile Include="timetable\Objects.Tests\HoursListTest.cs" />
+    <Compile Include="timetable\XML.Tests\XmlCreatorTest.cs" />
+    <Compile Include="timetable\Objects.Tests\RoomsListTest.cs" />
+    <Compile Include="timetable\Objects.Tests\ActivityTagListTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintStudentsSetNotAvailableTimes.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetNotAvailableTimesTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintTeacgerNotAvailableTimesTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>packages\NLog.4.5.4\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="EntityFramework">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
+      <HintPath>packages\Microsoft.CodeCoverage.1.0.3\lib\netstandard1.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Moq">
+      <HintPath>packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include=".travis.yml" />
+    <None Include="packages.config" />
     <None Include=".gitignore" />
-    <None Include="testdata\fet\activities_missing.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\United-Kingdom\Hopwood\Hopwood.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="testdata\fet\Italy\2007\difficult\highschool-Ancona.fet">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="timetable\DB\" />
+    <Folder Include="timetable\XML\" />
+    <Folder Include="timetable\Objects\" />
+    <Folder Include="timetable\Application.Tests\" />
+    <Folder Include="timetable\Objects\Constraints\" />
+    <Folder Include="timetable\Objects\Constraints\TimeConstraints\" />
+    <Folder Include="timetable\Objects\Constraints\SpaceConstraints\" />
+    <Folder Include="timetable\Objects\Constraints\TimeConstraints.Tests\" />
+    <Folder Include="timetable\Objects\Constraints\SpaceConstraints.Tests\" />
+    <Folder Include="timetable\Objects.Tests\" />
+    <Folder Include="timetable\XML.Tests\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -89,26 +152,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.10.1\build\NUnit.props'))" />
     <Error Condition="!Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props'))" />
-  </Target>
-  <ItemGroup>
-    <LibWindows Include="$(ProjectDir)lib\windowsnt\**\*.*" />
-    <LibMacOS Include="$(ProjectDir)lib\unix\*.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="appveyor.yml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="testdata\books.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <Target Name="BeforeBuild">
-    <RemoveDir Directories="$(TargetDir)lib\" />
-  </Target>
-  <Target Name="AfterBuild">
-    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows->'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
-    <Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
-    <Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />
   </Target>
 </Project>
