@@ -1,0 +1,6 @@
+﻿<connectionStrings>
+  <clear/>
+  <add name="DataModel"
+       providerName="System.Data.SqlClient"
+       connectionString="data source=;User ID=;Password=;initial catalog=;persist security info=True;MultipleActiveResultSets=True;App=EntityFramework;Connect Timeout=1;ConnectRetryInterval=1;ConnectRetryCount=1" />
+</connectionStrings>

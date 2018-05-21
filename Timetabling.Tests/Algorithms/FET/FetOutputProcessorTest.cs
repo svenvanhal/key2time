@@ -4,9 +4,10 @@ using System.IO;
 using NUnit.Framework;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text;
+using Timetabling.Algorithms.FET;
 using Timetabling.Exceptions;
 
-namespace Timetabling.Algorithms.FET.Tests
+namespace Timetabling.Tests.Algorithms.FET
 {
 
     [TestFixture]

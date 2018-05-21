@@ -11,6 +11,8 @@ namespace Timetabling
     public class TimetableGenerator
     {
 
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Unique string to identify the current run of an algorithm.
         /// </summary>
@@ -21,6 +23,8 @@ namespace Timetabling
         /// </summary>
         public Timetable RunAlgorithm(Algorithm algorithm, string inputfile)
         {
+
+            Logger.Info($"Starting algorithm run - {algorithm.GetType()}");
 
             // Generate new ID for this algorithm run
             RefreshIdentifier();
@@ -37,6 +41,8 @@ namespace Timetabling
         public void RefreshIdentifier()
         {
             CurrentRunIdentifier = Guid.NewGuid().ToString("B");
+
+            Logger.Info($"Generated new identifier - {CurrentRunIdentifier}");
         }
 
 

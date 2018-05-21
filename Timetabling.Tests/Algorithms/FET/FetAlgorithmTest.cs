@@ -1,17 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
+using Timetabling.Algorithms.FET;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 
-namespace Timetabling.Algorithms.FET.Tests
+namespace Timetabling.Tests.Algorithms.FET
 {
 
     [TestFixture(null)]
     public class FetAlgorithmTest : FetAlgorithm
     {
+
+        public FetAlgorithmTest(CommandLineArguments args) : base(args) { }
 
         [Test]
         public void IntegrationTest()
@@ -48,21 +50,6 @@ namespace Timetabling.Algorithms.FET.Tests
         }
 
         [Test]
-        public void ExecutableNotFoundTest()
-        {
-
-            // Instantiate FET algorithm with a non existing executable
-            var fet = new FetAlgorithmTest();
-
-            // Should throw a Win32Exception
-            var ex = Assert.Throws<AlgorithmException>(() => fet.Run());
-            Assert.That(ex.InnerException, Is.TypeOf<Win32Exception>());
-
-            Assert.Fail();
-
-        }
-
-        [Test]
         public void ArgumentTestGetSet()
         {
 
@@ -94,7 +81,7 @@ namespace Timetabling.Algorithms.FET.Tests
 
         }
 
-        
+
 
         [Test]
         public void InitializeTestInputfileArgument()
@@ -103,7 +90,7 @@ namespace Timetabling.Algorithms.FET.Tests
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest();
+            var fet = new FetAlgorithmTest(null);
 
             // Initialize
             fet.Initialize(inputfile);
@@ -120,7 +107,7 @@ namespace Timetabling.Algorithms.FET.Tests
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest();
+            var fet = new FetAlgorithmTest(null);
 
             // Initialize
             fet.Initialize(inputfile);
@@ -137,7 +124,7 @@ namespace Timetabling.Algorithms.FET.Tests
             var inputfile = "non_existing_file";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest();
+            var fet = new FetAlgorithmTest(null);
 
             // Initialize
             fet.Initialize(inputfile);
@@ -181,8 +168,5 @@ namespace Timetabling.Algorithms.FET.Tests
             Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/books.xml"));
         }
 
-        public FetAlgorithmTest(CommandLineArguments args = null) : base(args)
-        {
-        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data.Entity.Core.Mapping;
+using System.Diagnostics;
 using Timetabling;
 using Timetabling.Algorithms.FET;
+using Timetabling.DB;
 
 namespace Implementation
 {
@@ -8,13 +11,19 @@ namespace Implementation
     {
         static void Main(string[] args)
         {
+            
+            var sw = new Stopwatch();
+            sw.Start();
 
-            var fet = new FetAlgorithm();
-            var input = "./testdata/fet/United-Kingdom/Hopwood/Hopwood.fet";
+            using (var dm = new DataModel())
+            {
+                dm.Database.Exists();
+            }
 
-            var tt = new TimetableGenerator();
-            tt.RunAlgorithm(fet, input);
+            Console.WriteLine(sw.ElapsedMilliseconds);
 
+            sw.Stop();
+            
             Console.WriteLine("Hello World!");
             Console.Read();
         }

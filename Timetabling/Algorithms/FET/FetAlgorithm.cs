@@ -121,8 +121,7 @@ namespace Timetabling.Algorithms.FET
 
             Logger.Info("Initializing FET algorithm");
 
-            var inputGenerator = new FetInputGenerator();
-            InputFile = inputGenerator.GenerateFetFile(new DataModel(), OutputDir);
+            InputFile = input;
 
             SetArgument("inputfile", InputFile);
             SetArgument("outputdir", OutputDir);

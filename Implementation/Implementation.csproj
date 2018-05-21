@@ -56,6 +56,12 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="connection.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Hopwood.fet">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="lib\unix\fet\fet-cl" />
   </ItemGroup>
   <ItemGroup>

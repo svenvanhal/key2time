@@ -1,6 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
-using Timetabling.Algorithms;
+﻿using NUnit.Framework;
 
 namespace Timetabling.Tests
 {
@@ -14,11 +12,11 @@ namespace Timetabling.Tests
 
             var ttg = new TimetableGenerator();
 
-            var pre_id = ttg.CurrentRunIdentifier;
+            var previousIdentifier = ttg.CurrentRunIdentifier;
             ttg.RefreshIdentifier();
 
             // Check if identifier is refreshed
-            Assert.AreNotEqual(pre_id, ttg.CurrentRunIdentifier);
+            Assert.AreNotEqual(previousIdentifier, ttg.CurrentRunIdentifier);
 
         }
 

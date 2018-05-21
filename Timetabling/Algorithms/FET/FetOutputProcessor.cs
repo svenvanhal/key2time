@@ -9,7 +9,8 @@ using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
 {
-    internal class FetOutputProcessor
+
+    public class FetOutputProcessor
     {
 
         private readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();

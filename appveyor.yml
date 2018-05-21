@@ -6,6 +6,7 @@ environment:
     secure: HobKj9CWHWwV9LmS5N8vK7YZU9+AmzwJJCdMxQz6L7slWsPOpIp8psdq5jaCX5sa
 before_build:
   - nuget restore
+  - rename "Implementation/connection.config.appveyor" connection.config
 build:
   project: BEP.sln
   verbosity: normal

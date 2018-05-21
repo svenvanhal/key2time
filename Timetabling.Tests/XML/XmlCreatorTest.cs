@@ -1,13 +1,10 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 using System.Xml.Linq;
-using System.IO;
+using Timetabling.XML;
 
-namespace Timetabling.XML
+namespace Timetabling.Tests.XML
 {
     [TestFixture()]
     public class XmlCreatorTest

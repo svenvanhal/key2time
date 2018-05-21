@@ -441,3 +441,5 @@ __pycache__/
 .axoCover/
 Dockerfile
 opencover.xml
+
+**/connection.config

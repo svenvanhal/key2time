@@ -39,6 +39,7 @@
     <Compile Include="Algorithms\FET\FetAlgorithm.cs" />
     <Compile Include="Algorithms\FET\FetInputGenerator.cs" />
     <Compile Include="Algorithms\FET\FetOutputProcessor.cs" />
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Exceptions\AlgorithmException.cs" />
     <Compile Include="Algorithms\Algorithm.cs" />
     <Compile Include="TimetableGenerator.cs" />
@@ -115,18 +116,12 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
-    <Reference Include="Castle.Core">
-      <HintPath>packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System.ValueTuple">
       <HintPath>packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

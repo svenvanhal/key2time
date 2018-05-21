@@ -1,18 +1,13 @@
+using System.Data.Entity;
+
 namespace Timetabling.DB
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Xml;
-    using Timetabling.XML;
-    using System.Xml.Linq;
 
     public partial class DataModel : DbContext
     {
-        public DataModel()
-            : base("name=DataModel")
+        public DataModel() : base("name=DataModel")
         {
+
         }
 
         public virtual DbSet<HR_MasterData_Employees> HR_MasterData_Employees { get; set; }
