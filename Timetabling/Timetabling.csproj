@@ -8,7 +8,7 @@
     <ProjectGuid>{2E9F822F-947E-43EE-A440-33C280785651}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Timetabling</RootNamespace>
-    <AssemblyName>BEP</AssemblyName>
+    <AssemblyName>Timetabling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
