@@ -62,17 +62,7 @@ namespace Timetable.timetable.DB
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<tt_ClassGroup> tt_ClassGroup { get; set; }
-
-
-		/// <summary>
-		/// Returns the XElement representation of class
-		/// </summary>
-		/// <returns>The XElement.</returns>
-		public XElement ToXElement()
-		{
-			return new XElement("grade", new XElement("ClassID", this.Id),
-								new XElement("Classname", this.className));
-		}
+      
 
 	}
 }
