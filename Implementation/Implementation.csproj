@@ -63,6 +63,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="lib\unix\fet\fet-cl" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\windowsnt\fet\fet-cl.exe" />
