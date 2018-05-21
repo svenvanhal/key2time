@@ -92,7 +92,6 @@
     <Compile Include="Objects\TeachersListTest.cs" />
     <Compile Include="Objects\TimeConstraintsListTest.cs" />
     <Compile Include="Objects\YearsListTest.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimetableGenerator.Test.cs" />
     <Compile Include="XML\XmlCreatorTest.cs" />
