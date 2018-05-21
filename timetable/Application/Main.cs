@@ -11,7 +11,7 @@ namespace Timetable
 		public static void Main()
         {
             var dB = new DataModel();
-            XmlCreator xmlCreator = XmlCreator.Instance;
+            var xmlCreator = XmlCreator.Instance;
 
 			var daysList = new DaysList(dB);
             daysList.Create();

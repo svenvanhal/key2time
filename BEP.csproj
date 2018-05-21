@@ -45,8 +45,6 @@
     <Compile Include="timetable\DB\Subject_SubjectGrade.cs" />
     <Compile Include="timetable\DB\SubjectClassLesson.cs" />
     <Compile Include="timetable\DB\TeacherClassSubjectGroup.cs" />
-    <Compile Include="timetable\DB\tt_Break.cs" />
-    <Compile Include="timetable\DB\tt_BreakGrade.cs" />
     <Compile Include="timetable\DB\tt_Class.cs" />
     <Compile Include="timetable\DB\tt_ClassGroup.cs" />
     <Compile Include="timetable\DB\tt_GradeLesson.cs" />
