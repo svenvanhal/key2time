@@ -31,12 +31,12 @@ namespace Timetabling.XML
         public void CheckCorrectAddElementArray()
         {
             var xmlCreator = new XmlCreator();
-            List<XElement> list = new List<XElement>();
+            var list = new List<XElement>();
 			list.Add(new XElement("test", "value"));
 			list.Add(new XElement("test", "value2"));
             
 			xmlCreator.AddToRoot(list.ToArray());
-            Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 3);
+            Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 2);
         }
     }
 }

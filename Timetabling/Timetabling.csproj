@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('packages\NUnit.3.10.1\build\NUnit.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{2E9F822F-947E-43EE-A440-33C280785651}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Timetabling</RootNamespace>
+    <AssemblyName>BEP</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Debug\Documentation.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Release\Documentation.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\FET\FetAlgorithm.cs" />
+    <Compile Include="Algorithms\FET\FetInputGenerator.cs" />
+    <Compile Include="Algorithms\FET\FetOutputProcessor.cs" />
+    <Compile Include="Exceptions\AlgorithmException.cs" />
+    <Compile Include="Algorithms\Algorithm.cs" />
+    <Compile Include="TimetableGenerator.cs" />
+    <Compile Include="Resources\Timetable.cs" />
+    <Compile Include="Exceptions\Helper\CommandLineArguments.cs" />
+    <Compile Include="Exceptions\Helper\Util.cs" />
+    <Compile Include="DB\School_TeacherSubjects.cs" />
+    <Compile Include="DB\DataModel.cs" />
+    <Compile Include="DB\HR_MasterData_Employees.cs" />
+    <Compile Include="DB\Lookup_Month.cs" />
+    <Compile Include="DB\Lookup_Year.cs" />
+    <Compile Include="DB\School_Lookup_Class.cs" />
+    <Compile Include="DB\School_Lookup_Grade.cs" />
+    <Compile Include="DB\School_Lookup_Section.cs" />
+    <Compile Include="DB\School_Lookup_Stage.cs" />
+    <Compile Include="DB\School_TeacherClass_Subjects.cs" />
+    <Compile Include="DB\Section_WeekEnd.cs" />
+    <Compile Include="DB\Subject_MasterData_Subject.cs" />
+    <Compile Include="DB\Subject_SubjectGrade.cs" />
+    <Compile Include="DB\SubjectClassLesson.cs" />
+    <Compile Include="DB\TeacherClassSubjectGroup.cs" />
+    <Compile Include="DB\Tt_Class.cs" />
+    <Compile Include="DB\Tt_ClassGroup.cs" />
+    <Compile Include="DB\Tt_GradeLesson.cs" />
+    <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
+    <Compile Include="DB\Tt_TeacherAcademicInfo.cs" />
+    <Compile Include="DB\Tt_TimeOff.cs" />
+    <Compile Include="XML\XmlCreator.cs" />
+    <Compile Include="Objects\TeachersList.cs" />
+    <Compile Include="Objects\AbstractList.cs" />
+    <Compile Include="Objects\SubjectsList.cs" />
+    <Compile Include="Objects\DaysList.cs" />
+    <Compile Include="Objects\Days.cs" />
+    <Compile Include="Objects\HoursList.cs" />
+    <Compile Include="Objects\ActivitiesList.cs" />
+    <Compile Include="Objects\YearsList.cs" />
+    <Compile Include="Objects\TimeConstraintsList.cs" />
+    <Compile Include="Objects\Constraints\AbstractConstraint.cs" />
+    <Compile Include="Objects\SpaceConstraintsList.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintBasicCompulsorySpace.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintBasicCompulsoryTime.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursContinuously.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursDaily.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.4\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Abstractions, Version=2.1.0.178, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Abstractions.2.1.0.178\lib\net40\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

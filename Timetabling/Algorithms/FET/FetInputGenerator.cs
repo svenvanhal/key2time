@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using Timetabling.DB;
+﻿using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.XML;
 

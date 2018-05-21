@@ -1,0 +1,981 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Activities_Timetable>
+<Activity>
+	<Id>3</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>4</Id>
+	<Day>Monday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>5</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>6</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>7</Id>
+	<Day>Monday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>8</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>9</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>10</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>12</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>13</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>14</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>15</Id>
+	<Day>Wednesday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>17</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>18</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>19</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>24</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>25</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>27</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>28</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>29</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>30</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>31</Id>
+	<Day>Monday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>32</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>33</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>34</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>35</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>36</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>38</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room></Room>
+</Activity>
+<Activity>
+	<Id>39</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>45</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>47</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>48</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>49</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>50</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>52</Id>
+	<Day>Saturday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>62</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>63</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>64</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>65</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>66</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B311</Room>
+</Activity>
+<Activity>
+	<Id>67</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>68</Id>
+	<Day>Monday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>69</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>70</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>71</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>72</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>74</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>75</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>76</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>77</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>78</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>79</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>80</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>81</Id>
+	<Day>Monday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>82</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>83</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>84</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>85</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>86</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>87</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>88</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>89</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>90</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>A217</Room>
+</Activity>
+<Activity>
+	<Id>91</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>92</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>95</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>96</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>97</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>98</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>99</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>A217</Room>
+</Activity>
+<Activity>
+	<Id>100</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>101</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>102</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>103</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B311</Room>
+</Activity>
+<Activity>
+	<Id>104</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>105</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>106</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>107</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>108</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>109</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>110</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>111</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>112</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>113</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>114</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>115</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B310</Room>
+</Activity>
+<Activity>
+	<Id>116</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>117</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>118</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>119</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>120</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>121</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>122</Id>
+	<Day>Monday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>123</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B303</Room>
+</Activity>
+<Activity>
+	<Id>124</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>125</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>126</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B318</Room>
+</Activity>
+<Activity>
+	<Id>127</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>128</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B225</Room>
+</Activity>
+<Activity>
+	<Id>129</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B312</Room>
+</Activity>
+<Activity>
+	<Id>130</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>A217</Room>
+</Activity>
+<Activity>
+	<Id>131</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>133</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>134</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>A213</Room>
+</Activity>
+<Activity>
+	<Id>135</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B314</Room>
+</Activity>
+<Activity>
+	<Id>136</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>A208</Room>
+</Activity>
+<Activity>
+	<Id>137</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Hebron</Room>
+</Activity>
+<Activity>
+	<Id>138</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Hebron</Room>
+</Activity>
+<Activity>
+	<Id>139</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>140</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B302</Room>
+</Activity>
+<Activity>
+	<Id>141</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Hebron</Room>
+</Activity>
+<Activity>
+	<Id>142</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Hebron</Room>
+</Activity>
+<Activity>
+	<Id>143</Id>
+	<Day>Monday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>B311</Room>
+</Activity>
+<Activity>
+	<Id>144</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305A</Room>
+</Activity>
+<Activity>
+	<Id>146</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>147</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>148</Id>
+	<Day>Wednesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>149</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>150</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Middleton1</Room>
+</Activity>
+<Activity>
+	<Id>151</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>152</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>153</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>Bolton</Room>
+</Activity>
+<Activity>
+	<Id>154</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>ASH212 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>155</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>L301 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>156</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>L301 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>158</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Bolton</Room>
+</Activity>
+<Activity>
+	<Id>159</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>160</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Middleton2</Room>
+</Activity>
+<Activity>
+	<Id>161</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>163</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>HW32 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>164</Id>
+	<Day>Thursday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>ASH113 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>165</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>166</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>ASH113 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>168</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>L301 (Midd)</Room>
+</Activity>
+<Activity>
+	<Id>169</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>171</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B313A</Room>
+</Activity>
+<Activity>
+	<Id>172</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B313A</Room>
+</Activity>
+<Activity>
+	<Id>173</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B114</Room>
+</Activity>
+<Activity>
+	<Id>174</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>A103</Room>
+</Activity>
+<Activity>
+	<Id>175</Id>
+	<Day>Monday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Stansfield</Room>
+</Activity>
+<Activity>
+	<Id>176</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Crescent Partnership</Room>
+</Activity>
+<Activity>
+	<Id>177</Id>
+	<Day>Tuesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>178</Id>
+	<Day>Tuesday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>179</Id>
+	<Day>Tuesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>Middleton</Room>
+</Activity>
+<Activity>
+	<Id>180</Id>
+	<Day>Wednesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>181</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Pringle St</Room>
+</Activity>
+<Activity>
+	<Id>182</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B305</Room>
+</Activity>
+<Activity>
+	<Id>183</Id>
+	<Day>Thursday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>B309</Room>
+</Activity>
+<Activity>
+	<Id>184</Id>
+	<Day>Thursday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B318</Room>
+</Activity>
+<Activity>
+	<Id>185</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B301</Room>
+</Activity>
+<Activity>
+	<Id>186</Id>
+	<Day>Friday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>Crescent Partnership</Room>
+</Activity>
+<Activity>
+	<Id>187</Id>
+	<Day>Tuesday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>188</Id>
+	<Day>Thursday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>189</Id>
+	<Day>Friday</Day>
+	<Hour>9.30 - 11.00</Hour>
+	<Room>Sparth Comm Centre</Room>
+</Activity>
+<Activity>
+	<Id>190</Id>
+	<Day>Tuesday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>191</Id>
+	<Day>Thursday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>192</Id>
+	<Day>Friday</Day>
+	<Hour>11.15 - 12.45</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>193</Id>
+	<Day>Monday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>195</Id>
+	<Day>Wednesday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>196</Id>
+	<Day>Thursday</Day>
+	<Hour>13.00 - 15.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>197</Id>
+	<Day>Monday</Day>
+	<Hour>15.30 - 17.30</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>198</Id>
+	<Day>Monday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B306</Room>
+</Activity>
+<Activity>
+	<Id>199</Id>
+	<Day>Wednesday</Day>
+	<Hour>18.15 - 20.15</Hour>
+	<Room>B306</Room>
+</Activity>
+</Activities_Timetable>
