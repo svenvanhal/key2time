@@ -157,6 +157,8 @@ namespace Timetabling.Tests.Algorithms.FET
             var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier",
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "Italy", "2007", "difficult", "highschool-Ancona.fet")));
 
+            Assert.AreEqual("No timetable is generated: the FET output file could not be found.", ex.Message);
+
             // Check that no input is generated
             // TODO: better test / implement this
             Assert.That(ex.InnerException, Is.TypeOf<FileNotFoundException>());
@@ -166,8 +168,10 @@ namespace Timetabling.Tests.Algorithms.FET
         public void RunTestInvalidFetFile()
         {
             var fet = new FetAlgorithm();
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", 
+            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", 
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "activities_missing.fet")));
+
+            Assert.AreEqual("Could not execute FET algorithm.", ex.Message);
         }
 
         [Test]
