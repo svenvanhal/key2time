@@ -38,7 +38,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 			mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
 			var data3 = new List<Subject_SubjectGrade>{
-				new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =1
+				new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4,NumberOfLlessonsPerDay =1,  SubjectID =1
 				}
 			}.AsQueryable();
 

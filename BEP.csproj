@@ -91,6 +91,8 @@
     <Compile Include="timetable\DB\Subject_Category.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivities.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintMinDaysBetweenActivitiesTest.cs" />
+    <Compile Include="timetable\Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimes.cs" />
+    <Compile Include="timetable\Objects\Constraints\SpaceConstraints.Tests\ConstraintRoomNotAvailableTimesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">

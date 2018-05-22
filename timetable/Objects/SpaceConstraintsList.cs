@@ -8,6 +8,8 @@ namespace Timetable.timetable.Objects
 
 {
 	using System.Linq;
+	using Timetable.timetable.Objects.Constraints.SpaceConstraints;
+
 	public class SpaceConstraintsList : AbstractList
 	{
 
@@ -35,7 +37,9 @@ namespace Timetable.timetable.Objects
         /// </summary>
 		private void CreateConstraints()
 		{
-			list.Add(new ConstraintBasicCompulsorySpace().ToXelement());         
+			list.Add(new ConstraintBasicCompulsorySpace().ToXelement());
+			constraints.Add(new ConstraintRoomNotAvailableTimes());
+
 		}       
 	}
 }

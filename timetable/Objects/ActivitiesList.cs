@@ -24,7 +24,7 @@ namespace Timetable.timetable.Objects
 			var query = from activity in dB.School_TeacherClass_Subjects
 						join c in dB.School_Lookup_Class on activity.ClassID equals c.ClassID
 						join s in dB.Subject_SubjectGrade on new { activity.SubjectID, c.GradeID } equals new { s.SubjectID, s.GradeID }
-						select new { activity.TeacherID, activity.SubjectID, c.ClassName, activity.ID, s.NumberOfLlessonsPerWeek };
+			select new { activity.TeacherID, activity.SubjectID, c.ClassName, activity.ID, s.NumberOfLlessonsPerWeek , s.NumberOfLlessonsPerDay};
 			foreach (var item in query)
 			{
 				int groupId = counter;
@@ -34,12 +34,12 @@ namespace Timetable.timetable.Objects
 					list.Add(new XElement("Activity",
 										  new XElement("Teacher", item.TeacherID),
 										  new XElement("Subject", item.SubjectID),
-										  new XElement("Students", item.ClassName), 
+										  new XElement("Students", item.ClassName),
 										  new XElement("Id", counter),
-					                      new XElement("Activity_Group_Id", groupId), 
-                                          
-										  new XElement("Duration", '1'),
-					                      new XElement("Total_Duration", item.NumberOfLlessonsPerWeek)
+										  new XElement("Activity_Group_Id", groupId),
+
+										  new XElement("Duration", item.NumberOfLlessonsPerDay),
+										  new XElement("Total_Duration", item.NumberOfLlessonsPerWeek * item.NumberOfLlessonsPerDay)
 									)
 								);
 
