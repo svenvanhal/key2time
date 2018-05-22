@@ -48,9 +48,6 @@
     <Content Include="connection.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Hopwood.fet">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="lib\unix\fet\fet-cl" />
     <None Include="packages.config" />
   </ItemGroup>
