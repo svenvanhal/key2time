@@ -1,15 +1,20 @@
 ﻿version: 1.0.{build}
 skip_tags: true
+platform: x86
 configuration: Debug
+
 environment:
   COVERALLS_REPO_TOKEN:
     secure: HobKj9CWHWwV9LmS5N8vK7YZU9+AmzwJJCdMxQz6L7slWsPOpIp8psdq5jaCX5sa
+
 before_build:
   - nuget restore
   - rename ".\Implementation\connection.config.appveyor" connection.config
+
 build:
   project: BEP.sln
   verbosity: normal
+
 test_script:
   - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -targetargs:".\BEP.sln --result=TestData.xml --skipnontestassemblies" -filter:"+[Timetabling]*" -output:opencover.xml -returntargetcode
   - packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover opencover.xml
