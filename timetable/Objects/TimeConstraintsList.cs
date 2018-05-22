@@ -41,6 +41,7 @@ namespace Timetable.timetable.Objects
 			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
 			constraints.Add(new ConstraintTeacherNotAvailableTimes());
 			constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
+			constraints.Add(new ConstraintMinDaysBetweenActivities());
 		}
 	}
 }

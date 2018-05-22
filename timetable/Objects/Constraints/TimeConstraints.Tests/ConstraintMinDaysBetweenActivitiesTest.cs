@@ -1,24 +1,20 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
-using Moq;
-using System.Data.Entity;
-using Timetable.timetable.Objects;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Timetable.timetable.DB;
 
-namespace Timetable.timetable.DB.Tests
+namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 {
-	[TestFixture()]
-	public class ActivitiesListTest
+	public class ConstraintMinDaysBetweenActivitiesTest
 	{
-
-		XElement test;
+		Mock<DataModel> test;
 
 		[SetUp]
 		public void Init()
 		{
-
 			var data = new List<School_TeacherClass_Subjects>{
 				new School_TeacherClass_Subjects{ ClassID = 1, SubjectID = 1,  TeacherID = 0},
 				new School_TeacherClass_Subjects{ ClassID = 2, SubjectID = 0,  TeacherID = 4},
@@ -43,9 +39,7 @@ namespace Timetable.timetable.DB.Tests
 
 			var data3 = new List<Subject_SubjectGrade>{
 				new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =1
-				},
-				new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, SubjectID =0
-				},
+				}
 			}.AsQueryable();
 
 			var mockSet3 = new Mock<DbSet<Subject_SubjectGrade>>();
@@ -58,71 +52,43 @@ namespace Timetable.timetable.DB.Tests
 			mockDB.Setup(item => item.School_TeacherClass_Subjects).Returns(mockSet.Object);
 			mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSet2.Object);
 			mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet3.Object);
-			var list = new ActivitiesList(mockDB.Object);
-			list.Create();
-			test = list.GetList();
+
+			test = mockDB;
+		}
+
+		[Test()]
+		public void TestConstruct()
+
+		{
+			ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
+			Assert.AreEqual("ConstraintMinDaysBetweenActivities", constraint.ToXelement().Name.ToString());
+		}
+
+
+		[Test]
+		public void CreateNumberOfActivitiesTest()
+		{
+			ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
+
+
+			var result = constraint.Create(test.Object);
+			Assert.AreEqual("4", result.First().Elements("Number_of_Activities").First().Value);
+			Assert.AreNotEqual("6", result.First().Elements("Number_of_Activities").First().Value);
 
 		}
 
 		[Test]
-		public void ElementNameTest()
-		{
-			Assert.AreEqual("Activities_List", test.Name.ToString());
-		}
+        public void CreateNumberOfActivityElementsTest()
+        {
+            ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
 
-		[Test]
-		public void ActivityIDRightTest()
-		{
-			Assert.AreEqual(1, test.Elements("Activity").Elements("Id").Count(item => item.Value.Equals("1")));
 
-		}
+            var result = constraint.Create(test.Object);
 
-		[Test]
-		public void ActivityGroupIDTest()
-		{
-			Assert.AreEqual(4, test.Elements("Activity").Elements("Activity_Group_Id").Count(item => item.Value.Equals("1")));
+			   
+			Assert.AreEqual(4, result.First().Elements("Activity_Id").Count());
 
-		}
-		[Test]
-		public void ActivityTeacherRightTest()
-		{
-			Assert.AreEqual(4, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
-
-		}
-
-		[Test]
-		public void ActivityTeacherWrongTest()
-		{
-			Assert.AreEqual(0, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("3")));
-
-		}
-        
-		[Test]
-		public void ActivitySubjectRightTest()
-		{
-			Assert.AreEqual(6, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
-
-		}
-
-		[Test]
-		public void ActivitySubjectWrongTest()
-		{
-			Assert.AreEqual(0, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("3")));
-
-		}
-
-		[Test]
-		public void ActivityClassRightTest()
-		{
-			Assert.AreEqual(4, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test")));
-
-		}
-
-		[Test]
-		public void ActivityClassWrongTest()
-		{
-			Assert.AreEqual(0, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("wrong")));
-
-		}
+        }
 	}
+
 }

@@ -29,7 +29,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 
 
 			var dataClass = new List<School_Lookup_Class>{
-				new School_Lookup_Class{ClassID = 4, ClassName = "testGrade"},
+				new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 50},
 			}.AsQueryable();
 
 			var mockSetClass = new Mock<DbSet<School_Lookup_Class>>();
@@ -60,8 +60,8 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints.Tests
 		public void CreateTest()
 		{
 			ConstraintStudentsSetNotAvailableTimes constraint = new ConstraintStudentsSetNotAvailableTimes();
-			ConstraintStudentsSetNotAvailableTimes constraintTest = new ConstraintStudentsSetNotAvailableTimes { day = (Days)2, students = "testGrade", hour = 3 };
-			ConstraintStudentsSetNotAvailableTimes constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { day = (Days)3, students = "testGrade", hour = 3 };
+			ConstraintStudentsSetNotAvailableTimes constraintTest = new ConstraintStudentsSetNotAvailableTimes { day = (Days)2, students = "testGrade", hour = 3, weight = 50};
+			ConstraintStudentsSetNotAvailableTimes constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { day = (Days)3, students = "testGrade", hour = 3, weight = 50 };
 
 
 			XElement[] result = constraint.Create(test.Object);

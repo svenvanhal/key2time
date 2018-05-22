@@ -28,6 +28,8 @@ namespace Timetable.timetable.DB
 
         public int? colorId { get; set; }
 
+		public int timeOffConstraint { get; set; }
+
         public bool? IsShared { get; set; }
 
         public bool? IsHome { get; set; }

@@ -58,7 +58,6 @@
     <Compile Include="timetable\Objects\DaysList.cs" />
     <Compile Include="timetable\Objects\Days.cs" />
     <Compile Include="timetable\Objects\HoursList.cs" />
-    <Compile Include="timetable\Objects\ActivityTagList.cs" />
     <Compile Include="timetable\Objects\RoomsList.cs" />
     <Compile Include="timetable\Objects\ActivitiesList.cs" />
     <Compile Include="timetable\Objects\YearsList.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="timetable\Objects.Tests\HoursListTest.cs" />
     <Compile Include="timetable\XML.Tests\XmlCreatorTest.cs" />
     <Compile Include="timetable\Objects.Tests\RoomsListTest.cs" />
-    <Compile Include="timetable\Objects.Tests\ActivityTagListTest.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintStudentsSetNotAvailableTimes.cs" />
     <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetNotAvailableTimesTest.cs" />
@@ -91,6 +89,8 @@
     <Compile Include="timetable\DB\School_BuildingaUnitType.cs" />
     <Compile Include="timetable\DB\School_BuildingsUnits.cs" />
     <Compile Include="timetable\DB\Subject_Category.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivities.cs" />
+    <Compile Include="timetable\Objects\Constraints\TimeConstraints.Tests\ConstraintMinDaysBetweenActivitiesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.framework, Version=3.10.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">

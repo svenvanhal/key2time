@@ -7,7 +7,7 @@ namespace Timetable.timetable.Objects
 {
 	public class ActivitiesList : AbstractList
 	{
-		private int counter = 0;
+		private int counter = 1;
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:Timetable.timetable.Objects.ActivitiesList"/> class.
 		/// </summary>
@@ -29,7 +29,7 @@ namespace Timetable.timetable.Objects
 			{
 				int groupId = counter;
 
-				for (int i = 0; i < item.NumberOfLlessonsPerWeek; i++)
+				for (int i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
 				{
 					list.Add(new XElement("Activity",
 										  new XElement("Teacher", item.TeacherID),
@@ -37,9 +37,9 @@ namespace Timetable.timetable.Objects
 										  new XElement("Students", item.ClassName), 
 										  new XElement("Id", counter),
 					                      new XElement("Activity_Group_Id", groupId), 
-
+                                          
 										  new XElement("Duration", '1'),
-										  new XElement("Total_Duration", '1')
+					                      new XElement("Total_Duration", item.NumberOfLlessonsPerWeek)
 									)
 								);
 

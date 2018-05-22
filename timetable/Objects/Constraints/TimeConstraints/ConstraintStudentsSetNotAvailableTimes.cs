@@ -17,7 +17,7 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 		public ConstraintStudentsSetNotAvailableTimes()
 		{
 			SetElement("ConstraintStudentsSetNotAvailableTimes");
-			SetWeight(100);
+
 		}
 
 		public override XElement[] Create(DataModel dB)
@@ -26,16 +26,17 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 						join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
 						where tf.ItemType == 3
 
-						select new { tf.day, cl.ClassName, tf.lessonIndex };
+						select new { tf.day, cl.ClassName, tf.lessonIndex, cl.timeOffConstraint };
 
 			var result = new List<XElement>();
-			query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetNotAvailableTimes { students = item.ClassName, day = (Days)item.day, hour = item.lessonIndex }.ToXelement()));
+			query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetNotAvailableTimes { students = item.ClassName, day = (Days)item.day, hour = item.lessonIndex, weight = item.timeOffConstraint }.ToXelement()));
 
 			return result.ToArray();
 		}
 
 		public override XElement ToXelement()
 		{
+			SetWeight(weight);
 			constraint.Add(new XElement("Students", students),
 						   new XElement("Number_of_Not_Available_Times", numberOfHours),
 						   new XElement("Not_Available_Time",

@@ -46,7 +46,7 @@ namespace Timetable.timetable.Objects.Tests
 		[Test]
         public void RoomRightTest()
         {
-			Console.Write(test);
+			
             Assert.AreEqual(1, test.Elements("Room").Count());
 
         }
