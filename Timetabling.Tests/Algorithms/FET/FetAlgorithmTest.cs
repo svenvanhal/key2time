@@ -9,11 +9,13 @@ using Timetabling.Helper;
 namespace Timetabling.Tests.Algorithms.FET
 {
 
-    [TestFixture(null)]
+    [TestFixture]
     public class FetAlgorithmTest : FetAlgorithm
     {
 
-        public FetAlgorithmTest(CommandLineArguments args) : base(args) { }
+        public FetAlgorithmTest() : base(null)
+        {
+        }
 
         [Test]
         public void IntegrationTest()
@@ -90,7 +92,7 @@ namespace Timetabling.Tests.Algorithms.FET
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
+            var fet = new FetAlgorithmTest();
 
             // Initialize
             fet.Initialize(inputfile);
@@ -107,7 +109,11 @@ namespace Timetabling.Tests.Algorithms.FET
             var inputfile = "path_to_inputfile";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
+            var fet = new FetAlgorithmTest();
+
+            // TODO: this test is currently useless, has to be refactored after FetAlgorithm is changed to accept db input source.
+            // This statement is now executed in FetAlgorithm.Execute();
+            fet.OutputDir = Util.CreateTempFolder("testIdentifier");
 
             // Initialize
             fet.Initialize(inputfile);
@@ -124,7 +130,7 @@ namespace Timetabling.Tests.Algorithms.FET
             var inputfile = "non_existing_file";
 
             // Instantiate FET algorithm
-            var fet = new FetAlgorithmTest(null);
+            var fet = new FetAlgorithmTest();
 
             // Initialize
             fet.Initialize(inputfile);
@@ -147,7 +153,7 @@ namespace Timetabling.Tests.Algorithms.FET
             });
 
             // Italy 2007 difficult usually takes more than one seconds
-            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/fet/Italy/2007/difficult/highschool-Ancona.fet"));
+            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\fet\Italy\2007\difficult\highschool-Ancona.fet")));
 
             // Check that no input is generated
             // TODO: better test / implement this
@@ -158,14 +164,14 @@ namespace Timetabling.Tests.Algorithms.FET
         public void RunTestInvalidFetFile()
         {
             var fet = new FetAlgorithm();
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/fet/activities_missing.fet"));
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\fet\activities_missing.fet")));
         }
 
         [Test]
         public void RunTestInvalidNoFetFileExtension()
         {
             var fet = new FetAlgorithm();
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", "testdata/books.xml"));
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\books.xml")));
         }
 
     }

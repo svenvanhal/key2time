@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using Timetabling.DB;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
@@ -22,7 +20,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Location of the FET program.
         /// </summary>
-        private static readonly string ExecutableLocation = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, Helper.Util.GetAppSetting("FetBinaryLocation"));
+        public readonly string ExecutableLocation;
 
         /// <summary>
         /// Algorithm .fet input file.
@@ -61,12 +59,14 @@ namespace Timetabling.Algorithms.FET
 
         /// <summary>
         /// Instantiate new FET Algorithm instance.
-        /// <param name="executableLocation">Location of the FET binary.</param>
         /// <param name="args">Additional command line arguments.</param>
         /// </summary>
         public FetAlgorithm(CommandLineArguments args = null)
         {
             Arguments = args ?? new CommandLineArguments();
+
+            // TODO: check if exists
+            ExecutableLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
         }
 
         /// <summary>

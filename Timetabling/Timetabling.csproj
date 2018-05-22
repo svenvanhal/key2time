@@ -44,8 +44,8 @@
     <Compile Include="Algorithms\Algorithm.cs" />
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
-    <Compile Include="Exceptions\Helper\CommandLineArguments.cs" />
-    <Compile Include="Exceptions\Helper\Util.cs" />
+    <Compile Include="Helper\CommandLineArguments.cs" />
+    <Compile Include="Helper\Util.cs" />
     <Compile Include="DB\School_TeacherSubjects.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\HR_MasterData_Employees.cs" />

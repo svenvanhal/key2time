@@ -3,7 +3,7 @@
 namespace Timetabling.Tests
 {
     [TestFixture]
-    public class ApplicationTest
+    public class TimetableGeneratorTest
     {
 
         [Test]

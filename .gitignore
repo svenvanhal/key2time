@@ -443,3 +443,6 @@ Dockerfile
 opencover.xml
 
 **/connection.config
+
+**/*.DotSettings
+**/*.DotSettings.user
