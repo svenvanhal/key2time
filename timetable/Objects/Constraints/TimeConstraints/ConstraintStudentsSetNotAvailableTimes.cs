@@ -31,6 +31,10 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 			var result = new List<XElement>();
 			query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetNotAvailableTimes { students = item.ClassName, day = (Days)item.day, hour = item.lessonIndex, weight = item.timeOffConstraint }.ToXelement()));
 
+
+
+
+
 			return result.ToArray();
 		}
 
@@ -44,5 +48,9 @@ namespace Timetable.timetable.Objects.Constraints.TimeConstraints
 										new XElement("Hour", hour)));
 			return constraint;
 		}
+
+
+
+
 	}
 }

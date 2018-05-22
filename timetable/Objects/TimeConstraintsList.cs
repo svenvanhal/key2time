@@ -38,10 +38,11 @@ namespace Timetable.timetable.Objects
 		{
 			list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
 			constraints.Add(new ConstraintStudentsSetMaxHoursDaily());
-			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+		//	constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
 			constraints.Add(new ConstraintTeacherNotAvailableTimes());
 			constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
 			constraints.Add(new ConstraintMinDaysBetweenActivities());
+			constraints.Add(new ConstraintNumberOfPeriods());
 		}
 	}
 }
