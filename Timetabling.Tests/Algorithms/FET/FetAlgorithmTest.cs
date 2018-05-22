@@ -24,7 +24,8 @@ namespace Timetabling.Tests.Algorithms.FET
             // Instantiate FET algorithm and run on Hopwood test file
             var fet = new FetAlgorithm();
 
-            Assert.DoesNotThrow(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/Hopwood.fet")));
+            Assert.DoesNotThrow(() => fet.Execute("testIdentifier",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet")));
         }
 
         [Test]
@@ -153,7 +154,8 @@ namespace Timetabling.Tests.Algorithms.FET
             });
 
             // Italy 2007 difficult usually takes more than one seconds
-            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\fet\Italy\2007\difficult\highschool-Ancona.fet")));
+            var ex = Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "Italy", "2007", "difficult", "highschool-Ancona.fet")));
 
             // Check that no input is generated
             // TODO: better test / implement this
@@ -164,14 +166,16 @@ namespace Timetabling.Tests.Algorithms.FET
         public void RunTestInvalidFetFile()
         {
             var fet = new FetAlgorithm();
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\fet\activities_missing.fet")));
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", 
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "activities_missing.fet")));
         }
 
         [Test]
         public void RunTestInvalidNoFetFileExtension()
         {
             var fet = new FetAlgorithm();
-            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier", Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"testdata\books.xml")));
+            Assert.Throws<AlgorithmException>(() => fet.Execute("testIdentifier",
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "books.xml")));
         }
 
     }
