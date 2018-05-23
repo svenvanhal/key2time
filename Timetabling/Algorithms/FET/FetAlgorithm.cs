@@ -134,6 +134,8 @@ namespace Timetabling.Algorithms.FET
                 // Run the FET program
                 ProcessInterface.StartProcess();
 
+                ProcessInterface.Process.WaitForExit();
+
             }
             catch (Exception ex)
             {
