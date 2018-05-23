@@ -26,7 +26,10 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public string InputFile
         {
-            get => _inputFile;
+            get
+            {
+                return _inputFile;
+            }
             set
             {
                 _inputFile = value;

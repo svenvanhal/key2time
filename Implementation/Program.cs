@@ -1,9 +1,5 @@
-﻿using System;
-using System.Data.Entity.Core.Mapping;
-using System.Diagnostics;
-using Timetabling;
+﻿using Timetabling;
 using Timetabling.Algorithms.FET;
-using Timetabling.DB;
 
 namespace Implementation
 {
@@ -11,21 +7,19 @@ namespace Implementation
     {
         static void Main(string[] args)
         {
-            
-            var sw = new Stopwatch();
-            sw.Start();
 
-            using (var dm = new DataModel())
-            {
-                dm.Database.Exists();
-            }
+            // Example usage:
+            //  1 - Instantiate and configure algorithm to use
+            //  2 - Specify input data for algorithm
+            //  3 - Create a TimetableGenerator
+            //  3 - Run TimetableGenerator with algoritm and input 
 
-            Console.WriteLine(sw.ElapsedMilliseconds);
+            var algorithm = new FetAlgorithm();
+            var input = @"inputfile.fet";
 
-            sw.Stop();
-            
-            Console.WriteLine("Hello World!");
-            Console.Read();
+            var generator = new TimetableGenerator();
+            var timetable = generator.RunAlgorithm(algorithm, input);
+
         }
     }
 }
