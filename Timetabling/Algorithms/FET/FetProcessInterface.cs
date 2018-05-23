@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using Timetabling.Exceptions;
-using Timetabling.Helper;
 
 namespace Timetabling.Algorithms.FET
 {
@@ -32,7 +30,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Starts process and logs output.
         /// </summary>
-        public void StartProcess()
+        public virtual void StartProcess()
         {
 
             // Attach listeners
@@ -47,7 +45,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Gracefully stops process.
         /// </summary>
-        public void TerminateProcess()
+        public virtual void TerminateProcess()
         {
 
             // Close process

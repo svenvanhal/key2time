@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using Moq;
 using NUnit.Framework;
 using Timetabling.Algorithms.FET;
 using Timetabling.Exceptions;

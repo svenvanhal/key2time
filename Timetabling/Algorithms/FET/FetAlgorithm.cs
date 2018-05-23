@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Threading.Tasks;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
@@ -19,7 +17,12 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        public string Identifier { get; protected set; }
+        public string Identifier { get; set; }
+
+        /// <summary>
+        /// Name of the input file (filename without extension). FET-CL uses this as base for all generated output files.
+        /// </summary>
+        public string InputName { get; private set; }
 
         /// <summary>
         /// Path to the .fet input file.
@@ -38,12 +41,6 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Name of the input file (filename without extension).
-        /// FET-CL uses this as base for all generated output files.
-        /// </summary>
-        public string InputName { get; private set; }
-
-        /// <summary>
         /// Current run identifier.
         /// </summary>
         public string OutputDir { get; protected set; }
@@ -54,16 +51,14 @@ namespace Timetabling.Algorithms.FET
         public FetProcessInterface ProcessInterface;
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private readonly CommandLineArguments _arguments;
         private string _inputFile;
 
         /// <summary>
         /// Instantiate new FET Algorithm instance.
         /// <param name="args">Additional command line arguments.</param>
         /// </summary>
-        public FetAlgorithm(CommandLineArguments args = null)
+        public FetAlgorithm()
         {
-            _arguments = args ?? new CommandLineArguments();
         }
 
         /// <inheritdoc />
@@ -82,6 +77,14 @@ namespace Timetabling.Algorithms.FET
             // Get results
             return GetResult();
 
+        }
+
+        /// <summary>
+        /// Interrupt algorithm run.
+        /// </summary>
+        public override void Interrupt()
+        {
+            ProcessInterface.TerminateProcess();
         }
 
         /// <summary>
@@ -131,10 +134,6 @@ namespace Timetabling.Algorithms.FET
                 // Run the FET program
                 ProcessInterface.StartProcess();
 
-                ProcessInterface.Process.WaitForExit(1000);
-
-                ProcessInterface.TerminateProcess();
-
             }
             catch (Exception ex)
             {
@@ -145,14 +144,6 @@ namespace Timetabling.Algorithms.FET
                 ProcessInterface.TerminateProcess();
             }
 
-        }
-
-        /// <summary>
-        /// Interrupt algorithm run.
-        /// </summary>
-        public override void Interrupt()
-        {
-            ProcessInterface.TerminateProcess();
         }
 
         /// <summary>
