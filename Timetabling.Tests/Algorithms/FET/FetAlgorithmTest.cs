@@ -1,17 +1,15 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Diagnostics;
 using System.IO;
 using Moq;
 using Timetabling.Algorithms.FET;
-using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
 
-    public class FetAlgorithmExposer : FetAlgorithm
+    internal class FetAlgorithmExposer : FetAlgorithm
     {
         public new void Initialize(string input) => base.Initialize(input);
         public new void Run() => base.Run();
@@ -19,7 +17,7 @@ namespace Timetabling.Tests.Algorithms.FET
     }
 
     [TestFixture]
-    public class FetAlgorithmTest
+    internal class FetAlgorithmTest
     {
 
         [Test]
@@ -99,7 +97,7 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void GetResultTest()
         {
-            // TODO: implement
+            // TODO: implement after FetAlgorithm.GetResult function is implemented.
         }
 
     }

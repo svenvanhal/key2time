@@ -11,13 +11,12 @@ namespace Timetabling.Tests.Algorithms.FET
 {
 
     [TestFixture]
-    public class FetOutputProcessorTest
+    internal class FetOutputProcessorTest
     {
 
         [Test]
         public void GetTimetableTest()
         {
-
 
             var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/output.xml");
             var testData = File.ReadAllBytes(testDataPath);
@@ -88,7 +87,7 @@ namespace Timetabling.Tests.Algorithms.FET
             const string contents = "Hey this is not XML!";
 
             var fop = new FetOutputProcessor("", "");
-            byte[] byteArray = Encoding.UTF8.GetBytes(contents);
+            var byteArray = Encoding.UTF8.GetBytes(contents);
 
             // Create output file stream
             using (var outputFileStream = new MemoryStream(byteArray))
@@ -144,7 +143,6 @@ namespace Timetabling.Tests.Algorithms.FET
             Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
 
         }
-
 
     }
 }

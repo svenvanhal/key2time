@@ -9,14 +9,14 @@ using Timetabling.Helper;
 namespace Timetabling.Tests.Algorithms.FET
 {
 
-    class FetProcessInterfaceExposer : FetProcessInterface
+    internal class FetProcessInterfaceExposer : FetProcessInterface
     {
         public FetProcessInterfaceExposer(Process fetProcess) : base(fetProcess) { }
-        public void CheckProcessExitCode() => base.CheckProcessExitCode();
+        public new void CheckProcessExitCode() => base.CheckProcessExitCode();
     }
 
     [TestFixture]
-    class FetProcessInterfaceTest
+    internal class FetProcessInterfaceTest
     {
 
         private Process _process;
@@ -41,26 +41,16 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void StartProcess()
         {
-
-            // Call method
             _fpi.StartProcess();
-
-            // Assertions
             Assert.IsFalse(_fpi.Process.HasExited);
-
-            // Cleanup
             _fpi.TerminateProcess();
-
         }
 
         [Test]
         public void TerminateProcess()
         {
-            _fpi.StartProcess();
-
             var expected = _fpi.Process.StartInfo;
-
-            // Call method
+            _fpi.StartProcess();
             _fpi.TerminateProcess();
 
             // HasExited fails after process has been closed (why though??)
@@ -78,19 +68,14 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void CheckProcessNotYetExitedCode()
         {
-
             _fpi.StartProcess();
-
-            // Assertions
             var ex = Assert.Throws<InvalidOperationException>(() => _fpi.CheckProcessExitCode());
             Assert.AreEqual("The process has not yet exited.", ex.Message);
-
         }
 
         [Test]
         public void CheckProcessZeroExitCode()
         {
-
             // Create process again with different arguments
             var fpb = new FetProcessBuilder(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "fet", "fet-cl"));
 
@@ -104,13 +89,11 @@ namespace Timetabling.Tests.Algorithms.FET
             // Start process
             _fpi.StartProcess();
             _fpi.Process.WaitForExit();
-            
         }
 
         [Test]
         public void CheckProcessNonZeroExitCode()
         {
-
             // Create process again with different arguments
             var fpb = new FetProcessBuilder(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "fet", "fet-cl"));
 
@@ -131,8 +114,6 @@ namespace Timetabling.Tests.Algorithms.FET
                 _fpi.CheckProcessExitCode();
             });
             Assert.AreEqual("The FET process has exited with a non-zero exit code (1).", ex.Message);
-
-
         }
 
     }

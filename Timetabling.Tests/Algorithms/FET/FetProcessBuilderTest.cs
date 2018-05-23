@@ -10,57 +10,33 @@ using Timetabling.Algorithms.FET;
 namespace Timetabling.Tests.Algorithms.FET
 {
 
-    /// <summary>
-    /// Exposes the protected methods of FetProcessBuilder.
-    /// </summary>
     internal class FetProcessBuilderExposer : FetProcessBuilder
     {
-
-        public FetProcessBuilderExposer(string executableLocation = null, IFileSystem fileSystem = null) : base(executableLocation, fileSystem)
-        {
-        }
-
-        public string GetArgument(string name)
-        {
-            return base.GetArgument(name);
-        }
-
-        public void SetArgument(string name, string value)
-        {
-            base.SetArgument(name, value);
-        }
-
-        public ProcessStartInfo CreateStartInfo()
-        {
-            return base.CreateStartInfo();
-        }
+        public FetProcessBuilderExposer(string executableLocation = null, IFileSystem fileSystem = null) : base(executableLocation, fileSystem) { }
+        public new string GetArgument(string name) => base.GetArgument(name);
+        public new void SetArgument(string name, string value) => base.SetArgument(name, value);
+        public new ProcessStartInfo CreateStartInfo() => base.CreateStartInfo();
     }
 
-
     [TestFixture]
-    public class FetProcessBuilderTest
+    internal class FetProcessBuilderTest
     {
 
         [Test]
         public void ConstructorTest()
         {
-
             var fpb = new FetProcessBuilder("ExecutableLocation");
             var expected = "ExecutableLocation";
 
             Assert.AreEqual(expected, fpb.ExecutableLocation);
-
         }
 
         [Test]
         public void CreateProcessTest()
         {
-
             var fpb = new FetProcessBuilder();
             var proc = fpb.CreateProcess();
-
             Assert.IsInstanceOf<Process>(proc);
-
         }
 
         [Test]
@@ -68,7 +44,7 @@ namespace Timetabling.Tests.Algorithms.FET
         {
             var mockFs = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"TestFile", new MockFileData("") },
+                { "TestFile", new MockFileData("") },
             });
 
             var fpb = new FetProcessBuilderExposer(null, mockFs);
@@ -77,7 +53,6 @@ namespace Timetabling.Tests.Algorithms.FET
             fpb.SetInputFile(expected);
 
             Assert.AreEqual(expected, fpb.GetArgument("inputfile"));
-
         }
 
         [Test]
@@ -191,7 +166,6 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void CreateStartInfoTest()
         {
-
             var expected = "ExecutableLocation";
             var fpb = new FetProcessBuilderExposer(expected);
 
@@ -199,7 +173,6 @@ namespace Timetabling.Tests.Algorithms.FET
 
             Assert.IsNotNull(startInfo);
             Assert.AreEqual(expected, startInfo.FileName);
-
         }
 
     }
