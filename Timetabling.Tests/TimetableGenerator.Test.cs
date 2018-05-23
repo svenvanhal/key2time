@@ -1,10 +1,20 @@
-﻿using NUnit.Framework;
+﻿using System.IO.Abstractions;
+using NUnit.Framework;
+using Timetabling.Algorithms.FET;
 
 namespace Timetabling.Tests
 {
     [TestFixture]
     public class TimetableGeneratorTest
     {
+
+        [Test]
+        public void Test()
+        {
+
+            var gklsdg = new FetProcessBuilder("Test", new FileSystem());
+
+        }
 
         [Test]
         public void RefreshIdTest()

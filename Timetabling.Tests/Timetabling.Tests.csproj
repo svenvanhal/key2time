@@ -55,7 +55,6 @@
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
@@ -67,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Algorithms\FET\FetAlgorithmTest.cs" />
     <Compile Include="Algorithms\FET\FetOutputProcessorTest.cs" />
+    <Compile Include="Algorithms\FET\FetProcessBuilderTest.cs" />
+    <Compile Include="Algorithms\FET\FetProcessInterfaceTest.cs" />
     <Compile Include="Helper\CommandLineArgumentsTest.cs" />
     <Compile Include="Objects\ActiviteitsListTest.cs" />
     <Compile Include="Objects\Contraints.Tests\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />

@@ -19,6 +19,11 @@ namespace Timetabling.Algorithms
         public abstract Timetable Execute(string identifier, string input);
 
         /// <summary>
+        /// Interrupts the algorithm's execution.
+        /// </summary>
+        public abstract void Interrupt();
+
+        /// <summary>
         /// Algorithm initialization phase.
         /// </summary>
         /// <param name="input">Input to run the algorithm on.</param>
@@ -37,5 +42,6 @@ namespace Timetabling.Algorithms
         /// </summary>
         /// <returns>A Timetable object.</returns>
         protected abstract Timetable GetResult();
+
     }
 }

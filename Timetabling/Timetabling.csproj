@@ -36,9 +36,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\FET\FetLanguage.cs" />
+    <Compile Include="Algorithms\FET\FetProcessBuilder.cs" />
     <Compile Include="Algorithms\FET\FetAlgorithm.cs" />
     <Compile Include="Algorithms\FET\FetInputGenerator.cs" />
     <Compile Include="Algorithms\FET\FetOutputProcessor.cs" />
+    <Compile Include="Algorithms\FET\FetProcessInterface.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Exceptions\AlgorithmException.cs" />
     <Compile Include="Algorithms\Algorithm.cs" />
@@ -102,12 +105,7 @@
       <HintPath>..\packages\System.IO.Abstractions.2.1.0.178\lib\net40\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Configuration" />

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
@@ -9,53 +9,50 @@ using Timetabling.Resources;
 namespace Timetabling.Algorithms.FET
 {
 
+    /// <inheritdoc />
     /// <summary>
     /// The FET-CL wrapper. Visit the <a href="https://lalescu.ro/liviu/fet/">official FET website</a> for more information about the program and the algorithm.
     /// </summary>
     public class FetAlgorithm : Algorithm
     {
 
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// Current run identifier.
+        /// </summary>
+        public string Identifier { get; protected set; }
 
         /// <summary>
-        /// Location of the FET program.
+        /// Path to the .fet input file.
         /// </summary>
-        public readonly string ExecutableLocation;
-
-        /// <summary>
-        /// Algorithm .fet input file.
-        /// </summary>
-        protected string InputFile;
-
-        /// <summary>
-        /// Algorithm output directory.
-        /// </summary>
-        protected string OutputDir;
-
-        /// <summary>
-        /// FET-CL command line arguments.
-        /// </summary>
-        protected readonly CommandLineArguments Arguments;
-
-        /// <summary>
-        /// FET-CL default command line arguments. Limits the output to only the necessary.
-        /// </summary>
-        protected static readonly CommandLineArguments DefaultArgs = new CommandLineArguments
+        public string InputFile
         {
-            { "htmllevel", "0" },
-            { "writetimetablesdayshorizontal", "false" },
-            { "writetimetablesdaysvertical", "false" },
-            { "writetimetablestimehorizontal", "false" },
-            { "writetimetablestimevertical", "false" },
-            { "writetimetablessubgroups", "false" },
-            { "writetimetablesgroups", "false" },
-            { "writetimetablesyears", "false" },
-            { "writetimetablesteachers", "false" },
-            { "writetimetablesteachersfreeperiods", "false" },
-            { "writetimetablesrooms", "false" },
-            { "writetimetablessubjects", "false" },
-            { "verbose", "true" },
-        };
+            get => _inputFile;
+            set
+            {
+                _inputFile = value;
+                InputName = Path.GetFileNameWithoutExtension(value);
+            }
+        }
+
+        /// <summary>
+        /// Name of the input file (filename without extension).
+        /// FET-CL uses this as base for all generated output files.
+        /// </summary>
+        public string InputName { get; private set; }
+
+        /// <summary>
+        /// Current run identifier.
+        /// </summary>
+        public string OutputDir { get; protected set; }
+
+        /// <summary>
+        /// FET-CL process interface.
+        /// </summary>
+        public FetProcessInterface ProcessInterface;
+
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly CommandLineArguments _arguments;
+        private string _inputFile;
 
         /// <summary>
         /// Instantiate new FET Algorithm instance.
@@ -63,52 +60,24 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public FetAlgorithm(CommandLineArguments args = null)
         {
-            Arguments = args ?? new CommandLineArguments();
-
-            // TODO: check if exists
-            ExecutableLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetBinaryLocation"));
-        }
-
-        /// <summary>
-        /// Set a FET-CL command line argument.
-        /// </summary>
-        /// <param name="name">Name of the argument.</param>
-        /// <param name="value">Value of the argument. If null, the argument is removed.</param>
-        public void SetArgument(string name, string value)
-        {
-            if (value == null) Arguments.Remove(name);
-            else Arguments[name] = value;
-        }
-
-        /// <summary>
-        /// Get a FET-CL command line argument.
-        /// </summary>
-        /// <param name="name">Name of the argument.</param>
-        /// <return>Value of the argument. Null if argument not set.</return>
-        /// <exception cref="KeyNotFoundException">Throws exception if <paramref name="name"/> not found.</exception>
-        public string GetArgument(string name)
-        {
-            return Arguments[name];
+            _arguments = args ?? new CommandLineArguments();
         }
 
         /// <inheritdoc />
         public override Timetable Execute(string identifier, string input)
         {
 
-            // Set output dir
-            OutputDir = Util.CreateTempFolder(identifier);
+            // Set identifier
+            Identifier = identifier;
 
+            // Initialize algorithm
             Initialize(input);
+
+            // Run algorithm
             Run();
 
-            try
-            {
-                return GetResult();
-            }
-            catch (FileNotFoundException ex)
-            {
-                throw new AlgorithmException("No timetable is generated: the FET output file could not be found.", ex);
-            }
+            // Get results
+            return GetResult();
 
         }
 
@@ -121,13 +90,25 @@ namespace Timetabling.Algorithms.FET
 
             Logger.Info("Initializing FET algorithm");
 
+            // Set parameters
             InputFile = input;
+            OutputDir = Util.CreateTempFolder(Identifier);
 
-            SetArgument("inputfile", InputFile);
-            SetArgument("outputdir", OutputDir);
+            // Initialize process builder
+            var fetExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetExecutableLocation"));
+            var processBuilder = new FetProcessBuilder(fetExecutablePath);
 
-            Logger.Debug("Inputfile: " + InputFile);
-            Logger.Debug("Outputdir: " + OutputDir);
+            // Configure process
+            processBuilder.SetInputFile(InputFile);
+            processBuilder.SetOutputDir(OutputDir);
+            processBuilder.Debug(true);
+
+            // Create process
+            var process = processBuilder.CreateProcess();
+
+            // Create process interface
+            ProcessInterface = new FetProcessInterface(process);
+
         }
 
         /// <summary>
@@ -138,10 +119,6 @@ namespace Timetabling.Algorithms.FET
         {
 
             Logger.Info("Running FET algorithm");
-            Logger.Debug("FET-CL executable location: " + ExecutableLocation);
-
-            // Create new FET process
-            var fetProcess = CreateProcess();
 
             try
             {
@@ -149,12 +126,11 @@ namespace Timetabling.Algorithms.FET
                 Logger.Info("Starting FET process");
 
                 // Run the FET program
-                fetProcess.Start();
-                fetProcess.BeginOutputReadLine();
-                fetProcess.WaitForExit();
+                ProcessInterface.StartProcess();
 
-                // Verify that FET executed successfully
-                CheckProcessExitCode(fetProcess.ExitCode);
+                ProcessInterface.Process.WaitForExit(1000);
+
+                ProcessInterface.TerminateProcess();
 
             }
             catch (Exception ex)
@@ -163,9 +139,17 @@ namespace Timetabling.Algorithms.FET
             }
             finally
             {
-                fetProcess.Dispose();
+                ProcessInterface.TerminateProcess();
             }
 
+        }
+
+        /// <summary>
+        /// Interrupt algorithm run.
+        /// </summary>
+        public override void Interrupt()
+        {
+            ProcessInterface.TerminateProcess();
         }
 
         /// <summary>
@@ -178,75 +162,18 @@ namespace Timetabling.Algorithms.FET
             Logger.Info("Retrieving FET algorithm results");
 
             // Output is stored in the /timetables/[FET file name]/ folder
-            var inputName = Path.GetFileNameWithoutExtension(InputFile); // TODO might need this name at more locations, so could make a classvar at the start
 
-            var fop = new FetOutputProcessor(inputName, Path.Combine(OutputDir, "timetables", inputName));
-            return fop.GetTimetable();
+            var fop = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables", InputName));
 
-        }
-
-        /// <summary>
-        /// Set-up process info for the FET program.
-        /// </summary>
-        /// <returns>ProcessStartInfo object</returns>
-        private Process CreateProcess()
-        {
-
-            Logger.Info("Creating FET process");
-
-            var startInfo = new ProcessStartInfo
+            try
             {
-
-                // Hide window
-                UseShellExecute = false,
-
-                // Set executable location and arguments
-                FileName = ExecutableLocation,
-                Arguments = DefaultArgs.Combine(Arguments).ToString(),
-
-                // Redirect stdout and stderr
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-
-            var fetProcess = new Process
+                return fop.GetTimetable();
+            }
+            catch (FileNotFoundException ex)
             {
-                StartInfo = startInfo,
-                EnableRaisingEvents = true
-            };
-
-            // Add listeners
-            fetProcess.OutputDataReceived += LogConsoleOutput;
-
-            Logger.Debug("Process arguments: " + startInfo.Arguments);
-
-            return fetProcess;
-        }
-
-        /// <summary>
-        /// Logs FET console output line.
-        /// </summary>
-        /// <param name="sender">Originating process.</param>
-        /// <param name="eventArgs">Event data.</param>
-        private static void LogConsoleOutput(object sender, DataReceivedEventArgs eventArgs)
-        {
-
-            var data = eventArgs.Data;
-            if (!string.IsNullOrWhiteSpace(data))
-            {
-                Logger.Debug(data);
+                throw new AlgorithmException("No timetable is generated: the FET output file could not be found.", ex);
             }
 
-        }
-
-        /// <summary>
-        /// Checks the FET process exit code and throws an exception if the exit code is non-zero.
-        /// </summary>
-        /// <param name="exitCode">The exit code of a process.</param>
-        /// <exception cref="AlgorithmException">Throws AlgorithmException if non-zero error code.</exception>
-        private static void CheckProcessExitCode(int exitCode)
-        {
-            if (exitCode != 0) throw new AlgorithmException($"The FET process has exited with a non-zero exit code ({exitCode}).");
         }
 
     }

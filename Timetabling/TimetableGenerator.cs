@@ -36,6 +36,14 @@ namespace Timetabling
         }
 
         /// <summary>
+        /// Temporary method used for development purposes.
+        /// </summary>
+        public void StopAlgorithm(Algorithm algorithm)
+        {
+            algorithm.Interrupt();
+        }
+
+        /// <summary>
         /// Generates a new identifier.
         /// </summary>
         public void RefreshIdentifier()
