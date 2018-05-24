@@ -19,10 +19,9 @@ namespace Implementation
 			var data = new DataModel();
 			var input = new FetInputGenerator();
 
-			input.GenerateFetFile(data, "");
 
-            //var generator = new TimetableGenerator();
-            //var timetable = generator.RunAlgorithm(algorithm, input);
+            var generator = new TimetableGenerator();
+            var timetable = generator.RunAlgorithm(algorithm, input);
 
         }
     }
