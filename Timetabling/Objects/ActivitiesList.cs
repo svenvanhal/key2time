@@ -5,6 +5,9 @@ using System.Xml.Linq;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+    /// Activities list.
+    /// </summary>
 	public class ActivitiesList : AbstractList
 	{
 		private int counter = 1;

@@ -1,12 +1,12 @@
-﻿using System;
-using Timetabling.DB;
+﻿using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+    /// Years list.
+    /// </summary>
 	public class YearsList : AbstractList
 	{
 		/// <summary>
@@ -22,6 +22,7 @@ namespace Timetabling.Objects
       /// </summary>
 		public override void Create()
 		{
+			//Creates the different grades
 			var query = dB.School_Lookup_Grade.Where(grade => grade.IsActive == true).Select(grade => grade.GradeName);
 			foreach (var item in query)
 			{
@@ -32,7 +33,8 @@ namespace Timetabling.Objects
 						 join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
 						 where c.IsActive == true
 						 select new { c.ClassName, grade.GradeName };
-
+           
+			//Creates the different groups in a grade
 			foreach (var item in grades)
 			{
 				list.Elements("Year").First(grade => grade.Element("Name").Value.Equals(item.GradeName)).
@@ -44,7 +46,8 @@ namespace Timetabling.Objects
 						 join c in dB.School_Lookup_Class on g.classId equals c.ClassID
 
 						 select new { c.ClassName, g.groupName };
-            
+           
+			//Creates the different subgroups in eacht group
 			foreach (var item in groups)
             {
 				list.Elements("Year").Elements("Group").First(g => g.Element("Name").Value.Equals(item.ClassName)).

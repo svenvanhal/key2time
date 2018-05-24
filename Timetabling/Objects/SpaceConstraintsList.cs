@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Timetabling.DB;
+using Timetabling.Objects.Constraints.SpaceConstraints;
 
 namespace Timetabling.Objects
-
-
-
 {
-	using System.Linq;
-	using Timetabling.Objects.Constraints.SpaceConstraints;
+	
     /// <summary>
     /// Space constraints list.
     /// </summary>

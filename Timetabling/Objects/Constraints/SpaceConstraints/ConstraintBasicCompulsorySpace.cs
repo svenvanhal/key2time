@@ -1,10 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+    /// Constraint basic compulsory space.
+    /// </summary>
 	public class ConstraintBasicCompulsorySpace : AbstractConstraint
 	{
         /// <summary>
@@ -15,7 +16,11 @@ namespace Timetabling.Objects
 			SetElement("ConstraintBasicCompulsorySpace");
 			SetWeight(100);
 		}
-
+        /// <summary>
+        /// Create the specified list of constraints
+        /// </summary>
+        /// <returns>The created elemetns.</returns>
+        /// <param name="dB">Datamodel.</param>
 		public override XElement[] Create(DataModel dB)
 		{
 			return new XElement[0];

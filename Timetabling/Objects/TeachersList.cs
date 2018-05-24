@@ -1,13 +1,12 @@
-﻿
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+    /// Teachers list.
+    /// </summary>
 	public class TeachersList : AbstractList
 	{
 
@@ -21,7 +20,9 @@ namespace Timetabling.Objects
 		}
 
 
-
+        /// <summary>
+        /// Creates the Teacher elements from the datamodel
+        /// </summary>
 		public override void Create()
 		{
 			var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true && teacher.IsActive == true )

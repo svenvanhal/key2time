@@ -17,7 +17,8 @@
         /// </summary>
         /// <value>The floor identifier.</value>
         public int? FloorID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the name of the unit.
         /// </summary>
         /// <value>The name of the unit.</value>

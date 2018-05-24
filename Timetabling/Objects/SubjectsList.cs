@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+    /// Subjects list.
+    /// </summary>
 	public class SubjectsList : AbstractList
 	{
 		/// <summary>

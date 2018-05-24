@@ -5,20 +5,45 @@ using System.Linq;
 
 namespace Timetabling.Objects.Constraints.TimeConstraints
 {
+	/// <summary>
+    /// Constraint that specifies the minimum days between two lessons/activities
+    /// </summary>
 	public class ConstraintMinDaysBetweenActivities : AbstractConstraint
 	{
 
+        /// <summary>
+        /// Gets or sets the number of activities.
+        /// </summary>
+        /// <value>The number of activities.</value>
 		public int numberOfActivities { get; set; }
+        
+		/// <summary>
+        /// Gets or sets the group identifier.
+        /// </summary>
+        /// <value>The group identifier.</value>
 		public int groupId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the minimum days. If not specified, it will be 1.
+        /// </summary>
+        /// <value>The minimum days.</value>
 		int minDays { get; set; } = 1;
 
-
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintMinDaysBetweenActivities"/> class.
+        /// </summary>
 		public ConstraintMinDaysBetweenActivities()
 		{
 			SetElement("ConstraintMinDaysBetweenActivities");
 			SetWeight(95);
 		}
 
+		/// <summary>
+        /// Creates the array of XElements for the constraint.
+        /// </summary>
+        /// <returns>The created array.</returns>
+        /// <param name="dB">Datamodel.</param>
 		public override XElement[] Create(DataModel dB)
 		{
 			ActivitiesList activitiesList = new ActivitiesList(dB);
@@ -30,6 +55,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 			return result;
 		}
 
+        /// <summary>
+        /// Returns the XElement representation of the constraint
+        /// </summary>
+        /// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
 			constraint.Add(new XElement("Consecutive_If_Same_Day", true));
