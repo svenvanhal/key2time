@@ -17,9 +17,9 @@ namespace Implementation
 
             var algorithm = new FetAlgorithm();
 			var data = new DataModel();
-			var input = new FetInputGenerator();
+		
 
-
+	 var input = "";
             var generator = new TimetableGenerator();
             var timetable = generator.RunAlgorithm(algorithm, input);
 
