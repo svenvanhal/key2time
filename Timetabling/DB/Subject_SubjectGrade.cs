@@ -1,4 +1,4 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
     using System;
     using System.Collections.Generic;
@@ -14,6 +14,10 @@ namespace Timetabling.DB
         public int? SubjectID { get; set; }
 
         public int? GradeID { get; set; }
+
+		public int NumberOfLlessonsPerWeek { get; set; }
+
+		public int NumberOfLlessonsPerDay { get; set; }
 
         public virtual School_Lookup_Grade School_Lookup_Grade { get; set; }
 

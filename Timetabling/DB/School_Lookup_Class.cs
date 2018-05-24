@@ -1,4 +1,4 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
     using System;
     using System.Collections.Generic;
@@ -27,6 +27,8 @@ namespace Timetabling.DB
         public long? SupervisorID { get; set; }
 
         public int? colorId { get; set; }
+
+		public int timeOffConstraint { get; set; }
 
         public bool? IsShared { get; set; }
 

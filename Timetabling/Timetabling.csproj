@@ -85,7 +85,14 @@
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintBasicCompulsorySpace.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintBasicCompulsoryTime.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursContinuously.cs" />
-    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursDaily.cs" />
+    <Compile Include="Objects\RoomsList.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetNotAvailableTimes.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivities.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimes.cs" />
+    <Compile Include="DB\School_BuildingaUnitType.cs" />
+    <Compile Include="DB\School_BuildingsUnits.cs" />
+    <Compile Include="DB\Subject_Category.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

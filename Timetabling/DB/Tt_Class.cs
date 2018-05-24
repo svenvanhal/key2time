@@ -1,4 +1,4 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
 	using System;
 	using System.Collections.Generic;
@@ -6,7 +6,7 @@ namespace Timetabling.DB
 	using System.ComponentModel.DataAnnotations.Schema;
 	using System.Data.Entity.Spatial;
 	using System.Xml.Linq;
-	using Timetabling.XML;
+
 
 	public partial class Tt_Class
 	{

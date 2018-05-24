@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.10.1\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{587B4DAD-9733-41EC-8ED3-5EA596FE6308}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Timetabling.Tests</RootNamespace>
@@ -38,9 +39,6 @@
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -62,6 +60,9 @@
     <Reference Include="TestingHelpers, Version=2.1.0.178, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Abstractions.TestingHelpers.2.1.0.178\lib\net40\TestingHelpers.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.10.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\FET\FetAlgorithmTest.cs" />
@@ -70,10 +71,6 @@
     <Compile Include="Algorithms\FET\FetProcessInterfaceTest.cs" />
     <Compile Include="Helper\CommandLineArgumentsTest.cs" />
     <Compile Include="Objects\ActiviteitsListTest.cs" />
-    <Compile Include="Objects\Contraints.Tests\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
-    <Compile Include="Objects\Contraints.Tests\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
-    <Compile Include="Objects\Contraints.Tests\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursContinuouslyTest.cs" />
-    <Compile Include="Objects\Contraints.Tests\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursDailyTest.cs" />
     <Compile Include="Objects\DaysListTest.cs" />
     <Compile Include="Objects\HoursListTest.cs" />
     <Compile Include="Objects\SpaceConstraintsListTest.cs" />
@@ -84,6 +81,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimetableGenerator.Test.cs" />
     <Compile Include="XML\XmlCreatorTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintMinDaysBetweenActivitiesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursContinuouslyTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintTeacherNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintRoomNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\RoomsListTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -127,7 +132,7 @@
     <RemoveDir Directories="$(TargetDir)lib\" />
   </Target>
   <Target Name="AfterBuild">
-    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows->'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows-&gt;'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
     <!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
     <Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
     <Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />

@@ -1,4 +1,4 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
     using System;
     using System.Collections.Generic;

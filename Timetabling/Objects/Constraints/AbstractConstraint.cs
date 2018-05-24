@@ -7,7 +7,7 @@ namespace Timetabling.Objects
 {
 	public abstract class AbstractConstraint
 	{
-		public int weight { get; set; }
+		public int weight { get; set; } = 100;
 		public XElement constraint { get; set; }
 
 		/// <summary>

@@ -6,17 +6,17 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Lookup_Month
+    public partial class School_BuildingsUnits
     {
-        [Key]
-        public int MonthID { get; set; }
+        public int ID { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string MonthName { get; set; }
+        public int? FloorID { get; set; }
+
+        [StringLength(150)]
+        public string UnitName { get; set; }
 
         public bool? IsActive { get; set; }
 
-        public int? Code { get; set; }
+        public int? TypeID { get; set; }
     }
 }

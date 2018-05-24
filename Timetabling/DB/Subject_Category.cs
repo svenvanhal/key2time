@@ -6,16 +6,14 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Section_WeekEnd
+    public partial class Subject_Category
     {
-        public int Id { get; set; }
+        [Key]
+        public int SubjectCategoryID { get; set; }
 
-        [Required]
         [StringLength(50)]
-        public string dayName { get; set; }
+        public string SubjectCategoryName { get; set; }
 
-        public int dayIndex { get; set; }
-
-        public int sectionId { get; set; }
+        public bool? IsActive { get; set; }
     }
 }

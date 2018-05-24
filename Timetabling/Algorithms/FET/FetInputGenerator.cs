@@ -1,62 +1,61 @@
-﻿using Timetabling.DB;
-using Timetabling.Objects;
+﻿using Timetabling.Objects;
 using Timetabling.XML;
-
+using Timetabling.DB;
 namespace Timetabling.Algorithms.FET
 {
-    public class FetInputGenerator
-    {
+	public class FetInputGenerator
+	{
 
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+		private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-        /// <summary>
-        /// Generates a .FET file for use in the algorithm.
-        /// </summary>
-        /// <param name="dataModel">Datamodel to construct objects from.</param>
-        /// <param name="outputDir">Output directory for the FET file.</param>
-        /// <returns>Filename of the generated .FET file.</returns>
-        public string GenerateFetFile(DataModel dataModel, string outputDir)
-        {
+		/// <summary>
+		/// Generates a .FET file for use in the algorithm.
+		/// </summary>
+		/// <param name="dataModel">Datamodel to construct objects from.</param>
+		/// <param name="outputDir">Output directory for the FET file.</param>
+		/// <returns>Filename of the generated .FET file.</returns>
+		public string GenerateFetFile(DataModel dataModel, string outputDir)
+		{
 
-            var xmlCreator = new XmlCreator();
+			var xmlCreator = new XmlCreator();
 
-            var daysList = new DaysList(dataModel);
-            daysList.Create();
+			var daysList = new DaysList(dataModel);
+			daysList.Create();
 
-            var hoursList = new HoursList(dataModel);
-            hoursList.Create();
+			var hoursList = new HoursList(dataModel);
+			hoursList.Create();
 
-            var teachersList = new TeachersList(dataModel);
-            teachersList.Create();
+			var teachersList = new TeachersList(dataModel);
+			teachersList.Create();
 
-            var subjectsList = new SubjectsList(dataModel);
-            subjectsList.Create();
+			var subjectsList = new SubjectsList(dataModel);
+			subjectsList.Create();
 
-            var activitiesList = new ActivitiesList(dataModel);
-            activitiesList.Create();
+			var activitiesList = new ActivitiesList(dataModel);
+			activitiesList.Create();
 
-            var yearsList = new YearsList(dataModel);
-            yearsList.Create();
+			var yearsList = new YearsList(dataModel);
+			yearsList.Create();
 
-            var timeConstraintsList = new TimeConstraintsList(dataModel);
-            timeConstraintsList.Create();
+			var timeConstraintsList = new TimeConstraintsList(dataModel);
+			timeConstraintsList.Create();
 
-            var spaceConstraintsList = new SpaceConstraintsList(dataModel);
-            spaceConstraintsList.Create();
+			var spaceConstraintsList = new SpaceConstraintsList(dataModel);
+			spaceConstraintsList.Create();
 
-            xmlCreator.AddToRoot(daysList.GetList());
-            xmlCreator.AddToRoot(hoursList.GetList());
-            xmlCreator.AddToRoot(teachersList.GetList());
-            xmlCreator.AddToRoot(yearsList.GetList());
-            xmlCreator.AddToRoot(subjectsList.GetList());
-            xmlCreator.AddToRoot(activitiesList.GetList());
-            xmlCreator.AddToRoot(timeConstraintsList.GetList());
-            xmlCreator.AddToRoot(spaceConstraintsList.GetList());
+			xmlCreator.AddToRoot(daysList.GetList());
+			xmlCreator.AddToRoot(hoursList.GetList());
+			xmlCreator.AddToRoot(teachersList.GetList());
+			xmlCreator.AddToRoot(yearsList.GetList());
+			xmlCreator.AddToRoot(subjectsList.GetList());
+			xmlCreator.AddToRoot(activitiesList.GetList());
+			xmlCreator.AddToRoot(timeConstraintsList.GetList());
+			xmlCreator.AddToRoot(spaceConstraintsList.GetList());
 
-            var filepath = xmlCreator.Save(outputDir);
+			var filepath = xmlCreator.Save(outputDir);
 
-            return filepath;
-        }
+			return filepath;
+		}
 
-    }
+	}
 }

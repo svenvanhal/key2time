@@ -19,7 +19,7 @@ namespace Timetabling.Objects
 		public override void Create()
 		{
 
-            list.Add(new XElement("Number_of_Days", 7 - dB.Section_WeekEnd.Count()));
+			list.Add(new XElement("Number_of_Days", 7 - dB.Section_WeekEnd.Count()));
 			var l = dB.Section_WeekEnd.Select(day => day.dayIndex);
 
 			var daysList = Enum.GetValues(typeof(Days)).OfType<Days>().Where(day => !l.Any(x => x == (int)day));

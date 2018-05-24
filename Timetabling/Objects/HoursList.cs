@@ -6,6 +6,9 @@ namespace Timetabling.Objects
 {
 	public class HoursList : AbstractList
 	{
+
+		public int numberOfHours { get; } = 8;
+
 		public HoursList(DataModel _db) : base(_db)
 		{
 			SetListElement("Hours_List");
@@ -13,7 +16,7 @@ namespace Timetabling.Objects
 
 		public override void Create()
 		{
-			var numberOfHours = 8; //TO DO:Retrieve from DB
+			
 			list.Add(new XElement("Number_of_Hours", numberOfHours));
 			for (int i = 1; i <= numberOfHours; i++)
 			{

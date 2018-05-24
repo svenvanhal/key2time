@@ -1,13 +1,18 @@
-using System.Data.Entity;
-
 namespace Timetabling.DB
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using System.Xml;
+	using Timetabling.XML;
+    using System.Xml.Linq;
 
     public partial class DataModel : DbContext
     {
-        public DataModel() : base("name=DataModel")
+        public DataModel()
+            : base("name=DataModel")
         {
-
         }
 
         public virtual DbSet<HR_MasterData_Employees> HR_MasterData_Employees { get; set; }
@@ -30,7 +35,9 @@ namespace Timetabling.DB
         public virtual DbSet<Tt_SectionLessonConfiguration> Tt_SectionLessonConfiguration { get; set; }
         public virtual DbSet<Tt_TeacherAcademicInfo> Tt_TeacherAcademicInfo { get; set; }
         public virtual DbSet<Tt_TimeOff> Tt_TimeOff { get; set; }
-
+		public virtual DbSet<School_BuildingaUnitType> School_BuildingaUnitType { get; set; }
+        public virtual DbSet<School_BuildingsUnits> School_BuildingsUnits { get; set; }
+        public virtual DbSet<Subject_Category> Subject_Category { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

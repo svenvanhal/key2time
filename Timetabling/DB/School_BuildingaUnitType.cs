@@ -6,13 +6,13 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Lookup_Year
+    public partial class School_BuildingaUnitType
     {
-        [Key]
-        public int YearID { get; set; }
+        public int ID { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string YearName { get; set; }
+        [StringLength(150)]
+        public string TypeName { get; set; }
+
+        public bool? IsActive { get; set; }
     }
 }

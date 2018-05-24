@@ -9,6 +9,7 @@ namespace Timetabling.Objects
 {
 	using System.Linq;
 	using System.Xml.Linq;
+	using Timetabling.Objects.Constraints.TimeConstraints;
 
 	public class TimeConstraintsList : AbstractList
 	{
@@ -36,8 +37,10 @@ namespace Timetabling.Objects
 		private void CreateConstraints()
 		{
 			list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
-			constraints.Add(new ConstraintStudentsSetMaxHoursDaily());
-			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+		//	constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+			constraints.Add(new ConstraintTeacherNotAvailableTimes());
+			constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
+			constraints.Add(new ConstraintMinDaysBetweenActivities());
 		}
 	}
 }
