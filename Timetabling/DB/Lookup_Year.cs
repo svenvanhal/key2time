@@ -1,10 +1,8 @@
 ﻿namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
+   
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+ 
     /// <summary>
     /// Lookup year.
     /// </summary>
@@ -16,7 +14,8 @@
         /// <value>The year identifier.</value>
         [Key]
         public int YearID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the name of the year.
         /// </summary>
         /// <value>The name of the year.</value>

@@ -22,34 +22,40 @@
         /// <value>The stage identifier.</value>
 		[Key]
 		public int StageID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the stage code.
         /// </summary>
         /// <value>The stage code.</value>
 		public int? StageCode { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the name of the stage.
         /// </summary>
         /// <value>The name of the stage.</value>
 		[Required]
 		[StringLength(50)]
 		public string StageName { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the section identifier.
         /// </summary>
         /// <value>The section identifier.</value>
 		public int? SectionID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the is active.
         /// </summary>
         /// <value>The is active.</value>
 		public bool? IsActive { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the school lookup grade.
         /// </summary>
         /// <value>The school lookup grade.</value>
 		public virtual ICollection<School_Lookup_Grade> School_Lookup_Grade { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the school lookup section.
         /// </summary>
         /// <value>The school lookup section.</value>

@@ -1,14 +1,10 @@
 ﻿namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-    /// <summary>
-    /// School buildings units.
-    /// </summary>
-    public partial class School_BuildingsUnits
+	using System.ComponentModel.DataAnnotations;
+	/// <summary>
+	/// School buildings units.
+	/// </summary>
+	public partial class School_BuildingsUnits
     {
 		/// <summary>
         /// Gets or sets the identifier.

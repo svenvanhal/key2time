@@ -16,35 +16,41 @@ namespace Timetabling.DB
         {
             School_Lookup_Stage = new HashSet<School_Lookup_Stage>();
         }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the section identifier.
         /// </summary>
         /// <value>The section identifier.</value>
         [Key]
         public int SectionID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the name of the section.
         /// </summary>
         /// <value>The name of the section.</value>
         [StringLength(250)]
         public string SectionName { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the short name.
         /// </summary>
         /// <value>The short name.</value>
         [StringLength(20)]
         public string ShortName { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the is active.
         /// </summary>
         /// <value>The is active.</value>
         public bool? IsActive { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the max lessons per day.
         /// </summary>
         /// <value>The max lessons per day.</value>
         public int? maxLessonsPerDay { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the days per week.
         /// </summary>
         /// <value>The days per week.</value>

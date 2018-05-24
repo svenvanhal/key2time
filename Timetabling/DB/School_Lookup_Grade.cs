@@ -20,25 +20,29 @@
             Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
             Subject_SubjectGrade1 = new HashSet<Subject_SubjectGrade>();
         }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the grade identifier.
         /// </summary>
         /// <value>The grade identifier.</value>
         [Key]
         public int GradeID { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the name of the grade.
         /// </summary>
         /// <value>The name of the grade.</value>
         [Required]
         [StringLength(50)]
         public string GradeName { get; set; }
-        /// <summary>
+        
+		/// <summary>
         /// Gets or sets the stage identifier.
         /// </summary>
         /// <value>The stage identifier.</value>
         public int? StageID { get; set; }
-        /// <summary>
+       
+		/// <summary>
         /// Gets or sets the is active.
         /// </summary>
         /// <value>The is active.</value>
@@ -61,7 +65,8 @@
         /// </summary>
 		/// <value>The Subject_SubjectGrade.</value>
         public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
-        /// <summary>
+        
+		/// <summary>
 		/// Gets or sets Subject_SubjectGrade.
         /// </summary>
 		/// <value>The Subject_SubjectGrade.</value>
