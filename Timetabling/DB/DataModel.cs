@@ -43,10 +43,6 @@ namespace Timetabling.DB
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<HR_MasterData_Employees>()
-                .Property(e => e.TotalWorkedTime)
-                .IsFixedLength();
-
-            modelBuilder.Entity<HR_MasterData_Employees>()
                 .HasMany(e => e.HR_MasterData_Employees1)
                 .WithOptional(e => e.HR_MasterData_Employees2)
                 .HasForeignKey(e => e.SupervisorID);
@@ -80,9 +76,7 @@ namespace Timetabling.DB
             modelBuilder.Entity<TeacherClassSubjectGroup>()
                 .Property(e => e.GroupId)
                 .IsFixedLength();
-
-         
-
+                                 
             modelBuilder.Entity<Tt_Class>()
                 .HasMany(e => e.Tt_ClassGroup)
                 .WithRequired(e => e.Tt_Class)

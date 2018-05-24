@@ -9,7 +9,9 @@ namespace Timetabling.Objects
 {
 	using System.Linq;
 	using Timetabling.Objects.Constraints.SpaceConstraints;
-
+    /// <summary>
+    /// Space constraints list.
+    /// </summary>
 	public class SpaceConstraintsList : AbstractList
 	{
 
