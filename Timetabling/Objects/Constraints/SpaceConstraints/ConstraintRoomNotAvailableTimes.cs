@@ -19,12 +19,13 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 			SetElement("ConstraintRoomNotAvailableTimes");
 
 		}
-        
+
 		public override XElement[] Create(DataModel dB)
 		{
 			var query = from tf in dB.Tt_TimeOff
 						where tf.ItemType == 4
 						join e in dB.School_BuildingsUnits on tf.ItemId equals e.ID
+						where e.IsActive == true
 						select new { tf.day, tf.ItemId, tf.lessonIndex };
 
 			var result = new List<XElement>();
@@ -32,7 +33,10 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
 			return result.ToArray();
 		}
-
+		/// <summary>
+		/// Returns the XElement representation of the constraint
+		/// </summary>
+		/// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
 			SetWeight(weight);

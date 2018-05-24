@@ -1,5 +1,6 @@
 ﻿using Timetabling;
 using Timetabling.Algorithms.FET;
+using Timetabling.DB;
 
 namespace Implementation
 {
@@ -15,10 +16,13 @@ namespace Implementation
             //  3 - Run TimetableGenerator with algoritm and input 
 
             var algorithm = new FetAlgorithm();
-            var input = @"inputfile.fet";
+			var data = new DataModel();
+			var input = new FetInputGenerator();
 
-            var generator = new TimetableGenerator();
-            var timetable = generator.RunAlgorithm(algorithm, input);
+			input.GenerateFetFile(data, "");
+
+            //var generator = new TimetableGenerator();
+            //var timetable = generator.RunAlgorithm(algorithm, input);
 
         }
     }

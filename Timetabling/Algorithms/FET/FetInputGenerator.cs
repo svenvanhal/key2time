@@ -37,6 +37,9 @@ namespace Timetabling.Algorithms.FET
 			var yearsList = new YearsList(dataModel);
 			yearsList.Create();
 
+			var roomsList = new RoomsList(dataModel);
+			roomsList.Create();
+
 			var timeConstraintsList = new TimeConstraintsList(dataModel);
 			timeConstraintsList.Create();
 
@@ -46,6 +49,7 @@ namespace Timetabling.Algorithms.FET
 			xmlCreator.AddToRoot(daysList.GetList());
 			xmlCreator.AddToRoot(hoursList.GetList());
 			xmlCreator.AddToRoot(teachersList.GetList());
+			xmlCreator.AddToRoot(roomsList.GetList());
 			xmlCreator.AddToRoot(yearsList.GetList());
 			xmlCreator.AddToRoot(subjectsList.GetList());
 			xmlCreator.AddToRoot(activitiesList.GetList());
