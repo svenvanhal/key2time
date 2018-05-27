@@ -1,32 +1,37 @@
-﻿using System.Xml.Linq;
+using System.Xml.Linq;
 using System.Linq;
 using Timetabling.DB;
 using System.Collections.Generic;
 
 namespace Timetabling.Objects.Constraints.SpaceConstraints
 {
-	/// <summary>
+	
+  /// <summary>
     /// Constraint for the timeoff of a room.
     /// </summary>
 	public class ConstraintRoomNotAvailableTimes : AbstractConstraint
 	{
 
 		int numberOfHours = 1;
+        
         /// <summary>
         /// Gets or sets the room id.
         /// </summary>
         /// <value>The room.</value>
 		public int room { get; set; }
+        
         /// <summary>
         /// Gets or sets the day.
         /// </summary>
         /// <value>The day.</value>
 		public Days day { get; set; }
+        
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
 		public int hour { get; set; }
+        
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="T:Timetabling.Objects.Constraints.SpaceConstraints.ConstraintRoomNotAvailableTimes"/> class.
@@ -34,8 +39,8 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 		public ConstraintRoomNotAvailableTimes()
 		{
 			SetElement("ConstraintRoomNotAvailableTimes");
-
 		}
+
         /// <summary>
         /// Creates the array of XElements for the constraint.
         /// </summary>
@@ -54,7 +59,8 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
 			return result.ToArray();
 		}
-		/// <summary>
+		
+    /// <summary>
 		/// Returns the XElement representation of the constraint
 		/// </summary>
 		/// <returns>The xelement.</returns>
@@ -68,5 +74,6 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 										new XElement("Hour", hour)));
 			return constraint;
 		}
+    
 	}
 }
