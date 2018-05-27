@@ -7,9 +7,9 @@
 	using System.Data.Entity.Spatial;
 	using System.Xml.Linq;
 
-    /// <summary>
-    /// Tt class.
-    /// </summary>
+	/// <summary>
+	/// Tt class.
+	/// </summary>
 	public partial class Tt_Class
 	{
 		/// <summary>
@@ -60,10 +60,10 @@
 		/// <value>The supervisor identifier.</value>
 		public int supervisorId { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:Timetabling.DB.Tt_Class"/> is shared.
-        /// </summary>
-        /// <value><c>true</c> if is shared; otherwise, <c>false</c>.</value>
+		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="T:Timetabling.DB.Tt_Class"/> is shared.
+		/// </summary>
+		/// <value><c>true</c> if is shared; otherwise, <c>false</c>.</value>
 		public bool IsShared { get; set; }
 
 		/// <summary>
@@ -72,12 +72,12 @@
 		/// <value><c>true</c> if is home; otherwise, <c>false</c>.</value>
 		public bool IsHome { get; set; }
 
-        /// <summary>
+		/// <summary>
 		/// Gets or sets Tt_ClassGroup
-        /// </summary>
+		/// </summary>
 		/// <value>Tt_ClassGroup.</value>
 		public virtual ICollection<Tt_ClassGroup> Tt_ClassGroup { get; set; }
-      
+
 
 	}
 }

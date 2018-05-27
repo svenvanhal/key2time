@@ -6,8 +6,8 @@ using System.Xml.Linq;
 namespace Timetabling.Objects
 {
 	/// <summary>
-    /// Activities list.
-    /// </summary>
+	/// Activities list.
+	/// </summary>
 	public class ActivitiesList : AbstractList
 	{
 		private int counter = 1;
@@ -27,7 +27,7 @@ namespace Timetabling.Objects
 			var query = from activity in dB.School_TeacherClass_Subjects
 						join c in dB.School_Lookup_Class on activity.ClassID equals c.ClassID
 						join s in dB.Subject_SubjectGrade on new { activity.SubjectID, c.GradeID } equals new { s.SubjectID, s.GradeID }
-			select new { activity.TeacherID, activity.SubjectID, c.ClassName, activity.ID, s.NumberOfLlessonsPerWeek , s.NumberOfLlessonsPerDay};
+						select new { activity.TeacherID, activity.SubjectID, c.ClassName, activity.ID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
 			foreach (var item in query)
 			{
 				int groupId = counter;

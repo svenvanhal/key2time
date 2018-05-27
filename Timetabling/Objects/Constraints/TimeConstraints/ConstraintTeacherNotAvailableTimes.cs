@@ -7,44 +7,44 @@ using System.Collections.Generic;
 namespace Timetabling.Objects.Constraints.TimeConstraints
 {
 	/// <summary>
-    /// Constraint specifing the time off of a teacher
-    /// </summary>
+	/// Constraint specifing the time off of a teacher
+	/// </summary>
 	public class ConstraintTeacherNotAvailableTimes : AbstractConstraint
 	{
 
 		int numberOfHours = 1;
-        /// <summary>
-        /// Gets or sets the teacher id.
-        /// </summary>
-        /// <value>The teacher.</value>
+		/// <summary>
+		/// Gets or sets the teacher id.
+		/// </summary>
+		/// <value>The teacher.</value>
 		public int teacher { get; set; }
 
-        /// <summary>
-        /// Gets or sets the day.
-        /// </summary>
-        /// <value>The day.</value>
+		/// <summary>
+		/// Gets or sets the day.
+		/// </summary>
+		/// <value>The day.</value>
 		public Days day { get; set; }
 
-        /// <summary>
-        /// Gets or sets the hour.
-        /// </summary>
-        /// <value>The hour.</value>
+		/// <summary>
+		/// Gets or sets the hour.
+		/// </summary>
+		/// <value>The hour.</value>
 		public int hour { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintTeacherNotAvailableTimes"/> class.
-        /// </summary>
+		/// <summary>
+		/// Initializes a new instance of the
+		/// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintTeacherNotAvailableTimes"/> class.
+		/// </summary>
 		public ConstraintTeacherNotAvailableTimes()
 		{
 			SetElement("ConstraintTeacherNotAvailableTimes");
 
 		}
 		/// <summary>
-        /// Creates the array of XElements for the constraint.
-        /// </summary>
-        /// <returns>The created array.</returns>
-        /// <param name="dB">Datamodel.</param>
+		/// Creates the array of XElements for the constraint.
+		/// </summary>
+		/// <returns>The created array.</returns>
+		/// <param name="dB">Datamodel.</param>
 		public override XElement[] Create(DataModel dB)
 		{
 			var query = from tf in dB.Tt_TimeOff
@@ -58,10 +58,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 			return result.ToArray();
 		}
 
-        /// <summary>
-        /// Return the XElement represention of the constraint
-        /// </summary>
-        /// <returns>The xelement.</returns>
+		/// <summary>
+		/// Return the XElement represention of the constraint
+		/// </summary>
+		/// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
 			SetWeight(weight);

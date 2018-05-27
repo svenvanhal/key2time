@@ -7,21 +7,21 @@ using System.Collections.Generic;
 namespace Timetabling.Objects
 {
 	/// <summary>
-    /// Constraint specifies the total numer of hours a studentset can have in a week
-    /// </summary>
+	/// Constraint specifies the total numer of hours a studentset can have in a week
+	/// </summary>
 	public class ConstraintStudentsSetMaxHoursContinuously : AbstractConstraint
 	{
 
-        /// <summary>
-        /// Gets or sets the number of hours.
-        /// </summary>
-        /// <value>The number of hours.</value>
+		/// <summary>
+		/// Gets or sets the number of hours.
+		/// </summary>
+		/// <value>The number of hours.</value>
 		public int numberOfHours { get; set; } = 0;
 
-        /// <summary>
-        /// Gets or sets the name of the grade.
-        /// </summary>
-        /// <value>The name of the grade.</value>
+		/// <summary>
+		/// Gets or sets the name of the grade.
+		/// </summary>
+		/// <value>The name of the grade.</value>
 		public string gradeName { get; set; } = "";
 
 		/// <summary>
@@ -49,10 +49,10 @@ namespace Timetabling.Objects
 		}
 
 		/// <summary>
-        /// Creates the array of XElements for the constraint.
-        /// </summary>
-        /// <returns>The created array.</returns>
-        /// <param name="dB">Datamodel.</param>
+		/// Creates the array of XElements for the constraint.
+		/// </summary>
+		/// <returns>The created array.</returns>
+		/// <param name="dB">Datamodel.</param>
 		public override XElement[] Create(DataModel dB)
 		{
 			var query = from g in dB.Tt_GradeLesson

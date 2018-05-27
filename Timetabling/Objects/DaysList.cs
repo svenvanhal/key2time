@@ -7,22 +7,22 @@ using System.Collections.Generic;
 namespace Timetabling.Objects
 {
 	/// <summary>
-    /// Days list.
-    /// </summary>
+	/// Days list.
+	/// </summary>
 	public class DaysList : AbstractList
 	{
 		/// <summary>
-        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.DaysList"/> class.
-        /// </summary>
-        /// <param name="_db">The datamodel.</param>
+		/// Initializes a new instance of the <see cref="T:Timetabling.Objects.DaysList"/> class.
+		/// </summary>
+		/// <param name="_db">The datamodel.</param>
 		public DaysList(DataModel _db) : base(_db)
 		{
 			SetListElement("Days_List");
 		}
 
-        /// <summary>
-        /// Create this number of days element, and adds each day
-        /// </summary>
+		/// <summary>
+		/// Create this number of days element, and adds each day
+		/// </summary>
 		public override void Create()
 		{
 

@@ -5,31 +5,31 @@ using Timetabling.DB;
 namespace Timetabling.Objects
 {
 	/// <summary>
-    /// Hours list.
-    /// </summary>
+	/// Hours list.
+	/// </summary>
 	public class HoursList : AbstractList
 	{
-        /// <summary>
-        /// Gets the number of hours, default is 8.
-        /// </summary>
-        /// <value>The number of hours.</value>
+		/// <summary>
+		/// Gets the number of hours, default is 8.
+		/// </summary>
+		/// <value>The number of hours.</value>
 		public int numberOfHours { get; } = 8;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.HoursList"/> class.
-        /// </summary>
-        /// <param name="_db">The datamodel</param>
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Timetabling.Objects.HoursList"/> class.
+		/// </summary>
+		/// <param name="_db">The datamodel</param>
 		public HoursList(DataModel _db) : base(_db)
 		{
 			SetListElement("Hours_List");
 		}
-        
+
 		/// <summary>
 		/// Creates the hour elements.
-        /// </summary>
+		/// </summary>
 		public override void Create()
 		{
-			
+
 			list.Add(new XElement("Number_of_Hours", numberOfHours));
 			for (int i = 1; i <= numberOfHours; i++)
 			{
