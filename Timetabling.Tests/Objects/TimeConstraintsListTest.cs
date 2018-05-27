@@ -1,11 +1,7 @@
 ﻿using NUnit.Framework;
-using System;
 using Moq;
-using System.Data.Entity;
 using Timetabling.Objects;
-using System.Collections.Generic;
-using System.Linq; 
-using System.Xml.Linq; 
+using System.Xml.Linq;
 
 namespace Timetabling.DB.Tests
 {
@@ -13,25 +9,40 @@ namespace Timetabling.DB.Tests
     public class TimeConstraintsListTest
     {
 
-		XElement test;
+        XElement test;
+        TimeConstraintsList list;
+
 
         [SetUp]
         public void Init()
         {
-			
-	         
-			var mockDB = new Mock<DataModel>();
-		
-			var list = new TimeConstraintsList(mockDB.Object);
-			test = list.GetList();
-           
+
+
+            var mockDB = new Mock<DataModel>();
+
+            list = new TimeConstraintsList(mockDB.Object);
+            test = list.GetList();
+
         }
 
-		[Test]
+        [Test]
         public void ElementNameTest()
         {
-			Assert.AreEqual("Time_Constraints_List", test.Name.ToString() );
+            Assert.AreEqual("Time_Constraints_List", test.Name.ToString());
         }
-        
+
+        [Test]
+        public void CreateTest()
+        {
+            var mockDB = new Mock<DataModel>();
+            var test = new Mock<TimeConstraintsList>(mockDB.Object);
+            test.Setup(item => item.Create()).Verifiable();
+
+            test.Object.Create();
+
+            test.VerifyAll();
+
+        }
+
     }
 }
