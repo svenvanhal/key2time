@@ -1,5 +1,9 @@
-﻿using Timetabling;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Timetabling;
 using Timetabling.Algorithms.FET;
+using Timetabling.Resources;
 
 namespace Implementation
 {
@@ -15,10 +19,14 @@ namespace Implementation
             //  3 - Run TimetableGenerator with algoritm and input 
 
             var algorithm = new FetAlgorithm();
-            var input = @"inputfile.fet";
+            //var input = @"C:\Users\CodeSupply\Downloads\fet-5.35.6\examples\Italy\2007\difficult\highschool-Ancona.fet";
+            var input = @"C:\Users\CodeSupply\Downloads\fet-5.35.6\examples\United-Kingdom\Hopwood\Hopwood.fet";
 
             var generator = new TimetableGenerator();
-            var timetable = generator.RunAlgorithm(algorithm, input);
+            var task = generator.RunAlgorithm(algorithm, input);
+            task.Start();
+            task.Wait();
+
 
         }
     }

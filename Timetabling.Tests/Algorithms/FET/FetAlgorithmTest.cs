@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.IO;
+using System.Threading;
 using Moq;
 using Timetabling.Algorithms.FET;
 using Timetabling.Helper;
@@ -44,7 +45,7 @@ namespace Timetabling.Tests.Algorithms.FET
 
             // Run algorithm on test data
             var result = algo.Execute("testIdentifier",
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet"));
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet"), CancellationToken.None);
 
             // Verify that the result is not null
             Assert.IsNotNull(result);

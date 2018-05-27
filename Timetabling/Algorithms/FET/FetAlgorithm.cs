@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
@@ -53,44 +55,41 @@ namespace Timetabling.Algorithms.FET
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private string _inputFile;
 
-        /// <summary>
-        /// Instantiate new FET Algorithm instance.
-        /// <param name="args">Additional command line arguments.</param>
-        /// </summary>
-        public FetAlgorithm()
-        {
-        }
-
         /// <inheritdoc />
-        public override Timetable Execute(string identifier, string input)
+        public override Task<Timetable> Execute(string identifier, string input, CancellationToken t)
         {
-
-            // Set identifier
             Identifier = identifier;
+
+            // Check if algorithm is cancelled already
+            if (t.IsCancellationRequested)
+            {
+                Logger.Info($"Algorithm run {identifier} was cancelled before it started.");
+                t.ThrowIfCancellationRequested();
+            }
 
             // Initialize algorithm
             Initialize(input);
 
-            // Run algorithm
-            Run();
+            // Register cancellation handler (after initialization)
+            t.Register(Interrupt);
 
-            // Get results
-            return GetResult();
+            // Create task to run algorithm and retrieve results
+            var task = new Task<Timetable>(() =>
+            {
+                Run();
+                return GetResult();
+            }, t);
 
+            return task;
         }
 
-        /// <summary>
-        /// Interrupt algorithm run.
-        /// </summary>
+        /// <inheritdoc />
         public override void Interrupt()
         {
             ProcessInterface.TerminateProcess();
         }
 
-        /// <summary>
-        /// Defines a new input file for the algorithm.
-        /// </summary>
-        /// <param name="input">Location of the FET input data file.</param>
+        /// <inheritdoc />
         protected override void Initialize(string input)
         {
 
@@ -117,41 +116,17 @@ namespace Timetabling.Algorithms.FET
 
         }
 
-        /// <summary>
-        /// Executes the FET algorithm.
-        /// </summary>
-        /// <exception cref="AlgorithmException">Error message during algorithm execution.</exception>
+        /// <inheritdoc />
         protected override void Run()
         {
 
             Logger.Info("Running FET algorithm");
 
-            try
-            {
-
-                Logger.Info("Starting FET process");
-
-                // Run the FET program
-                ProcessInterface.StartProcess();
-
-                ProcessInterface.Process.WaitForExit();
-
-            }
-            catch (Exception ex)
-            {
-                throw new AlgorithmException("Could not execute FET algorithm.", ex);
-            }
-            finally
-            {
-                ProcessInterface.TerminateProcess();
-            }
+            ProcessInterface.StartProcess();
 
         }
 
-        /// <summary>
-        /// Fetches the FET output files and generates a Timetable object.
-        /// </summary>
-        /// <returns>A Timetable object.</returns>
+        /// <inheritdoc />
         protected override Timetable GetResult()
         {
 

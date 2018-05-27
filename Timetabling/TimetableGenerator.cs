@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Timetabling.Algorithms;
 using Timetabling.Resources;
 
@@ -18,29 +20,32 @@ namespace Timetabling
         /// </summary>
         public string CurrentRunIdentifier { get; private set; }
 
-        /// <summary>
-        /// Temporary method used for development purposes.
-        /// </summary>
-        public Timetable RunAlgorithm(Algorithm algorithm, string inputfile)
-        {
+        protected readonly CancellationTokenSource TokenSource = new CancellationTokenSource();
 
+        /// <inheritdoc />
+        ~TimetableGenerator() => TokenSource.Dispose(); // Dispose of CancellationTokenSource on object destruction
+
+        /// <summary>
+        /// Run an algorithm on an input file.
+        /// </summary>
+        public Task<Timetable> RunAlgorithm(Algorithm algorithm, string inputfile)
+        {
             Logger.Info($"Starting algorithm run - {algorithm.GetType()}");
 
             // Generate new ID for this algorithm run
             RefreshIdentifier();
 
             // Generate timetable
-            var tt = algorithm.Execute(CurrentRunIdentifier, inputfile);
-
-            return tt;
+            return algorithm.Execute(CurrentRunIdentifier, inputfile, TokenSource.Token);
         }
 
         /// <summary>
-        /// Temporary method used for development purposes.
+        /// Terminate the algorithm that is currently running.
         /// </summary>
-        public void StopAlgorithm(Algorithm algorithm)
+        public void TerminateAlgorithm()
         {
-            algorithm.Interrupt();
+            Logger.Info("Terminating algorithm");
+            TokenSource.Cancel();
         }
 
         /// <summary>
@@ -49,10 +54,8 @@ namespace Timetabling
         public void RefreshIdentifier()
         {
             CurrentRunIdentifier = Guid.NewGuid().ToString("B");
-
             Logger.Info($"Generated new identifier - {CurrentRunIdentifier}");
         }
-
 
     }
 }

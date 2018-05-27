@@ -14,7 +14,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// FET-CL process.
         /// </summary>
-        public readonly Process Process;
+        protected readonly Process Process;
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -33,24 +33,25 @@ namespace Timetabling.Algorithms.FET
         public virtual void StartProcess()
         {
 
-            // Attach listeners
+            Logger.Info("Starting FET process");
+
+            // Attach listeners to process
             Process.OutputDataReceived += Log;
             Process.Exited += (sender, args) => CheckProcessExitCode();
 
             // Start process
-            Process.Start();
+            if (!Process.Start()) throw new InvalidOperationException("Could not start FET-CL process.");
             Process.BeginOutputReadLine();
+
         }
 
         /// <summary>
-        /// Gracefully stops process.
+        /// Kill process.
+        /// TODO: Find a way to send the (on Windows unsupported) SIGTERM signal to the process, so the execution can be stopped gracefully.
         /// </summary>
         public virtual void TerminateProcess()
         {
-
-            // Close process
-            Process.Close();
-
+            Process.Kill();
         }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Timetabling.Algorithms.FET
         protected void CheckProcessExitCode()
         {
             // Check if process has exited
-            if(!Process.HasExited) throw new InvalidOperationException("The process has not yet exited.");
+            if (!Process.HasExited) throw new InvalidOperationException("The process has not yet exited.");
 
             // Check exit code
             if (Process.ExitCode != 0) throw new AlgorithmException($"The FET process has exited with a non-zero exit code ({Process.ExitCode}).");

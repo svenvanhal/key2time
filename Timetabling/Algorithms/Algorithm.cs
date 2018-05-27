@@ -1,4 +1,6 @@
-﻿using Timetabling.Exceptions;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Timetabling.Exceptions;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms
@@ -15,8 +17,9 @@ namespace Timetabling.Algorithms
         /// </summary>
         /// <param name="identifier">Unique identifier for this algorithm run.</param>
         /// <param name="input">Input to run the algorithm on.</param>
-        /// <returns>A Timetable object.</returns>
-        public abstract Timetable Execute(string identifier, string input);
+        /// <param name="t">Cancellation token.</param>
+        /// <returns>A Task-object yielding a Timetable.</returns>
+        public abstract Task<Timetable> Execute(string identifier, string input, CancellationToken t);
 
         /// <summary>
         /// Interrupts the algorithm's execution.

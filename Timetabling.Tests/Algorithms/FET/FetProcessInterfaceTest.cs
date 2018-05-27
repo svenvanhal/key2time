@@ -11,7 +11,12 @@ namespace Timetabling.Tests.Algorithms.FET
 
     internal class FetProcessInterfaceExposer : FetProcessInterface
     {
-        public FetProcessInterfaceExposer(Process fetProcess) : base(fetProcess) { }
+        public new readonly Process Process;
+
+        public FetProcessInterfaceExposer(Process fetProcess) : base(fetProcess)
+        {
+            Process = fetProcess;
+        }
         public new void CheckProcessExitCode() => base.CheckProcessExitCode();
     }
 
