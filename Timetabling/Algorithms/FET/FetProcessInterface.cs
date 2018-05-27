@@ -12,6 +12,15 @@ namespace Timetabling.Algorithms.FET
     {
 
         /// <summary>
+        /// Bubble Process.Exited event
+        /// </summary>
+        public event EventHandler AlgorithmExited
+        {
+            add => Process.Exited += value;
+            remove => Process.Exited -= value;
+        }
+
+        /// <summary>
         /// FET-CL process.
         /// </summary>
         protected readonly Process Process;
@@ -46,8 +55,30 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
+        /// Wrapper around event delegate registration.
+        /// <param name="e">Event handler.</param>
+        /// </summary>
+        public virtual void RegisterExitHandler(EventHandler e)
+        {
+            AlgorithmExited += e;
+        }
+
+        /// <summary>
+        /// Gracefully stops process.
+        /// </summary>
+        public virtual void StopAlgorithm()
+        {
+
+            // Send SIGTERM
+
+            // Close process
+
+            // Wait 5 secs, else kill process
+
+        }
+
+        /// <summary>
         /// Kill process.
-        /// TODO: Find a way to send the (on Windows unsupported) SIGTERM signal to the process, so the execution can be stopped gracefully.
         /// </summary>
         public virtual void TerminateProcess()
         {
@@ -75,7 +106,7 @@ namespace Timetabling.Algorithms.FET
         protected void Log(object sender, DataReceivedEventArgs eventArgs)
         {
             var data = eventArgs.Data;
-            if (!string.IsNullOrWhiteSpace(data)) Logger.Debug(data);
+            if (!string.IsNullOrWhiteSpace(data)) Logger.Trace(data);
         }
 
     }

@@ -30,7 +30,7 @@ namespace Timetabling
         /// </summary>
         public Task<Timetable> RunAlgorithm(Algorithm algorithm, string inputfile)
         {
-            Logger.Info($"Starting algorithm run - {algorithm.GetType()}");
+            Logger.Info($"Starting {algorithm.GetType().Name} algorithm run");
 
             // Generate new ID for this algorithm run
             RefreshIdentifier();

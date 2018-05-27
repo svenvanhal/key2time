@@ -56,6 +56,7 @@ namespace Timetabling.Algorithms.FET
         private string _inputFile;
 
         /// <inheritdoc />
+        // TODO: refactor this method
         public override Task<Timetable> Execute(string identifier, string input, CancellationToken t)
         {
             Identifier = identifier;
@@ -74,13 +75,19 @@ namespace Timetabling.Algorithms.FET
             t.Register(Interrupt);
 
             // Create task to run algorithm and retrieve results
-            var task = new Task<Timetable>(() =>
-            {
-                Run();
-                return GetResult();
-            }, t);
+            var task = new TaskCompletionSource<Timetable>();
 
-            return task;
+            // Run the algorithm asynchronously
+            Task.Run(() => Run(), t);
+
+            // Get resulting timetable and complete task when the FET process has finished
+            ProcessInterface.RegisterExitHandler((sender, args) =>
+            {
+                var tt = GetResult();
+                task.SetResult(tt);
+            });
+
+            return task.Task;
         }
 
         /// <inheritdoc />
@@ -106,7 +113,7 @@ namespace Timetabling.Algorithms.FET
             // Configure process
             processBuilder.SetInputFile(InputFile);
             processBuilder.SetOutputDir(OutputDir);
-            processBuilder.Debug(true);
+            processBuilder.Debug(false);
 
             // Create process
             var process = processBuilder.CreateProcess();

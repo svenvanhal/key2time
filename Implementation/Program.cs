@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Timetabling;
 using Timetabling.Algorithms.FET;
 using Timetabling.Resources;
@@ -24,9 +22,8 @@ namespace Implementation
 
             var generator = new TimetableGenerator();
             var task = generator.RunAlgorithm(algorithm, input);
-            task.Start();
-            task.Wait();
 
+            var tt = task.Result;
 
         }
     }

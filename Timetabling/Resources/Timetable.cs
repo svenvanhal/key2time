@@ -47,5 +47,10 @@ namespace Timetabling.Resources
             public string Room { get; set; }
 
         }
+
+        public override string ToString()
+        {
+            return $"<Timetable[ {Activities.Count} activities ]>";
+        }
     }
 }
