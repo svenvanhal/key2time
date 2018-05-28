@@ -19,7 +19,7 @@ namespace Timetabling.DB.Tests
 		{
 			var data = new List<Section_WeekEnd>{
 				new Section_WeekEnd{dayIndex = 0, sectionId =1},
-				new Section_WeekEnd{dayIndex = 1, sectionId=1},
+				new Section_WeekEnd{dayIndex = 1, sectionId= 1},
 				new Section_WeekEnd{dayIndex = 3,sectionId = 1}
 			}.AsQueryable();
 
@@ -50,19 +50,13 @@ namespace Timetabling.DB.Tests
 		public void NumberOfDaysElementTest()
 		{
 
-			Assert.AreEqual("4", test.Elements("Number_of_Days").First().Value);
+			Assert.AreEqual("7", test.Elements("Number_of_Days").First().Value);
 		}
 
 		[Test]
 		public void NumberOfDaysTest()
 		{
-			Assert.AreEqual(4, test.Elements("Day").Count());
-		}
-
-		[Test]
-		public void WeekendDayTest()
-		{
-			Assert.AreEqual(0, test.Elements("Day").Elements("Name").Count(item => item.Value.Equals(Days.Sunday.ToString())));
+			Assert.AreEqual(7, test.Elements("Day").Count());
 		}
 
 		[Test]

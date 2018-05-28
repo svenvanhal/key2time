@@ -11,9 +11,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 	/// </summary>
 	public class ConstraintPeriodSection : AbstractConstraint
 	{
-		string students;
-		List<int> days;
-		int numberOfHours;
+		public string students { get; set; }
+		public List<int> days { get; set; }
+		public int numberOfHours { get; set; }
 
 		/// <summary>
 		/// Initializes a new instance of the
@@ -21,6 +21,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 		/// </summary>
 		public ConstraintPeriodSection()
 		{
+			SetElement("ConstraintStudentsSetNotAvailableTimes"); //creates a studentnotavailabletimes constraint element.
+			SetWeight(100); // Weekend has always a weight of 100 
 		}
 
         /// <summary>
@@ -62,9 +64,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
 		public override XElement ToXelement()
 		{
-
-			SetElement("ConstraintStudentsSetNotAvailableTimes");
-			SetWeight(100);
+            
+		
 			constraint.Add(new XElement("Students", students),
 						   new XElement("Number_of_Not_Available_Times", numberOfHours * days.Count));
 

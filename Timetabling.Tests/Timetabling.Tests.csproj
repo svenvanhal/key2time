@@ -89,6 +89,7 @@
     <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintRoomNotAvailableTimesTest.cs" />
     <Compile Include="Objects\RoomsListTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintPeriodSectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
