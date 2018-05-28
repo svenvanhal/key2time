@@ -45,7 +45,7 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void StartProcess()
+        public void StartProcessTest()
         {
             _fpi.StartProcess();
             Assert.IsFalse(_fpi.Process.HasExited);
@@ -53,7 +53,7 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void TerminateProcess()
+        public void TerminateProcessTest()
         {
             var expected = _fpi.Process.StartInfo;
             _fpi.StartProcess();
@@ -68,14 +68,14 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void CheckProcessNotYetExitedCode()
+        public void CheckProcessNotYetExitedCodeTest()
         {
             _fpi.StartProcess();
             var ex = Assert.Throws<InvalidOperationException>(() => _fpi.CheckProcessExitCode());
         }
 
         [Test]
-        public void CheckProcessZeroExitCode()
+        public void CheckProcessZeroExitCodeTest()
         {
             // Create process again with different arguments
             var fpb = new FetProcessBuilder(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "fet", "fet-cl"));
@@ -99,7 +99,7 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void CheckProcessNonZeroExitCode()
+        public void CheckProcessNonZeroExitCodeTest()
         {
             // Create process again with different arguments
             var fpb = new FetProcessBuilder(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "fet", "fet-cl"));
@@ -122,6 +122,33 @@ namespace Timetabling.Tests.Algorithms.FET
             });
 
 
+        }
+
+        [Test]
+        public void TaskCanceledConstructorTest()
+        {
+            var tcs = new CancellationTokenSource();
+            var token = tcs.Token;
+
+            tcs.Cancel();
+
+            var ex = Assert.Throws<OperationCanceledException>(() => new FetProcessInterface(null, token));
+        }
+
+        [Test]
+        public void InvalidProcessStartProcessTest()
+        {
+            var tcs = new CancellationTokenSource();
+            var token = tcs.Token;
+            var fpb = new FetProcessBuilder();
+
+            _process = fpb.CreateProcess();
+            _fpi = new FetProcessInterfaceExposer(_process, token);
+
+            var task = _fpi.StartProcess();
+
+            var ex = Assert.Throws<AggregateException>(() => task.Wait());
+            Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
         }
 
     }

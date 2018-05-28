@@ -23,7 +23,13 @@ namespace Timetabling
         /// <summary>
         /// Cancellation token source.
         /// </summary>
-        protected readonly CancellationTokenSource TokenSource = new CancellationTokenSource();
+        protected CancellationTokenSource TokenSource;
+
+        /// <inheritdoc />
+        public TimetableGenerator()
+        {
+            TokenSource = new CancellationTokenSource();
+        }
 
         /// <inheritdoc />
         ~TimetableGenerator()

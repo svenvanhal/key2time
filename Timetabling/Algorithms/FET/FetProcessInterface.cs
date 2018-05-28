@@ -29,6 +29,7 @@ namespace Timetabling.Algorithms.FET
         /// Create new process interface.
         /// </summary>
         /// <param name="fetProcess">FET-CL process</param>
+        /// <param name="t">Cancellation token</param>
         public FetProcessInterface(Process fetProcess, CancellationToken t)
         {
             // Check if process task has been cancelled already
@@ -57,9 +58,15 @@ namespace Timetabling.Algorithms.FET
                 TaskCompletionSource.TrySetResult(true);
             };
 
-            // Start process
-            if (!Process.Start()) TaskCompletionSource.TrySetException(new InvalidOperationException("Could not start FET-CL process."));
-            Process.BeginOutputReadLine();
+            try
+            {
+
+                // Start process
+                Process.Start();
+                Process.BeginOutputReadLine();
+
+            }
+            catch (InvalidOperationException ex) { TaskCompletionSource.TrySetException(ex); }
 
             return TaskCompletionSource.Task;
         }

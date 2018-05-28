@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Threading;
 using Timetabling.Algorithms.FET;
-using Timetabling.Resources;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
@@ -11,7 +10,6 @@ namespace Timetabling.Tests.Algorithms.FET
     internal class FetAlgorithmExposer : FetAlgorithm
     {
         public new void Initialize(string input, CancellationToken t) => base.Initialize(input, t);
-        public new Timetable GetResult() => base.GetResult();
     }
 
     [TestFixture]
@@ -48,6 +46,21 @@ namespace Timetabling.Tests.Algorithms.FET
             Assert.AreEqual(expectedInputFile, algo.InputFile);
             Assert.True(Directory.Exists(algo.OutputDir));
             Assert.IsInstanceOf<FetProcessInterface>(algo.ProcessInterface);
+        }
+
+        [Test]
+        public void CancelPrematurelyTest()
+        {
+            var fet = new FetAlgorithm();
+            var tcs = new CancellationTokenSource();
+            var token = tcs.Token;
+
+            tcs.Cancel();
+
+            var task = fet.GenerateTask(null, null, token);
+
+            var ex = Assert.Throws<AggregateException>(() => task.Wait());
+            Assert.IsInstanceOf<OperationCanceledException>(ex.InnerException);
         }
 
     }
