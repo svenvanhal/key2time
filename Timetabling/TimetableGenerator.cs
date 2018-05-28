@@ -26,7 +26,10 @@ namespace Timetabling
         protected readonly CancellationTokenSource TokenSource = new CancellationTokenSource();
 
         /// <inheritdoc />
-        ~TimetableGenerator() => TokenSource.Dispose();
+        ~TimetableGenerator()
+        {
+            TokenSource.Dispose();
+        }
 
         /// <summary>
         /// Run an algorithm on an input file.
