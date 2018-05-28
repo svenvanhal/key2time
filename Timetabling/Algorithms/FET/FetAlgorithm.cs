@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Timetabling.Exceptions;
 using Timetabling.Helper;
 using Timetabling.Resources;
 
@@ -19,17 +18,17 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        public string Identifier { get; set; }
+        internal string Identifier { get; private set; }
 
         /// <summary>
         /// Name of the input file (filename without extension). FET-CL uses this as base for all generated output files.
         /// </summary>
-        public string InputName { get; private set; }
+        internal string InputName { get; private set; }
 
         /// <summary>
         /// Path to the .fet input file.
         /// </summary>
-        public string InputFile
+        internal string InputFile
         {
             get
             {
@@ -45,61 +44,49 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        public string OutputDir { get; protected set; }
+        internal string OutputDir { get; set; }
 
         /// <summary>
         /// FET-CL process interface.
         /// </summary>
-        public FetProcessInterface ProcessInterface;
+        internal FetProcessInterface ProcessInterface;
 
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// TaskCompletionSource to generate the algorithm execution task.
+        /// </summary>
+        internal TaskCompletionSource<Timetable> TaskCompletionSource;
+
         private string _inputFile;
 
-        /// <inheritdoc />
-        // TODO: refactor this method
-        public override Task<Timetable> Execute(string identifier, string input, CancellationToken t)
-        {
-            Identifier = identifier;
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
-            // Check if algorithm is cancelled already
-            if (t.IsCancellationRequested)
-            {
-                Logger.Info($"Algorithm run {identifier} was cancelled before it started.");
-                t.ThrowIfCancellationRequested();
-            }
+
+        /// <inheritdoc />
+        protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
+        {
+            // Check if algorithm has been cancelled already
+            if (t.IsCancellationRequested) t.ThrowIfCancellationRequested();
+
+            Identifier = identifier;
+            TaskCompletionSource = new TaskCompletionSource<Timetable>(t);
 
             // Initialize algorithm
-            Initialize(input);
+            Initialize(input, t);
+            
+            await ProcessInterface.StartProcess()
 
-            // Register cancellation handler (after initialization)
-            t.Register(Interrupt);
+                // Gather the Timetable results when the algorithm process has finished
+                .ContinueWith(task => TaskCompletionSource.TrySetResult(GetResult()), t);
 
-            // Create task to run algorithm and retrieve results
-            var task = new TaskCompletionSource<Timetable>();
-
-            // Run the algorithm asynchronously
-            Task.Run(() => Run(), t);
-
-            // Get resulting timetable and complete task when the FET process has finished
-            ProcessInterface.RegisterExitHandler((sender, args) =>
-            {
-                var tt = GetResult();
-                task.SetResult(tt);
-            });
-
-            return task.Task;
+            return await TaskCompletionSource.Task;
         }
 
-        /// <inheritdoc />
-        public override void Interrupt()
+        /// <summary>
+        /// Build FET process and create process interface.
+        /// </summary>
+        /// <param name="input">Path to input file</param>
+        protected void Initialize(string input, CancellationToken t)
         {
-            ProcessInterface.TerminateProcess();
-        }
-
-        /// <inheritdoc />
-        protected override void Initialize(string input)
-        {
-
             Logger.Info("Initializing FET algorithm");
 
             // Set parameters
@@ -113,45 +100,21 @@ namespace Timetabling.Algorithms.FET
             // Configure process
             processBuilder.SetInputFile(InputFile);
             processBuilder.SetOutputDir(OutputDir);
-            processBuilder.Debug(false);
 
-            // Create process
-            var process = processBuilder.CreateProcess();
-
-            // Create process interface
-            ProcessInterface = new FetProcessInterface(process);
-
+            // Create process interface and register exit handler
+            ProcessInterface = new FetProcessInterface(processBuilder.CreateProcess(), t);
         }
 
-        /// <inheritdoc />
-        protected override void Run()
+        /// <summary>
+        /// Process FET algorithm output.
+        /// </summary>
+        /// <returns>Timetable</returns>
+        protected Timetable GetResult()
         {
-
-            Logger.Info("Running FET algorithm");
-
-            ProcessInterface.StartProcess();
-
-        }
-
-        /// <inheritdoc />
-        protected override Timetable GetResult()
-        {
-
             Logger.Info("Retrieving FET algorithm results");
 
-            // Output is stored in the /timetables/[FET file name]/ folder
-
             var fop = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables", InputName));
-
-            try
-            {
-                return fop.GetTimetable();
-            }
-            catch (FileNotFoundException ex)
-            {
-                throw new AlgorithmException("No timetable is generated: the FET output file could not be found.", ex);
-            }
-
+            return fop.GetTimetable();
         }
 
     }

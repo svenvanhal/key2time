@@ -20,10 +20,13 @@ namespace Timetabling
         /// </summary>
         public string CurrentRunIdentifier { get; private set; }
 
+        /// <summary>
+        /// Cancellation token source.
+        /// </summary>
         protected readonly CancellationTokenSource TokenSource = new CancellationTokenSource();
 
         /// <inheritdoc />
-        ~TimetableGenerator() => TokenSource.Dispose(); // Dispose of CancellationTokenSource on object destruction
+        ~TimetableGenerator() => TokenSource.Dispose();
 
         /// <summary>
         /// Run an algorithm on an input file.
@@ -36,7 +39,7 @@ namespace Timetabling
             RefreshIdentifier();
 
             // Generate timetable
-            return algorithm.Execute(CurrentRunIdentifier, inputfile, TokenSource.Token);
+            return algorithm.GenerateTask(CurrentRunIdentifier, inputfile, TokenSource.Token);
         }
 
         /// <summary>

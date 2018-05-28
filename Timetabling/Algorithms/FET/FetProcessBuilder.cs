@@ -11,7 +11,7 @@ namespace Timetabling.Algorithms.FET
     /// <summary>
     /// Creates a new FET-CL process instance.
     /// </summary>
-    public class FetProcessBuilder
+    internal class FetProcessBuilder
     {
 
         /// <summary>
@@ -65,16 +65,15 @@ namespace Timetabling.Algorithms.FET
         /// <returns>FET-CL process</returns>
         public Process CreateProcess()
         {
-
-            // Create Process
             var fetProcess = new Process
             {
                 StartInfo = CreateStartInfo(),
+
+                // Bubble process events (e.g. Exited)
                 EnableRaisingEvents = true
             };
 
             return fetProcess;
-
         }
 
         /// <summary>
@@ -84,6 +83,7 @@ namespace Timetabling.Algorithms.FET
         public void SetInputFile(string inputFile)
         {
             if(!_fs.File.Exists(inputFile)) throw new FileNotFoundException("The FET-CL input file could not be found.");
+
             SetArgument("inputfile", inputFile);
         }
 
@@ -94,6 +94,7 @@ namespace Timetabling.Algorithms.FET
         public void SetOutputDir(string outputDir)
         {
             if (!_fs.Directory.Exists(outputDir)) throw new DirectoryNotFoundException("The FET-CL output directory does not exist.");
+
             SetArgument("outputdir", outputDir);
         }
 
@@ -103,7 +104,8 @@ namespace Timetabling.Algorithms.FET
         /// <param name="seconds">Amount of seconds before timeout. Default: 2000000000</param>
         public void SetTimeout(int seconds)
         {
-            if (seconds < 1) throw new ArgumentOutOfRangeException("The timetable generation timeout cannot be less than one second.");
+            if (seconds < 1) throw new ArgumentOutOfRangeException(nameof(seconds), "The timetable generation timeout cannot be less than one second.");
+
             SetArgument("timelimitseconds", seconds.ToString());
         }
 
@@ -113,6 +115,8 @@ namespace Timetabling.Algorithms.FET
         /// <param name="language">Language. Default: en_US.</param>
         public void SetLanguage(FetLanguage language)
         {
+            if (language == null) throw new ArgumentOutOfRangeException(nameof(language), "Invalid language passed. Defaulting to en_US.");
+
             SetArgument("language", language.ToString());
         }
 
@@ -132,7 +136,6 @@ namespace Timetabling.Algorithms.FET
         /// <returns>A ProcessStartInfo object.</returns>
         protected ProcessStartInfo CreateStartInfo()
         {
-
             var startInfo = new ProcessStartInfo
             {
                 // Suppress window

@@ -10,23 +10,34 @@ using Timetabling.Resources;
 namespace Timetabling.Algorithms.FET
 {
 
+    /// <summary>
+    /// Processes the FET output.
+    /// </summary>
     public class FetOutputProcessor
     {
 
-        private readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
-        private readonly IFileSystem _fs;
-
+        /// <summary>
+        /// Name of the FET input. The InputName is primarily used as the name of the FET output directory.
+        /// </summary>
         public string InputName { get; }
-        public string OutputDir { get; }
 
         /// <summary>
-        /// Create new FetOutputProcessor
+        /// The path to the FET output.
+        /// </summary>
+        public string OutputDir { get; }
+
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly IFileSystem _fs;
+
+        /// <inheritdoc />
+        public FetOutputProcessor(string inputName, string outputDir) : this(inputName, outputDir, new FileSystem()) { }
+
+        /// <summary>
+        /// Create new FetOutputProcessor.
         /// </summary>
         /// <param name="inputName">Name of the FET file used for the program input.</param>
         /// <param name="outputDir">Location of the FET output files.</param>
-        public FetOutputProcessor(string inputName, string outputDir) : this(inputName, outputDir, new FileSystem()) { }
-
+        /// <param name="fileSystem">Filesystem to use.</param>
         internal FetOutputProcessor(string inputName, string outputDir, IFileSystem fileSystem)
         {
             InputName = inputName;
@@ -44,23 +55,24 @@ namespace Timetabling.Algorithms.FET
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
 
             Timetable tt;
+            
+            var outputPath = _fs.Path.Combine(OutputDir, InputName) + @"_activities.xml";
 
             // Create output file stream
-            var outputPath = _fs.Path.Combine(OutputDir, InputName) + @"_activities.xml";
             using (var outputFileStream = _fs.File.OpenRead(outputPath))
             {
                 // Deserialize XML
                 tt = XmlToTimetable(outputFileStream);
 
                 Logger.Info("Found a timetable with {0} activities in FET output.", tt.Activities.Count);
-
             }
+
+            // TODO: error handling, maybe throw exception, do not return null
 
             // Clean up output dir
             CleanupOutputDir();
 
             return tt;
-
         }
 
         /// <summary>
@@ -68,12 +80,10 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public void CleanupOutputDir()
         {
-
             Logger.Info("Cleaning up output dir");
 
             // List all files in output directory
             _fs.Directory.Delete(OutputDir, true);
-
         }
 
         /// <summary>
@@ -84,7 +94,6 @@ namespace Timetabling.Algorithms.FET
         /// <exception cref="SerializationException">XML serialization does not create a Timetable object.</exception>
         public Timetable XmlToTimetable(Stream fileStream)
         {
-
             Timetable tt;
 
             // Initialize

@@ -4,7 +4,8 @@ using Timetabling.XML;
 
 namespace Timetabling.Algorithms.FET
 {
-    public class FetInputGenerator
+
+    internal class FetInputGenerator
     {
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
