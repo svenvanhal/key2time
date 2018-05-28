@@ -18,17 +18,17 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        internal string Identifier { get; private set; }
+        protected internal string Identifier { get; set; }
 
         /// <summary>
         /// Name of the input file (filename without extension). FET-CL uses this as base for all generated output files.
         /// </summary>
-        internal string InputName { get; private set; }
+        protected internal string InputName { get; set; }
 
         /// <summary>
         /// Path to the .fet input file.
         /// </summary>
-        internal string InputFile
+        protected internal string InputFile
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        internal string OutputDir { get; set; }
+        protected internal string OutputDir { get; private set; }
 
         /// <summary>
         /// FET-CL process interface.
@@ -54,7 +54,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// TaskCompletionSource to generate the algorithm execution task.
         /// </summary>
-        internal TaskCompletionSource<Timetable> TaskCompletionSource;
+        private TaskCompletionSource<Timetable> _tcs;
 
         private string _inputFile;
 
@@ -68,7 +68,7 @@ namespace Timetabling.Algorithms.FET
             if (t.IsCancellationRequested) t.ThrowIfCancellationRequested();
 
             Identifier = identifier;
-            TaskCompletionSource = new TaskCompletionSource<Timetable>(t);
+            _tcs = new TaskCompletionSource<Timetable>(t);
 
             // Initialize algorithm
             Initialize(input, t);
@@ -76,16 +76,17 @@ namespace Timetabling.Algorithms.FET
             await ProcessInterface.StartProcess()
 
                 // Gather the Timetable results when the algorithm process has finished
-                .ContinueWith(task => TaskCompletionSource.TrySetResult(GetResult()), t);
+                .ContinueWith(task => _tcs.TrySetResult(GetResult()), t);
 
-            return await TaskCompletionSource.Task;
+            return await _tcs.Task;
         }
 
         /// <summary>
         /// Build FET process and create process interface.
         /// </summary>
         /// <param name="input">Path to input file</param>
-        protected void Initialize(string input, CancellationToken t)
+        /// <param name="t">Cancellation token</param>
+        protected internal void Initialize(string input, CancellationToken t)
         {
             Logger.Info("Initializing FET algorithm");
 
@@ -109,7 +110,7 @@ namespace Timetabling.Algorithms.FET
         /// Process FET algorithm output.
         /// </summary>
         /// <returns>Timetable</returns>
-        protected Timetable GetResult()
+        protected internal Timetable GetResult()
         {
             Logger.Info("Retrieving FET algorithm results");
 

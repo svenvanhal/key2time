@@ -102,10 +102,10 @@
     <Content Include="testdata\books.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="testdata\fet\United-Kingdom\Hopwood\empty.xml">
+    <Content Include="testdata\fet\empty.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="testdata\fet\United-Kingdom\Hopwood\invalid.xml">
+    <Content Include="testdata\fet\invalid.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="testdata\fet\United-Kingdom\Hopwood\output.xml">

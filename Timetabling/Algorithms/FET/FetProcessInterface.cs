@@ -21,7 +21,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Task source for process.
         /// </summary>
-        protected readonly TaskCompletionSource<bool> TaskCompletionSource;
+        protected internal readonly TaskCompletionSource<bool> TaskCompletionSource;
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 

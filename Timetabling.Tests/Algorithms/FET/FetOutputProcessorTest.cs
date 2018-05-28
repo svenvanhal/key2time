@@ -103,7 +103,7 @@ namespace Timetabling.Tests.Algorithms.FET
         public void EmptyXmlToTimetableTest()
         {
 
-            var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/empty.xml");
+            var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "empty.xml");
             var testData = File.ReadAllBytes(testDataPath);
 
             // Create dummy FET output
@@ -126,7 +126,7 @@ namespace Timetabling.Tests.Algorithms.FET
         public void InvalidXmlToTimetableTest()
         {
 
-            var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/invalid.xml");
+            var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "invalid.xml");
             var testData = File.ReadAllBytes(testDataPath);
 
             // Create dummy FET output

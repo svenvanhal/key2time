@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Timetabling;
 using Timetabling.Algorithms.FET;
-using Timetabling.Exceptions;
-using Timetabling.Resources;
 
 namespace Implementation
 {
