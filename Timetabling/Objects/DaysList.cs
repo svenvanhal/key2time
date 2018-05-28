@@ -26,10 +26,10 @@ namespace Timetabling.Objects
 		public override void Create()
 		{
 
-			list.Add(new XElement("Number_of_Days", 7 - dB.Section_WeekEnd.Where(item => item.sectionId.Equals(1)).Count()));
-			var l = dB.Section_WeekEnd.Select(day => day.dayIndex);
+			list.Add(new XElement("Number_of_Days", 7));
 
-			var daysList = Enum.GetValues(typeof(Days)).OfType<Days>().Where(day => !l.Any(x => x == (int)day));
+
+			var daysList = Enum.GetValues(typeof(Days)).OfType<Days>();
 			foreach (var day in daysList)
 			{
 				list.Add(new XElement("Day", new XElement("Name", day)));

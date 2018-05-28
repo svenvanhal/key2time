@@ -42,6 +42,7 @@ namespace Timetabling.Objects
 			constraints.Add(new ConstraintTeacherNotAvailableTimes());
 			constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
 			constraints.Add(new ConstraintMinDaysBetweenActivities());
+			constraints.Add(new ConstraintPeriodSection());
 		}
 	}
 }
