@@ -1,20 +1,35 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+	using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("SubjectClassLesson")]
-    public partial class SubjectClassLesson
-    {
-        public int Id { get; set; }
+	/// <summary>
+	/// Subject class lesson.
+	/// </summary>
+	[Table("SubjectClassLesson")]
+	public partial class SubjectClassLesson
+	{
+		/// <summary>
+		/// Gets or sets the identifier.
+		/// </summary>
+		/// <value>The identifier.</value>
+		public int Id { get; set; }
 
-        public int SubjectId { get; set; }
+		/// <summary>
+		/// Gets or sets the subject identifier.
+		/// </summary>
+		/// <value>The subject identifier.</value>
+		public int SubjectId { get; set; }
 
-        public int classId { get; set; }
+		/// <summary>
+		/// Gets or sets the class identifier.
+		/// </summary>
+		/// <value>The class identifier.</value>
+		public int classId { get; set; }
 
-        public int numberOfLessonPerWeek { get; set; }
-    }
+		/// <summary>
+		/// Gets or sets the number of lesson per week.
+		/// </summary>
+		/// <value>The number of lesson per week.</value>
+		public int numberOfLessonPerWeek { get; set; }
+	}
 }

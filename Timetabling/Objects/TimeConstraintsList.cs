@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Timetabling.DB;
+using System.Xml.Linq;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
 namespace Timetabling.Objects
-
-
-
 {
-	using System.Linq;
-	using System.Xml.Linq;
-
+	/// <summary>
+	/// Time constraints list.
+	/// </summary>
 	public class TimeConstraintsList : AbstractList
 	{
 
 		List<AbstractConstraint> constraints;
 		List<XElement> result;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Timetabling.Objects.TimeConstraintsList"/> class.
+		/// </summary>
+		/// <param name="_dB">D b.</param>
 		public TimeConstraintsList(DataModel _dB) : base(_dB)
 		{
 			SetListElement("Time_Constraints_List");
@@ -36,8 +38,10 @@ namespace Timetabling.Objects
 		private void CreateConstraints()
 		{
 			list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
-			constraints.Add(new ConstraintStudentsSetMaxHoursDaily());
-			constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+			//	constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
+			constraints.Add(new ConstraintTeacherNotAvailableTimes());
+			constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
+			constraints.Add(new ConstraintMinDaysBetweenActivities());
 		}
 	}
 }

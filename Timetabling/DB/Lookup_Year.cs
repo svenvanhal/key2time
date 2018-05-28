@@ -1,18 +1,26 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
-    public partial class Lookup_Year
-    {
-        [Key]
-        public int YearID { get; set; }
+	using System.ComponentModel.DataAnnotations;
 
-        [Required]
-        [StringLength(50)]
-        public string YearName { get; set; }
-    }
+	/// <summary>
+	/// Lookup year.
+	/// </summary>
+	public partial class Lookup_Year
+	{
+		/// <summary>
+		/// Gets or sets the year identifier.
+		/// </summary>
+		/// <value>The year identifier.</value>
+		[Key]
+		public int YearID { get; set; }
+
+		/// <summary>
+		/// Gets or sets the name of the year.
+		/// </summary>
+		/// <value>The name of the year.</value>
+		[Required]
+		[StringLength(50)]
+		public string YearName { get; set; }
+	}
 }

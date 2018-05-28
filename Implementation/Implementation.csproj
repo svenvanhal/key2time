@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{84D69E31-7937-4D92-B5B5-377710C2EBF9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Implementation</RootNamespace>
@@ -50,6 +50,7 @@
     </Content>
     <None Include="lib\unix\fet\fet-cl" />
     <None Include="packages.config" />
+    <None Include="connection.config.example" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\windowsnt\fet\fet-cl.exe" />
@@ -74,7 +75,7 @@
     <RemoveDir Directories="$(TargetDir)lib\" />
   </Target>
   <Target Name="AfterBuild">
-    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows->'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows-&gt;'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
     <!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
     <Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
     <Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />

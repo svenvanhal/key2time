@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Timetabling;
 using Timetabling.Algorithms.FET;
@@ -18,12 +18,10 @@ namespace Implementation
             //   5 - Do something with the Timetable output object when the Task finishes
 
             var algorithm = new FetAlgorithm();
-            var input = "";
+            var input = @"inputfile.fet";
 
             var generator = new TimetableGenerator();
             var task = generator.RunAlgorithm(algorithm, input);
-
-            generator.TerminateAlgorithm();
 
             // On success
             task.ContinueWith(t =>

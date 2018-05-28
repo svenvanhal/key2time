@@ -1,46 +1,75 @@
-namespace Timetabling.DB
+﻿namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
 
-    public partial class School_Lookup_Grade
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public School_Lookup_Grade()
-        {
-            School_Lookup_Class = new HashSet<School_Lookup_Class>();
-            Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
-            Subject_SubjectGrade1 = new HashSet<Subject_SubjectGrade>();
-        }
+	/// <summary>
+	/// School lookup grade.
+	/// </summary>
+	public partial class School_Lookup_Grade
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T:Timetabling.DB.School_Lookup_Grade"/> class.
+		/// </summary>
+		public School_Lookup_Grade()
+		{
+			School_Lookup_Class = new HashSet<School_Lookup_Class>();
+			Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
+			Subject_SubjectGrade1 = new HashSet<Subject_SubjectGrade>();
+		}
 
-        [Key]
-        public int GradeID { get; set; }
+		/// <summary>
+		/// Gets or sets the grade identifier.
+		/// </summary>
+		/// <value>The grade identifier.</value>
+		[Key]
+		public int GradeID { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string GradeName { get; set; }
+		/// <summary>
+		/// Gets or sets the name of the grade.
+		/// </summary>
+		/// <value>The name of the grade.</value>
+		[Required]
+		[StringLength(50)]
+		public string GradeName { get; set; }
 
-        public int? StageID { get; set; }
+		/// <summary>
+		/// Gets or sets the stage identifier.
+		/// </summary>
+		/// <value>The stage identifier.</value>
+		public int? StageID { get; set; }
 
-        public bool? IsActive { get; set; }
+		/// <summary>
+		/// Gets or sets the is active.
+		/// </summary>
+		/// <value>The is active.</value>
+		public bool? IsActive { get; set; }
 
-        [StringLength(50)]
-        public string GradeCode { get; set; }
+		/// <summary>
+		/// Gets or sets the School_Lookup_Class.
+		/// </summary>
+		/// <value>The School_Lookup_Class.</value>
+		public virtual ICollection<School_Lookup_Class> School_Lookup_Class { get; set; }
 
-        public int? GradeStock { get; set; }
+		/// <summary>
+		/// Gets or sets the School_Lookup_Stage
+		/// </summary>
+		/// <value>The School_Lookup_Stage.</value>
+		public virtual School_Lookup_Stage School_Lookup_Stage { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<School_Lookup_Class> School_Lookup_Class { get; set; }
+		/// <summary>
+		/// Gets or sets the Subject_SubjectGrade.
+		/// </summary>
+		/// <value>The Subject_SubjectGrade.</value>
+		public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
 
-        public virtual School_Lookup_Stage School_Lookup_Stage { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade1 { get; set; }
-    }
+		/// <summary>
+		/// Gets or sets Subject_SubjectGrade.
+		/// </summary>
+		/// <value>The Subject_SubjectGrade.</value>
+		public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade1 { get; set; }
+	}
 }

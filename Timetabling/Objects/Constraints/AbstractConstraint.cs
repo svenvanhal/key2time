@@ -1,13 +1,23 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
-using System.Linq;
 
 namespace Timetabling.Objects
 {
+	/// <summary>
+	/// Abstract constraint. Each constraint need to implement this class
+	/// </summary>
 	public abstract class AbstractConstraint
 	{
-		public int weight { get; set; }
+		/// <summary>
+		/// Gets or sets the weight, default is 100
+		/// </summary>
+		/// <value>The weight.</value>
+		public int weight { get; set; } = 100;
+
+		/// <summary>
+		/// Gets or sets the constraint XElement.
+		/// </summary>
+		/// <value>The constraint.</value>
 		public XElement constraint { get; set; }
 
 		/// <summary>
@@ -33,6 +43,12 @@ namespace Timetabling.Objects
 		/// </summary>
 		/// <returns>The xelement.</returns>
 		public abstract XElement ToXelement();
+
+		/// <summary>
+		/// Creates the array of XElements for the constraint.
+		/// </summary>
+		/// <returns>The created array.</returns>
+		/// <param name="dB">Datamodel.</param>
 		public abstract XElement[] Create(DataModel dB);
 	}
 }
