@@ -91,11 +91,7 @@ namespace Timetabling.Tests.Algorithms.FET
             _fpi.StartProcess();
 
             var task = _fpi.TaskCompletionSource.Task;
-            task.ContinueWith(t =>
-            {
-                // Assertions
-                Assert.IsInstanceOf<AlgorithmException>(t.Exception);
-            });
+            task.Wait();
         }
 
         [Test]
@@ -115,13 +111,10 @@ namespace Timetabling.Tests.Algorithms.FET
             _fpi.StartProcess();
 
             var task = _fpi.TaskCompletionSource.Task;
-            task.ContinueWith(t =>
-            {
-                // Assertions
-                Assert.IsInstanceOf<AlgorithmException>(t.Exception);
-            });
 
-
+            // Assertions
+            var ex = Assert.Throws<AggregateException>(() => task.Wait());
+            Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
         }
 
         [Test]

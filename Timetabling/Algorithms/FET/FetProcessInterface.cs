@@ -102,17 +102,10 @@ namespace Timetabling.Algorithms.FET
         protected void CheckProcessExitCode()
         {
             // Check if process has exited
-            if (!Process.HasExited)
-            {
-                TaskCompletionSource.TrySetException(new InvalidOperationException("The process has not yet exited."));
-            }
+            if (!Process.HasExited) TaskCompletionSource.TrySetException(new InvalidOperationException("The process has not yet exited."));
 
             // Check exit code
-            if (Process.ExitCode != 0)
-            {
-                // TODO: check if this exception type is right
-                TaskCompletionSource.TrySetException(new AlgorithmException($"The FET process has exited with a non-zero exit code ({Process.ExitCode})."));
-            }
+            if (Process.ExitCode != 0) TaskCompletionSource.TrySetException(new InvalidOperationException($"The FET process has exited with a non-zero exit code ({Process.ExitCode})."));
         }
 
         /// <summary>
