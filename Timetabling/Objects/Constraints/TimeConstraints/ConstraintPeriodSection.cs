@@ -12,8 +12,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 	public class ConstraintPeriodSection : AbstractConstraint
 	{
 		public string students { get; set; }
-		public List<int> days { get; set; }
-		public int numberOfHours { get; set; }
+		public List<int> days { get; set; } = new List<int>();
+		public int numberOfHours { get; set; } = 8; //default
 
 		/// <summary>
 		/// Initializes a new instance of the

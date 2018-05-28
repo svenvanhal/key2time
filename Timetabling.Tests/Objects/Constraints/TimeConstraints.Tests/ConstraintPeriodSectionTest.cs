@@ -40,7 +40,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 			mockSetStage.As<IQueryable<School_Lookup_Stage>>().Setup(m => m.GetEnumerator()).Returns(dataStage.GetEnumerator());
 
 			var dataWeekend = new List<Section_WeekEnd>{
-				new Section_WeekEnd{dayIndex = 0, dayName = "Sunday"},
+				new Section_WeekEnd{dayIndex = 0, dayName = "Sunday", sectionId =2},
 			}.AsQueryable();
 
 			var mockSetWeekend = new Mock<DbSet<Section_WeekEnd>>();
@@ -74,8 +74,10 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 			ConstraintPeriodSection constraintTest = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "test" };
 			ConstraintPeriodSection constraintTestFail = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "not" };
 
-
 			var result = constraint.Create(test.Object);
+
+			result.ToList().ForEach(item => Console.WriteLine(item));
+
 			Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constraintTest.ToXelement().ToString())).Count());
 			Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constraintTestFail.ToXelement().ToString())).Count());
 
