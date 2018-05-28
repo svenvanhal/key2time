@@ -18,12 +18,12 @@ namespace Implementation
             //   5 - Do something with the Timetable output object when the Task finishes
 
             var algorithm = new FetAlgorithm();
-
-            //var input = @"C:\Users\CodeSupply\Downloads\fet-5.35.6\examples\Italy\2007\difficult\highschool-Ancona.fet";
-            var input = @"C:\Users\CodeSupply\Downloads\fet-5.35.6\examples\United-Kingdom\Hopwood\Hopwood.fet";
+            var input = "";
 
             var generator = new TimetableGenerator();
             var task = generator.RunAlgorithm(algorithm, input);
+
+            generator.TerminateAlgorithm();
 
             // On success
             task.ContinueWith(t =>
