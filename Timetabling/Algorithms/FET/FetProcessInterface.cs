@@ -102,7 +102,7 @@ namespace Timetabling.Algorithms.FET
             Process.WaitForExit(5);
 
             // If the process is still active after 5 seconds, force kill it
-            if(!Process.HasExited) KillProcess();
+            if (!Process.HasExited) KillProcess();
         }
 
         /// <summary>
@@ -111,6 +111,7 @@ namespace Timetabling.Algorithms.FET
         public virtual void KillProcess()
         {
             Logger.Info("Killing FET process");
+
             Process.Kill();
             Process.Dispose();
         }
