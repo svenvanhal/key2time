@@ -25,21 +25,14 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         protected internal readonly TaskCompletionSource<bool> TaskCompletionSource;
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool GenerateConsoleCtrlEvent(CtrlTypes dwCtrlEvent, uint dwProcessGroupId);
+        [DllImport("Kernel32")]
+        private static extern bool GenerateConsoleCtrlEvent(int dwCtrlEvent, uint dwProcessGroupId);
 
-        [DllImport("Kernel32", SetLastError = true)]
-        private static extern bool SetConsoleCtrlHandler(HandlerRoutine handler, bool add);
-
-        private enum CtrlTypes
-        {
-            CTRL_C_EVENT = 0,
-            CTRL_BREAK_EVENT,
-            CTRL_CLOSE_EVENT
-        }
+        [DllImport("Kernel32")]
+        private static extern bool SetConsoleCtrlHandler(CtrlHandlerRoutine handler, bool add);
 
         // A delegate type to be used as the handler routine for SetConsoleCtrlHandler.
-        private delegate bool HandlerRoutine(CtrlTypes ctrlType);
+        private delegate bool CtrlHandlerRoutine(int ctrlCode);
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -97,9 +90,9 @@ namespace Timetabling.Algorithms.FET
         {
             Logger.Info("Stopping FET process");
 
-            // Send CTRL+BREAK event to FET-CL and for the process to terminate
-            GenerateConsoleCtrlEvent(CtrlTypes.CTRL_BREAK_EVENT, 0);
-            Process.WaitForExit(5);
+            // Send CTRL+BREAK (code 1) event to FET-CL and for the process to terminate
+            GenerateConsoleCtrlEvent(1, 0);
+            Process.WaitForExit(5000);
 
             // If the process is still active after 5 seconds, force kill it
             if (!Process.HasExited) KillProcess();
