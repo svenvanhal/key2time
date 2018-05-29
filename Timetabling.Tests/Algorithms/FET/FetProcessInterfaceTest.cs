@@ -68,6 +68,18 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
+        public void StopProcessTest()
+        {
+            var expected = _fpi.Process.StartInfo;
+            _fpi.StartProcess();
+            _fpi.StopProcess();
+
+            // Process throws InvalidOperationException if we try to access Process.HasExited after is has been disposed
+            // So, if this doesn't throw here, the process exited successfully
+            Assert.True(_fpi.Process.HasExited);
+        }
+
+        [Test]
         public void CheckProcessNotYetExitedCodeTest()
         {
             _fpi.StartProcess();

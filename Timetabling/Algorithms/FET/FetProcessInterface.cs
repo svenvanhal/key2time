@@ -72,7 +72,7 @@ namespace Timetabling.Algorithms.FET
             try
             {
                 // Set parent control handler to prevent terminating the entire program when generating a CtrlEvent
-                SetConsoleCtrlHandler(x => true, true);
+                SetConsoleCtrlHandler(_ => true, true);
 
                 // Start process
                 Process.Start();
@@ -90,12 +90,16 @@ namespace Timetabling.Algorithms.FET
         {
             Logger.Info("Stopping FET process");
 
-            // Send CTRL+BREAK (code 1) event to FET-CL and for the process to terminate
+            // Send CTRL+BREAK event (code 1) to FET-CL and for the process to terminate
             GenerateConsoleCtrlEvent(1, 0);
             Process.WaitForExit(5000);
 
             // If the process is still active after 5 seconds, force kill it
-            if (!Process.HasExited) KillProcess();
+            if (!Process.HasExited)
+            {
+                KillProcess();
+                TaskCompletionSource.TrySetException(new InvalidOperationException("The fet-cl process has been forcefully closed, because it did not exit gracefully within five seconds."));
+            }
         }
 
         /// <summary>
@@ -119,7 +123,7 @@ namespace Timetabling.Algorithms.FET
             if (!Process.HasExited) TaskCompletionSource.TrySetException(new InvalidOperationException("The process has not yet exited."));
 
             // Check exit code
-            if (Process.ExitCode != 0) TaskCompletionSource.TrySetException(new InvalidOperationException($"The FET process has exited with a non-zero exit code ({Process.ExitCode})."));
+            if (Process.ExitCode != 0) TaskCompletionSource.TrySetException(new InvalidOperationException($"The fet-cl process has exited with a non-zero exit code ({Process.ExitCode})."));
         }
 
         /// <summary>
