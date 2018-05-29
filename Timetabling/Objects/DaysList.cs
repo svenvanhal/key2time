@@ -6,34 +6,34 @@ using System.Collections.Generic;
 
 namespace Timetabling.Objects
 {
-	/// <summary>
-	/// Days list.
-	/// </summary>
-	public class DaysList : AbstractList
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Timetabling.Objects.DaysList"/> class.
-		/// </summary>
-		/// <param name="_db">The datamodel.</param>
-		public DaysList(DataModel _db) : base(_db)
-		{
-			SetListElement("Days_List");
-		}
+    /// <summary>
+    /// Days list.
+    /// </summary>
+    public class DaysList : AbstractList
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.DaysList"/> class.
+        /// </summary>
+        /// <param name="_db">The datamodel.</param>
+        public DaysList(DataModel _db) : base(_db)
+        {
+            SetListElement("Days_List");
+        }
 
-		/// <summary>
-		/// Create this number of days element, and adds each day
-		/// </summary>
-		public override void Create()
-		{
+        /// <summary>
+        /// Create this number of days element, and adds each day
+        /// </summary>
+        public override void Create()
+        {
 
-			list.Add(new XElement("Number_of_Days", 7));
+            list.Add(new XElement("Number_of_Days", 7));
 
 
-			var daysList = Enum.GetValues(typeof(Days)).OfType<Days>();
-			foreach (var day in daysList)
-			{
-				list.Add(new XElement("Day", new XElement("Name", day)));
-			}
-		}
-	}
+            var daysList = Enum.GetValues(typeof(Days)).OfType<Days>();
+            foreach (var day in daysList)
+            {
+                list.Add(new XElement("Day", new XElement("Name", day)));
+            }
+        }
+    }
 }
