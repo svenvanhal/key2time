@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.Exceptions;
@@ -10,6 +11,7 @@ namespace Timetabling.Algorithms.FET
     /// <summary>
     /// Interfaces with the FET-CL command line program.
     /// </summary>
+    /// <remarks>Inspired by <a href="https://gist.github.com/jvshahid/6fb2f91fa7fb1db23599">this gist</a>.</remarks>
     internal class FetProcessInterface
     {
 
@@ -22,6 +24,22 @@ namespace Timetabling.Algorithms.FET
         /// Task source for process.
         /// </summary>
         protected internal readonly TaskCompletionSource<bool> TaskCompletionSource;
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool GenerateConsoleCtrlEvent(CtrlTypes dwCtrlEvent, uint dwProcessGroupId);
+
+        [DllImport("Kernel32", SetLastError = true)]
+        private static extern bool SetConsoleCtrlHandler(HandlerRoutine handler, bool add);
+
+        private enum CtrlTypes
+        {
+            CTRL_C_EVENT = 0,
+            CTRL_BREAK_EVENT,
+            CTRL_CLOSE_EVENT
+        }
+
+        // A delegate type to be used as the handler routine for SetConsoleCtrlHandler.
+        private delegate bool HandlerRoutine(CtrlTypes ctrlType);
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -60,11 +78,12 @@ namespace Timetabling.Algorithms.FET
 
             try
             {
+                // Set parent control handler to prevent terminating the entire program when generating a CtrlEvent
+                SetConsoleCtrlHandler(x => true, true);
 
                 // Start process
                 Process.Start();
                 Process.BeginOutputReadLine();
-
             }
             catch (InvalidOperationException ex) { TaskCompletionSource.TrySetException(ex); }
 
@@ -76,14 +95,14 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public virtual void StopProcess()
         {
+            Logger.Info("Stopping FET process");
 
-            // TODO: Send SIGTERM
+            // Send CTRL+BREAK event to FET-CL and for the process to terminate
+            GenerateConsoleCtrlEvent(CtrlTypes.CTRL_BREAK_EVENT, 0);
+            Process.WaitForExit(5);
 
-            // TODO: Close process
-
-            // TODO: Wait 5 secs, else kill process
-
-            KillProcess();
+            // If the process is still active after 5 seconds, force kill it
+            if(!Process.HasExited) KillProcess();
         }
 
         /// <summary>
@@ -91,6 +110,7 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public virtual void KillProcess()
         {
+            Logger.Info("Killing FET process");
             Process.Kill();
             Process.Dispose();
         }

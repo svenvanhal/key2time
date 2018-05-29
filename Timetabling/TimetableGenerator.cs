@@ -52,9 +52,9 @@ namespace Timetabling
         }
 
         /// <summary>
-        /// Terminate the algorithm that is currently running.
+        /// Stops the algorithm that is currently running.
         /// </summary>
-        public void TerminateAlgorithm()
+        public void StopAlgorithm()
         {
             Logger.Info("Terminating algorithm");
             TokenSource.Cancel();
