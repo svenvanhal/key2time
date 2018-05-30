@@ -7,7 +7,7 @@ using Timetabling.XML;
 namespace Timetabling.Tests.XML
 {
     [TestFixture()]
-    public class XmlCreatorTest
+    internal class XmlCreatorTest
     {
 
 		[Test]
@@ -28,11 +28,13 @@ namespace Timetabling.Tests.XML
         public void CheckCorrectAddElementArray()
         {
             var xmlCreator = new XmlCreator();
-            var list = new List<XElement>();
-			list.Add(new XElement("test", "value"));
-			list.Add(new XElement("test", "value2"));
-            
-			xmlCreator.AddToRoot(list.ToArray());
+            var list = new List<XElement>
+            {
+                new XElement("test", "value"),
+                new XElement("test", "value2")
+            };
+
+            xmlCreator.AddToRoot(list.ToArray());
             Assert.AreEqual(xmlCreator.Writer().Elements("fet").Elements("test").Count(), 2);
         }
     }
