@@ -32,6 +32,8 @@ namespace Timetabling.Algorithms.FET
         /// <inheritdoc />
         public FetOutputProcessor(string inputName, string outputDir) : this(inputName, outputDir, new FileSystem()) { }
 
+        private bool _partial;
+
         /// <summary>
         /// Create new FetOutputProcessor.
         /// </summary>
@@ -54,20 +56,22 @@ namespace Timetabling.Algorithms.FET
 
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
 
-            Timetable tt;
-            
-            var outputPath = _fs.Path.Combine(OutputDir, InputName) + @"_activities.xml";
+            Timetable tt = new Timetable();
 
-            // Create output file stream
+            var outputPath = _fs.Path.Combine(GetOutputPath(), $"{ InputName }_activities.xml");
+
+            // Deserialize XML
             using (var outputFileStream = _fs.File.OpenRead(outputPath))
             {
-                // Deserialize XML
                 tt = XmlToTimetable(outputFileStream);
-
-                Logger.Info("Found a timetable with {0} activities in FET output.", tt.Activities.Count);
+                Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
             }
 
-            // TODO: error handling, maybe throw exception, do not return null
+            // Throw exception if no timetable found
+            if (tt == null) throw new InvalidOperationException("No timetable found in output files.");
+
+            // Set partial flag for timetable
+            tt.SetPartialFlag(_partial);
 
             // Clean up output dir
             CleanupOutputDir();
@@ -115,6 +119,25 @@ namespace Timetabling.Algorithms.FET
             }
 
             return tt;
+        }
+
+        /// <summary>
+        /// Determine the output path to the timetable files.
+        /// </summary>
+        /// <returns>Directory path to FET output files.</returns>
+        protected string GetOutputPath()
+        {
+            // Check if has partial results
+            var partialDir = _fs.Path.Combine(OutputDir, $"{InputName}-highest");
+
+            // Return partial dir (suffix -highest) when exists
+            if (_fs.Directory.Exists(partialDir))
+            {
+                _partial = true;
+                return partialDir;
+            }
+
+            return _fs.Path.Combine(OutputDir, InputName);
         }
 
     }

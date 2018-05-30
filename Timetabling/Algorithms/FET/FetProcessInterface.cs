@@ -45,9 +45,6 @@ namespace Timetabling.Algorithms.FET
         /// <param name="t">Cancellation token</param>
         public FetProcessInterface(Process fetProcess, CancellationToken t)
         {
-            // Check if process task has been cancelled already
-            if (t.IsCancellationRequested) t.ThrowIfCancellationRequested();
-
             Process = fetProcess;
 
             TaskCompletionSource = new TaskCompletionSource<bool>(t);

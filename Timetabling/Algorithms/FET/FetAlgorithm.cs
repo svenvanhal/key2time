@@ -64,19 +64,19 @@ namespace Timetabling.Algorithms.FET
         /// <inheritdoc />
         protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
         {
-            // Check if algorithm has been cancelled already
-            if (t.IsCancellationRequested) t.ThrowIfCancellationRequested();
-
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
 
             // Initialize algorithm
             Initialize(input, t);
-            
+
             await ProcessInterface.StartProcess()
 
                 // Gather the Timetable results when the algorithm process has finished
-                .ContinueWith(task => _tcs.TrySetResult(GetResult()), t);
+                .ContinueWith(task => _tcs.TrySetResult(GetResult()), TaskContinuationOptions.NotOnFaulted)
+
+                // Bubble exceptions
+                .ContinueWith(task => _tcs.TrySetException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
 
             return await _tcs.Task;
         }
@@ -114,7 +114,7 @@ namespace Timetabling.Algorithms.FET
         {
             Logger.Info("Retrieving FET algorithm results");
 
-            var fop = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables", InputName));
+            var fop = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables"));
             return fop.GetTimetable();
         }
 
