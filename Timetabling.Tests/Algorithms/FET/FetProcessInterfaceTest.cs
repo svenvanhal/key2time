@@ -74,6 +74,7 @@ namespace Timetabling.Tests.Algorithms.FET
         {
             _fpi.StartProcess();
             Assert.Throws<InvalidOperationException>(() => _fpi.CheckProcessExitCode());
+            _fpi.KillProcess();
         }
 
         [Test]
