@@ -1,16 +1,16 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects;
+using Timetabling.Objects.Constraints.SpaceConstraints;
 
-namespace Timetabling.Objects.Constraints.SpaceConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintRoomNotAvailableTimesTest
+    internal class ConstraintRoomNotAvailableTimesTest
     {
         Mock<DataModel> test;
 
@@ -42,14 +42,12 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints.Tests
             mockDB.Setup(item => item.School_BuildingsUnits).Returns(mockSetEmp.Object);
 
             test = mockDB;
-
         }
 
         [Test()]
         public void TestConstruct()
-
         {
-            ConstraintRoomNotAvailableTimes constraint = new ConstraintRoomNotAvailableTimes();
+            var constraint = new ConstraintRoomNotAvailableTimes();
             Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintRoomNotAvailableTimes");
         }
 
@@ -57,17 +55,14 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints.Tests
         [Test]
         public void CreateTest()
         {
-            ConstraintRoomNotAvailableTimes constraint = new ConstraintRoomNotAvailableTimes();
-            ConstraintRoomNotAvailableTimes constraintTest = new ConstraintRoomNotAvailableTimes { day = (Days)2, room = 4, hour = 3 };
-            ConstraintRoomNotAvailableTimes constraintTest2 = new ConstraintRoomNotAvailableTimes { day = (Days)3, room = 4, hour = 3 };
+            var constraint = new ConstraintRoomNotAvailableTimes();
+            var constraintTest = new ConstraintRoomNotAvailableTimes { day = (Days)2, room = 4, hour = 3 };
+            var constraintTest2 = new ConstraintRoomNotAvailableTimes { day = (Days)3, room = 4, hour = 3 };
 
-
-            XElement[] result = constraint.Create(test.Object);
-            Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constraintTest.ToXelement().ToString())).Count());
-            Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())).Count());
-
+            var result = constraint.Create(test.Object);
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }
     }
-
 
 }

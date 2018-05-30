@@ -1,14 +1,14 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
-    public class ConstraintMinDaysBetweenActivitiesTest
+    internal class ConstraintMinDaysBetweenActivitiesTest
     {
         Mock<DataModel> test;
 
@@ -58,9 +58,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
 
         [Test()]
         public void TestConstruct()
-
         {
-            ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
+            var constraint = new ConstraintMinDaysBetweenActivities();
             Assert.AreEqual("ConstraintMinDaysBetweenActivities", constraint.ToXelement().Name.ToString());
         }
 
@@ -68,26 +67,20 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
         [Test]
         public void CreateNumberOfActivitiesTest()
         {
-            ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
-
+            var constraint = new ConstraintMinDaysBetweenActivities();
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual("4", result.First().Elements("Number_of_Activities").First().Value);
             Assert.AreNotEqual("6", result.First().Elements("Number_of_Activities").First().Value);
-
         }
 
         [Test]
         public void CreateNumberOfActivityElementsTest()
         {
-            ConstraintMinDaysBetweenActivities constraint = new ConstraintMinDaysBetweenActivities();
-
-
+            var constraint = new ConstraintMinDaysBetweenActivities();
             var result = constraint.Create(test.Object);
 
-
             Assert.AreEqual(4, result.First().Elements("Activity_Id").Count());
-
         }
     }
 

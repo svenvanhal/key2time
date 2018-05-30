@@ -1,16 +1,13 @@
 ﻿using NUnit.Framework;
-using System;
 using Moq;
-using System.Data.Entity;
 using Timetabling.Objects;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.DB.Tests
+namespace Timetabling.Tests.Objects
 {
     [TestFixture()]
-    public class SpaceConstraintsListTest
+    internal class SpaceConstraintsListTest
     {
 
         XElement test;
@@ -18,10 +15,7 @@ namespace Timetabling.DB.Tests
         [SetUp]
         public void Init()
         {
-
-
             var mockDB = new Mock<DataModel>();
-
 
             var list = new SpaceConstraintsList(mockDB.Object);
             test = list.GetList();

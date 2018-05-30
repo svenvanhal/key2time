@@ -1,16 +1,14 @@
 ﻿using NUnit.Framework;
-using System;
 using Moq;
-using System.Data.Entity;
 using Timetabling.Objects;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.DB.Tests
+namespace Timetabling.Tests.Objects
 {
     [TestFixture()]
-    public class HoursListTest
+    internal class HoursListTest
     {
         XElement test;
 

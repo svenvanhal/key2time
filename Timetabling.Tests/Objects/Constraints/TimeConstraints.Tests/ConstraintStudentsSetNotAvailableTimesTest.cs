@@ -1,16 +1,16 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintStudentsSetNotAvailableTimesTest
+    internal class ConstraintStudentsSetNotAvailableTimesTest
     {
         Mock<DataModel> test;
 
@@ -27,7 +27,6 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-
             var dataClass = new List<School_Lookup_Class>{
                 new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 50},
             }.AsQueryable();
@@ -37,21 +36,18 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
             mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.Expression).Returns(dataClass.Expression);
             mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
             mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
+
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSetClass.Object);
 
-
-
             test = mockDB;
-
         }
 
         [Test()]
         public void TestConstruct()
-
         {
-            ConstraintStudentsSetNotAvailableTimes constraint = new ConstraintStudentsSetNotAvailableTimes();
+            var constraint = new ConstraintStudentsSetNotAvailableTimes();
             Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintStudentsSetNotAvailableTimes");
         }
 
@@ -59,17 +55,14 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
         [Test]
         public void CreateTest()
         {
-            ConstraintStudentsSetNotAvailableTimes constraint = new ConstraintStudentsSetNotAvailableTimes();
-            ConstraintStudentsSetNotAvailableTimes constraintTest = new ConstraintStudentsSetNotAvailableTimes { day = (Days)2, students = "testGrade", hour = 3, weight = 50 };
-            ConstraintStudentsSetNotAvailableTimes constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { day = (Days)3, students = "testGrade", hour = 3, weight = 50 };
+            var constraint = new ConstraintStudentsSetNotAvailableTimes();
+            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { day = (Days)2, students = "testGrade", hour = 3, weight = 50 };
+            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { day = (Days)3, students = "testGrade", hour = 3, weight = 50 };
 
-
-            XElement[] result = constraint.Create(test.Object);
-            Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constraintTest.ToXelement().ToString())).Count());
-            Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())).Count());
-
+            var result = constraint.Create(test.Object);
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }
     }
-
 
 }

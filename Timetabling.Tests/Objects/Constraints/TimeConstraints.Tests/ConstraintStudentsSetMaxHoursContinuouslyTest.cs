@@ -1,16 +1,15 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintStudentsSetMaxHoursContinuouslyTest
+    internal class ConstraintStudentsSetMaxHoursContinuouslyTest
     {
         Mock<DataModel> test;
 
@@ -37,20 +36,18 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
             mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Expression).Returns(dataGrade.Expression);
             mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.ElementType).Returns(dataGrade.ElementType);
             mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(dataGrade.GetEnumerator());
+
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_GradeLesson).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSetGrade.Object);
 
-
-
             test = mockDB;
-
         }
+
         [Test()]
         public void TestConstruct()
-
         {
-            ConstraintStudentsSetMaxHoursContinuously constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
+            var constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
             Assert.AreEqual(constraint.weight, 100);
             Assert.AreEqual(constraint.gradeName, "test");
             Assert.AreEqual(constraint.numberOfHours, 1);
@@ -58,24 +55,21 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
 
         [Test()]
         public void TesTtoXElement()
-
         {
-            ConstraintStudentsSetMaxHoursContinuously constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
+            var constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
             Assert.AreEqual("<ConstraintStudentsSetMaxHoursContinuously>" + System.Environment.NewLine + "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine + "  <Maximum_Hours_Continuously>1</Maximum_Hours_Continuously>" + System.Environment.NewLine + "  <Students>test</Students>" + System.Environment.NewLine + "</ConstraintStudentsSetMaxHoursContinuously>", constraint.ToXelement().ToString());
         }
 
         [Test]
         public void CreateTest()
         {
-            ConstraintStudentsSetMaxHoursContinuously constraint = new ConstraintStudentsSetMaxHoursContinuously();
-            ConstraintStudentsSetMaxHoursContinuously constrainTtest = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade", numberOfHours = 3 };
-            ConstraintStudentsSetMaxHoursContinuously constrainTtest2 = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade2", numberOfHours = 3 };
+            var constraint = new ConstraintStudentsSetMaxHoursContinuously();
+            var constrainTtest = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade", numberOfHours = 3 };
+            var constrainTtest2 = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade2", numberOfHours = 3 };
 
-
-            XElement[] result = constraint.Create(test.Object);
-            Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constrainTtest.ToXelement().ToString())).Count());
-            Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constrainTtest2.ToXelement().ToString())).Count());
-
+            var result = constraint.Create(test.Object);
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constrainTtest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constrainTtest2.ToXelement().ToString())));
         }
     }
 

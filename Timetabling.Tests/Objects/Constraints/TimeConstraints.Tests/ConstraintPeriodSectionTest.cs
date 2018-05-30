@@ -1,6 +1,5 @@
 ﻿using Moq;
 using NUnit.Framework;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using Timetabling.DB;
@@ -10,7 +9,7 @@ using Timetabling.Objects.Constraints.TimeConstraints;
 namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintPeriodSectionTest
+    internal class ConstraintPeriodSectionTest
     {
         Mock<DataModel> test;
 
@@ -55,14 +54,12 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockDB.Setup(item => item.School_Lookup_Stage).Returns(mockSetStage.Object);
 
             test = mockDB;
-
         }
 
         [Test()]
         public void TestConstruct()
-
         {
-            ConstraintPeriodSection constraint = new ConstraintPeriodSection();
+            var constraint = new ConstraintPeriodSection();
             Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintStudentsSetNotAvailableTimes");
         }
 
@@ -70,17 +67,14 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         [Test]
         public void CreateTest()
         {
-            ConstraintPeriodSection constraint = new ConstraintPeriodSection();
-            ConstraintPeriodSection constraintTest = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "test" };
-            ConstraintPeriodSection constraintTestFail = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "not" };
+            var constraint = new ConstraintPeriodSection();
+            var constraintTest = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "test" };
+            var constraintTestFail = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "not" };
 
             var result = constraint.Create(test.Object);
 
-            result.ToList().ForEach(item => Console.WriteLine(item));
-
-            Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constraintTest.ToXelement().ToString())).Count());
-            Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constraintTestFail.ToXelement().ToString())).Count());
-
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTestFail.ToXelement().ToString())));
         }
     }
 

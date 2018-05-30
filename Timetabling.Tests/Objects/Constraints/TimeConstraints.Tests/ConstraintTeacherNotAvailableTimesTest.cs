@@ -1,16 +1,16 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintTeacherSetNotAvailableTimesTest
+    internal class ConstraintTeacherSetNotAvailableTimesTest
     {
         Mock<DataModel> test;
 
@@ -42,32 +42,26 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
             mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSetEmp.Object);
 
             test = mockDB;
-
         }
 
         [Test()]
         public void TestConstruct()
-
         {
             ConstraintTeacherNotAvailableTimes constraint = new ConstraintTeacherNotAvailableTimes();
             Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintTeacherNotAvailableTimes");
         }
 
-
         [Test]
         public void CreateTest()
         {
-            ConstraintTeacherNotAvailableTimes constraint = new ConstraintTeacherNotAvailableTimes();
-            ConstraintTeacherNotAvailableTimes constraintTest = new ConstraintTeacherNotAvailableTimes { day = (Days)2, teacher = 4, hour = 3, weight = 50 };
-            ConstraintTeacherNotAvailableTimes constraintTest2 = new ConstraintTeacherNotAvailableTimes { day = (Days)3, teacher = 4, hour = 3, weight = 30 };
+            var constraint = new ConstraintTeacherNotAvailableTimes();
+            var constraintTest = new ConstraintTeacherNotAvailableTimes { day = (Days)2, teacher = 4, hour = 3, weight = 50 };
+            var constraintTest2 = new ConstraintTeacherNotAvailableTimes { day = (Days)3, teacher = 4, hour = 3, weight = 30 };
 
-
-            XElement[] result = constraint.Create(test.Object);
-            Assert.AreEqual(1, result.Where(item => item.ToString().Equals(constraintTest.ToXelement().ToString())).Count());
-            Assert.AreEqual(0, result.Where(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())).Count());
-
+            var result = constraint.Create(test.Object);
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }
     }
-
 
 }
