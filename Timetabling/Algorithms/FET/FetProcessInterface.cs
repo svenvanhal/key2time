@@ -36,6 +36,8 @@ namespace Timetabling.Algorithms.FET
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
+        private bool _stopped;
+
         /// <summary>
         /// Create new process interface.
         /// </summary>
@@ -90,6 +92,8 @@ namespace Timetabling.Algorithms.FET
         {
             Logger.Info("Stopping FET process");
 
+            _stopped = true;
+
             // Send CTRL+BREAK event (code 1) to FET-CL and for the process to terminate
             GenerateConsoleCtrlEvent(1, 0);
             Process.WaitForExit(5000);
@@ -123,7 +127,7 @@ namespace Timetabling.Algorithms.FET
             if (!Process.HasExited) TaskCompletionSource.TrySetException(new InvalidOperationException("The process has not yet exited."));
 
             // Check exit code
-            if (Process.ExitCode != 0) TaskCompletionSource.TrySetException(new InvalidOperationException($"The fet-cl process has exited with a non-zero exit code ({Process.ExitCode})."));
+            if (Process.ExitCode != 0 && !_stopped) TaskCompletionSource.TrySetException(new InvalidOperationException($"The fet-cl process has exited with a non-zero exit code ({Process.ExitCode})."));
         }
 
         /// <summary>

@@ -33,6 +33,7 @@ namespace Timetabling.Tests.Algorithms.FET
         {
             // Can't mock sealed class process, so create a real instance here
             var fpb = new FetProcessBuilder(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lib", "fet", "fet-cl"));
+            fpb.SetInputFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "Italy", "2007", "difficult", "highschool-Ancona.fet"));
 
             _process = fpb.CreateProcess();
             _fpi = new FetProcessInterfaceExposer(_process, CancellationToken.None);
@@ -70,12 +71,11 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void StopProcessTest()
         {
-            var expected = _fpi.Process.StartInfo;
             _fpi.StartProcess();
             _fpi.StopProcess();
 
-            // Process throws InvalidOperationException if we try to access Process.HasExited after is has been disposed
-            // So, if this doesn't throw here, the process exited successfully
+            _fpi.TaskCompletionSource.Task.Wait();
+
             Assert.True(_fpi.Process.HasExited);
         }
 
@@ -83,7 +83,7 @@ namespace Timetabling.Tests.Algorithms.FET
         public void CheckProcessNotYetExitedCodeTest()
         {
             _fpi.StartProcess();
-            var ex = Assert.Throws<InvalidOperationException>(() => _fpi.CheckProcessExitCode());
+            Assert.Throws<InvalidOperationException>(() => _fpi.CheckProcessExitCode());
         }
 
         [Test]
