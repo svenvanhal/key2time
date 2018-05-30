@@ -25,9 +25,7 @@ namespace Timetabling.Tests.Algorithms.FET
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet"),
                 CancellationToken.None);
 
-            task.Wait();
-
-            Assert.IsNotNull(task.Result);
+            task.ContinueWith(_ => Assert.IsNotNull(task.Result));
 
         }
 
@@ -46,21 +44,6 @@ namespace Timetabling.Tests.Algorithms.FET
             Assert.AreEqual(expectedInputFile, algo.InputFile);
             Assert.True(Directory.Exists(algo.OutputDir));
             Assert.IsInstanceOf<FetProcessInterface>(algo.ProcessInterface);
-        }
-
-        [Test]
-        public void CancelPrematurelyTest()
-        {
-            var fet = new FetAlgorithm();
-            var tcs = new CancellationTokenSource();
-            var token = tcs.Token;
-
-            tcs.Cancel();
-
-            var task = fet.GenerateTask(null, null, token);
-
-            var ex = Assert.Throws<AggregateException>(() => task.Wait());
-            Assert.IsInstanceOf<OperationCanceledException>(ex.InnerException);
         }
 
     }

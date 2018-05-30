@@ -92,15 +92,18 @@ namespace Timetabling.Algorithms.FET
             _stopped = true;
 
             // Send CTRL+BREAK event (code 1) to FET-CL and for the process to terminate
+            SetConsoleCtrlHandler(null, true);
             GenerateConsoleCtrlEvent(1, 0);
+            SetConsoleCtrlHandler(null, false);
+
             Process.WaitForExit(5000);
 
+            // Return if process has exited. The task result will be set by the Exited handler.
+            if (Process.HasExited) return;
+
             // If the process is still active after 5 seconds, force kill it
-            if (!Process.HasExited)
-            {
-                KillProcess();
-                TaskCompletionSource.TrySetException(new InvalidOperationException("The fet-cl process has been forcefully closed, because it did not exit gracefully within five seconds."));
-            }
+            TaskCompletionSource.SetException(new InvalidOperationException("The fet-cl process will be forcefully closed, because it did not exit gracefully within five seconds."));
+            KillProcess();
         }
 
         /// <summary>

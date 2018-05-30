@@ -24,9 +24,9 @@ namespace Timetabling.Tests.Algorithms.FET
             // Create dummy FET output
             var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"Hopwood_activities.xml", new MockFileData(testData) },
-                { @"Hopwood_data_and_timetable.fet", new MockFileData("Original FET file") },
-                { @"Hopwood_soft_conflicts.txt", new MockFileData("Soft conflicts in solution") }
+                { @"Hopwood\Hopwood_activities.xml", new MockFileData(testData) },
+                { @"Hopwood\Hopwood_data_and_timetable.fet", new MockFileData("Original FET file") },
+                { @"Hopwood\Hopwood_soft_conflicts.txt", new MockFileData("Soft conflicts in solution") }
             });
 
             // Run
@@ -109,7 +109,7 @@ namespace Timetabling.Tests.Algorithms.FET
             // Create dummy FET output
             var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"Hopwood_activities.xml", new MockFileData(testData) }
+                { @"Hopwood\Hopwood_activities.xml", new MockFileData(testData) }
             });
 
             // Run
@@ -132,7 +132,7 @@ namespace Timetabling.Tests.Algorithms.FET
             // Create dummy FET output
             var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { @"Hopwood_activities.xml", new MockFileData(testData) }
+                { @"Hopwood\Hopwood_activities.xml", new MockFileData(testData) }
             });
 
             // Run

@@ -28,14 +28,13 @@ namespace Implementation
             {
                 Console.WriteLine("The timetable has been generated sucessfully.");
                 Console.WriteLine(task.Result);
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
+            }, TaskContinuationOptions.NotOnFaulted);
 
             // On error
             task.ContinueWith(t =>
             {
                 Console.WriteLine("The timetable could not be generated.");
-                Console.WriteLine(t.Exception.Message);
-
+                foreach (var ex in t.Exception.InnerExceptions) { Console.WriteLine(ex.Message); }
             }, TaskContinuationOptions.OnlyOnFaulted);
 
             Console.Read();

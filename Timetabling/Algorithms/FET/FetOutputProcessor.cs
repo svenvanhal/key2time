@@ -56,7 +56,7 @@ namespace Timetabling.Algorithms.FET
 
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
 
-            Timetable tt = new Timetable();
+            var tt = new Timetable();
 
             var outputPath = _fs.Path.Combine(GetOutputPath(), $"{ InputName }_activities.xml");
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Timetabling.Algorithms.FET;
-using Timetabling.Exceptions;
 using Timetabling.Helper;
 
 namespace Timetabling.Tests.Algorithms.FET
@@ -69,17 +70,6 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void StopProcessTest()
-        {
-            _fpi.StartProcess();
-            _fpi.StopProcess();
-
-            _fpi.TaskCompletionSource.Task.Wait();
-
-            Assert.True(_fpi.Process.HasExited);
-        }
-
-        [Test]
         public void CheckProcessNotYetExitedCodeTest()
         {
             _fpi.StartProcess();
@@ -103,7 +93,9 @@ namespace Timetabling.Tests.Algorithms.FET
             _fpi.StartProcess();
 
             var task = _fpi.TaskCompletionSource.Task;
-            task.Wait();
+
+            // Fail if the task did not exit successfully
+            task.ContinueWith(_ => Assert.Fail(), TaskContinuationOptions.NotOnRanToCompletion);
         }
 
         [Test]
@@ -125,19 +117,11 @@ namespace Timetabling.Tests.Algorithms.FET
             var task = _fpi.TaskCompletionSource.Task;
 
             // Assertions
-            var ex = Assert.Throws<AggregateException>(() => task.Wait());
-            Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
-        }
+            task.ContinueWith(t =>
+            {
+                Assert.IsInstanceOf<InvalidOperationException>(t.Exception);
+            });
 
-        [Test]
-        public void TaskCanceledConstructorTest()
-        {
-            var tcs = new CancellationTokenSource();
-            var token = tcs.Token;
-
-            tcs.Cancel();
-
-            var ex = Assert.Throws<OperationCanceledException>(() => new FetProcessInterface(null, token));
         }
 
         [Test]
@@ -152,8 +136,11 @@ namespace Timetabling.Tests.Algorithms.FET
 
             var task = _fpi.StartProcess();
 
-            var ex = Assert.Throws<AggregateException>(() => task.Wait());
-            Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
+            // Assertions
+            task.ContinueWith(t =>
+            {
+                Assert.IsInstanceOf<InvalidOperationException>(t.Exception);
+            });
         }
 
     }
