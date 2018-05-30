@@ -56,7 +56,7 @@ namespace Timetabling.Algorithms.FET
 
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
 
-            var tt = new Timetable();
+            Timetable tt;
 
             var outputPath = _fs.Path.Combine(GetOutputPath(), $"{ InputName }_activities.xml");
 
@@ -66,9 +66,6 @@ namespace Timetabling.Algorithms.FET
                 tt = XmlToTimetable(outputFileStream);
                 Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
             }
-
-            // Throw exception if no timetable found
-            if (tt == null) throw new InvalidOperationException("No timetable found in output files.");
 
             // Set partial flag for timetable
             tt.SetPartialFlag(_partial);
@@ -98,27 +95,16 @@ namespace Timetabling.Algorithms.FET
         /// <exception cref="SerializationException">XML serialization does not create a Timetable object.</exception>
         public Timetable XmlToTimetable(Stream fileStream)
         {
-            Timetable tt;
 
             // Initialize
-            var reader = XmlReader.Create(fileStream);
             var serializer = new XmlSerializer(typeof(Timetable));
 
             // Read and deserialize XML
-            try
+            using (var reader = XmlReader.Create(fileStream))
             {
-                tt = serializer.Deserialize(reader) as Timetable;
-            }
-            catch (Exception ex)
-            {
-                throw new AlgorithmException("Could not deserialize timetable XML.", ex);
-            }
-            finally
-            {
-                reader.Dispose();
+                return serializer.Deserialize(reader) as Timetable;
             }
 
-            return tt;
         }
 
         /// <summary>

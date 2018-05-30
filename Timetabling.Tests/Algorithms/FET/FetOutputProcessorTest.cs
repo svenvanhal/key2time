@@ -93,8 +93,7 @@ namespace Timetabling.Tests.Algorithms.FET
             using (var outputFileStream = new MemoryStream(byteArray))
             {
                 // Deserialize XML
-                var ex = Assert.Throws<AlgorithmException>(() => fop.XmlToTimetable(outputFileStream));
-                Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
+                Assert.Throws<InvalidOperationException>(() => fop.XmlToTimetable(outputFileStream));
             }
 
         }
@@ -138,9 +137,8 @@ namespace Timetabling.Tests.Algorithms.FET
             // Run
             var fop = new FetOutputProcessor("Hopwood", fileSystem.Directory.GetCurrentDirectory(), fileSystem);
 
-            // Check that we have found all 163 activities
-            var ex = Assert.Throws<AlgorithmException>(() => fop.GetTimetable());
-            Assert.That(ex.InnerException, Is.TypeOf<InvalidOperationException>());
+            // Invalid XML throws InvalidOperationException
+            Assert.Throws<InvalidOperationException>(() => fop.GetTimetable());
 
         }
 
