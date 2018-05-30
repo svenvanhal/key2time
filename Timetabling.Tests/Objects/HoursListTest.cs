@@ -19,7 +19,7 @@ namespace Timetabling.DB.Tests
         {
 
             var mockDB = new Mock<DataModel>();
-            var `list = new HoursList(mockDB.Object);
+            var list = new HoursList(mockDB.Object);
             list.Create();
 
             test = list.GetList();
