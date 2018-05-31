@@ -10,7 +10,7 @@ using Timetabling.DB;
 namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
 {
     [TestFixture()]
-    public class ConstraintTeacherSetNotAvailableTimesTest
+    internal class ConstraintTeacherSetNotAvailableTimesTest
     {
         Mock<DataModel> test;
 
