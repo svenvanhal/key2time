@@ -13,7 +13,7 @@ namespace Timetabling.Tests.XML
 		[Test]
 		public void CheckCorrectFetElement(){
 			var xmlCreator = new XmlCreator();
-			Assert.AreEqual(1, xmlCreator.Writer().Elements("fet").Count());
+			Assert.AreEqual(1, xmlCreator.Document.Elements("fet").Count());
 		}
 
 		[Test]
@@ -21,7 +21,7 @@ namespace Timetabling.Tests.XML
         {
             var xmlCreator = new XmlCreator();
             xmlCreator.AddToRoot(new XElement("test", "value"));
-			Assert.AreEqual(1, xmlCreator.Writer().Elements("fet").Elements("test").Count());
+			Assert.AreEqual(1, xmlCreator.Document.Elements("fet").Elements("test").Count());
         }
 
 		[Test]
@@ -35,7 +35,7 @@ namespace Timetabling.Tests.XML
             };
 
             xmlCreator.AddToRoot(list.ToArray());
-            Assert.AreEqual(2, xmlCreator.Writer().Elements("fet").Elements("test").Count());
+            Assert.AreEqual(2, xmlCreator.Document.Elements("fet").Elements("test").Count());
         }
     }
 }
