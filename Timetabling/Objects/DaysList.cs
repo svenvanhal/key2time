@@ -2,10 +2,10 @@
 using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 namespace Timetabling.Objects
 {
+    
     /// <summary>
     /// Days list.
     /// </summary>
@@ -15,25 +15,21 @@ namespace Timetabling.Objects
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.DaysList"/> class.
         /// </summary>
         /// <param name="_db">The datamodel.</param>
-        public DaysList(DataModel _db) : base(_db)
-        {
-            SetListElement("Days_List");
-        }
+        public DaysList(DataModel _db) : base(_db) => SetListElement("Days_List");
 
         /// <summary>
         /// Create this number of days element, and adds each day
         /// </summary>
         public override void Create()
         {
-
-            list.Add(new XElement("Number_of_Days", 7));
-
+            List.Add(new XElement("Number_of_Days", 7));
 
             var daysList = Enum.GetValues(typeof(Days)).OfType<Days>();
             foreach (var day in daysList)
             {
-                list.Add(new XElement("Day", new XElement("Name", day)));
+                List.Add(new XElement("Day", new XElement("Name", day)));
             }
         }
     }
+
 }

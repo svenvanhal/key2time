@@ -48,7 +48,7 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
         public void TestConstruct()
         {
             var constraint = new ConstraintRoomNotAvailableTimes();
-            Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintRoomNotAvailableTimes");
+            Assert.AreEqual("ConstraintRoomNotAvailableTimes", constraint.ToXelement().Name.ToString());
         }
 
 

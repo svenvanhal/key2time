@@ -48,7 +48,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void TestConstruct()
         {
             ConstraintTeacherNotAvailableTimes constraint = new ConstraintTeacherNotAvailableTimes();
-            Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintTeacherNotAvailableTimes");
+            Assert.AreEqual("ConstraintTeacherNotAvailableTimes", constraint.ToXelement().Name.ToString());
         }
 
         [Test]

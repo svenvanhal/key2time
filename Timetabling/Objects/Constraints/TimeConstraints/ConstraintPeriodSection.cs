@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 using System.Linq;
 using System.Collections.Generic;
@@ -11,9 +10,21 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
     /// </summary>
     public class ConstraintPeriodSection : AbstractConstraint
     {
-        public string students { get; set; }
-        public List<int> days { get; set; } = new List<int>();
-        public int numberOfHours { get; set; } = 8; //default
+
+        /// <summary>
+        /// Students for whom this constraint holds.
+        /// </summary>
+        protected string Students { get; set; }
+
+        /// <summary>
+        /// Days for which this constraint holds.
+        /// </summary>
+        protected List<int> Days { get; set; } = new List<int>();
+
+        /// <summary>
+        /// Numer of hours for which this constraint holds.
+        /// </summary>
+        protected int NumberOfHours { get; set; } = 8; //default
 
         /// <summary>
         /// Initializes a new instance of the
@@ -36,28 +47,34 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                         join stage in dB.School_Lookup_Stage on grade.StageID equals stage.StageID
                         join weekend in dB.Section_WeekEnd on stage.SectionID equals weekend.sectionId
                         where grade.IsActive == true
-                        select new { grade.GradeName, weekend.dayIndex }
-                                        ;
+                        select new { grade.GradeName, weekend.dayIndex };
+
+            var hours = new HoursList(dB);
+            hours.Create();
+
+            var grades = new List<string>(); //A tempeorary list to check for duplicates
 
             var result = new List<XElement>();
 
-            HoursList hours = new HoursList(dB);
-            hours.Create();
-
-            List<String> grades = new List<string>(); //A tempeorary list to check for duplicates
-
             foreach (var item in query)
             {
-                if (!grades.Contains(item.GradeName)) //Only add when not exisiting 
+                // Continue if we've already seen this grade
+                if (grades.Contains(item.GradeName)) continue;
+
+                grades.Add(item.GradeName);
+                var temp = query.Where(x => x.GradeName.Equals(item.GradeName)).Select(x => x.dayIndex);
+
+                result.Add(new ConstraintPeriodSection
                 {
-                    grades.Add(item.GradeName);
-                    var temp = query.Where(x => x.GradeName.Equals(item.GradeName)).Select(x => x.dayIndex);
-                    result.Add(new ConstraintPeriodSection { students = item.GradeName, days = temp.ToList(), numberOfHours = hours.numberOfHours }.ToXelement());
-                }
+                    Students = item.GradeName,
+                    Days = temp.ToList(),
+                    NumberOfHours = hours.numberOfHours
+                }.ToXelement());
             }
 
             return result.ToArray();
         }
+
         /// <summary>
         /// Returns the XElement representation of the constraint
         /// </summary>
@@ -65,21 +82,22 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement ToXelement()
         {
 
-
-            constraint.Add(new XElement("Students", students),
-                           new XElement("Number_of_Not_Available_Times", numberOfHours * days.Count));
+            constraint.Add(new XElement("Students", Students),
+                           new XElement("Number_of_Not_Available_Times", NumberOfHours * Days.Count));
 
             //For each hour of each day of the weekend, a not available time is added
-            foreach (Days day in days)
+            foreach (var day in Days)
             {
-                for (int i = 1; i <= numberOfHours; i++)
+                for (var i = 1; i <= NumberOfHours; i++)
                 {
                     constraint.Add(new XElement("Not_Available_Time",
-                                 new XElement("Day", day),
-                                 new XElement("Hour", i)));
+                                   new XElement("Day", day),
+                                   new XElement("Hour", i)));
                 }
             }
+
             return constraint;
         }
+
     }
 }

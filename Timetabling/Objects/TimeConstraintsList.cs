@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Timetabling.DB;
-using System.Xml.Linq;
+using Timetabling.Objects.Constraints;
 using Timetabling.Objects.Constraints.TimeConstraints;
 
 namespace Timetabling.Objects
@@ -11,38 +11,37 @@ namespace Timetabling.Objects
     public class TimeConstraintsList : AbstractList
     {
 
-        List<AbstractConstraint> constraints;
-        List<XElement> result;
+        /// <summary>
+        /// Constraints in this list.
+        /// </summary>
+        protected readonly List<AbstractConstraint> Constraints = new List<AbstractConstraint>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.TimeConstraintsList"/> class.
         /// </summary>
         /// <param name="_dB">D b.</param>
-        public TimeConstraintsList(DataModel _dB) : base(_dB)
-        {
-            SetListElement("Time_Constraints_List");
-            constraints = new List<AbstractConstraint>();
-            result = new List<XElement>();
-        }
+        public TimeConstraintsList(DataModel _dB) : base(_dB) => SetListElement("Time_Constraints_List");
+
         /// <summary>
         /// Create the XElements of the constraints.
         /// </summary>
         public override void Create()
         {
             CreateConstraints();
-            constraints.ForEach(item => list.Add(item.Create(dB)));
+            Constraints.ForEach(item => List.Add(item.Create(dB)));
         }
+
         /// <summary>
         /// Creates the constraints.
         /// </summary>
         private void CreateConstraints()
         {
-            list.Add(new ConstraintBasicCompulsoryTime().ToXelement());
-            //	constraints.Add(new ConstraintStudentsSetMaxHoursContinuously());
-            constraints.Add(new ConstraintTeacherNotAvailableTimes());
-            constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
-            constraints.Add(new ConstraintMinDaysBetweenActivities());
-            constraints.Add(new ConstraintPeriodSection());
+            List.Add(new ConstraintBasicCompulsoryTime().ToXelement());
+            Constraints.Add(new ConstraintTeacherNotAvailableTimes());
+            Constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
+            Constraints.Add(new ConstraintMinDaysBetweenActivities());
+            Constraints.Add(new ConstraintPeriodSection());
         }
+
     }
 }

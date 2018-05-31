@@ -4,7 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Timetabling.DB;
-using Timetabling.Objects;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
 namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
@@ -48,9 +48,9 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void TestConstruct()
         {
             var constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
-            Assert.AreEqual(constraint.weight, 100);
-            Assert.AreEqual(constraint.gradeName, "test");
-            Assert.AreEqual(constraint.numberOfHours, 1);
+            Assert.AreEqual(100, constraint.weight);
+            Assert.AreEqual("test", constraint.gradeName);
+            Assert.AreEqual(1, constraint.numberOfHours);
         }
 
         [Test()]

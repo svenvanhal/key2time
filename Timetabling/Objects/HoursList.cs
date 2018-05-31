@@ -1,9 +1,9 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 
 namespace Timetabling.Objects
 {
+    
     /// <summary>
     /// Hours list.
     /// </summary>
@@ -19,22 +19,20 @@ namespace Timetabling.Objects
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.HoursList"/> class.
         /// </summary>
         /// <param name="_db">The datamodel</param>
-        public HoursList(DataModel _db) : base(_db)
-        {
-            SetListElement("Hours_List");
-        }
+        public HoursList(DataModel _db) : base(_db) => SetListElement("Hours_List");
 
         /// <summary>
         /// Creates the hour elements.
         /// </summary>
         public override void Create()
         {
+            List.Add(new XElement("Number_of_Hours", numberOfHours));
 
-            list.Add(new XElement("Number_of_Hours", numberOfHours));
             for (int i = 1; i <= numberOfHours; i++)
             {
-                list.Add(new XElement("Hour", new XElement("Name", i)));
+                List.Add(new XElement("Hour", new XElement("Name", i)));
             }
         }
     }
+
 }

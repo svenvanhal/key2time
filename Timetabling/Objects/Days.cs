@@ -10,6 +10,7 @@ namespace Timetabling.Objects
         /// The Sunday enum as 0
         /// </summary>
         Sunday,
+        
         /// <summary>
         /// The Monday enum as 1.
         /// </summary>

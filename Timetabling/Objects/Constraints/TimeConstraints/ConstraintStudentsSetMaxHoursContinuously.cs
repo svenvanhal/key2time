@@ -1,11 +1,11 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using Timetabling.DB;
-using System.Collections.Generic;
 
-namespace Timetabling.Objects
+namespace Timetabling.Objects.Constraints.TimeConstraints
 {
+    
     /// <summary>
     /// Constraint specifies the total numer of hours a studentset can have in a week
     /// </summary>
@@ -26,16 +26,13 @@ namespace Timetabling.Objects
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.ConstraintStudentsSetMaxHoursContinuously"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintStudentsSetMaxHoursContinuously"/> class.
         /// </summary>
         public ConstraintStudentsSetMaxHoursContinuously()
         {
-
             SetElement("ConstraintStudentsSetMaxHoursContinuously");
             SetWeight(100);
-
         }
-
 
         /// <summary>
         /// Returns the XElement
@@ -63,8 +60,6 @@ namespace Timetabling.Objects
             query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = item.numberOfLessons, gradeName = item.GradeName }.ToXelement()));
 
             return result.ToArray();
-
-
         }
 
     }

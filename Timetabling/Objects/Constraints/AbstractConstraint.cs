@@ -1,9 +1,10 @@
 ﻿using System.Xml.Linq;
 using Timetabling.DB;
 
-namespace Timetabling.Objects
+namespace Timetabling.Objects.Constraints
 {
-	/// <summary>
+	
+    /// <summary>
 	/// Abstract constraint. Each constraint need to implement this class
 	/// </summary>
 	public abstract class AbstractConstraint
@@ -28,17 +29,15 @@ namespace Timetabling.Objects
 		{
 			weight = w;
 			constraint.Add(new XElement("Weight_Percentage", weight));
-
 		}
+
 		/// <summary>
 		/// Sets the element.
 		/// </summary>
 		/// <param name="s">S.</param>
-		public void SetElement(string s)
-		{
-			constraint = new XElement(s);
-		}
-		/// <summary>
+		public void SetElement(string s) => constraint = new XElement(s);
+
+	    /// <summary>
 		/// Returns the XElement
 		/// </summary>
 		/// <returns>The xelement.</returns>
@@ -50,5 +49,6 @@ namespace Timetabling.Objects
 		/// <returns>The created array.</returns>
 		/// <param name="dB">Datamodel.</param>
 		public abstract XElement[] Create(DataModel dB);
+
 	}
 }

@@ -9,14 +9,13 @@ namespace Timetabling.Objects
     /// </summary>
     public class RoomsList : AbstractList
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.RoomsList"/> class.
         /// </summary>
         /// <param name="_db">Db.</param>
-        public RoomsList(DataModel _db) : base(_db)
-        {
-            SetListElement("Rooms_List");
-        }
+        public RoomsList(DataModel _db) : base(_db) => SetListElement("Rooms_List");
+
         /// <summary>
         /// Creates the Room elements from the datamodel
         /// </summary>
@@ -27,10 +26,9 @@ namespace Timetabling.Objects
 
             foreach (var room in query)
             {
-
-                list.Add(new XElement("Room",
-                                      new XElement("Name", room)));
+                List.Add(new XElement("Room", new XElement("Name", room)));
             }
         }
+
     }
 }

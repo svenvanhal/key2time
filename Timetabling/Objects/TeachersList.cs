@@ -4,6 +4,7 @@ using Timetabling.DB;
 
 namespace Timetabling.Objects
 {
+    
     /// <summary>
     /// Teachers list.
     /// </summary>
@@ -14,11 +15,7 @@ namespace Timetabling.Objects
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.TeachersList"/> class.
         /// </summary>
         /// <param name="_dB">Database model.</param>
-        public TeachersList(DataModel _dB) : base(_dB)
-        {
-            SetListElement("Teachers_List");
-        }
-
+        public TeachersList(DataModel _dB) : base(_dB) => SetListElement("Teachers_List");
 
         /// <summary>
         /// Creates the Teacher elements from the datamodel
@@ -30,10 +27,9 @@ namespace Timetabling.Objects
 
             foreach (var item in query)
             {
-                list.Add(new XElement("Teacher", new XElement("Name", item)));
-
+                List.Add(new XElement("Teacher", new XElement("Name", item)));
             }
-
         }
+
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -122,17 +121,15 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void InvalidProcessStartProcessTest()
         {
-            var tcs = new CancellationTokenSource();
-            var token = tcs.Token;
             var fpb = new FetProcessBuilder();
 
             _process = fpb.CreateProcess();
-            _fpi = new FetProcessInterfaceExposer(_process, token);
+            _fpi = new FetProcessInterfaceExposer(_process, CancellationToken.None);
 
             var task = _fpi.StartProcess();
 
             // Assertions
-            var ex = Assert.Throws<AggregateException>(() => _fpi.TaskCompletionSource.Task.Wait());
+            var ex = Assert.Throws<AggregateException>(() => task.Wait());
             Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
         }
 
