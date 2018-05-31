@@ -8,7 +8,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
     /// <summary>
     /// Constraint specifing the time off of the studentset.
     /// </summary>
-    public class ConstraintStudentsSetNotAvailableTimes : AbstractConstraint
+    internal class ConstraintStudentsSetNotAvailableTimes : AbstractConstraint
     {
         /// <summary>
         /// The number of hours is always 1;
@@ -41,8 +41,6 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             SetElement("ConstraintStudentsSetNotAvailableTimes");
 
         }
-
-
         /// <summary>
         /// Creates the array of XElements for the constraint.
         /// </summary>

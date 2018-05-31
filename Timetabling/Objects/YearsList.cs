@@ -45,16 +45,14 @@ namespace Timetabling.Objects
 
             var groups = from g in dB.Tt_ClassGroup
                          join c in dB.School_Lookup_Class on g.classId equals c.ClassID
-
                          select new { c.ClassName, g.groupName };
 
             //Creates the different subgroups in eacht group
             foreach (var item in groups)
             {
                 var group = list.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
-              
 
-                if (group.Count()>0)
+                if (group.Count() > 0)
                 {
                     group.First().Add(new XElement("Subgroup",
                                          new XElement("Name", item.groupName)));
