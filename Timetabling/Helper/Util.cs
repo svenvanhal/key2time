@@ -3,10 +3,15 @@ using System.IO;
 
 namespace Timetabling.Helper
 {
-    static class Util
+
+    public static class Util
     {
 
-        // TODO: error handling
+        /// <summary>
+        /// Gets an configuration setting.
+        /// </summary>
+        /// <param name="key">Setting key.</param>
+        /// <returns>Setting value.</returns>
         public static string GetAppSetting(string key)
         {
             return ConfigurationManager.AppSettings[key];
