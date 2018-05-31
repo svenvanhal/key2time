@@ -4,10 +4,21 @@ using System.Xml.Linq;
 
 namespace Timetabling.XML
 {
+
+    /// <summary>
+    /// Creates an XDocument.
+    /// </summary>
 	public class XmlCreator
 	{
 
-		private XDocument Document { get; }
+        /// <summary>
+        /// Document the XmlCreator is operating on.
+        /// </summary>
+	    public XDocument Document { get; }
+
+        /// <summary>
+        /// Root element of the document.
+        /// </summary>
 		public XElement Root { get; set; }
 
 		/// <summary>
@@ -15,15 +26,11 @@ namespace Timetabling.XML
 		/// </summary>
 		public XmlCreator()
 		{
-			Document = new XDocument();
-			Document.Add(Root = new XElement("fet"));
-		}
+		    Root = new XElement("fet", new XAttribute("version", "5.35.6"));
 
-		/// <summary>
-		/// Retrieves the xDocument associated with the XmlCreator.
-		/// </summary>
-		/// <returns>XDocument</returns>
-		public XDocument Writer() => Document;
+            Document = new XDocument();
+			Document.Add(Root);
+		}
 
 		/// <summary>
 		/// Saves the created XML tree into a xml file with the given filePath

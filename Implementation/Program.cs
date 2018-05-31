@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Timetabling;
 using Timetabling.Algorithms.FET;
+using Timetabling.DB;
 
 namespace Implementation
 {
@@ -18,10 +19,10 @@ namespace Implementation
             //   5 - Do something with the Timetable output object when the Task finishes
 
             var algorithm = new FetAlgorithm();
-            var input = @"inputfile.fet";
+            var inputFile = FetInputGenerator.GenerateFetFile(new DataModel(), Timetabling.Helper.Util.CreateTempFolder("fetInputGenerator"));
 
             var generator = new TimetableGenerator();
-            var task = generator.RunAlgorithm(algorithm, input);
+            var task = generator.RunAlgorithm(algorithm, inputFile);
 
             // On success
             task.ContinueWith(t =>
