@@ -47,7 +47,7 @@ namespace Timetabling.Objects
             // Creates the different subgroups in eacht group
             foreach (var item in groups)
             {
-                var group = list.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
+                var group = List.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
 
                 if (group.Count() > 0)
                 {
