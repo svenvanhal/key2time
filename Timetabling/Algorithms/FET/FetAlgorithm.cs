@@ -30,10 +30,7 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         protected internal string InputFile
         {
-            get
-            {
-                return _inputFile;
-            }
+            get => _inputFile;
             set
             {
                 _inputFile = value;
