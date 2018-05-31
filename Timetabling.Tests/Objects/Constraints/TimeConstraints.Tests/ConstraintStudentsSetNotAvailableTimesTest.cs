@@ -55,12 +55,12 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintStudentsSetNotAvailableTimes();
-            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { day = (Days)2, students = "testGrade", hour = 3, weight = 50 };
-            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { day = (Days)3, students = "testGrade", hour = 3, weight = 50 };
+            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2 }, Students = "testGrade", Hours = { 3 },NumberOfHours =1 ,weight = 50 };
+            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2, (Days)2 }, Students = "testGrade", Hours = { 3,2 }, NumberOfHours = 2, weight = 50 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
-            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
+           Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }
     }
 

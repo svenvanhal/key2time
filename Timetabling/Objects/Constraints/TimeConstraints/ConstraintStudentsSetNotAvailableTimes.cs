@@ -13,24 +13,24 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <summary>
         /// The number of hours is always 1;
         /// </summary>
-        int numberOfHours = 1;
+        public int NumberOfHours { get; set; } = 0;
         /// <summary>
         /// Gets or sets the students.
         /// </summary>
         /// <value>The students.</value>
-        public string students { get; set; }
+        public string Students { get; set; }
 
         /// <summary>
         /// Gets or sets the day.
         /// </summary>
         /// <value>The day.</value>
-        public Days day { get; set; }
+        public List<Days> Days { get; set; } = new List<Days>();
 
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
-        public int hour { get; set; }
+        public List<int> Hours { get; set; } = new List<int>();
 
         /// <summary>
         /// Initializes a new instance of the
@@ -57,8 +57,21 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                         select new { tf.day, cl.ClassName, tf.lessonIndex, cl.timeOffConstraint };
 
             var result = new List<XElement>();
+            var check = new List<string>();
 
-            query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetNotAvailableTimes { students = item.ClassName, day = (Days)item.day, hour = item.lessonIndex, weight = item.timeOffConstraint }.ToXelement()));
+            foreach (var item in query)
+            {
+                if (!check.Contains(item.ClassName))
+                {
+                    check.Add(item.ClassName);
+
+                    var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
+                    var _daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
+                    var _hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
+                    result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = _daysList, Hours = _hoursList, NumberOfHours = _hoursList.Count, weight = item.timeOffConstraint }.ToXelement());
+                }
+
+            }
 
             return result.ToArray();
         }
@@ -70,11 +83,14 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement ToXelement()
         {
             SetWeight(weight);
-            constraint.Add(new XElement("Students", students),
-                           new XElement("Number_of_Not_Available_Times", numberOfHours),
-                           new XElement("Not_Available_Time",
-                                        new XElement("Day", day),
-                                        new XElement("Hour", hour)));
+            constraint.Add(new XElement("Students", Students),
+                           new XElement("Number_of_Not_Available_Times", NumberOfHours));
+
+            for (var i = 0; i <NumberOfHours; i++){
+                constraint.Add(new XElement("Not_Available_Time",
+                                            new XElement("Day", Days[i]),
+                                            new XElement("Hour", Hours[i])));
+            }
             return constraint;
         }
 
