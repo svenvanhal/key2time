@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Timetabling.DB;
+using Timetabling.Objects.Constraints;
 using Timetabling.Objects.Constraints.SpaceConstraints;
 
 namespace Timetabling.Objects
@@ -11,7 +12,11 @@ namespace Timetabling.Objects
     public class SpaceConstraintsList : AbstractList
     {
 
-        List<AbstractConstraint> constraints;
+        /// <summary>
+        /// List of constraints in this list.
+        /// </summary>
+        protected readonly List<AbstractConstraint> Constraints;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.SpaceConstraintsList"/> class.
         /// </summary>
@@ -19,15 +24,16 @@ namespace Timetabling.Objects
         public SpaceConstraintsList(DataModel _dB) : base(_dB)
         {
             SetListElement("Space_Constraints_List");
-            constraints = new List<AbstractConstraint>();
+            Constraints = new List<AbstractConstraint>();
         }
+
         /// <summary>
         /// Creates the XElement for each constrain.
-        /// </summary>z
+        /// </summary>
         public override void Create()
         {
             CreateConstraints();
-            constraints.ForEach(item => list.Add(item.Create(dB)));
+            Constraints.ForEach(item => List.Add(item.Create(dB)));
         }
 
         /// <summary>
@@ -35,9 +41,8 @@ namespace Timetabling.Objects
         /// </summary>
         private void CreateConstraints()
         {
-            list.Add(new ConstraintBasicCompulsorySpace().ToXelement());
-            constraints.Add(new ConstraintRoomNotAvailableTimes());
-
+            List.Add(new ConstraintBasicCompulsorySpace().ToXelement());
+            Constraints.Add(new ConstraintRoomNotAvailableTimes());
         }
     }
 }

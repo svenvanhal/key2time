@@ -40,7 +40,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ElementNameTest()
         {
-            Assert.AreEqual(test.Name.ToString(), "Rooms_List");
+            Assert.AreEqual("Rooms_List", test.Name.ToString());
         }
 
         [Test]

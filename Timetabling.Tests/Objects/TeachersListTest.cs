@@ -37,34 +37,31 @@ namespace Timetabling.Tests.Objects
             list.Create();
 
             test = list.GetList();
-
         }
 
         [Test]
         public void ElementNameTest()
         {
-            Assert.AreEqual(test.Name.ToString(), "Teachers_List");
+            Assert.AreEqual("Teachers_List", test.Name.ToString());
         }
 
         [Test]
         public void TeacherRightTest()
         {
             Assert.AreEqual(1, test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("0")));
-
         }
 
         [Test]
         public void TeacherNotTeacher()
         {
             Assert.AreEqual(0, test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("1")));
-
         }
 
         [Test]
         public void TeacherNotActive()
         {
             Assert.AreEqual(0, test.Elements("Teacher").Elements("Name").Count(item => item.Value.Equals("2")));
-
         }
+
     }
 }

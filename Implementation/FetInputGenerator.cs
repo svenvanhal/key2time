@@ -2,13 +2,11 @@ using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.XML;
 
-namespace Timetabling.Algorithms.FET
+namespace Implementation
 {
 
-    internal class FetInputGenerator
+    internal static class FetInputGenerator
     {
-
-        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Generates a .FET file for use in the algorithm.
@@ -16,7 +14,7 @@ namespace Timetabling.Algorithms.FET
         /// <param name="dataModel">Datamodel to construct objects from.</param>
         /// <param name="outputDir">Output directory for the FET file.</param>
         /// <returns>Filename of the generated .FET file.</returns>
-        public string GenerateFetFile(DataModel dataModel, string outputDir)
+        public static string GenerateFetFile(DataModel dataModel, string outputDir)
         {
 
             var xmlCreator = new XmlCreator();

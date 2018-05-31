@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using Timetabling.Objects;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
 namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
@@ -12,7 +12,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void TestWeight()
         {
             var constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
-            Assert.AreEqual(constraintBasicCompulsoryTime.weight, 100);
+            Assert.AreEqual(100, constraintBasicCompulsoryTime.weight);
         }
 
         [Test()]

@@ -50,19 +50,22 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
 
         {
             ConstraintTeacherNotAvailableTimes constraint = new ConstraintTeacherNotAvailableTimes();
-            Assert.AreEqual(constraint.ToXelement().Name.ToString(), "ConstraintTeacherNotAvailableTimes");
+            Assert.AreEqual( "ConstraintTeacherNotAvailableTimes",constraint.ToXelement().Name.ToString());
         }
 
 
         [Test]
         public void CreateTest()
         {
-            ConstraintTeacherNotAvailableTimes constraint = new ConstraintTeacherNotAvailableTimes();
-            ConstraintTeacherNotAvailableTimes constraintTest = new ConstraintTeacherNotAvailableTimes { days = { (Days)2 }, teacher = 4, hours = { 3 }, weight = 50, numberOfHours = 1 };
-            ConstraintTeacherNotAvailableTimes constraintTest2 = new ConstraintTeacherNotAvailableTimes { days = { (Days)3, (Days)3, (Days)2 }, teacher = 4, hours = { 3, 4, 5 }, weight = 30, numberOfHours = 3 };
+            var constraint = new ConstraintTeacherNotAvailableTimes();
+            var constraintTest = new ConstraintTeacherNotAvailableTimes { days = { (Days)2 }, teacher = 4, hours = { 3 }, weight = 50, numberOfHours = 1 };
+            var constraintTest2 = new ConstraintTeacherNotAvailableTimes { days = { (Days)3, (Days)3, (Days)2 }, teacher = 4, hours = { 3, 4, 5 }, weight = 30, numberOfHours = 3 };
 
-            XElement[] result = constraint.Create(test.Object);
-
+            var result = constraint.Create(test.Object);
+          
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+            Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
+        }
            // Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
             Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }

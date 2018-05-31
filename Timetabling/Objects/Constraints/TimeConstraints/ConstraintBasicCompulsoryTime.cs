@@ -1,22 +1,22 @@
-﻿
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 
-namespace Timetabling.Objects
+namespace Timetabling.Objects.Constraints.TimeConstraints
 {
-	/// <summary>
+	
+    /// <summary>
     /// Constraint for the basic compulsary time, such as that no teacher can be on two places in the same timeslot.
     /// </summary>
 	public class ConstraintBasicCompulsoryTime : AbstractConstraint
 	{
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.ConstraintBasicCompulsoryTime"/> class.
+        
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintBasicCompulsoryTime"/> class.
         /// </summary>
 		public ConstraintBasicCompulsoryTime() 
 		{
 			SetElement("ConstraintBasicCompulsoryTime");
 			SetWeight(100);
-
 		}
 
 		/// <summary>
@@ -24,18 +24,13 @@ namespace Timetabling.Objects
         /// </summary>
         /// <returns>The created array.</returns>
         /// <param name="dB">Datamodel.</param>
-		public override XElement[] Create(DataModel dB)
-		{
-			return new XElement[0];
-		}
+		public override XElement[] Create(DataModel dB) => new XElement[0];
 
-        /// <summary>
+	    /// <summary>
         /// Returns the Xelement representation of the constraint
         /// </summary>
         /// <returns>The xelement.</returns>
-		public override XElement ToXelement()
-		{
-			return constraint;
-		}
+		public override XElement ToXelement() => constraint;
+
 	}
 }
