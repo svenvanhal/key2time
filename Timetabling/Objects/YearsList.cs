@@ -1,6 +1,7 @@
 ﻿using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
+using System;
 
 namespace Timetabling.Objects
 {
@@ -50,9 +51,14 @@ namespace Timetabling.Objects
             //Creates the different subgroups in eacht group
             foreach (var item in groups)
             {
-                list.Elements("Year").Elements("Group").First(g => g.Element("Name").Value.Equals(item.ClassName)).
-                    Add(new XElement("Subgroup",
-                                     new XElement("Name", item.groupName)));
+                var group = list.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
+              
+
+                if (group.Count()>0)
+                {
+                    group.First().Add(new XElement("Subgroup",
+                                         new XElement("Name", item.groupName)));
+                }
             }
         }
     }
