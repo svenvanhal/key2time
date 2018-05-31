@@ -14,17 +14,17 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <summary>
         /// Students for whom this constraint holds.
         /// </summary>
-        protected string Students { get; set; }
+        public string Students { get; set; }
 
         /// <summary>
         /// Days for which this constraint holds.
         /// </summary>
-        protected List<int> Days { get; set; } = new List<int>();
+        public List<int> Days { get; set; } = new List<int>();
 
         /// <summary>
         /// Numer of hours for which this constraint holds.
         /// </summary>
-        protected int NumberOfHours { get; set; } = 8; //default
+        public int NumberOfHours { get; set; } = 8; //default
 
         /// <summary>
         /// Initializes a new instance of the

@@ -68,8 +68,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintPeriodSection();
-            var constraintTest = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "test" };
-            var constraintTestFail = new ConstraintPeriodSection { days = new List<int> { 0 }, numberOfHours = 8, students = "not" };
+            var constraintTest = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 8, Students = "test" };
+            var constraintTestFail = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 8, Students = "not" };
 
             var result = constraint.Create(test.Object);
 
