@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
-using Timetabling.Exceptions;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET

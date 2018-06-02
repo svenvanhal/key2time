@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Timetabling.Algorithms.FET;
-using Timetabling.Helper;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
@@ -84,7 +83,10 @@ namespace Timetabling.Tests.Algorithms.FET
 
             // Hopwood runs usually very fast
             fpb.SetInputFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet"));
-            fpb.SetOutputDir(Util.CreateTempFolder("testIdentifier"));
+
+            var tempDir = Path.Combine(Path.GetTempPath(), "timetabling-tests");
+            Directory.CreateDirectory(tempDir);
+            fpb.SetOutputDir(tempDir);
 
             _process = fpb.CreateProcess();
             _fpi = new FetProcessInterfaceExposer(_process, CancellationToken.None);
@@ -106,7 +108,10 @@ namespace Timetabling.Tests.Algorithms.FET
 
             // Invalid input file
             fpb.SetInputFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "invalid.xml"));
-            fpb.SetOutputDir(Util.CreateTempFolder("testIdentifier"));
+
+            var tempDir = Path.Combine(Path.GetTempPath(), "timetabling-tests");
+            Directory.CreateDirectory(tempDir);
+            fpb.SetOutputDir(tempDir);
 
             _process = fpb.CreateProcess();
             _fpi = new FetProcessInterfaceExposer(_process, CancellationToken.None);
@@ -115,7 +120,6 @@ namespace Timetabling.Tests.Algorithms.FET
             _fpi.StartProcess();
             var ex = Assert.Throws<AggregateException>(() => _fpi.TaskCompletionSource.Task.Wait());
             Assert.IsInstanceOf<InvalidOperationException>(ex.InnerException);
-
         }
 
         [Test]

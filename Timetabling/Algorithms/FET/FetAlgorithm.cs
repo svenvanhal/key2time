@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Timetabling.Helper;
+using Timetabling.Config;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
@@ -48,15 +49,9 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         internal FetProcessInterface ProcessInterface;
 
-        /// <summary>
-        /// TaskCompletionSource to generate the algorithm execution task.
-        /// </summary>
-        private TaskCompletionSource<Timetable> _tcs;
-
-        private string _inputFile;
-
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-
+        private string _inputFile;
+        private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
         protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
@@ -67,6 +62,7 @@ namespace Timetabling.Algorithms.FET
             // Initialize algorithm
             Initialize(input, t);
 
+            // Create algorithm task
             await ProcessInterface.StartProcess()
 
                 // Gather the Timetable results when the algorithm process has finished
@@ -89,18 +85,10 @@ namespace Timetabling.Algorithms.FET
 
             // Set parameters
             InputFile = input;
-            OutputDir = Util.CreateTempFolder(Identifier);
-
-            // Initialize process builder
-            var fetExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Util.GetAppSetting("FetExecutableLocation"));
-            var processBuilder = new FetProcessBuilder(fetExecutablePath);
-
-            // Configure process
-            processBuilder.SetInputFile(InputFile);
-            processBuilder.SetOutputDir(OutputDir);
+            OutputDir = CreateOutputDirectory(Identifier);
 
             // Create process interface and register exit handler
-            ProcessInterface = new FetProcessInterface(processBuilder.CreateProcess(), t);
+            ProcessInterface = new FetProcessInterface(CreateProcess(), t);
         }
 
         /// <summary>
@@ -111,8 +99,43 @@ namespace Timetabling.Algorithms.FET
         {
             Logger.Info("Retrieving FET algorithm results");
 
-            var fop = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables"));
-            return fop.GetTimetable();
+            var outputProcessor = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables"));
+            return outputProcessor.GetTimetable();
+        }
+
+        /// <summary>
+        /// Configure and create a new FET-CL process.
+        /// </summary>
+        /// <returns></returns>
+        protected internal Process CreateProcess()
+        {
+            var fetExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TimetablingConfig.GetSetting("FetExecutableLocation"));
+            var processBuilder = new FetProcessBuilder(fetExecutablePath);
+
+            // Set input and output dir
+            processBuilder.SetInputFile(InputFile);
+            processBuilder.SetOutputDir(OutputDir);
+
+            // Change default language
+            processBuilder.SetLanguage(TimetablingConfig.GetFetLanguage());
+
+            return processBuilder.CreateProcess();
+        }
+
+        /// <summary>
+        /// Creates a temporary directory to store the intermediary algorithm output.
+        /// </summary>
+        /// <param name="outputDir">Name of the subdirectory.</param>
+        /// <returns>Full path to the output directory.</returns>
+        protected static string CreateOutputDirectory(string outputDir)
+        {
+            // Get working dir (default: %TEMP%/timetabling)
+            var workingDir = TimetablingConfig.GetSetting("FetWorkingDir");
+            if (string.IsNullOrEmpty(workingDir)) workingDir = Path.Combine(Path.GetTempPath(), "timetabling");
+
+            // Create new directory and return path
+            var dir = Directory.CreateDirectory(Path.Combine(workingDir, outputDir));
+            return dir.FullName;
         }
 
     }

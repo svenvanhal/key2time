@@ -41,18 +41,12 @@
         public static readonly FetLanguage Simplified_Chinese = new FetLanguage("zh_CN");
         public static readonly FetLanguage Traditional_Chinese = new FetLanguage("zh_TW");
 
-        private readonly string languageName;
+        private readonly string _languageName;
 
-        private FetLanguage(string languageName)
-        {
-            this.languageName = languageName;
-        }
+        private FetLanguage(string languageName) => _languageName = languageName;
 
-        public override string ToString()
-        {
-            return languageName;
-        }
-
+        /// <inheritdoc />
+        public override string ToString() => _languageName;
     }
 #pragma warning restore 1591
 

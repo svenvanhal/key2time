@@ -8,6 +8,9 @@ namespace Implementation
     internal static class FetInputGenerator
     {
 
+        // The FET input format version
+        private const string FetVersion = "5.35.6";
+
         /// <summary>
         /// Generates a .FET file for use in the algorithm.
         /// </summary>
@@ -17,7 +20,7 @@ namespace Implementation
         public static string GenerateFetFile(DataModel dataModel, string outputDir)
         {
 
-            var xmlCreator = new XmlCreator();
+            var xmlCreator = new XmlCreator(FetVersion);
 
             var daysList = new DaysList(dataModel);
             daysList.Create();
