@@ -122,7 +122,7 @@ namespace Timetabling.Algorithms.FET
 
             // Check if has partial results and set flag accordingly
             _partial = _fs.Directory.Exists(partialDir);
-            return _partial ? partialDir : _fs.Path.Combine(OutputDir, InputName);
+            return _partial ? partialDir : _fs.Path.Combine(outputDir, InputName);
         }
 
         /// <summary>
@@ -133,11 +133,12 @@ namespace Timetabling.Algorithms.FET
         protected Timetable AddMetadata(Timetable tt)
         {
             var softConstraintsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
+            var fileStream = _fs.FileInfo.FromFileName(softConstraintsFile).Open(FileMode.Open, FileAccess.Read) as FileStream;
 
             // Return original timetable if soft_constraints.txt does not exist
-            if (!_fs.File.Exists(softConstraintsFile)) return tt;
+            if (fileStream == null) return tt;
 
-            using (var reader = new StreamReader(softConstraintsFile))
+            using (var reader = new StreamReader(fileStream))
             {
                 while (!reader.EndOfStream)
                 {

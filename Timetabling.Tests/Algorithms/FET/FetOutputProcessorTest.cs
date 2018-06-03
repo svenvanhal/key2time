@@ -18,7 +18,7 @@ namespace Timetabling.Tests.Algorithms.FET
         internal class FetOutputProcessorExposer : FetOutputProcessor
         {
             public FetOutputProcessorExposer(string inputName, string outputDir) : base(inputName, outputDir, new FileSystem()) { }
-            public FetOutputProcessorExposer(string inputName, string outputDir, FileSystem fs) : base(inputName, outputDir, fs) { }
+            public FetOutputProcessorExposer(string inputName, string outputDir, IFileSystem fs) : base(inputName, outputDir, fs) { }
             public new Timetable XmlToTimetable(Stream fileStream) => base.XmlToTimetable(fileStream);
             public new string GetOutputPath(string outputDir) => base.GetOutputPath(outputDir);
             public new Timetable AddMetadata(Timetable tt) => base.AddMetadata(tt);
@@ -124,7 +124,6 @@ namespace Timetabling.Tests.Algorithms.FET
 
             // Run
             var fop = new FetOutputProcessor("Hopwood", fileSystem.Directory.GetCurrentDirectory(), fileSystem);
-
             var tt = fop.GetTimetable();
 
             // Check that we have found all 163 activities
