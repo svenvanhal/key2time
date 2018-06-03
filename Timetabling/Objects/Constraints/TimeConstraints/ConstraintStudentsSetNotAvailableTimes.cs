@@ -50,7 +50,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             var query = from tf in dB.Tt_TimeOff
                         join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
-                        where tf.ItemType == 3
+                                         where tf.ItemType == 3 & cl.IsActive == true
 
                         select new { tf.day, cl.ClassName, tf.lessonIndex, cl.timeOffConstraint };
 

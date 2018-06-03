@@ -28,7 +28,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<School_Lookup_Class>{
-                new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 50},
+                new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 100, IsActive = true},
             }.AsQueryable();
 
             var mockSetClass = new Mock<DbSet<School_Lookup_Class>>();
@@ -55,8 +55,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintStudentsSetNotAvailableTimes();
-            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2 }, Students = "testGrade", Hours = { 3 },NumberOfHours =1 ,weight = 50 };
-            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2, (Days)2 }, Students = "testGrade", Hours = { 3,2 }, NumberOfHours = 2, weight = 50 };
+            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2 }, Students = "testGrade", Hours = { 3 },NumberOfHours =1 ,weight = 100 };
+            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2, (Days)2 }, Students = "testGrade", Hours = { 3,2 }, NumberOfHours = 2, weight = 100 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
