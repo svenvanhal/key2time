@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Timetabling.Resources;
+using FileNotFoundException = System.IO.FileNotFoundException;
 
 namespace Timetabling.Algorithms.FET
 {
@@ -133,12 +134,10 @@ namespace Timetabling.Algorithms.FET
         protected Timetable AddMetadata(Timetable tt)
         {
             var softConstraintsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
-            var fileStream = _fs.FileInfo.FromFileName(softConstraintsFile).Open(FileMode.Open, FileAccess.Read) as FileStream;
+            if (!_fs.File.Exists(softConstraintsFile)) return tt;
 
-            // Return original timetable if soft_constraints.txt does not exist
-            if (fileStream == null) return tt;
-
-            using (var reader = new StreamReader(fileStream))
+            using (var stream = _fs.File.OpenRead(softConstraintsFile))
+            using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
                 {
