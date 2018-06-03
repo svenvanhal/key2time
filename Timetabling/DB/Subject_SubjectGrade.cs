@@ -38,6 +38,11 @@
 		/// <value>The number of llessons per day.</value>
 		public int NumberOfLlessonsPerDay { get; set; }
 
+        /// <summary>
+        /// Gets or sets the preffered room type id
+        /// </summary>
+        /// <value>The preffered room type id.</value>
+        public int? BuildingUnitTypeID { get; set; }
 		/// <summary>
 		/// Gets or sets School_Lookup_Grade.
 		/// </summary>

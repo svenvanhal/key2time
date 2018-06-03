@@ -46,11 +46,15 @@ namespace Implementation
             var spaceConstraintsList = new SpaceConstraintsList(dataModel);
             spaceConstraintsList.Create();
 
+            var roomsList = new RoomsList(dataModel);
+            roomsList.Create();
+
             xmlCreator.AddToRoot(daysList.GetList());
             xmlCreator.AddToRoot(hoursList.GetList());
             xmlCreator.AddToRoot(teachersList.GetList());
             xmlCreator.AddToRoot(yearsList.GetList());
             xmlCreator.AddToRoot(subjectsList.GetList());
+            xmlCreator.AddToRoot(roomsList.GetList());
             xmlCreator.AddToRoot(activitiesList.GetList());
             xmlCreator.AddToRoot(timeConstraintsList.GetList());
             xmlCreator.AddToRoot(spaceConstraintsList.GetList());

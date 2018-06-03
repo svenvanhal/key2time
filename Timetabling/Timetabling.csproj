@@ -93,6 +93,7 @@
     <Compile Include="DB\School_BuildingsUnits.cs" />
     <Compile Include="DB\Subject_Category.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

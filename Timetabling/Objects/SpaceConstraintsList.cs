@@ -43,6 +43,7 @@ namespace Timetabling.Objects
         {
             List.Add(new ConstraintBasicCompulsorySpace().ToXelement());
             Constraints.Add(new ConstraintRoomNotAvailableTimes());
+            Constraints.Add(new ConstraintSubjectPreferredRooms());
         }
     }
 }
