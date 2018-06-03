@@ -69,6 +69,7 @@
     <Compile Include="Algorithms\FET\FetOutputProcessorTest.cs" />
     <Compile Include="Algorithms\FET\FetProcessBuilderTest.cs" />
     <Compile Include="Algorithms\FET\FetProcessInterfaceTest.cs" />
+    <Compile Include="Config\TimetablingConfigTest.cs" />
     <Compile Include="Helper\CommandLineArgumentsTest.cs" />
     <Compile Include="Objects\ActiviteitsListTest.cs" />
     <Compile Include="Objects\DaysListTest.cs" />
@@ -92,7 +93,9 @@
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintPeriodSectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="testdata\fet\activities_missing.fet">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -133,7 +136,7 @@
     <RemoveDir Directories="$(TargetDir)lib\" />
   </Target>
   <Target Name="AfterBuild">
-    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows-&gt;'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy Condition=" '$(OS)' == 'Windows_NT' " SourceFiles="@(LibWindows)" DestinationFiles="@(LibWindows->'$(TargetDir)lib\%(RecursiveDir)%(Filename)%(Extension)')" />
     <!-- Copy task with %RecursiveDir fails on Mono xbuild/msbuild, falling back to cp command -->
     <Exec Condition=" '$(OS)' == 'Unix' " Command="cp -R $(ProjectDir)lib/unix/ $(TargetDir)lib/" />
     <Exec Condition=" '$(OS)' == 'Unix' " Command="chmod +x $(TargetDir)lib/fet/fet-cl" />

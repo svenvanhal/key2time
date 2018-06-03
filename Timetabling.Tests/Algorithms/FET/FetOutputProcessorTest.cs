@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
 using NUnit.Framework;
@@ -23,7 +22,7 @@ namespace Timetabling.Tests.Algorithms.FET
             public new Timetable XmlToTimetable(Stream fileStream) => base.XmlToTimetable(fileStream);
             public new string GetOutputPath(string outputDir) => base.GetOutputPath(outputDir);
             public new Timetable AddMetadata(Timetable tt) => base.AddMetadata(tt);
-            public List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
+            public new List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
         }
 
         [Test]

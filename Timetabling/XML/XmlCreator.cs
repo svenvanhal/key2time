@@ -24,9 +24,12 @@ namespace Timetabling.XML
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:Timetabling.XML.XmlCreator"/> class.
 		/// </summary>
-		public XmlCreator()
+		public XmlCreator(string fetVersion = null)
 		{
-		    Root = new XElement("fet", new XAttribute("version", "5.35.6"));
+		    Root = new XElement("fet");
+
+            // Set FET version if supplied
+		    if (fetVersion != null) Root.SetAttributeValue("version", fetVersion);
 
             Document = new XDocument();
 			Document.Add(Root);

@@ -1,13 +1,13 @@
-﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Xml.Linq;
+using Moq;
+using NUnit.Framework;
 using Timetabling.DB;
+using Timetabling.Objects;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
 {
     [TestFixture()]
     internal class ConstraintTeacherSetNotAvailableTimesTest
@@ -28,7 +28,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataEmp = new List<HR_MasterData_Employees>{
-                new HR_MasterData_Employees{EmployeeID = 4, IsActive = true, timeOffConstraint=50},
+                new HR_MasterData_Employees{EmployeeID = 4, IsActive = true, timeOffConstraint=50, IsTeacher =true},
             }.AsQueryable();
 
             var mockSetEmp = new Mock<DbSet<HR_MasterData_Employees>>();

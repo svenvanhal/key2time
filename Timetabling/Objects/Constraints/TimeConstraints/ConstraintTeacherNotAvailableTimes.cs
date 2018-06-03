@@ -50,6 +50,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             var query = from tf in dB.Tt_TimeOff
                         where tf.ItemType == 1
                         join e in dB.HR_MasterData_Employees on tf.ItemId equals e.EmployeeID
+                        where e.IsActive == true && e.IsTeacher == true
                         select new { tf.day, tf.ItemId, tf.lessonIndex, e.timeOffConstraint };
 
             var result = new List<XElement>();

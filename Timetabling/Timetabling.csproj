@@ -47,7 +47,6 @@
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
     <Compile Include="Helper\CommandLineArguments.cs" />
-    <Compile Include="Helper\Util.cs" />
     <Compile Include="DB\School_TeacherSubjects.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\HR_MasterData_Employees.cs" />
@@ -69,6 +68,7 @@
     <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
     <Compile Include="DB\Tt_TeacherAcademicInfo.cs" />
     <Compile Include="DB\Tt_TimeOff.cs" />
+    <Compile Include="Config\TimetablingConfig.cs" />
     <Compile Include="XML\XmlCreator.cs" />
     <Compile Include="Objects\TeachersList.cs" />
     <Compile Include="Objects\AbstractList.cs" />
@@ -132,5 +132,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

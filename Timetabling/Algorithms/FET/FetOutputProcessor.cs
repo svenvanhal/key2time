@@ -78,7 +78,7 @@ namespace Timetabling.Algorithms.FET
             tt.SetPartialFlag(_partial);
 
             // Clean up output dir
-            //CleanupOutputDir();
+            CleanupOutputDir();
 
             return tt;
         }
