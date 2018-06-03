@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
 using System.Runtime.Serialization;
@@ -189,7 +190,7 @@ namespace Timetabling.Algorithms.FET
             if (line.StartsWith("Total"))
             {
                 // Total conflicts: __
-                tt.ConflictWeight = Convert.ToDouble(Regex.Match(line, @"\d+(\.\d{1,2})?").Value);
+                tt.ConflictWeight = Convert.ToDouble(Regex.Match(line, @"\d+(\.\d{1,2})?").Value, CultureInfo.InvariantCulture);
             }
             else if (line.StartsWith("Warning! Only"))
             {

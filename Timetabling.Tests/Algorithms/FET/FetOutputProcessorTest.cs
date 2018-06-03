@@ -18,11 +18,9 @@ namespace Timetabling.Tests.Algorithms.FET
         internal class FetOutputProcessorExposer : FetOutputProcessor
         {
             public FetOutputProcessorExposer(string inputName, string outputDir) : base(inputName, outputDir, new FileSystem()) { }
-            public FetOutputProcessorExposer(string inputName, string outputDir, IFileSystem fs) : base(inputName, outputDir, fs) { }
             public new Timetable XmlToTimetable(Stream fileStream) => base.XmlToTimetable(fileStream);
-            public new string GetOutputPath(string outputDir) => base.GetOutputPath(outputDir);
-            public new Timetable AddMetadata(Timetable tt) => base.AddMetadata(tt);
             public new List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
+            public new void ParseMetaLine(string line, Timetable tt) => base.ParseMetaLine(line, tt);
         }
 
         [Test]
@@ -150,6 +148,55 @@ namespace Timetabling.Tests.Algorithms.FET
             // Invalid XML throws InvalidOperationException
             Assert.Throws<InvalidOperationException>(() => fop.GetTimetable());
 
+        }
+
+        [Test]
+        public void ParseSoftConflictsTest()
+        {
+            var testline = "\r\n\r\nTest soft conflict warning\r\n";
+            var expected = new List<string> { "Test soft conflict warning" };
+
+            var fop = new FetOutputProcessorExposer("", "");
+
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(testline)))
+            using (var reader = new StreamReader(stream))
+            {
+                Assert.AreEqual(expected, fop.ParseSoftConflicts(reader));
+            }
+        }
+
+        [Test]
+        public void ParseSoftConflictsEndTest()
+        {
+            var testline = "\r\nEnd of file.\r\nTest soft conflict warning\r\n";
+            var expected = new List<string>();
+
+            var fop = new FetOutputProcessorExposer("", "");
+
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(testline)))
+            using (var reader = new StreamReader(stream))
+            {
+                Assert.AreEqual(expected, fop.ParseSoftConflicts(reader));
+            }
+        }
+
+        [Test]
+        public void ParseMetaLineTest()
+        {
+            var tt = new Timetable();
+            var fop = new FetOutputProcessorExposer("", "");
+
+            var input_1 = "Warning! Only 197 out of 479 activities placed!";
+            uint expected_1 = 197;
+
+            var input_2 = "Total conflicts: 5640361.15";
+            double expected_2 = 5640361.15d;
+
+            fop.ParseMetaLine(input_1, tt);
+            Assert.AreEqual(expected_1, tt.PlacedActivities);
+
+            fop.ParseMetaLine(input_2, tt);
+            Assert.AreEqual(expected_2, tt.ConflictWeight);
         }
 
     }
