@@ -17,12 +17,6 @@ namespace Timetabling.Resources
         public List<TimetableActivity> Activities { get; set; }
 
         /// <summary>
-        /// Describes whether this Timetable has been fully generated or just partially.
-        /// </summary>
-        [XmlIgnore]
-        public bool IsPartial { get; protected set; }
-
-        /// <summary>
         /// Number of actually scheduled activities in this timetable.
         /// </summary>
         [XmlIgnore]
@@ -41,10 +35,10 @@ namespace Timetabling.Resources
         public List<string> SoftConflicts { get; internal set; }
 
         /// <summary>
-        /// Constructs a Timetable object.
+        /// Describes whether this Timetable has been fully generated or just partially.
         /// </summary>
-        /// <param name="partial">Whether or not this timetable is just partially complete.</param>
-        public void SetPartialFlag(bool partial) => IsPartial = partial;
+        [XmlIgnore]
+        public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
         /// Timetable activity, consisting of an id, a day, an hour and a room.

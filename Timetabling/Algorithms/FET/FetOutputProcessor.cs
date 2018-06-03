@@ -76,9 +76,6 @@ namespace Timetabling.Algorithms.FET
             // Add meta data to timetable
             AddMetadata(tt);
 
-            // Set partial flag for timetable
-            tt.SetPartialFlag(_partial);
-
             // Clean up output dir
             CleanupOutputDir();
 
