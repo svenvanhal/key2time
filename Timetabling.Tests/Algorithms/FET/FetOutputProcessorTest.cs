@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Abstractions;
 using NUnit.Framework;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text;
 using Timetabling.Algorithms.FET;
-using Timetabling.Exceptions;
+using Timetabling.Resources;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
@@ -13,6 +15,16 @@ namespace Timetabling.Tests.Algorithms.FET
     [TestFixture]
     internal class FetOutputProcessorTest
     {
+
+        internal class FetOutputProcessorExposer : FetOutputProcessor
+        {
+            public FetOutputProcessorExposer(string inputName, string outputDir) : base(inputName, outputDir, new FileSystem()) { }
+            public FetOutputProcessorExposer(string inputName, string outputDir, FileSystem fs) : base(inputName, outputDir, fs) { }
+            public new Timetable XmlToTimetable(Stream fileStream) => base.XmlToTimetable(fileStream);
+            public new string GetOutputPath(string outputDir) => base.GetOutputPath(outputDir);
+            public new Timetable AddMetadata(Timetable tt) => base.AddMetadata(tt);
+            public List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
+        }
 
         [Test]
         public void GetTimetableTest()
@@ -68,7 +80,7 @@ namespace Timetabling.Tests.Algorithms.FET
         public void XmlToTimetableTest()
         {
 
-            var fop = new FetOutputProcessor("", "");
+            var fop = new FetOutputProcessorExposer("", "");
 
             // Create output file stream
             var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/output.xml");
@@ -86,7 +98,7 @@ namespace Timetabling.Tests.Algorithms.FET
 
             const string contents = "Hey this is not XML!";
 
-            var fop = new FetOutputProcessor("", "");
+            var fop = new FetOutputProcessorExposer("", "");
             var byteArray = Encoding.UTF8.GetBytes(contents);
 
             // Create output file stream
