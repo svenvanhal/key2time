@@ -11,16 +11,34 @@ namespace Timetabling.Resources
     {
 
         /// <summary>
+        /// List of all activities in this timetable.
+        /// </summary>
+        [XmlElement("Activity")]
+        public List<TimetableActivity> Activities { get; set; }
+
+        /// <summary>
         /// Describes whether this Timetable has been fully generated or just partially.
         /// </summary>
         [XmlIgnore]
         public bool IsPartial { get; protected set; }
 
         /// <summary>
-        /// List of all activities in this timetable.
+        /// Number of actually scheduled activities in this timetable.
         /// </summary>
-        [XmlElement("Activity")]
-        public List<TimetableActivity> Activities { get; set; }
+        [XmlIgnore]
+        public uint PlacedActivities { get; internal set; }
+
+        /// <summary>
+        /// Total weight of broken constraints.
+        /// </summary>
+        [XmlIgnore]
+        public double ConflictWeight { get; internal set; }
+
+        /// <summary>
+        /// Contains all the violated soft constraints for this timetable. Directly passes through the FET warnings.
+        /// </summary>
+        [XmlIgnore]
+        public List<string> SoftConflicts { get; internal set; }
 
         /// <summary>
         /// Constructs a Timetable object.
