@@ -84,12 +84,13 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
             constraint.Add(new XElement("Students", Students),
                            new XElement("Number_of_Not_Available_Times", NumberOfHours * Days.Count));
-
+            
             //For each hour of each day of the weekend, a not available time is added
-            foreach (var day in Days)
+            foreach (Days day in Days)
             {
                 for (var i = 1; i <= NumberOfHours; i++)
                 {
+                    
                     constraint.Add(new XElement("Not_Available_Time",
                                    new XElement("Day", day),
                                    new XElement("Hour", i)));
