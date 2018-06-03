@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Timetabling.Resources;
-using FileNotFoundException = System.IO.FileNotFoundException;
 
 namespace Timetabling.Algorithms.FET
 {
