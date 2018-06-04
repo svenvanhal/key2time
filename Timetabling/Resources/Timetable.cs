@@ -11,22 +11,34 @@ namespace Timetabling.Resources
     {
 
         /// <summary>
-        /// Describes whether this Timetable has been fully generated or just partially.
-        /// </summary>
-        [XmlIgnore]
-        public bool IsPartial { get; protected set; }
-
-        /// <summary>
         /// List of all activities in this timetable.
         /// </summary>
         [XmlElement("Activity")]
         public List<TimetableActivity> Activities { get; set; }
 
         /// <summary>
-        /// Constructs a Timetable object.
+        /// Number of actually scheduled activities in this timetable.
         /// </summary>
-        /// <param name="partial">Whether or not this timetable is just partially complete.</param>
-        public void SetPartialFlag(bool partial) => IsPartial = partial;
+        [XmlIgnore]
+        public int PlacedActivities { get; internal set; }
+
+        /// <summary>
+        /// Total weight of broken constraints.
+        /// </summary>
+        [XmlIgnore]
+        public double ConflictWeight { get; internal set; }
+
+        /// <summary>
+        /// Contains all the violated soft constraints for this timetable. Directly passes through the FET warnings.
+        /// </summary>
+        [XmlIgnore]
+        public List<string> SoftConflicts { get; internal set; }
+
+        /// <summary>
+        /// Describes whether this Timetable has been fully generated or just partially.
+        /// </summary>
+        [XmlIgnore]
+        public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
         /// Timetable activity, consisting of an id, a day, an hour and a room.
@@ -61,10 +73,6 @@ namespace Timetabling.Resources
         }
 
         /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"<Timetable[ {Activities.Count} activities ]>";
-        }
-
+        public override string ToString() => $"<Timetable[{PlacedActivities}/{Activities.Count} activities]>";
     }
 }

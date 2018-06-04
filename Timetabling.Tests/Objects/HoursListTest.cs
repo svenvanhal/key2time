@@ -35,7 +35,7 @@ namespace Timetabling.Tests.Objects
         public void NumberOfDaysElementTest()
         {
 
-            Assert.AreEqual("8", test.Elements("Number_of_Hours").First().Value);
+            Assert.AreEqual("9", test.Elements("Number_of_Hours").First().Value);
         }
     }
 }
