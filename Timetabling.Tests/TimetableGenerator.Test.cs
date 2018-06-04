@@ -29,7 +29,7 @@ namespace Timetabling.Tests
         {
             var ttg = new TimetableGenerator();
 
-            var mockAlgorithm = new Mock<Algorithm>();
+            var mockAlgorithm = new Mock<TimetablingStrategy>();
             var input = "";
 
             var previousIdentifier = ttg.CurrentRunIdentifier;
