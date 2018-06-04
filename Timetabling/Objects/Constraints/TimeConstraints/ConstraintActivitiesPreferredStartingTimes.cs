@@ -7,9 +7,9 @@ using System.Collections.Generic;
 namespace Timetabling.Objects.Constraints.TimeConstraints
 {
 
-  /// <summary>
-  /// Constraint activities preferred starting times.
-  /// </summary>
+    /// <summary>
+    /// Constraint activities preferred starting times.
+    /// </summary>
     public class ConstraintActivitiesPreferredStartingTimes : AbstractConstraint
     {
         /// <summary>
@@ -42,7 +42,6 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             SetElement("ConstraintActivitiesPreferredStartingTimes");
             SetWeight(100);
-
         }
 
         /// <summary>
@@ -53,9 +52,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement[] Create(DataModel dB)
         {
             var query = from tf in dB.Tt_TimeOff
+                        join activity in dB.School_TeacherClass_Subjects on tf.ItemId equals activity.SubjectID
                         where tf.ItemType == 2
                         select new { tf.day, tf.ItemId, tf.lessonIndex };
-           
+
             var result = new List<XElement>();
 
             var check = new List<int>(); //List to check subject already done
@@ -71,10 +71,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     var _hoursList = subjectTimeOff.Select(x => x.lessonIndex).ToList();
                     result.Add(new ConstraintActivitiesPreferredStartingTimes { subject = item.ItemId, days = _daysList, hours = _hoursList, numberOfHours = _hoursList.Count }.ToXelement());
                 }
-
             }
             return result.ToArray();
-
         }
 
         /// <summary>
@@ -83,11 +81,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Subject", subject),
+            constraint.Add(new XElement("Subject_Name", subject),
                            new XElement("Number_of_Preferred_Starting_Times", numberOfHours));
             for (int i = 0; i < numberOfHours; i++)
             {
-
                 constraint.Add(new XElement("Preferred_Starting_Time",
                                             new XElement("Preferred_Starting_Day", days[i]),
                                             new XElement("Preferred_Starting_Hour", hours[i])));
