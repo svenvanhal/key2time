@@ -7,15 +7,37 @@ using System.Collections.Generic;
 namespace Timetabling.Objects.Constraints.TimeConstraints
 {
 
-  
+  /// <summary>
+  /// Constraint activities preferred starting times.
+  /// </summary>
     public class ConstraintActivitiesPreferredStartingTimes : AbstractConstraint
     {
-
+        /// <summary>
+        /// The subject.
+        /// </summary>
         public int subject;
+
+        /// <summary>
+        /// The number of hours.
+        /// </summary>
         public int numberOfHours;
+
+        /// <summary>
+        /// Gets or sets the list of days.
+        /// </summary>
+        /// <value>The days.</value>
         public List<Days> days { get; set; } = new List<Days>();
+
+        /// <summary>
+        /// Gets or sets the list of hours.
+        /// </summary>
+        /// <value>The hours.</value>
         public List<int> hours { get; set; } = new List<int>();
 
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintActivitiesPreferredStartingTimes"/> class.
+        /// </summary>
         public ConstraintActivitiesPreferredStartingTimes()
         {
             SetElement("ConstraintActivitiesPreferredStartingTimes");
@@ -23,6 +45,11 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
         }
 
+        /// <summary>
+        /// Create the constraints from the datamodel
+        /// </summary>
+        /// <returns>The created array of XElements</returns>
+        /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
             var query = from tf in dB.Tt_TimeOff
@@ -50,6 +77,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
         }
 
+        /// <summary>
+        /// Returns the XElement representation
+        /// </summary>
+        /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
             constraint.Add(new XElement("Subject", subject),
