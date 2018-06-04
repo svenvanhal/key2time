@@ -21,6 +21,7 @@ namespace Timetabling.Tests.Algorithms.FET
             public new Timetable XmlToTimetable(Stream fileStream) => base.XmlToTimetable(fileStream);
             public new List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
             public new void ParseMetaLine(string line, Timetable tt) => base.ParseMetaLine(line, tt);
+            public new void AddMetadata(Timetable tt) => base.AddMetadata(tt);
         }
 
         [Test]
@@ -163,6 +164,13 @@ namespace Timetabling.Tests.Algorithms.FET
             {
                 Assert.AreEqual(expected, fop.ParseSoftConflicts(reader));
             }
+        }
+
+        [Test]
+        public void ParseSoftConflictsTtNullTest()
+        {
+            var fop = new FetOutputProcessorExposer("", "");
+            Assert.DoesNotThrow(() => { fop.AddMetadata(null); });
         }
 
         [Test]

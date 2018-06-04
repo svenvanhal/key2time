@@ -131,7 +131,7 @@ namespace Timetabling.Algorithms.FET
         protected Timetable AddMetadata(Timetable tt)
         {
             var softConstraintsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
-            if (!_fs.File.Exists(softConstraintsFile)) return tt;
+            if (tt == null || !_fs.File.Exists(softConstraintsFile)) return tt;
 
             using (var stream = _fs.File.OpenRead(softConstraintsFile))
             using (var reader = new StreamReader(stream))
@@ -147,9 +147,11 @@ namespace Timetabling.Algorithms.FET
                     // Process line
                     ParseMetaLine(line, tt);
                 }
-
                 tt.SoftConflicts = ParseSoftConflicts(reader);
             }
+
+            // Update placed activities count when there are activities
+            if(tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
 
             return tt;
         }
@@ -191,7 +193,7 @@ namespace Timetabling.Algorithms.FET
             else if (line.StartsWith("Warning! Only"))
             {
                 // Warning! Only __ out of (total) activities placed!
-                tt.PlacedActivities = Convert.ToUInt32(Regex.Match(line, @"\d+").Value);
+                tt.PlacedActivities = Convert.ToInt32(Regex.Match(line, @"\d+").Value);
             }
         }
 

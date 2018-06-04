@@ -20,7 +20,7 @@ namespace Timetabling.Resources
         /// Number of actually scheduled activities in this timetable.
         /// </summary>
         [XmlIgnore]
-        public uint PlacedActivities { get; internal set; }
+        public int PlacedActivities { get; internal set; }
 
         /// <summary>
         /// Total weight of broken constraints.
@@ -73,10 +73,6 @@ namespace Timetabling.Resources
         }
 
         /// <inheritdoc />
-        public override string ToString()
-        {
-            return $"<Timetable[ {Activities.Count} activities ]>";
-        }
-
+        public override string ToString() => $"<Timetable[{PlacedActivities}/{Activities.Count} activities]>";
     }
 }
