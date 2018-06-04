@@ -68,7 +68,7 @@
     <Compile Include="Algorithms\FET\FetAlgorithmTest.cs" />
     <Compile Include="Algorithms\FET\FetOutputProcessorTest.cs" />
     <Compile Include="Algorithms\FET\FetProcessBuilderTest.cs" />
-    <Compile Include="Algorithms\FET\FetProcessInterfaceTest.cs" />
+    <Compile Include="Algorithms\FET\FetProcessFacadeTest.cs" />
     <Compile Include="Config\TimetablingConfigTest.cs" />
     <Compile Include="Helper\CommandLineArgumentsTest.cs" />
     <Compile Include="Objects\ActiviteitsListTest.cs" />

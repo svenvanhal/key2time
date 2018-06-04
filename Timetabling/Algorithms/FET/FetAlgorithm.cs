@@ -13,7 +13,7 @@ namespace Timetabling.Algorithms.FET
     /// <summary>
     /// The FET-CL wrapper. Visit the <a href="https://lalescu.ro/liviu/fet/">official FET website</a> for more information about the program and the algorithm.
     /// </summary>
-    public class FetAlgorithm : Algorithm
+    public class FetAlgorithm : TimetablingStrategy
     {
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// FET-CL process interface.
         /// </summary>
-        internal FetProcessInterface ProcessInterface;
+        internal FetProcessFacade ProcessFacade;
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private string _inputFile;
@@ -63,7 +63,7 @@ namespace Timetabling.Algorithms.FET
             Initialize(input, t);
 
             // Create algorithm task
-            await ProcessInterface.StartProcess()
+            await ProcessFacade.StartProcess()
 
                 // Gather the Timetable results when the algorithm process has finished
                 .ContinueWith(task => _tcs.TrySetResult(GetResult()), TaskContinuationOptions.NotOnFaulted)
@@ -88,7 +88,7 @@ namespace Timetabling.Algorithms.FET
             OutputDir = CreateOutputDirectory(Identifier);
 
             // Create process interface and register exit handler
-            ProcessInterface = new FetProcessInterface(CreateProcess(), t);
+            ProcessFacade = new FetProcessFacade(CreateProcess(), t);
         }
 
         /// <summary>

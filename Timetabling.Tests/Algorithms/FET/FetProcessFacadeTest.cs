@@ -21,7 +21,7 @@ namespace Timetabling.Tests.Algorithms.FET
     }
 
     [TestFixture]
-    internal class FetProcessInterfaceTest
+    internal class FetProcessFacadeTest
     {
 
         private Process _process;

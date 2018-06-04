@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using Timetabling;
+using Timetabling.Algorithms;
 using Timetabling.Algorithms.FET;
 using Timetabling.DB;
 
@@ -19,7 +20,7 @@ namespace Implementation
             //   4 - Let the TimetableGenerator generate a Task<Timetable>
             //   5 - Do something with the Timetable output object when the Task finishes
 
-            var algorithm = new FetAlgorithm();
+            TimetablingStrategy algorithm = new FetAlgorithm();
 
             // TODO: improve FET input file generation
             var inputFile = FetInputGenerator.GenerateFetFile(new DataModel(), Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "fetInputGenerator")).FullName);

@@ -43,7 +43,7 @@ namespace Timetabling.Tests.Algorithms.FET
 
             Assert.AreEqual(expectedInputFile, algo.InputFile);
             Assert.True(Directory.Exists(algo.OutputDir));
-            Assert.IsInstanceOf<FetProcessInterface>(algo.ProcessInterface);
+            Assert.IsInstanceOf<FetProcessFacade>(algo.ProcessFacade);
         }
 
     }
