@@ -98,12 +98,6 @@ namespace Timetabling.DB
 		public virtual DbSet<TeacherClassSubjectGroup> TeacherClassSubjectGroups { get; set; }
 
 		/// <summary>
-		/// Gets or sets Tt_Class.
-		/// </summary>
-		/// <value>Tt_Class.</value>
-		public virtual DbSet<Tt_Class> Tt_Class { get; set; }
-
-		/// <summary>
 		/// Gets or sets Tt_ClassGroup.
 		/// </summary>
 		/// <value>Tt_ClassGroup.</value>
@@ -191,12 +185,6 @@ namespace Timetabling.DB
 			modelBuilder.Entity<TeacherClassSubjectGroup>()
 					.Property(e => e.GroupId)
 					.IsFixedLength();
-
-			modelBuilder.Entity<Tt_Class>()
-					.HasMany(e => e.Tt_ClassGroup)
-					.WithRequired(e => e.Tt_Class)
-					.HasForeignKey(e => e.classId)
-					.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Tt_TeacherAcademicInfo>()
 					.HasOptional(e => e.Tt_TeacherAcademicInfo1)

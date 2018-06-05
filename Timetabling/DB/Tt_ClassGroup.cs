@@ -26,11 +26,5 @@
 		[Required]
 		[StringLength(100)]
 		public string groupName { get; set; }
-
-		/// <summary>
-		/// Gets or sets Tt_Class.
-		/// </summary>
-		/// <value>The tt class.</value>
-		public virtual Tt_Class Tt_Class { get; set; }
 	}
 }

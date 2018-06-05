@@ -60,7 +60,6 @@
     <Compile Include="DB\Subject_SubjectGrade.cs" />
     <Compile Include="DB\SubjectClassLesson.cs" />
     <Compile Include="DB\TeacherClassSubjectGroup.cs" />
-    <Compile Include="DB\Tt_Class.cs" />
     <Compile Include="DB\Tt_ClassGroup.cs" />
     <Compile Include="DB\Tt_GradeLesson.cs" />
     <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
