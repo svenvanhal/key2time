@@ -54,10 +54,36 @@ namespace Timetabling.Tests.Objects
             mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.ElementType).Returns(data3.ElementType);
             mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
+            var data4 = new List<TeacherClassSubjectGroup>{
+                new TeacherClassSubjectGroup{GroupId = 2, teacherClassSubjectId= 1
+                }
+            }.AsQueryable();
+
+            var mockSet4 = new Mock<DbSet<TeacherClassSubjectGroup>>();
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.Provider).Returns(data4.Provider);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.Expression).Returns(data4.Expression);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.ElementType).Returns(data4.ElementType);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.GetEnumerator()).Returns(data4.GetEnumerator());
+
+
+            var data5 = new List<Tt_ClassGroup>{
+                new Tt_ClassGroup{Id = 2,groupName = "sub1"
+                }
+            }.AsQueryable();
+
+            var mockSet5 = new Mock<DbSet<Tt_ClassGroup>>();
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Provider).Returns(data5.Provider);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Expression).Returns(data5.Expression);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.ElementType).Returns(data5.ElementType);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.GetEnumerator()).Returns(data5.GetEnumerator());
+
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.School_TeacherClass_Subjects).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSet2.Object);
             mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet3.Object);
+            mockDB.Setup(item => item.TeacherClassSubjectGroups).Returns(mockSet4.Object);
+            mockDB.Setup(item => item.Tt_ClassGroup).Returns(mockSet5.Object);
+
             var list = new ActivitiesList(mockDB.Object);
             list.Create();
             test = list.GetList();

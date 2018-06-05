@@ -25,7 +25,6 @@
 		/// Gets or sets the group identifier.
 		/// </summary>
 		/// <value>The group identifier.</value>
-		[StringLength(10)]
-		public string GroupId { get; set; }
+		public int GroupId { get; set; }
 	}
 }
