@@ -21,6 +21,7 @@ namespace Timetabling.Tests.Objects
 
             var data = new List<School_TeacherClass_Subjects>{
                 new School_TeacherClass_Subjects{ ClassID = 1, SubjectID = 1,  TeacherID = 0},
+                new School_TeacherClass_Subjects{ ClassID = 3, SubjectID = 1,  TeacherID = 0, ID =1},
                 new School_TeacherClass_Subjects{ ClassID = 2, SubjectID = 0,  TeacherID = 4},
             }.AsQueryable();
 
@@ -33,6 +34,7 @@ namespace Timetabling.Tests.Objects
             var data2 = new List<School_Lookup_Class>{
                 new School_Lookup_Class{ClassName = "test", ClassID = 1, GradeID = 60},
                 new School_Lookup_Class{ClassName = "test2", ClassID = 2, GradeID = 60},
+                new School_Lookup_Class{ClassName = "test3", ClassID = 3, GradeID = 60},
             }.AsQueryable();
 
             var mockSet2 = new Mock<DbSet<School_Lookup_Class>>();
@@ -54,14 +56,39 @@ namespace Timetabling.Tests.Objects
             mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.ElementType).Returns(data3.ElementType);
             mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
+            var data4 = new List<TeacherClassSubjectGroup>{
+                new TeacherClassSubjectGroup{GroupId = 2, teacherClassSubjectId= 1
+                }
+            }.AsQueryable();
+
+            var mockSet4 = new Mock<DbSet<TeacherClassSubjectGroup>>();
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.Provider).Returns(data4.Provider);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.Expression).Returns(data4.Expression);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.ElementType).Returns(data4.ElementType);
+            mockSet4.As<IQueryable<TeacherClassSubjectGroup>>().Setup(m => m.GetEnumerator()).Returns(data4.GetEnumerator());
+
+
+            var data5 = new List<Tt_ClassGroup>{
+                new Tt_ClassGroup{Id = 2,groupName = "sub1"
+                }
+            }.AsQueryable();
+
+            var mockSet5 = new Mock<DbSet<Tt_ClassGroup>>();
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Provider).Returns(data5.Provider);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Expression).Returns(data5.Expression);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.ElementType).Returns(data5.ElementType);
+            mockSet5.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.GetEnumerator()).Returns(data5.GetEnumerator());
+
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.School_TeacherClass_Subjects).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSet2.Object);
             mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet3.Object);
+            mockDB.Setup(item => item.TeacherClassSubjectGroups).Returns(mockSet4.Object);
+            mockDB.Setup(item => item.Tt_ClassGroup).Returns(mockSet5.Object);
+
             var list = new ActivitiesList(mockDB.Object);
             list.Create();
             test = list.GetList();
-
         }
 
         [Test]
@@ -83,10 +110,11 @@ namespace Timetabling.Tests.Objects
             Assert.AreEqual(4, test.Elements("Activity").Elements("Activity_Group_Id").Count(item => item.Value.Equals("1")));
 
         }
+
         [Test]
         public void ActivityTeacherRightTest()
         {
-            Assert.AreEqual(4, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(8, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
 
         }
 
@@ -122,6 +150,13 @@ namespace Timetabling.Tests.Objects
         public void ActivityClassWrongTest()
         {
             Assert.AreEqual(0, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("wrong")));
+
+        }
+
+        [Test]
+        public void ActivitySubgroupTest()
+        {
+            Assert.AreEqual(4, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("sub1")));
 
         }
     }
