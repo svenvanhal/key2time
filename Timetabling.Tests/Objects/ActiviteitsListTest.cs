@@ -89,7 +89,6 @@ namespace Timetabling.Tests.Objects
             var list = new ActivitiesList(mockDB.Object);
             list.Create();
             test = list.GetList();
-            System.Console.WriteLine(test);
         }
 
         [Test]
