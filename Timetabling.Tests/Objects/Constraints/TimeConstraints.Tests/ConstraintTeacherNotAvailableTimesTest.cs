@@ -63,6 +63,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
 
             var result = constraint.Create(test.Object);
           
+            Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
+
             Assert.AreEqual(0, result.Count(item => item.ToString().Equals(constraintTest2.ToXelement().ToString())));
         }
     }
