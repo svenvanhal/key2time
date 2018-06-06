@@ -145,11 +145,17 @@ namespace Timetabling.DB
 		/// <value>The subject category.</value>
 		public virtual DbSet<Subject_Category> Subject_Category { get; set; }
 
-		/// <summary>
-		/// Creates the datamodel
-		/// </summary>
-		/// <param name="modelBuilder">Model builder.</param>
-		protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        /// <summary>
+        /// Gets or sets tt_ActitvityGroup.
+        /// </summary>
+        /// <value></value>
+	    public virtual DbSet<tt_ActitvityGroup> tt_ActitvityGroup { get; set; }
+
+        /// <summary>
+        /// Creates the datamodel
+        /// </summary>
+        /// <param name="modelBuilder">Model builder.</param>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<HR_MasterData_Employees>()
 					.HasMany(e => e.HR_MasterData_Employees1)
