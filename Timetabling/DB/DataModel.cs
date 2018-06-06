@@ -185,8 +185,7 @@ namespace Timetabling.DB
 			modelBuilder.Entity<TeacherClassSubjectGroup>()
 					.Property(e => e.GroupId)
 					.IsFixedLength();
-
-
+					
 			modelBuilder.Entity<Tt_TeacherAcademicInfo>()
 					.HasOptional(e => e.Tt_TeacherAcademicInfo1)
 					.WithRequired(e => e.Tt_TeacherAcademicInfo2);
