@@ -37,11 +37,20 @@ namespace Timetabling.Objects
             {
                 var groupId = counter;
 
-                for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
-                {
-                    var StudentsList = new List<string>(); //TODO: need be from the db
+                var studentsQuery = from g in dB.TeacherClassSubjectGroups
+                                    join c in dB.Tt_ClassGroup on g.GroupId equals c.Id
+                                    where g.teacherClassSubjectId == item.Id
+                                    select c.groupName;
+
+                var StudentsList = new List<string>();
+
+                if (studentsQuery.Count() > 0)
+                    StudentsList = studentsQuery.ToList();
+                else
                     StudentsList.Add(item.ClassName);
 
+                for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
+                {
                     Activities.Add(new Activity
                     {
                         LessonGroupId = item.ActivityRefID,
@@ -58,7 +67,6 @@ namespace Timetabling.Objects
                     counter++;
                 }
             }
-
         }
         /// <summary>
         /// Gets the list as XElement.

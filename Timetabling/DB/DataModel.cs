@@ -176,10 +176,6 @@ namespace Timetabling.DB
 					.WithRequired(e => e.Subject_MasterData_Subject)
 					.WillCascadeOnDelete(false);
 
-			modelBuilder.Entity<TeacherClassSubjectGroup>()
-					.Property(e => e.GroupId)
-					.IsFixedLength();
-
 			modelBuilder.Entity<Tt_TeacherAcademicInfo>()
 					.HasOptional(e => e.Tt_TeacherAcademicInfo1)
 					.WithRequired(e => e.Tt_TeacherAcademicInfo2);
