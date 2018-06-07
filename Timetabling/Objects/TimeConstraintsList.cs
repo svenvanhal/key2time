@@ -42,6 +42,7 @@ namespace Timetabling.Objects
             Constraints.Add(new ConstraintMinDaysBetweenActivities());
             Constraints.Add(new ConstraintPeriodSection());
             Constraints.Add(new ConstraintActivitiesPreferredStartingTimes());
+            Constraints.Add(new ConstraintActivitiesSameStartingTime());
         }
 
     }

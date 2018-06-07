@@ -48,10 +48,11 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             ActivitiesList activitiesList = new ActivitiesList(dB);
             activitiesList.Create();
-            var query = from activity in activitiesList.GetList().Elements("Activity")
-                        select new { id = activity.Elements("Activity_Group_Id").First().Value, duration = activity.Elements("Total_Duration").First().Value, length = activity.Elements("Duration").First().Value };
 
-            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { groupId = Int32.Parse(item.id), numberOfActivities = Int32.Parse(item.duration) / Int32.Parse(item.length) }.ToXelement()).ToArray();
+            var query = from activity in activitiesList.Activities
+                        select new { id = activity.GroupId, duration = activity.TotalDuration, length = activity.Duration };
+
+            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { groupId = item.id, numberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
             return result;
         }
 

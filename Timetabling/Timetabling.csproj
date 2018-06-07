@@ -48,8 +48,6 @@
     <Compile Include="DB\School_TeacherSubjects.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\HR_MasterData_Employees.cs" />
-    <Compile Include="DB\Lookup_Month.cs" />
-    <Compile Include="DB\Lookup_Year.cs" />
     <Compile Include="DB\School_Lookup_Class.cs" />
     <Compile Include="DB\School_Lookup_Grade.cs" />
     <Compile Include="DB\School_Lookup_Section.cs" />
@@ -92,6 +90,9 @@
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
+    <Compile Include="DB\tt_ActitvityGroup.cs" />
+    <Compile Include="Objects\Activity.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesSameStartingTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

@@ -20,18 +20,6 @@ namespace Timetabling.DB
 		public virtual DbSet<HR_MasterData_Employees> HR_MasterData_Employees { get; set; }
 
 		/// <summary>
-		/// Gets or sets Lookup_Month.
-		/// </summary>
-		/// <value>Lookup_Month.</value>
-		public virtual DbSet<Lookup_Month> Lookup_Month { get; set; }
-
-		/// <summary>
-		/// Gets or sets Lookup_Year
-		/// </summary>
-		/// <value>Lookup_Year.</value>
-		public virtual DbSet<Lookup_Year> Lookup_Year { get; set; }
-
-		/// <summary>
 		/// Gets or sets School_Lookup_Class.
 		/// </summary>
 		/// <value>School_Lookup_Class.</value>

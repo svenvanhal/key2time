@@ -44,7 +44,7 @@ namespace Timetabling.Objects
         /// Gets the list.
         /// </summary>
         /// <returns>The list.</returns>
-        public XElement GetList() => List;
+        public virtual XElement GetList() => List;
 
     }
 }
