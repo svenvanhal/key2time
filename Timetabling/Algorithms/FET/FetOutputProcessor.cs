@@ -31,11 +31,10 @@ namespace Timetabling.Algorithms.FET
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly IFileSystem _fs;
         private readonly string _baseDir;
+        private bool _partial;
 
         /// <inheritdoc />
         public FetOutputProcessor(string inputName, string outputDir) : this(inputName, outputDir, new FileSystem()) { }
-
-        private bool _partial;
 
         /// <summary>
         /// Create new FetOutputProcessor.
@@ -56,7 +55,7 @@ namespace Timetabling.Algorithms.FET
         /// Public facing method which processes the FET algorithm output.
         /// </summary>
         /// <returns>Timetable</returns>
-        public Timetable GetTimetable()
+        public Timetable GetTimetable(TimetableResourceCollection resources)
         {
 
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
@@ -68,7 +67,7 @@ namespace Timetabling.Algorithms.FET
             // Deserialize XML
             using (var outputFileStream = _fs.File.OpenRead(outputPath))
             {
-                tt = XmlToTimetable(outputFileStream);
+                tt = XmlToTimetable(outputFileStream, resources);
                 Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
             }
 
@@ -96,17 +95,38 @@ namespace Timetabling.Algorithms.FET
         /// Deserializes an XML file to a Timetable object.
         /// </summary>
         /// <param name="fileStream">FET algorithm output XML file.</param>
+        /// <param name="resources">Timetable resources.</param>
         /// <returns>A Timetable object.</returns>
         /// <exception cref="SerializationException">XML serialization does not create a Timetable object.</exception>
-        protected Timetable XmlToTimetable(Stream fileStream)
+        protected Timetable XmlToTimetable(Stream fileStream, TimetableResourceCollection resources)
         {
             var serializer = new XmlSerializer(typeof(Timetable));
+
+            Timetable tt;
 
             // Read and deserialize XML
             using (var reader = XmlReader.Create(fileStream))
             {
-                return serializer.Deserialize(reader) as Timetable;
+                tt = serializer.Deserialize(reader) as Timetable;
+
+                // Return if no timetable found
+                if (tt?.Activities == null) return tt;
+
+                // Link actitivies
+                foreach (var activity in tt.Activities)
+                {
+                    try
+                    {
+                        activity.Resource = resources.GetValue(int.Parse(activity.Id), resources.Activities);
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Logger.Warn($"Could not find scheduled activity with Id = {activity.Id} in resource collection.");
+                    }
+                }
             }
+
+            return tt;
         }
 
         /// <summary>
@@ -151,7 +171,7 @@ namespace Timetabling.Algorithms.FET
             }
 
             // Update placed activities count when there are activities
-            if(tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
+            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
 
             return tt;
         }

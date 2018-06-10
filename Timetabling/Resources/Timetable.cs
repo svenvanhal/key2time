@@ -70,6 +70,12 @@ namespace Timetabling.Resources
             [XmlElement(Form = XmlSchemaForm.Unqualified)]
             public string Room { get; set; }
 
+            /// <summary>
+            /// Original activity resource.
+            /// </summary>
+            [XmlIgnore]
+            public Activity Resource { get; set; }
+
         }
 
         /// <inheritdoc />

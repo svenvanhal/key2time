@@ -1,10 +1,11 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
+using Implementation.Key2Soft;
 using Timetabling;
 using Timetabling.Algorithms;
 using Timetabling.Algorithms.FET;
 using Timetabling.DB;
+using Timetabling.Resources;
 
 namespace Implementation
 {
@@ -20,27 +21,66 @@ namespace Implementation
             //   4 - Let the TimetableGenerator generate a Task<Timetable>
             //   5 - Do something with the Timetable output object when the Task finishes
 
+            //var inputGenerator = new Timetabling.Algorithms.FET.FetInputGenerator();
+            //inputGenerator.BuildXml(resources);
+            //return;
             TimetablingStrategy algorithm = new FetAlgorithm();
 
-            // TODO: improve FET input file generation
-            var inputFile = FetInputGenerator.GenerateFetFile(new DataModel(), Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "fetInputGenerator")).FullName);
+            var program = new Program();
+            //var resources = program.GetResources();
+            var resources = Timetabling.Algorithms.FET.FetInputGenerator.CreateTestObject();
 
             var generator = new TimetableGenerator();
-            var task = generator.RunAlgorithm(algorithm, inputFile);
+            var task = generator.RunAlgorithm(algorithm, resources);
 
-            // On success
-            task.ContinueWith(t =>
-            {
-                Console.WriteLine("The timetable has been generated sucessfully.");
-                Console.WriteLine(task.Result);
-            }, TaskContinuationOptions.NotOnFaulted);
 
-            // On error
-            task.ContinueWith(t =>
+            task.ContinueWith(OnSuccess, TaskContinuationOptions.OnlyOnRanToCompletion);
+            task.ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted);
+            
+            Console.Read();
+        }
+
+        public TimetableResourceCollection GetResources()
+        {
+            var model = new DataModel();
+
+            var resources = new TimetableResourceCollection
             {
-                Console.WriteLine("The timetable could not be generated.");
-                foreach (var ex in t.Exception.InnerExceptions) { Console.WriteLine(ex.Message); }
-            }, TaskContinuationOptions.OnlyOnFaulted);
+                Days = DboResourceFactory.GetDays(),
+                Timeslots = DboResourceFactory.GetTimeslots(),
+                Teachers = DboResourceFactory.GetTeachers(model),
+                Subjects = DboResourceFactory.GetSubjects(model),
+                Rooms = DboResourceFactory.GetRooms(model),
+                Students = DboResourceFactory.GetYears(model),
+            };
+
+            resources.Activities = DboResourceFactory.GetActivities(model, resources);
+            resources.TimeConstraints = DboResourceFactory.GetTimeConstraints(model, resources);
+            resources.SpaceConstraints = DboResourceFactory.GetSpaceConstraints(model, resources);
+
+            return resources;
+        }
+
+        public static void OnSuccess(Task<Timetable> t)
+        {
+            Console.WriteLine("The timetable has been generated sucessfully.");
+            Console.WriteLine(t);
+
+            Console.Read();
+        }
+
+        public static void OnError(Task<Timetable> t)
+        {
+            
+
+            var exs = t.Exception.InnerExceptions;
+            
+            foreach (var e in exs)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            Console.WriteLine("The timetable could not be generated.");
 
             Console.Read();
         }

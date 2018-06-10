@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
+using Timetabling.Resources;
 
 namespace Timetabling.Objects
 {
@@ -28,6 +30,25 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Subject", new XElement("Name", subject)));
             }
+        }
+
+        public static Dictionary<int, Subject> GetSubjects(DataModel model)
+        {
+
+            var subjects = new Dictionary<int, Subject>();
+
+            var query = model.Subject_MasterData_Subject.Where(subject => subject.IsActive == true);
+
+            foreach (var subject in query)
+            {
+                subjects.Add(subject.SubjectID, new Subject
+                {
+                    Id = subject.SubjectID,
+                    Name = subject.SubjectName
+                });
+            }
+
+            return subjects;
         }
 
     }

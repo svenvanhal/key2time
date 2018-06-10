@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
+using Timetabling.Resources;
 
 namespace Timetabling.Objects
 {
@@ -30,6 +32,23 @@ namespace Timetabling.Objects
                 List.Add(new XElement("Day", new XElement("Name", day)));
             }
         }
+
+        public static Dictionary<int, Day> GetDays()
+        {
+
+            var days = new Dictionary<int, Day>();
+            
+            foreach (int day in Enum.GetValues(typeof(Days)))
+            {
+                days.Add(day, new Day
+                {
+                    Name = Enum.GetName(typeof(Days), day)
+                });
+            }
+
+            return days;
+        }
+
     }
 
 }

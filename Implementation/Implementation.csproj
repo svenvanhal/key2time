@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FetInputGenerator.cs" />
+    <Compile Include="Key2Soft\DboConstraintFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Key2Soft\DboResourceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

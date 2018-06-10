@@ -1,7 +1,8 @@
-﻿using Timetabling.DB;
+﻿using System.Collections.Generic;
+using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
-using System;
+using Timetabling.Resources;
 
 namespace Timetabling.Objects
 {
@@ -55,6 +56,58 @@ namespace Timetabling.Objects
                                          new XElement("Name", item.groupName)));
                 }
             }
+        }
+
+        public static Dictionary<int, StudentSet> GetYears(DataModel model)
+        {
+
+            var grades = new Dictionary<int, StudentSet>();
+
+            // Loop over all grades
+            foreach (var grade in model.School_Lookup_Grade.Where(grade => grade.IsActive == true))
+            {
+                var resultGrade = new StudentSet
+                {
+                    Id = grade.GradeID,
+                    Name = grade.GradeName
+                };
+
+                // Add groups for each grade
+                var groups = from c in model.School_Lookup_Class
+                    join g in model.School_Lookup_Grade on c.GradeID equals g.GradeID
+                    where c.IsActive == true
+                    select new { c.ClassID, c.ClassName };
+
+                foreach (var group in groups)
+                {
+
+                    var resultGroup = new Group
+                    {
+                        Id = group.ClassID,
+                        Name = group.ClassName
+                    };
+
+                    // Add subgroups for each grade
+                    var subGroups = from g in model.Tt_ClassGroup
+                        join c in model.School_Lookup_Class on g.classId equals c.ClassID
+                        select new { g.Id, g.groupName };
+
+                    foreach (var subGroup in subGroups)
+                    {
+                        resultGroup.SubGroups.Add(subGroup.Id, new SubGroup
+                        {
+                            Id = subGroup.Id,
+                            Name = subGroup.groupName
+                        });
+                    }
+
+                    resultGrade.Groups.Add(group.ClassID, resultGroup);
+                }
+
+                grades.Add(grade.GradeID, resultGrade);
+            }
+
+            return grades;
         }
     }
 }

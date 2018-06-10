@@ -1,6 +1,8 @@
-﻿using Timetabling.DB;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Timetabling.DB;
+using Timetabling.Resources;
 
 namespace Timetabling.Objects
 {
@@ -46,6 +48,48 @@ namespace Timetabling.Objects
                 }
             }
 
+        }
+
+        public static Dictionary<int, Activity> GetActivities(DataModel model, TimetableResourceCollection resources)
+        {
+
+            var activities = new Dictionary<int, Activity>();
+
+            var query = from activity in model.School_TeacherClass_Subjects
+                        join c in model.School_Lookup_Class on activity.ClassID equals c.ClassID
+                        join s in model.Subject_SubjectGrade on new { activity.SubjectID, c.GradeID } equals new { s.SubjectID, s.GradeID }
+                        select new { activity.TeacherID, activity.SubjectID, c.ClassID, activity.ID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
+
+            var counter = 0;
+
+            // Loop over all activities
+            foreach (var activity in query)
+            {
+
+                // Create internal activity ID
+                var groupId = counter;
+
+                // Add an activity for each lesson
+                for (var i = 1; i <= activity.NumberOfLlessonsPerWeek; i++)
+                {
+
+                    // Create activity
+                    activities.Add(counter, new Activity()
+                    {
+                        Id = counter,
+                        GroupId = groupId,
+                        Teacher = resources.GetTeacher((int?) activity.TeacherID),
+                        Subject = resources.GetSubject(activity.SubjectID),
+                        Students = resources.GetStudent(activity.ClassID).Groups[0], // TODO: fix this line
+                        Duration = activity.NumberOfLlessonsPerDay, // TODO: what does NumberOfLlessonsPerDay mean exactly? Lessons sequential, during the day, min lessons per day, max lessons per day?
+                        Lessons = activity.NumberOfLlessonsPerWeek // TODO: what does NumberOfLlessonsPerWeek mean exactly? Idem.
+                    });
+
+                    counter++;
+                }
+            }
+
+            return activities;
         }
     }
 

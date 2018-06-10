@@ -54,7 +54,7 @@ namespace Timetabling.Algorithms.FET
         private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
-        protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
+        protected internal override Task<Timetable> GenerateTask(string identifier, TimetableResourceCollection input, CancellationToken t)
         {
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
@@ -63,15 +63,17 @@ namespace Timetabling.Algorithms.FET
             Initialize(input, t);
 
             // Create algorithm task
-            await ProcessFacade.StartProcess()
+            ProcessFacade.StartProcess().ContinueWith(task =>
+            {
+                // Bubble exception(s) if faulted
+                if (task.IsFaulted) _tcs.SetException(task.Exception.InnerExceptions);
+                else if (task.IsCanceled) _tcs.SetCanceled();
 
-                // Gather the Timetable results when the algorithm process has finished
-                .ContinueWith(task => _tcs.TrySetResult(GetResult()), TaskContinuationOptions.NotOnFaulted)
+                // Try and get result on success
+                else _tcs.SetResult(GetResult(input));
+            });
 
-                // Bubble exceptions
-                .ContinueWith(task => _tcs.TrySetException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
-
-            return await _tcs.Task;
+            return _tcs.Task;
         }
 
         /// <summary>
@@ -79,12 +81,16 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         /// <param name="input">Path to input file</param>
         /// <param name="t">Cancellation token</param>
-        protected internal void Initialize(string input, CancellationToken t)
+        protected internal void Initialize(TimetableResourceCollection input, CancellationToken t)
         {
             Logger.Info("Initializing FET algorithm");
 
+            // Create FET input file
+            var inputGenerator = new FetInputGenerator();
+            var document = inputGenerator.BuildXml(input);
+
             // Set parameters
-            InputFile = input;
+            InputFile = inputGenerator.ToFile(document, "testfile.fet");
             OutputDir = CreateOutputDirectory(Identifier);
 
             // Create process interface and register exit handler
@@ -95,12 +101,12 @@ namespace Timetabling.Algorithms.FET
         /// Process FET algorithm output.
         /// </summary>
         /// <returns>Timetable</returns>
-        protected internal Timetable GetResult()
+        protected internal Timetable GetResult(TimetableResourceCollection resources)
         {
             Logger.Info("Retrieving FET algorithm results");
 
             var outputProcessor = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables"));
-            return outputProcessor.GetTimetable();
+            return outputProcessor.GetTimetable(resources);
         }
 
         /// <summary>

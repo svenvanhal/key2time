@@ -40,7 +40,7 @@ namespace Timetabling
         /// <summary>
         /// Run an algorithm on an input file.
         /// </summary>
-        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, string inputfile)
+        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, TimetableResourceCollection inputfile)
         {
             Logger.Info($"Starting {strategy.GetType().Name} algorithm run");
 
