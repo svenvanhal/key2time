@@ -135,4 +135,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+    <RemoveDir Directories="$(TargetDir)lib\" />
+  </Target>
 </Project>
