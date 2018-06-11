@@ -22,12 +22,20 @@ namespace Timetabling.Objects
         public override void Create()
         {
             // Creates the different grades
+            AddYears();
+            AddGrades();
+            AddGroups();
+        }
+
+        private void AddYears(){
             var query = dB.School_Lookup_Grade.Where(grade => grade.IsActive == true).Select(grade => grade.GradeName);
             foreach (var item in query)
             {
                 List.Add(new XElement("Year", new XElement("Name", item)));
             }
+        }
 
+        private void AddGrades(){
             var grades = from c in dB.School_Lookup_Class
                          join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
                          where c.IsActive == true
@@ -39,7 +47,9 @@ namespace Timetabling.Objects
                 List.Elements("Year").First(grade => grade.Element("Name").Value.Equals(item.GradeName))
                     .Add(new XElement("Group", new XElement("Name", item.ClassName)));
             }
+        }
 
+        private void AddGroups(){
             var groups = from g in dB.Tt_ClassGroup
                          join c in dB.School_Lookup_Class on g.classId equals c.ClassID
                          select new { c.ClassName, g.groupName };
