@@ -54,7 +54,7 @@ namespace Timetabling.Algorithms.FET
         private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
-        protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
+        protected internal override Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
         {
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
@@ -63,15 +63,17 @@ namespace Timetabling.Algorithms.FET
             Initialize(input, t);
 
             // Create algorithm task
-            await ProcessFacade.StartProcess()
+            ProcessFacade.StartProcess().ContinueWith(task =>
+            {
+                // Bubble exception(s) if faulted
+                if (task.IsFaulted) _tcs.SetException(task.Exception.InnerExceptions);
+                else if (task.IsCanceled) _tcs.SetCanceled();
 
-                // Gather the Timetable results when the algorithm process has finished
-                .ContinueWith(task => _tcs.TrySetResult(GetResult()), TaskContinuationOptions.NotOnFaulted)
+                // Try and get result on success
+                else _tcs.SetResult(GetResult());
+            });
 
-                // Bubble exceptions
-                .ContinueWith(task => _tcs.TrySetException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
-
-            return await _tcs.Task;
+            return _tcs.Task;
         }
 
         /// <summary>
