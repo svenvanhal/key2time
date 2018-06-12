@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Configuration;
-using Timetabling.Algorithms.FET;
 
-namespace Timetabling.Config
+namespace Timetabling.Algorithms.FET
 {
 
     /// <summary>
     /// Timetabling library configuration class. Retrieves timetabling settings from app.config.
     /// </summary>
-    public sealed class TimetablingConfig
+    public sealed class FetConfig
     {
 
         /// <summary>
         /// Timetabling configuration object.
         /// </summary>
-        public static TimetablingConfig Instance => ConfigInstance.Value;
+        public static FetConfig Instance => ConfigInstance.Value;
 
-        private static readonly Lazy<TimetablingConfig> ConfigInstance = new Lazy<TimetablingConfig>(() => new TimetablingConfig());
+        private static readonly Lazy<FetConfig> ConfigInstance = new Lazy<FetConfig>(() => new FetConfig());
         private readonly NameValueCollection _configCollection;
 
-        private TimetablingConfig() => _configCollection = ConfigurationManager.GetSection("timetablingSettings") as NameValueCollection;
+        private FetConfig() => _configCollection = ConfigurationManager.GetSection("timetablingSettings") as NameValueCollection;
 
         /// <summary>
         /// Get a Timetabling configuration setting.
