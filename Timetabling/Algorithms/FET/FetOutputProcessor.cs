@@ -102,9 +102,8 @@ namespace Timetabling.Algorithms.FET
         /// <exception cref="SerializationException">XML serialization does not create a Timetable object.</exception>
         protected Timetable XmlToTimetable(Stream fileStream, IDictionary<int, Activity> activities)
         {
-            var serializer = new XmlSerializer(typeof(Timetable));
-
             Timetable tt;
+            var serializer = new XmlSerializer(typeof(Timetable));
 
             // Read and deserialize XML
             using (var reader = XmlReader.Create(fileStream))
@@ -117,14 +116,8 @@ namespace Timetabling.Algorithms.FET
                 // Link actitivies
                 foreach (var activity in tt.Activities)
                 {
-                    try
-                    {
-                        activity.Resource = activities[int.Parse(activity.Id)];
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        Logger.Warn($"Could not find scheduled activity with Id = {activity.Id} in resource collection.");
-                    }
+                    try { activity.Resource = activities[int.Parse(activity.Id)]; }
+                    catch (KeyNotFoundException) { Logger.Warn($"Could not find scheduled activity with Id = {activity.Id} in resource collection."); }
                 }
             }
 
@@ -160,9 +153,8 @@ namespace Timetabling.Algorithms.FET
             {
                 while (!reader.EndOfStream)
                 {
-                    var line = reader.ReadLine();
-
                     // Continue if empty, break when conflict list reached
+                    var line = reader.ReadLine();
                     if (string.IsNullOrWhiteSpace(line)) continue;
                     if (line.StartsWith("Soft conflicts list") || line.StartsWith("Conflicts list")) break;
 
