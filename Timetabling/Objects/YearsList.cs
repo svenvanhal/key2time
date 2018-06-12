@@ -39,6 +39,8 @@ namespace Timetabling.Objects
             AddGrades(grades);
             AddClasses(classes);
             AddGroups(groups);
+
+            return List;
         }
 
         private void AddGrades(List<string> grades)
@@ -74,8 +76,6 @@ namespace Timetabling.Objects
                                          new XElement("Name", item.groupName)));
                 }
             }
-
-            return List;
         }
     }
 }
