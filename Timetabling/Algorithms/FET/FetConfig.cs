@@ -7,7 +7,8 @@ namespace Timetabling.Algorithms.FET
 {
 
     /// <summary>
-    /// Timetabling library configuration class. Retrieves timetabling settings from app.config.
+    /// Configuration class singleton. Retrieves timetabling settings from app.config.
+    /// Defines sensible defaults for missing settings and implements a common GetSettig method to retrieve any setting by key.
     /// </summary>
     public sealed class FetConfig
     {
@@ -55,7 +56,7 @@ namespace Timetabling.Algorithms.FET
         /// <returns>Language for FET-CL output.</returns>
         public static FetLanguage GetFetLanguage(FetLanguage defaultValue = null)
         {
-            if(defaultValue == null) defaultValue = FetLanguage.US_English;
+            if (defaultValue == null) defaultValue = FetLanguage.US_English;
             var setting = GetSetting("FetExecutableLocation");
 
             // Return default value if setting not set

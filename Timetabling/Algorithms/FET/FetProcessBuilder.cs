@@ -80,6 +80,7 @@ namespace Timetabling.Algorithms.FET
         /// Set the FET-CL input file.
         /// </summary>
         /// <param name="inputFile">Path to file.</param>
+        /// <exception cref="FileNotFoundException">Throws FileNotFoundException when the FET-CL input file cannot be found.</exception>
         public void SetInputFile(string inputFile)
         {
             if(!_fs.File.Exists(inputFile)) throw new FileNotFoundException("The FET-CL input file could not be found.");
@@ -91,6 +92,7 @@ namespace Timetabling.Algorithms.FET
         /// Set the FET-CL output directory.
         /// </summary>
         /// <param name="outputDir">Path to directory.</param>
+        /// <exception cref="DirectoryNotFoundException">Throws DirectoryNotFoundException when the FET-CL output directory does not exist.</exception>
         public void SetOutputDir(string outputDir)
         {
             if (!_fs.Directory.Exists(outputDir)) throw new DirectoryNotFoundException("The FET-CL output directory does not exist.");
