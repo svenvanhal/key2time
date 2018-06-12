@@ -44,12 +44,6 @@ namespace Timetabling.DB
 		public virtual DbSet<School_Lookup_Stage> School_Lookup_Stage { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_TeacherSubjects.
-		/// </summary>
-		/// <value>School_TeacherSubjects.</value>
-		public virtual DbSet<School_TeacherSubjects> School_TeacherSubjects { get; set; }
-
-		/// <summary>
 		/// Gets or sets the section week end.
 		/// </summary>
 		/// <value>The section week end.</value>
@@ -149,11 +143,6 @@ namespace Timetabling.DB
 					.WithOptional(e => e.HR_MasterData_Employees)
 					.HasForeignKey(e => e.SupervisorID);
 
-			modelBuilder.Entity<HR_MasterData_Employees>()
-					.HasMany(e => e.School_TeacherSubjects)
-					.WithRequired(e => e.HR_MasterData_Employees)
-					.HasForeignKey(e => e.TeacherID)
-					.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<School_Lookup_Grade>()
 					.HasMany(e => e.Subject_SubjectGrade)
@@ -165,10 +154,6 @@ namespace Timetabling.DB
 					.WithOptional(e => e.School_Lookup_Grade1)
 					.HasForeignKey(e => e.GradeID);
 
-			modelBuilder.Entity<Subject_MasterData_Subject>()
-					.HasMany(e => e.School_TeacherSubjects)
-					.WithRequired(e => e.Subject_MasterData_Subject)
-					.WillCascadeOnDelete(false);
 
 			modelBuilder.Entity<Tt_TeacherAcademicInfo>()
 					.HasOptional(e => e.Tt_TeacherAcademicInfo1)

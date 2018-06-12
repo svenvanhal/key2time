@@ -12,7 +12,6 @@
 		/// </summary>
 		public Subject_MasterData_Subject()
 		{
-			School_TeacherSubjects = new HashSet<School_TeacherSubjects>();
 			Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
 		}
 
@@ -67,12 +66,6 @@
 		/// <value>The is multi per day.</value>
 		public bool? IsMultiPerDay { get; set; }
 
-
-		/// <summary>
-		/// Gets or sets School_TeacherSubjects.
-		/// </summary>
-		/// <value>School_TeacherSubjects.</value>
-		public virtual ICollection<School_TeacherSubjects> School_TeacherSubjects { get; set; }
 
 		/// <summary>
 		/// Gets or sets Subject_SubjectGrade.

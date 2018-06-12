@@ -45,7 +45,6 @@
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
     <Compile Include="Helper\CommandLineArguments.cs" />
-    <Compile Include="DB\School_TeacherSubjects.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\HR_MasterData_Employees.cs" />
     <Compile Include="DB\School_Lookup_Class.cs" />
