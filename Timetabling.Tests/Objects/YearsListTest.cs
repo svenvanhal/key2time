@@ -31,7 +31,7 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<School_Lookup_Class>{
-                new School_Lookup_Class{GradeID = 0, ClassID=0 ,IsActive = true, ClassName = "classTest1"},
+                new School_Lookup_Class{GradeID = 0, ClassID = 0 ,IsActive = true, ClassName = "classTest1"},
                 new School_Lookup_Class{GradeID = 1, ClassID = 1, IsActive = true, ClassName = "classTest2"},
 
             }.AsQueryable();
@@ -44,7 +44,7 @@ namespace Timetabling.Tests.Objects
 
             var dataClassGroup = new List<Tt_ClassGroup>{
                 new Tt_ClassGroup{groupName = "sub1",  classId = 1},
-                new Tt_ClassGroup{groupName = "sub2", classId = 10},
+                new Tt_ClassGroup{groupName = "sub2", classId = 0},
 
             }.AsQueryable();
 
@@ -67,6 +67,7 @@ namespace Timetabling.Tests.Objects
             list.Create();
 
             test = list.GetList();
+            System.Console.WriteLine(test);
 
         }
 
@@ -99,7 +100,7 @@ namespace Timetabling.Tests.Objects
         public void SubGroupRightTest()
         {
             Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Subgroup").Count(item => item.Value.Equals("sub1")));
-            Assert.AreEqual(0, test.Elements("Year").Elements("Group").Elements("Subgroup").Count(item => item.Value.Equals("sub2")));
+            Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Subgroup").Count(item => item.Value.Equals("sub2")));
 
         }
 
