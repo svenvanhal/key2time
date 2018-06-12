@@ -44,12 +44,6 @@ namespace Timetabling.DB
 		public virtual DbSet<School_Lookup_Stage> School_Lookup_Stage { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_TeacherClass_Subjects.
-		/// </summary>
-		/// <value>The school teacher class subjects.</value>
-		public virtual DbSet<School_TeacherClass_Subjects> School_TeacherClass_Subjects { get; set; }
-
-		/// <summary>
 		/// Gets or sets School_TeacherSubjects.
 		/// </summary>
 		/// <value>School_TeacherSubjects.</value>

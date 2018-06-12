@@ -27,19 +27,19 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var dataAc = new List<School_TeacherClass_Subjects>{
-                new School_TeacherClass_Subjects{ ClassID = 1, SubjectID = 4,  TeacherID = 0},
+            var dataAc = new List<tt_ActitvityGroup>{
+                new tt_ActitvityGroup{ classId = 1, subjectId = 4,  teacherId = 0},
             }.AsQueryable();
 
-            var mockSetAc = new Mock<DbSet<School_TeacherClass_Subjects>>();
-            mockSetAc.As<IQueryable<School_TeacherClass_Subjects>>().Setup(m => m.Provider).Returns(dataAc.Provider);
-            mockSetAc.As<IQueryable<School_TeacherClass_Subjects>>().Setup(m => m.Expression).Returns(dataAc.Expression);
-            mockSetAc.As<IQueryable<School_TeacherClass_Subjects>>().Setup(m => m.ElementType).Returns(dataAc.ElementType);
-            mockSetAc.As<IQueryable<School_TeacherClass_Subjects>>().Setup(m => m.GetEnumerator()).Returns(dataAc.GetEnumerator());
+            var mockSetAc = new Mock<DbSet<tt_ActitvityGroup>>();
+            mockSetAc.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.Provider).Returns(dataAc.Provider);
+            mockSetAc.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.Expression).Returns(dataAc.Expression);
+            mockSetAc.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.ElementType).Returns(dataAc.ElementType);
+            mockSetAc.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.GetEnumerator()).Returns(dataAc.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_TeacherClass_Subjects).Returns(mockSetAc.Object);
+            mockDB.Setup(item => item.tt_ActitvityGroup).Returns(mockSetAc.Object);
 
             test = mockDB;
 

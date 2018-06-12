@@ -52,7 +52,6 @@
     <Compile Include="DB\School_Lookup_Grade.cs" />
     <Compile Include="DB\School_Lookup_Section.cs" />
     <Compile Include="DB\School_Lookup_Stage.cs" />
-    <Compile Include="DB\School_TeacherClass_Subjects.cs" />
     <Compile Include="DB\Section_WeekEnd.cs" />
     <Compile Include="DB\Subject_MasterData_Subject.cs" />
     <Compile Include="DB\Subject_SubjectGrade.cs" />
