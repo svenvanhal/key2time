@@ -64,9 +64,7 @@ namespace Timetabling.Tests.Objects
 
 
             var list = new YearsList(mockDB.Object);
-            list.Create();
-
-            test = list.GetList();
+            test = list.Create();
 
         }
 

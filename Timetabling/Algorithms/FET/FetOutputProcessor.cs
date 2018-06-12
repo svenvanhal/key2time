@@ -112,7 +112,7 @@ namespace Timetabling.Algorithms.FET
                 tt = serializer.Deserialize(reader) as Timetable;
 
                 // Return if no or empty timetable found
-                if (tt?.Activities == null) return tt;
+                if (tt?.Activities == null || activities == null) return tt;
 
                 // Link actitivies
                 foreach (var activity in tt.Activities)

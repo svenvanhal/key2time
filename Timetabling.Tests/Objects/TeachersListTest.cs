@@ -34,9 +34,7 @@ namespace Timetabling.Tests.Objects
             mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSet.Object);
 
             var list = new TeachersList(mockDB.Object);
-            list.Create();
-
-            test = list.GetList();
+            test = list.Create();
         }
 
         [Test]
