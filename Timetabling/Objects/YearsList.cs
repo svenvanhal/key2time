@@ -1,8 +1,9 @@
-﻿using Timetabling.DB;
+using Timetabling.DB;
 using System.Linq;
 using System.Xml.Linq;
 using System;
 using System.Collections.Generic;
+
 
 namespace Timetabling.Objects
 {
@@ -20,7 +21,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Create grades, with corresponding groups and subgroups
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             var query = from g in dB.School_Lookup_Grade
                         where g.IsActive == true
@@ -67,12 +68,14 @@ namespace Timetabling.Objects
             {
                 var group = List.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
 
-                if (group.Count() > 0)
+                if (group.Any())
                 {
                     group.First().Add(new XElement("Subgroup",
                                          new XElement("Name", item.groupName)));
                 }
             }
+
+            return List;
         }
     }
 }

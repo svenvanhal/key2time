@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.XML;
@@ -5,11 +7,45 @@ using Timetabling.XML;
 namespace Implementation
 {
 
-    internal static class FetInputGenerator
+    internal class FetInputGenerator
     {
 
         // The FET input format version
-        private const string FetVersion = "5.35.6";
+        private const string FetVersion = "5.35.7";
+
+        public DataModel Model { get; }
+
+        private readonly DaysList _daysList;
+        private readonly HoursList _hoursList;
+        private readonly TeachersList _teachersList;
+        private readonly SubjectsList _subjectsList;
+        private readonly ActivitiesList _activitiesList;
+        private readonly YearsList _yearsList;
+        private readonly TimeConstraintsList _timeConstraintsList;
+        private readonly SpaceConstraintsList _spaceConstraintsList;
+        private readonly RoomsList _roomsList;
+
+        public FetInputGenerator(DataModel model)
+        {
+            Model = model;
+
+            // Create lists from database
+            _daysList = new DaysList(Model);
+            _hoursList = new HoursList(Model);
+            _teachersList = new TeachersList(Model);
+            _subjectsList = new SubjectsList(Model);
+            _activitiesList = new ActivitiesList(Model);
+            _yearsList = new YearsList(Model);
+            _timeConstraintsList = new TimeConstraintsList(Model);
+            _spaceConstraintsList = new SpaceConstraintsList(Model);
+            _roomsList = new RoomsList(Model);
+        }
+
+        public IDictionary<int, Activity> GetActivities()
+        {
+            if (_activitiesList?.Activities == null) throw new InvalidOperationException("The activities list has not yet been generated.");
+            return _activitiesList.Activities;
+        }
 
         /// <summary>
         /// Generates a .FET file for use in the algorithm.
@@ -17,51 +53,24 @@ namespace Implementation
         /// <param name="dataModel">Datamodel to construct objects from.</param>
         /// <param name="outputDir">Output directory for the FET file.</param>
         /// <returns>Filename of the generated .FET file.</returns>
-        public static string GenerateFetFile(DataModel dataModel, string outputDir)
+        public string GenerateFetFile(string outputDir)
         {
 
+            // Init XML creator
             var xmlCreator = new XmlCreator(FetVersion);
 
-            var daysList = new DaysList(dataModel);
-            daysList.Create();
+            // Create FET file
+            xmlCreator.AddToRoot(_daysList.Create());
+            xmlCreator.AddToRoot(_hoursList.Create());
+            xmlCreator.AddToRoot(_teachersList.Create());
+            xmlCreator.AddToRoot(_subjectsList.Create());
+            xmlCreator.AddToRoot(_yearsList.Create());
+            xmlCreator.AddToRoot(_activitiesList.Create());
+            xmlCreator.AddToRoot(_timeConstraintsList.Create());
+            xmlCreator.AddToRoot(_spaceConstraintsList.Create());
+            xmlCreator.AddToRoot(_roomsList.Create());
 
-            var hoursList = new HoursList(dataModel);
-            hoursList.Create();
-
-            var teachersList = new TeachersList(dataModel);
-            teachersList.Create();
-
-            var subjectsList = new SubjectsList(dataModel);
-            subjectsList.Create();
-
-            var activitiesList = new ActivitiesList(dataModel);
-            activitiesList.Create();
-
-            var yearsList = new YearsList(dataModel);
-            yearsList.Create();
-
-            var timeConstraintsList = new TimeConstraintsList(dataModel);
-            timeConstraintsList.Create();
-
-            var spaceConstraintsList = new SpaceConstraintsList(dataModel);
-            spaceConstraintsList.Create();
-
-            var roomsList = new RoomsList(dataModel);
-            roomsList.Create();
-
-            xmlCreator.AddToRoot(daysList.GetList());
-            xmlCreator.AddToRoot(hoursList.GetList());
-            xmlCreator.AddToRoot(teachersList.GetList());
-            xmlCreator.AddToRoot(yearsList.GetList());
-            xmlCreator.AddToRoot(subjectsList.GetList());
-            xmlCreator.AddToRoot(roomsList.GetList());
-            xmlCreator.AddToRoot(activitiesList.GetList());
-            xmlCreator.AddToRoot(timeConstraintsList.GetList());
-            xmlCreator.AddToRoot(spaceConstraintsList.GetList());
-
-            var filepath = xmlCreator.Save(outputDir);
-
-            return filepath;
+            return xmlCreator.Save(outputDir);
         }
 
     }

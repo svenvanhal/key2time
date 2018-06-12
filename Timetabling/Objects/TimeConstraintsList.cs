@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Linq;
 using Timetabling.DB;
 using Timetabling.Objects.Constraints;
 using Timetabling.Objects.Constraints.TimeConstraints;
@@ -25,10 +26,11 @@ namespace Timetabling.Objects
         /// <summary>
         /// Create the XElements of the constraints.
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             CreateConstraints();
             Constraints.ForEach(item => List.Add(item.Create(dB)));
+            return List;
         }
 
         /// <summary>

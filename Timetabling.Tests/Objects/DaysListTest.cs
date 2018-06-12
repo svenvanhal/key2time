@@ -33,9 +33,7 @@ namespace Timetabling.Tests.Objects
             mockDB.Setup(item => item.Section_WeekEnd).Returns(mockSet.Object);
 
             var list = new DaysList(mockDB.Object);
-            list.Create();
-
-            test = list.GetList();
+            test = list.Create();
 
         }
 

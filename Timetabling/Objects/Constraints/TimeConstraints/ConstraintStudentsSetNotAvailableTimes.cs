@@ -39,7 +39,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public ConstraintStudentsSetNotAvailableTimes()
         {
             SetElement("ConstraintStudentsSetNotAvailableTimes");
-
+            SetWeight(100);
         }
         /// <summary>
         /// Creates the array of XElements for the constraint.
@@ -50,9 +50,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             var query = from tf in dB.Tt_TimeOff
                         join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
-                                         where tf.ItemType == 3 & cl.IsActive == true
-
-                        select new { tf.day, cl.ClassName, tf.lessonIndex, cl.timeOffConstraint };
+                        where tf.ItemType == 3 & cl.IsActive == true
+                        select new { tf.day, cl.ClassName, tf.lessonIndex };
 
             var result = new List<XElement>();
             var check = new List<string>();
@@ -66,7 +65,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
                     var _daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
                     var _hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = _daysList, Hours = _hoursList, NumberOfHours = _hoursList.Count, weight = item.timeOffConstraint }.ToXelement());
+                    result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = _daysList, Hours = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
                 }
 
             }
@@ -80,11 +79,12 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            SetWeight(weight);
+
             constraint.Add(new XElement("Students", Students),
                            new XElement("Number_of_Not_Available_Times", NumberOfHours));
 
-            for (var i = 0; i <NumberOfHours; i++){
+            for (var i = 0; i < NumberOfHours; i++)
+            {
                 constraint.Add(new XElement("Not_Available_Time",
                                             new XElement("Day", Days[i]),
                                             new XElement("Hour", Hours[i])));

@@ -32,9 +32,7 @@ namespace Timetabling.Tests.Objects
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.School_BuildingsUnits).Returns(mockSet.Object);
             var list = new RoomsList(mockDB.Object);
-            list.Create();
-            test = list.GetList();
-
+            test = list.Create();
         }
 
         [Test]

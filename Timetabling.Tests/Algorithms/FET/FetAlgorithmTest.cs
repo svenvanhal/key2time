@@ -23,6 +23,7 @@ namespace Timetabling.Tests.Algorithms.FET
             var fet = new FetAlgorithm();
             var task = fet.GenerateTask("testIdentifier",
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata", "fet", "United-Kingdom", "Hopwood", "Hopwood.fet"),
+                null,
                 CancellationToken.None);
 
             task.ContinueWith(_ => Assert.IsNotNull(task.Result));

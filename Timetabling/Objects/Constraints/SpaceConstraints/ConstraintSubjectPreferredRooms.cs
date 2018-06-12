@@ -27,11 +27,13 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
             foreach (var item in query)
             {
-              
-                    var _rooms = (from b in dB.School_BuildingsUnits
-                                  where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
-                                  select b.ID).DefaultIfEmpty();
-                results.Add(new ConstraintSubjectPreferredRooms { rooms = _rooms.ToList(), subjectID = (int)item.SubjectID }.ToXelement());
+
+                var _rooms = (from b in dB.School_BuildingsUnits
+                    where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
+                    select b.ID).DefaultIfEmpty().ToList();
+
+                var constraint = new ConstraintSubjectPreferredRooms {rooms = _rooms, subjectID = (int) item.SubjectID}.ToXelement();
+                results.Add(constraint);
             }
 
             return results.ToArray();

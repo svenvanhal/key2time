@@ -39,6 +39,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         public ConstraintRoomNotAvailableTimes()
         {
             SetElement("ConstraintRoomNotAvailableTimes");
+            SetWeight(100);
         }
 
         /// <summary>
@@ -66,7 +67,6 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            SetWeight(weight);
             constraint.Add(new XElement("Room", room),
                            new XElement("Number_of_Not_Available_Times", numberOfHours),
                            new XElement("Not_Available_Time",

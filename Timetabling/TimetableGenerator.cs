@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.Algorithms;
+using Timetabling.Objects;
 using Timetabling.Resources;
 
 namespace Timetabling
@@ -40,7 +42,7 @@ namespace Timetabling
         /// <summary>
         /// Run an algorithm on an input file.
         /// </summary>
-        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, string inputfile)
+        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, string inputfile, IDictionary<int, Activity> activities)
         {
             Logger.Info($"Starting {strategy.GetType().Name} algorithm run");
 
@@ -48,7 +50,7 @@ namespace Timetabling
             RefreshIdentifier();
 
             // Generate timetable
-            return strategy.GenerateTask(CurrentRunIdentifier, inputfile, TokenSource.Token);
+            return strategy.GenerateTask(CurrentRunIdentifier, inputfile, activities, TokenSource.Token);
         }
 
         /// <summary>

@@ -34,10 +34,7 @@ namespace Timetabling.Tests.Objects
             mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet.Object);
 
             var list = new SubjectsList(mockDB.Object);
-            list.Create();
-
-            test = list.GetList();
-
+            test = list.Create();
         }
 
         [Test]

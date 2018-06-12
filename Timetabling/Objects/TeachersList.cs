@@ -20,7 +20,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Creates the Teacher elements from the datamodel
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true && teacher.IsActive == true)
                           .Select(teacher => teacher.EmployeeID);
@@ -29,6 +29,8 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Teacher", new XElement("Name", item)));
             }
+
+            return List;
         }
 
     }

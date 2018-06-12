@@ -18,7 +18,7 @@ namespace Timetabling.Tests.Objects
             var mockDB = new Mock<DataModel>();
 
             var list = new SpaceConstraintsList(mockDB.Object);
-            test = list.GetList();
+            test = list.List;
 
         }
 

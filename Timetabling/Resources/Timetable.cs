@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Xml.Schema;
+using Timetabling.Objects;
 
 namespace Timetabling.Resources
 {
@@ -69,6 +70,12 @@ namespace Timetabling.Resources
             /// </summary>
             [XmlElement(Form = XmlSchemaForm.Unqualified)]
             public string Room { get; set; }
+
+            /// <summary>
+            /// Original activity resource.
+            /// </summary>
+            [XmlIgnore]
+            public Activity Resource { get; set; }
 
         }
 

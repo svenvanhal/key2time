@@ -35,13 +35,16 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             List<int> check = new List<int>();
             List<XElement> result = new List<XElement>();
 
-            foreach (var item in activitiesList.Activities)
+            var activities = activitiesList.Activities.Values;
+
+            foreach (var item in activities)
             {
                 if (!check.Contains(item.LessonGroupId))
                 {
                     check.Add(item.LessonGroupId);
+
                     //Gets the ids of the same lesson group
-                    var ids = activitiesList.Activities.Where(x => x.LessonGroupId == item.LessonGroupId).Select(x => new { x.Id, x.NumberLessonOfWeek });
+                    var ids = activities.Where(x => x.LessonGroupId == item.LessonGroupId).Select(x => new { x.Id, x.NumberLessonOfWeek });
 
                     //Groups the ids on the order od which lesson is first in the week
                     var group = from a in ids

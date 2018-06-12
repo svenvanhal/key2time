@@ -15,13 +15,9 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-
             var mockDB = new Mock<DataModel>();
             var list = new HoursList(mockDB.Object);
-            list.Create();
-
-            test = list.GetList();
-
+            test = list.Create();
         }
 
         [Test]

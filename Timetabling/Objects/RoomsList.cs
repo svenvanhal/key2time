@@ -19,7 +19,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Creates the Room elements from the datamodel
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             var query = dB.School_BuildingsUnits.Where(room => room.IsActive == true)
                           .Select(room => room.ID);
@@ -28,6 +28,8 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Room", new XElement("Name", room)));
             }
+
+            return List;
         }
 
     }
