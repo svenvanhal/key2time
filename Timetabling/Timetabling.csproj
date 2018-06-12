@@ -84,7 +84,6 @@
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimes.cs" />
     <Compile Include="DB\School_BuildingaUnitType.cs" />
     <Compile Include="DB\School_BuildingsUnits.cs" />
-    <Compile Include="DB\Subject_Category.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
