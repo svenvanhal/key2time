@@ -115,12 +115,6 @@ namespace Timetabling.DB
 		/// <value>The school buildings units.</value>
 		public virtual DbSet<School_BuildingsUnits> School_BuildingsUnits { get; set; }
 
-		/// <summary>
-		/// Gets or sets Subject_Category.
-		/// </summary>
-		/// <value>The subject category.</value>
-		public virtual DbSet<Subject_Category> Subject_Category { get; set; }
-
         /// <summary>
         /// Gets or sets tt_ActitvityGroup.
         /// </summary>
