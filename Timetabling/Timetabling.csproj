@@ -9,7 +9,8 @@
     <RootNamespace>Timetabling</RootNamespace>
     <AssemblyName>Timetabling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,7 +64,7 @@
     <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
     <Compile Include="DB\Tt_TeacherAcademicInfo.cs" />
     <Compile Include="DB\Tt_TimeOff.cs" />
-    <Compile Include="Config\TimetablingConfig.cs" />
+    <Compile Include="Algorithms\FET\FetConfig.cs" />
     <Compile Include="XML\XmlCreator.cs" />
     <Compile Include="Objects\TeachersList.cs" />
     <Compile Include="Objects\AbstractList.cs" />

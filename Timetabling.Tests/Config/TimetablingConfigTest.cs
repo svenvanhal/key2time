@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Timetabling.Algorithms.FET;
-using Timetabling.Config;
 
 namespace Timetabling.Tests.Config
 {
@@ -11,7 +10,7 @@ namespace Timetabling.Tests.Config
         public void GetSettingTest()
         {
             var expected = "TestValue";
-            Assert.AreEqual(expected, TimetablingConfig.GetSetting("TestSetting"));
+            Assert.AreEqual(expected, FetConfig.GetSetting("TestSetting"));
         }
 
         [Test]
@@ -22,10 +21,10 @@ namespace Timetabling.Tests.Config
             var expectedFetWorkingDir = @"%TEMP%/Timetabling";
             var expectedTimeout = 0;
 
-            Assert.AreEqual(expectedFetExecutablePath, TimetablingConfig.GetFetExecutableLocation());
-            Assert.AreEqual(expectedFetLanguage, TimetablingConfig.GetFetLanguage());
-            Assert.AreEqual(expectedFetWorkingDir, TimetablingConfig.GetFetWorkingDir());
-            Assert.AreEqual(expectedTimeout, TimetablingConfig.GetTimeout());
+            Assert.AreEqual(expectedFetExecutablePath, FetConfig.GetFetExecutableLocation());
+            Assert.AreEqual(expectedFetLanguage, FetConfig.GetFetLanguage());
+            Assert.AreEqual(expectedFetWorkingDir, FetConfig.GetFetWorkingDir());
+            Assert.AreEqual(expectedTimeout, FetConfig.GetTimeout());
         }
 
     }
