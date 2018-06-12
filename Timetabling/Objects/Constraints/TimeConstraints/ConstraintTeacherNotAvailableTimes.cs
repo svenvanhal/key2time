@@ -38,7 +38,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public ConstraintTeacherNotAvailableTimes()
         {
             SetElement("ConstraintTeacherNotAvailableTimes");
-
+            SetWeight(100);
         }
         /// <summary>
         /// Creates the array of XElements for the constraint.
@@ -66,7 +66,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     var oneTeacherTimeOff = query.Where(x => x.ItemId.Equals(item.ItemId)).Select(x => new { x.day, x.lessonIndex });
                     var _daysList = oneTeacherTimeOff.Select(x => (Days)x.day).ToList();
                     var _hoursList = oneTeacherTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintTeacherNotAvailableTimes { teacher = item.ItemId, days = _daysList, hours = _hoursList, numberOfHours = _hoursList.Count, weight = item.timeOffConstraint }.ToXelement());
+                    result.Add(new ConstraintTeacherNotAvailableTimes { teacher = item.ItemId, days = _daysList, hours = _hoursList, numberOfHours = _hoursList.Count }.ToXelement());
                 }
 
             }
@@ -80,7 +80,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            SetWeight(weight);
+            
             constraint.Add(new XElement("Teacher", teacher),
                            new XElement("Number_of_Not_Available_Times", numberOfHours));
             for (int i = 0; i < numberOfHours; i++)

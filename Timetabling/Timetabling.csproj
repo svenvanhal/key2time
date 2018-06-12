@@ -9,7 +9,8 @@
     <RootNamespace>Timetabling</RootNamespace>
     <AssemblyName>Timetabling</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,7 +41,6 @@
     <Compile Include="Algorithms\FET\FetOutputProcessor.cs" />
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Exceptions\AlgorithmException.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
     <Compile Include="DB\Tt_TeacherAcademicInfo.cs" />
     <Compile Include="DB\Tt_TimeOff.cs" />
-    <Compile Include="Config\TimetablingConfig.cs" />
+    <Compile Include="Algorithms\FET\FetConfig.cs" />
     <Compile Include="XML\XmlCreator.cs" />
     <Compile Include="Objects\TeachersList.cs" />
     <Compile Include="Objects\AbstractList.cs" />
@@ -125,7 +125,6 @@
       <HintPath>packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="nunit.framework" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NLog.config">

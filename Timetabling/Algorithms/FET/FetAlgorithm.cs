@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Timetabling.Config;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
@@ -54,7 +53,7 @@ namespace Timetabling.Algorithms.FET
         private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
-        protected internal override async Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
+        protected internal override Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
         {
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
@@ -63,15 +62,17 @@ namespace Timetabling.Algorithms.FET
             Initialize(input, t);
 
             // Create algorithm task
-            await ProcessFacade.StartProcess()
+            ProcessFacade.StartProcess().ContinueWith(task =>
+            {
+                // Bubble exception(s) if faulted
+                if (task.IsFaulted) _tcs.SetException(task.Exception.InnerExceptions);
+                else if (task.IsCanceled) _tcs.SetCanceled();
 
-                // Gather the Timetable results when the algorithm process has finished
-                .ContinueWith(task => _tcs.TrySetResult(GetResult()), TaskContinuationOptions.NotOnFaulted)
+                // Try and get result on success
+                else _tcs.SetResult(GetResult());
+            });
 
-                // Bubble exceptions
-                .ContinueWith(task => _tcs.TrySetException(task.Exception), TaskContinuationOptions.OnlyOnFaulted);
-
-            return await _tcs.Task;
+            return _tcs.Task;
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Timetabling.Algorithms.FET
         /// <returns></returns>
         protected internal Process CreateProcess()
         {
-            var fetExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TimetablingConfig.GetSetting("FetExecutableLocation"));
+            var fetExecutablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, FetConfig.GetSetting("FetExecutableLocation"));
             var processBuilder = new FetProcessBuilder(fetExecutablePath);
 
             // Set input and output dir
@@ -117,7 +118,7 @@ namespace Timetabling.Algorithms.FET
             processBuilder.SetOutputDir(OutputDir);
 
             // Change default language
-            processBuilder.SetLanguage(TimetablingConfig.GetFetLanguage());
+            processBuilder.SetLanguage(FetConfig.GetFetLanguage());
 
             return processBuilder.CreateProcess();
         }
@@ -130,7 +131,7 @@ namespace Timetabling.Algorithms.FET
         protected static string CreateOutputDirectory(string outputDir)
         {
             // Get working dir (default: %TEMP%/timetabling)
-            var workingDir = TimetablingConfig.GetSetting("FetWorkingDir");
+            var workingDir = FetConfig.GetSetting("FetWorkingDir");
             if (string.IsNullOrEmpty(workingDir)) workingDir = Path.Combine(Path.GetTempPath(), "timetabling");
 
             // Create new directory and return path

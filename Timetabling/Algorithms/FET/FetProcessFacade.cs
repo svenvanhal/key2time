@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Timetabling.Exceptions;
 
 namespace Timetabling.Algorithms.FET
 {
@@ -120,7 +119,6 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Checks the FET process exit code and throws an exception if the exit code is non-zero.
         /// </summary>
-        /// <exception cref="AlgorithmException">Throws AlgorithmException if non-zero error code.</exception>
         protected void CheckProcessExitCode()
         {
             // Check if process has exited
