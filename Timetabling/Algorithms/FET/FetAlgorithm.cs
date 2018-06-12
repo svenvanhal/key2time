@@ -132,9 +132,8 @@ namespace Timetabling.Algorithms.FET
         /// <returns>Full path to the output directory.</returns>
         protected static string CreateOutputDirectory(string outputDir)
         {
-            // Get working dir (default: %TEMP%/timetabling)
-            var workingDir = FetConfig.GetSetting("FetWorkingDir");
-            if (string.IsNullOrEmpty(workingDir)) workingDir = Path.Combine(Path.GetTempPath(), "timetabling");
+            // Get working dir
+            var workingDir = FetConfig.GetFetWorkingDir();
 
             // Create new directory and return path
             var dir = Directory.CreateDirectory(Path.Combine(workingDir, outputDir));

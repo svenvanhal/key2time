@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.IO;
 
 namespace Timetabling.Algorithms.FET
 {
@@ -70,9 +71,11 @@ namespace Timetabling.Algorithms.FET
         /// Get FetWorkingDir setting.
         /// </summary>
         /// <returns>Language for FET-CL output.</returns>
-        public static string GetFetWorkingDir(string defaultValue = @"%TEMP%\Timetabling")
+        public static string GetFetWorkingDir(string defaultValue = null)
         {
+            if (defaultValue == null) defaultValue = Path.Combine(Path.GetTempPath(), "timetabling");
             var setting = GetSetting("FetWorkingDir");
+
             return setting ?? defaultValue;
         }
 

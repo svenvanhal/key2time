@@ -92,6 +92,27 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
+        public void XmlToTimetableActivitiesTest()
+        {
+
+            var fop = new FetOutputProcessorExposer("", "");
+
+            var expected = new Activity {Id = 3};
+            var activities = new Dictionary<int, Activity> {{ 3, expected }};
+
+            // Create output file stream
+            var testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testdata/fet/United-Kingdom/Hopwood/output.xml");
+            using (var outputFileStream = File.OpenRead(testDataPath))
+            {
+                var tt = fop.XmlToTimetable(outputFileStream, activities);
+
+                // Find activity in timetable output and check that it's associated resource matches
+                Assert.AreEqual(expected, tt.Activities.Find(i => i.Id == "3").Resource);
+            }
+
+        }
+
+        [Test]
         public void CorruptXmlToTimetableTest()
         {
 
