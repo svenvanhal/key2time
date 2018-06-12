@@ -10,21 +10,24 @@ namespace Timetabling.Objects
     /// </summary>
     public class ActivitiesList : AbstractList
     {
-        private int counter = 1;
+
         /// <summary>
         /// The activities.
         /// </summary>
-        public List<Activity> Activities = new List<Activity>();
+        public IDictionary<int, Activity> Activities = new Dictionary<int, Activity>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.ActivitiesList"/> class.
         /// </summary>
         /// <param name="_db">Database model</param>
         public ActivitiesList(DataModel _db) : base(_db) => SetListElement("Activities_List");
 
+        private int counter = 1;
+
         /// <summary>
-        /// Create the list with Activity XElements
+        /// Construct activity objects from database.
         /// </summary>
-        public override void Create()
+        private void CreateActivities()
         {
             var query = from activity in dB.tt_ActitvityGroup
                         join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
@@ -42,21 +45,21 @@ namespace Timetabling.Objects
                                     where g.teacherClassSubjectId == item.Id
                                     select c.groupName;
 
-                var StudentsList = new List<string>();
+                // Build students list
+                var studentsList = new List<string>();
+                if (studentsQuery.Any()) studentsList = studentsQuery.ToList();
+                else studentsList.Add(item.ClassName);
 
-                if (studentsQuery.Count() > 0)
-                    StudentsList = studentsQuery.ToList();
-                else
-                    StudentsList.Add(item.ClassName);
-
+                // Add activities
                 for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
                 {
-                    Activities.Add(new Activity
+
+                    Activities.Add(counter, new Activity
                     {
                         LessonGroupId = item.ActivityRefID,
                         Teacher = (int)item.teacherId,
                         Subject = item.subjectId,
-                        Students = StudentsList,
+                        Students = studentsList,
                         Id = counter,
                         GroupId = groupId,
                         Duration = item.NumberOfLlessonsPerDay,
@@ -68,18 +71,21 @@ namespace Timetabling.Objects
                 }
             }
         }
+
         /// <summary>
-        /// Gets the list as XElement.
+        /// Create the list with Activity XElements
         /// </summary>
-        /// <returns>The list.</returns>
-        public override XElement GetList()
+        public override XElement Create()
         {
+            CreateActivities();
+
             foreach (var item in Activities)
             {
-                List.Add(item.ToXElement());
+                List.Add(item.Value.ToXElement());
             }
             return List;
         }
+
     }
 
 }

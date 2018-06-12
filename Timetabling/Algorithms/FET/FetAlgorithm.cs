@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.Config;
+using Timetabling.Objects;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
@@ -54,7 +56,7 @@ namespace Timetabling.Algorithms.FET
         private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
-        protected internal override Task<Timetable> GenerateTask(string identifier, string input, CancellationToken t)
+        protected internal override Task<Timetable> GenerateTask(string identifier, string input, IDictionary<int, Activity> activities, CancellationToken t)
         {
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
@@ -70,7 +72,7 @@ namespace Timetabling.Algorithms.FET
                 else if (task.IsCanceled) _tcs.SetCanceled();
 
                 // Try and get result on success
-                else _tcs.SetResult(GetResult());
+                else _tcs.SetResult(GetResult(activities));
             });
 
             return _tcs.Task;
@@ -97,12 +99,12 @@ namespace Timetabling.Algorithms.FET
         /// Process FET algorithm output.
         /// </summary>
         /// <returns>Timetable</returns>
-        protected internal Timetable GetResult()
+        protected internal Timetable GetResult(IDictionary<int,Activity> activities)
         {
             Logger.Info("Retrieving FET algorithm results");
 
             var outputProcessor = new FetOutputProcessor(InputName, Path.Combine(OutputDir, "timetables"));
-            return outputProcessor.GetTimetable();
+            return outputProcessor.GetTimetable(activities);
         }
 
         /// <summary>

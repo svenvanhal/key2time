@@ -22,11 +22,18 @@ namespace Implementation
 
             TimetablingStrategy algorithm = new FetAlgorithm();
 
-            // TODO: improve FET input file generation
-            var inputFile = FetInputGenerator.GenerateFetFile(new DataModel(), Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "fetInputGenerator")).FullName);
+            // Generate input
+            var inputGen = new FetInputGenerator(new DataModel());
+            var inputFile = inputGen.GenerateFetFile(Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "fetInputGenerator")).FullName);
+            var activities = inputGen.GetActivities();
 
+            // Create algorithm task
             var generator = new TimetableGenerator();
-            var task = generator.RunAlgorithm(algorithm, inputFile);
+            var task = generator.RunAlgorithm(algorithm, inputFile, activities);
+
+            task.Wait();
+
+            Console.Read();
 
             // On success
             task.ContinueWith(t =>

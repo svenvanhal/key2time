@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 
 namespace Timetabling.Objects
@@ -21,7 +20,7 @@ namespace Timetabling.Objects
         /// Gets or sets the XElement list.
         /// </summary>
         /// <value>The list.</value>
-        protected XElement List { get; set; }
+        public XElement List { get; protected set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.AbstractList"/> class.
@@ -32,19 +31,13 @@ namespace Timetabling.Objects
         /// <summary>
         /// Create the elements in the list
         /// </summary>
-        public abstract void Create();
+        public abstract XElement Create();
 
         /// <summary>
         /// Sets the main list element name.
         /// </summary>
         /// <param name="s">S.</param>
-        public void SetListElement(String s) => List = new XElement(s);
-
-        /// <summary>
-        /// Gets the list.
-        /// </summary>
-        /// <returns>The list.</returns>
-        public virtual XElement GetList() => List;
+        public void SetListElement(string s) => List = new XElement(s);
 
     }
 }

@@ -20,7 +20,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Create this number of days element, and adds each day
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             List.Add(new XElement("Number_of_Days", 7));
 
@@ -29,6 +29,8 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Day", new XElement("Name", day)));
             }
+
+            return List;
         }
     }
 

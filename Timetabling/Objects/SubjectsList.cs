@@ -19,7 +19,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Create the subjects elements list.
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
                           .Select(subject => subject.SubjectID);
@@ -28,6 +28,8 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Subject", new XElement("Name", subject)));
             }
+
+            return List;
         }
 
     }

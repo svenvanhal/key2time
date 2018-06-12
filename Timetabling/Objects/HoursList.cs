@@ -24,7 +24,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Creates the hour elements.
         /// </summary>
-        public override void Create()
+        public override XElement Create()
         {
             List.Add(new XElement("Number_of_Hours", numberOfHours));
 
@@ -32,6 +32,8 @@ namespace Timetabling.Objects
             {
                 List.Add(new XElement("Hour", new XElement("Name", i)));
             }
+
+            return List;
         }
     }
 

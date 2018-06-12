@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
+using Timetabling.Objects;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
@@ -55,8 +56,9 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Public facing method which processes the FET algorithm output.
         /// </summary>
+        /// <param name="activities">Original activities to be scheduled.</param>
         /// <returns>Timetable</returns>
-        public Timetable GetTimetable()
+        public Timetable GetTimetable(IDictionary<int, Activity> activities)
         {
 
             Logger.Info("Looking for FET-CL activities output file in {0}.", OutputDir);
@@ -68,7 +70,7 @@ namespace Timetabling.Algorithms.FET
             // Deserialize XML
             using (var outputFileStream = _fs.File.OpenRead(outputPath))
             {
-                tt = XmlToTimetable(outputFileStream);
+                tt = XmlToTimetable(outputFileStream, activities);
                 Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
             }
 
@@ -98,15 +100,35 @@ namespace Timetabling.Algorithms.FET
         /// <param name="fileStream">FET algorithm output XML file.</param>
         /// <returns>A Timetable object.</returns>
         /// <exception cref="SerializationException">XML serialization does not create a Timetable object.</exception>
-        protected Timetable XmlToTimetable(Stream fileStream)
+        protected Timetable XmlToTimetable(Stream fileStream, IDictionary<int, Activity> activities)
         {
             var serializer = new XmlSerializer(typeof(Timetable));
+
+            Timetable tt;
 
             // Read and deserialize XML
             using (var reader = XmlReader.Create(fileStream))
             {
-                return serializer.Deserialize(reader) as Timetable;
+                tt = serializer.Deserialize(reader) as Timetable;
+
+                // Return if no or empty timetable found
+                if (tt?.Activities == null) return tt;
+
+                // Link actitivies
+                foreach (var activity in tt.Activities)
+                {
+                    try
+                    {
+                        activity.Resource = activities[int.Parse(activity.Id)];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        Logger.Warn($"Could not find scheduled activity with Id = {activity.Id} in resource collection.");
+                    }
+                }
             }
+
+            return tt;
         }
 
         /// <summary>
@@ -151,7 +173,7 @@ namespace Timetabling.Algorithms.FET
             }
 
             // Update placed activities count when there are activities
-            if(tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
+            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
 
             return tt;
         }
