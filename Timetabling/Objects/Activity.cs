@@ -18,11 +18,11 @@ namespace Timetabling.Objects
         public bool IsCollection { get; set; }
         public int CollectionId { get; set; }
         public int NumberLessonOfWeek { get; set; }
+        public string CollectionString { get; set; } = "";
+
 
         public XElement ToXElement(){
            var element =  new XElement("Activity",
-                                       
-                                       new XElement("Subject", Subject),
                                        new XElement("Id", Id),
                                        new XElement("Activity_Group_Id", GroupId),
                                        new XElement("Duration", Duration),
@@ -30,14 +30,18 @@ namespace Timetabling.Objects
 
             Students.ForEach(item => element.Add(new XElement("Students", item)));
             Teachers.ForEach(item => element.Add(new XElement("Teacher", item)));
-
             if (IsCollection)
-                element.Add(new XElement("Subject", "coll" + CollectionId));
+                element.Add(new XElement("Subject","coll"+CollectionId));
             else
                 element.Add(new XElement("Subject", Subject));
             
             return element;
         }
 
+        public void SetCollection(int _CollectionId, string grade){
+            CollectionId = _CollectionId;
+            IsCollection = true;
+            CollectionString = "coll" + _CollectionId + "-" + grade; 
+        }
     }
 }

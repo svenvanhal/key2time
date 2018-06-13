@@ -39,12 +39,12 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
             foreach (var item in activities)
             {
-                if (!check.Contains(item.LessonGroupId))
+                if (item.CollectionId != -1 &&!check.Contains(item.CollectionId))
                 {
-                    check.Add(item.LessonGroupId);
+                    check.Add(item.CollectionId);
 
                     //Gets the ids of the same lesson group
-                    var ids = activities.Where(x => x.LessonGroupId == item.LessonGroupId).Select(x => new { x.Id, x.NumberLessonOfWeek });
+                    var ids = activities.Where(x => x.CollectionId == item.CollectionId).Select(x => new { x.Id, x.NumberLessonOfWeek });
 
                     //Groups the ids on the order od which lesson is first in the week
                     var group = from a in ids

@@ -24,10 +24,8 @@ namespace Timetabling.Objects
         public override XElement Create()
         {
             var query = from g in dB.School_Lookup_Grade
-                        where g.IsActive == true
                         join c in dB.School_Lookup_Class on g.GradeID equals c.GradeID into t
                         from c in t.DefaultIfEmpty()
-                        where c.IsActive == true
                         select new { g.GradeName, c.ClassName };
 
             var grades = query.Select(item => item.GradeName).Distinct().ToList();
