@@ -52,7 +52,6 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                         join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
                         where tf.ItemType == 3 & cl.IsActive == true
                         select new { tf.day, cl.ClassName, tf.lessonIndex };
-
             var result = new List<XElement>();
             var check = new List<string>();
 

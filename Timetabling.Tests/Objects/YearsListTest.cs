@@ -42,24 +42,10 @@ namespace Timetabling.Tests.Objects
             mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
             mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
 
-            var dataClassGroup = new List<Tt_ClassGroup>{
-                new Tt_ClassGroup{groupName = "sub1",  classId = 1},
-                new Tt_ClassGroup{groupName = "sub2", classId = 0},
-
-            }.AsQueryable();
-
-            var mockSetClassGroup = new Mock<DbSet<Tt_ClassGroup>>();
-            mockSetClassGroup.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Provider).Returns(dataClassGroup.Provider);
-            mockSetClassGroup.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.Expression).Returns(dataClassGroup.Expression);
-            mockSetClassGroup.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.ElementType).Returns(dataClassGroup.ElementType);
-            mockSetClassGroup.As<IQueryable<Tt_ClassGroup>>().Setup(m => m.GetEnumerator()).Returns(dataClassGroup.GetEnumerator());
-
-
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSetClass.Object);
-            mockDB.Setup(item => item.Tt_ClassGroup).Returns(mockSetClassGroup.Object);
 
 
 
@@ -91,14 +77,5 @@ namespace Timetabling.Tests.Objects
             Assert.AreEqual(0, test.Elements("Year").Elements("Name").Count(item => item.Value.Equals("noTtest")));
 
         }
-
-        [Test]
-        public void SubGroupRightTest()
-        {
-            Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Subgroup").Count(item => item.Value.Equals("sub1")));
-            Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Subgroup").Count(item => item.Value.Equals("sub2")));
-
-        }
-
     }
 }

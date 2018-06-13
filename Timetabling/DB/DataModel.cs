@@ -74,12 +74,6 @@ namespace Timetabling.DB
 		public virtual DbSet<TeacherClassSubjectGroup> TeacherClassSubjectGroups { get; set; }
 
 		/// <summary>
-		/// Gets or sets Tt_ClassGroup.
-		/// </summary>
-		/// <value>Tt_ClassGroup.</value>
-		public virtual DbSet<Tt_ClassGroup> Tt_ClassGroup { get; set; }
-
-		/// <summary>
 		/// Gets or sets Tt_GradeLesson.
 		/// </summary>
 		/// <value>Tt_GradeLesson.</value>

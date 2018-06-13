@@ -40,15 +40,9 @@ namespace Timetabling.Objects
             {
                 var groupId = counter;
 
-                var studentsQuery = from g in dB.TeacherClassSubjectGroups
-                                    join c in dB.Tt_ClassGroup on g.GroupId equals c.Id
-                                    where g.teacherClassSubjectId == item.Id
-                                    select c.groupName;
-
                 // Build students list
                 var studentsList = new List<string>();
-                if (studentsQuery.Any()) studentsList = studentsQuery.ToList();
-                else studentsList.Add(item.ClassName);
+                 studentsList.Add(item.ClassName);
 
                 // Add activities
                 for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
