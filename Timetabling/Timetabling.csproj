@@ -42,6 +42,7 @@
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
+    <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
     <Compile Include="Helper\CommandLineArguments.cs" />
