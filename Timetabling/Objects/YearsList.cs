@@ -28,17 +28,13 @@ namespace Timetabling.Objects
                         join c in dB.School_Lookup_Class on g.GradeID equals c.GradeID into t
                         from c in t.DefaultIfEmpty()
                         where c.IsActive == true
-                        join gr in dB.Tt_ClassGroup on c.ClassID equals gr.classId into tt
-                        from gr in tt.DefaultIfEmpty()
-                        select new { g.GradeName, c.ClassName, gr.groupName };
+                        select new { g.GradeName, c.ClassName };
 
             var grades = query.Select(item => item.GradeName).Distinct().ToList();
             var classes = query.Where(item => item.GradeName != null && item.ClassName != null).Select(item => new { item.GradeName, item.ClassName }).Distinct().ToList();
-            var groups = query.Where(item => item.groupName != null && item.ClassName != null).Select(item => new { item.ClassName, item.groupName }).Distinct().ToList();
 
             AddGrades(grades);
             AddClasses(classes);
-            AddGroups(groups);
 
             return List;
         }
@@ -59,22 +55,6 @@ namespace Timetabling.Objects
             {
                 List.Elements("Year").First(grade => grade.Element("Name").Value.Equals(item.GradeName))
                     .Add(new XElement("Group", new XElement("Name", item.ClassName)));
-            }
-        }
-
-        private void AddGroups(dynamic groups)
-        {
-
-            // Creates the different subgroups in eacht group
-            foreach (var item in groups)
-            {
-                var group = List.Elements("Year").Elements("Group").Where(g => g.Element("Name").Value.Equals(item.ClassName));
-
-                if (group.Any())
-                {
-                    group.First().Add(new XElement("Subgroup",
-                                         new XElement("Name", item.groupName)));
-                }
             }
         }
     }
