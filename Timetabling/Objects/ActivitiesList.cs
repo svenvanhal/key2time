@@ -14,13 +14,17 @@ namespace Timetabling.Objects
         /// <summary>
         /// The activities.
         /// </summary>
-        public IDictionary<int, Activity> Activities = new Dictionary<int, Activity>();
+        public IDictionary<int, Activity> Activities { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.ActivitiesList"/> class.
         /// </summary>
         /// <param name="_db">Database model</param>
-        public ActivitiesList(DataModel _db) : base(_db) => SetListElement("Activities_List");
+        public ActivitiesList(DataModel _db) : base(_db)
+        {
+            SetListElement("Activities_List");
+            Activities = new Dictionary<int, Activity>();
+        }
 
         private int counter = 1;
 
