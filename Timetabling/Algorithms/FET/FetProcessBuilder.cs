@@ -40,7 +40,10 @@ namespace Timetabling.Algorithms.FET
             { "writetimetablesteachers", "false" },
             { "writetimetablesteachersfreeperiods", "false" },
             { "writetimetablesrooms", "false" },
-            { "writetimetablessubjects", "false" }
+            { "warnifusingnotperfectconstraints", "false" },
+            { "warnifusingstudentsminhoursdailywithallowemptydays", "false" },
+            { "warnifusinggroupactivitiesininitialorder", "false" },
+            { "warnsubgroupswiththesameactivities", "false" }
         };
 
         private readonly IFileSystem _fs;
