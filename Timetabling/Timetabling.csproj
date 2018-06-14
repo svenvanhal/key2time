@@ -35,6 +35,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\FET\FetInputGenerator.cs" />
     <Compile Include="Algorithms\FET\FetLanguage.cs" />
     <Compile Include="Algorithms\FET\FetProcessBuilder.cs" />
     <Compile Include="Algorithms\FET\FetAlgorithm.cs" />

@@ -4,7 +4,7 @@ using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.XML;
 
-namespace Implementation
+namespace Timetabling.Algorithms.FET
 {
 
     internal class FetInputGenerator

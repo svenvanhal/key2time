@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Timetabling.Objects;
+using Timetabling.DB;
 using Timetabling.Resources;
 
 namespace Timetabling.Algorithms
@@ -19,10 +18,9 @@ namespace Timetabling.Algorithms
         /// </summary>
         /// <param name="identifier">Unique identifier for this algorithm run.</param>
         /// <param name="input">Input to run the algorithm on.</param>
-        /// <param name="activities">Activities to be scheduled.</param>
         /// <param name="t">Cancellation token.</param>
         /// <returns>A Task-object which ultimately yields a Timetable.</returns>
-        protected internal abstract Task<Timetable> GenerateTask(string identifier, string input, IDictionary<int, Activity> activities, CancellationToken t);
+        protected internal abstract Task<Timetable> GenerateTask(string identifier, DataModel input, CancellationToken t);
 
     }
 }

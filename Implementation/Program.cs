@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using Timetabling;
-using Timetabling.Algorithms;
 using Timetabling.Algorithms.FET;
 using Timetabling.DB;
 using Timetabling.Resources;
@@ -36,20 +34,17 @@ namespace Implementation
         public Task<Timetable> Start()
         {
 
-            // Generate input
-            var inputGen = new FetInputGenerator(new DataModel());
-            var inputFile = inputGen.GenerateFetFile(Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), "fetInputGenerator")).FullName);
-            var activities = inputGen.GetActivities();
-
             // Create algorithm task
             var generator = new TimetableGenerator();
-            return generator.RunAlgorithm(new FetAlgorithm(), inputFile, activities);
+            return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
         }
 
         public static void OnSuccess(Task<Timetable> t)
         {
+            var tt = t.Result;
+
             Console.WriteLine("The timetable has been generated sucessfully.");
-            Console.WriteLine(t.Result);
+            Console.WriteLine(tt);
 
             // Save to database here
         }
