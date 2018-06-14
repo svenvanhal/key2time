@@ -21,18 +21,18 @@ namespace Timetabling.Tests.Objects
         public void Init()
         {
 
-            var data = new List<tt_ActitvityGroup>{
-                new tt_ActitvityGroup{ classId = 1, subjectId = 1,  teacherId = 0, gradeId = 60, ActivityRefID = 1, Id = 1},
-                new tt_ActitvityGroup{ classId = 2, subjectId = 0,  teacherId = 4, gradeId = 60, ActivityRefID = 2},
-                new tt_ActitvityGroup{ classId = 2, subjectId = 1,  teacherId = 4, gradeId = 60, ActivityRefID = 1, Id = 3},
+            var data = new List<Tt_ActitvityGroup>{
+                new Tt_ActitvityGroup{ classId = 1, subjectId = 1,  teacherId = 0, gradeId = 60, ActivityRefID = 1, Id = 1},
+                new Tt_ActitvityGroup{ classId = 2, subjectId = 0,  teacherId = 4, gradeId = 60, ActivityRefID = 2},
+                new Tt_ActitvityGroup{ classId = 2, subjectId = 1,  teacherId = 4, gradeId = 60, ActivityRefID = 1, Id = 3},
 
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<tt_ActitvityGroup>>();
-            mockSet.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<tt_ActitvityGroup>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<Tt_ActitvityGroup>>();
+            mockSet.As<IQueryable<Tt_ActitvityGroup>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Tt_ActitvityGroup>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Tt_ActitvityGroup>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Tt_ActitvityGroup>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var data2 = new List<School_Lookup_Class>{
                 new School_Lookup_Class{ClassName = "test", ClassID = 1, GradeID = 60},

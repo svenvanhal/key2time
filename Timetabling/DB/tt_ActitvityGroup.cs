@@ -1,15 +1,10 @@
 namespace Timetabling.DB
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     /// <summary>
     /// Tt actitvity group.
     /// </summary>
-    public partial class tt_ActitvityGroup
+    public partial class Tt_ActitvityGroup
     {
         /// <summary>
         /// Gets or sets the identifier.
