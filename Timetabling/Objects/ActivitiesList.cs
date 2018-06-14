@@ -65,21 +65,25 @@ namespace Timetabling.Objects
 
             for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
             {
-                var act = new Activity();
-                act.LessonGroupId = item.ActivityRefID;
-                act.Teachers = teachersList;
-                act.Subject = item.subjectId;
-                act.Students = studentsList;
-                act.Id = counter;
-                act.GroupId = groupId;
-                act.Duration = item.NumberOfLlessonsPerDay;
-                act.TotalDuration = item.NumberOfLlessonsPerWeek * item.NumberOfLlessonsPerDay;
-                act.NumberLessonOfWeek = i;
-                act.IsCollection = IsColl;
+                var act = new Activity
+                {
+                    LessonGroupId = item.ActivityRefID,
+                    Teachers = teachersList,
+                    Subject = item.subjectId,
+                    Students = studentsList,
+                    Id = counter,
+                    GroupId = groupId,
+                    Duration = item.NumberOfLlessonsPerDay,
+                    TotalDuration = item.NumberOfLlessonsPerWeek * item.NumberOfLlessonsPerDay,
+                    NumberLessonOfWeek = i,
+                    IsCollection = IsColl
+                };
 
                 if (IsColl && item.CollectionID != null)
+                {
                     act.SetCollection(item.CollectionID, item.GradeName);
-                
+                }
+
                 Activities.Add(counter, act);
                 counter++;
             }
@@ -127,17 +131,19 @@ namespace Timetabling.Objects
                     students = students.Distinct().ToList();
                     teachers = teachers.Distinct().ToList();
 
-                    var act = new Activity();
-                    act.Teachers = teachers;
-                    act.Students = students;
-                    act.Id = i.First().Id; ;
-                    act.GroupId = i.First().GroupId;
-                    act.Duration = i.First().Duration;
-                    act.TotalDuration = i.First().TotalDuration;
-                    act.NumberLessonOfWeek = i.First().NumberLessonOfWeek;
-                    act.IsCollection = true;
-                    act.CollectionString = item;
-                    act.CollectionId = i.First().CollectionId;
+                    var act = new Activity
+                    {
+                        Teachers = teachers,
+                        Students = students,
+                        Id = i.First().Id,
+                        GroupId = i.First().GroupId,
+                        Duration = i.First().Duration,
+                        TotalDuration = i.First().TotalDuration,
+                        NumberLessonOfWeek = i.First().NumberLessonOfWeek,
+                        IsCollection = true,
+                        CollectionString = item,
+                        CollectionId = i.First().CollectionId
+                    };
 
                     i.Select(x => x.Id).ToList().ForEach(x => Activities.Remove(x));
                     Activities.Add(act.Id,act);
