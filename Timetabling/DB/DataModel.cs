@@ -32,12 +32,6 @@ namespace Timetabling.DB
 		public virtual DbSet<School_Lookup_Grade> School_Lookup_Grade { get; set; }
 
 		/// <summary>
-		/// Gets or sets the School_Lookup_Section.
-		/// </summary>
-		/// <value>School_Lookup_Section.</value>
-		public virtual DbSet<School_Lookup_Section> School_Lookup_Section { get; set; }
-
-		/// <summary>
 		/// Gets or sets School_Lookup_Stage.
 		/// </summary>
 		/// <value>School_Lookup_Stage.</value>
@@ -62,46 +56,16 @@ namespace Timetabling.DB
 		public virtual DbSet<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
 
 		/// <summary>
-		/// Gets or sets SubjectClassLesson.
-		/// </summary>
-		/// <value>SubjectClassLesson.</value>
-		public virtual DbSet<SubjectClassLesson> SubjectClassLessons { get; set; }
-
-		/// <summary>
-		/// Gets or sets TeacherClassSubjectGroup.
-		/// </summary>
-		/// <value>TeacherClassSubjectGroup.</value>
-		public virtual DbSet<TeacherClassSubjectGroup> TeacherClassSubjectGroups { get; set; }
-
-		/// <summary>
 		/// Gets or sets Tt_GradeLesson.
 		/// </summary>
 		/// <value>Tt_GradeLesson.</value>
 		public virtual DbSet<Tt_GradeLesson> Tt_GradeLesson { get; set; }
 
 		/// <summary>
-		/// Gets or sets Tt_SectionLessonConfiguration.
-		/// </summary>
-		/// <value>Tt_SectionLessonConfiguration.</value>
-		public virtual DbSet<Tt_SectionLessonConfiguration> Tt_SectionLessonConfiguration { get; set; }
-
-		/// <summary>
-		/// Gets or sets Tt_TeacherAcademicInfo.
-		/// </summary>
-		/// <value>Tt_TeacherAcademicInfo</value>
-		public virtual DbSet<Tt_TeacherAcademicInfo> Tt_TeacherAcademicInfo { get; set; }
-
-		/// <summary>
 		/// Gets or sets Tt_TimeOff.
 		/// </summary>
 		/// <value>Tt_TimeOff.</value>
 		public virtual DbSet<Tt_TimeOff> Tt_TimeOff { get; set; }
-
-		/// <summary>
-		/// Gets or sets School_BuildingaUnitType.
-		/// </summary>
-		/// <value>The type of the school buildinga unit.</value>
-		public virtual DbSet<School_BuildingaUnitType> School_BuildingaUnitType { get; set; }
 
 		/// <summary>
 		/// Gets or sets School_BuildingsUnits.
@@ -141,11 +105,6 @@ namespace Timetabling.DB
 					.HasMany(e => e.Subject_SubjectGrade1)
 					.WithOptional(e => e.School_Lookup_Grade1)
 					.HasForeignKey(e => e.GradeID);
-
-
-			modelBuilder.Entity<Tt_TeacherAcademicInfo>()
-					.HasOptional(e => e.Tt_TeacherAcademicInfo1)
-					.WithRequired(e => e.Tt_TeacherAcademicInfo2);
 		}
 	}
 }
