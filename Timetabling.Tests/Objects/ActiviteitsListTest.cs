@@ -15,6 +15,8 @@ namespace Timetabling.Tests.Objects
 
         XElement test;
 
+        ActivitiesList list;
+
         [SetUp]
         public void Init()
         {
@@ -22,6 +24,8 @@ namespace Timetabling.Tests.Objects
             var data = new List<tt_ActitvityGroup>{
                 new tt_ActitvityGroup{ classId = 1, subjectId = 1,  teacherId = 0, gradeId = 60, ActivityRefID = 1, Id = 1},
                 new tt_ActitvityGroup{ classId = 2, subjectId = 0,  teacherId = 4, gradeId = 60, ActivityRefID = 2},
+                new tt_ActitvityGroup{ classId = 2, subjectId = 1,  teacherId = 4, gradeId = 60, ActivityRefID = 1, Id = 3},
+
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<tt_ActitvityGroup>>();
@@ -100,7 +104,7 @@ namespace Timetabling.Tests.Objects
             mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet6.Object);
 
 
-            var list = new ActivitiesList(mockDB.Object);
+            list = new ActivitiesList(mockDB.Object);
             test = list.Create();
             System.Console.WriteLine(test);
         }
@@ -155,7 +159,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivityClassRightTest()
         {
-            Assert.AreEqual(6, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
+            Assert.AreEqual(10, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
 
         }
 
@@ -163,6 +167,13 @@ namespace Timetabling.Tests.Objects
         public void ActivityClassWrongTest()
         {
             Assert.AreEqual(0, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("wrong")));
+
+        }
+
+        [Test]
+        public void ActivityCollection()
+        {
+            Assert.AreEqual(true, list.Activities[1].IsCollection);
 
         }
     }
