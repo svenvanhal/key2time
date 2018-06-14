@@ -45,16 +45,21 @@ namespace Timetabling.Objects
                 var studentsList = item.Select(x => x.ClassName).ToList();
                 var teachersList = item.Select(x => (int)x.teacherId).ToList();
 
-                if (item.Count() == 1)
+                if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
                     AddActivity(item.First(), studentsList, teachersList, false);
                 else
                     AddActivity(item.First(), studentsList, teachersList, true);
             }
         }
-
+        /// <summary>
+        /// Adds the activity to the list.
+        /// </summary>
+        /// <param name="item">The item used in the query.</param>
+        /// <param name="studentsList">A list of all the distinct studentssets.</param>
+        /// <param name="teachersList">A list of all the distinct teachersets.</param>
+        /// <param name="IsColl">If set to <c>true</c>, the activity is a collection.</param>
         private void AddActivity(dynamic item, List<string> studentsList, List<int> teachersList, bool IsColl)
         {
-            // Add activities
 
             var groupId = counter;
 
@@ -95,16 +100,20 @@ namespace Timetabling.Objects
             return List;
         }
 
+        /// <summary>
+        /// Merges the activities if they are in a collection
+        /// </summary>
         private void CollectionMerge()
         {
             var clone = Activities.ToDictionary(entry => entry.Key,
                                                entry => entry.Value);
-           
+            //Select distinct collections on the colletionstring
             var query = clone.Values.Where(item => item.CollectionString != "").Select(item => item.CollectionString).Distinct();
             foreach (var item in query)
             {
                 var list = Activities.Values.Where(x => x.CollectionString.Equals(item));
 
+                //Groups the lessons on the number of lesson of the week. 
                 var group = from a in list
                             group a by a.NumberLessonOfWeek into g
                             select g;
