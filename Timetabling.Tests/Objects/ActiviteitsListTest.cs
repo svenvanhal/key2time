@@ -106,7 +106,6 @@ namespace Timetabling.Tests.Objects
 
             list = new ActivitiesList(mockDB.Object);
             test = list.Create();
-            System.Console.WriteLine(test);
         }
 
         [Test]

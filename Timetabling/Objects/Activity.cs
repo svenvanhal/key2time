@@ -94,10 +94,13 @@ namespace Timetabling.Objects
 
             //if the activity is a collection, it makes a temporary subject name with prefix coll. 
             if (IsCollection)
-                element.Add(new XElement("Subject","coll"+CollectionId));
+            {
+                element.Add(new XElement("Subject", "coll" + CollectionId));
+            }
             else
+            {
                 element.Add(new XElement("Subject", Subject));
-            
+            }
             return element;
         }
 
