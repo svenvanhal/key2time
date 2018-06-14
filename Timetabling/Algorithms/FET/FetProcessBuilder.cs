@@ -42,7 +42,6 @@ namespace Timetabling.Algorithms.FET
             { "writetimetablesrooms", "false" },
             { "warnifusingnotperfectconstraints", "false" },
             { "warnifusingstudentsminhoursdailywithallowemptydays", "false" },
-            { "warnifusinggroupactivitiesininitialorder", "false" },
             { "warnsubgroupswiththesameactivities", "false" }
         };
 
