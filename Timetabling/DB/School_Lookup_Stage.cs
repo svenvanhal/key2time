@@ -55,10 +55,5 @@
 		/// <value>The school lookup grade.</value>
 		public virtual ICollection<School_Lookup_Grade> School_Lookup_Grade { get; set; }
 
-		/// <summary>
-		/// Gets or sets the school lookup section.
-		/// </summary>
-		/// <value>The school lookup section.</value>
-		public virtual School_Lookup_Section School_Lookup_Section { get; set; }
 	}
 }

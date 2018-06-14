@@ -51,17 +51,11 @@
     <Compile Include="DB\HR_MasterData_Employees.cs" />
     <Compile Include="DB\School_Lookup_Class.cs" />
     <Compile Include="DB\School_Lookup_Grade.cs" />
-    <Compile Include="DB\School_Lookup_Section.cs" />
     <Compile Include="DB\School_Lookup_Stage.cs" />
     <Compile Include="DB\Section_WeekEnd.cs" />
     <Compile Include="DB\Subject_MasterData_Subject.cs" />
     <Compile Include="DB\Subject_SubjectGrade.cs" />
-    <Compile Include="DB\SubjectClassLesson.cs" />
-    <Compile Include="DB\TeacherClassSubjectGroup.cs" />
-    <Compile Include="DB\Tt_ClassGroup.cs" />
     <Compile Include="DB\Tt_GradeLesson.cs" />
-    <Compile Include="DB\Tt_SectionLessonConfiguration.cs" />
-    <Compile Include="DB\Tt_TeacherAcademicInfo.cs" />
     <Compile Include="DB\Tt_TimeOff.cs" />
     <Compile Include="Algorithms\FET\FetConfig.cs" />
     <Compile Include="XML\XmlCreator.cs" />
@@ -84,14 +78,12 @@
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivities.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimes.cs" />
-    <Compile Include="DB\School_BuildingaUnitType.cs" />
     <Compile Include="DB\School_BuildingsUnits.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
     <Compile Include="DB\tt_ActitvityGroup.cs" />
     <Compile Include="Objects\Activity.cs" />
-    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesSameStartingTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

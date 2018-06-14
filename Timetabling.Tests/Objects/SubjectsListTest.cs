@@ -21,6 +21,7 @@ namespace Timetabling.Tests.Objects
             var data = new List<Subject_MasterData_Subject>{
                 new Subject_MasterData_Subject{SubjectID = 0,  IsActive = true},
                 new Subject_MasterData_Subject{SubjectID = 1, IsActive = false},
+                new Subject_MasterData_Subject{SubjectID = 2, IsActive = true, CollectionID = 1},
 
             }.AsQueryable();
 
@@ -62,6 +63,13 @@ namespace Timetabling.Tests.Objects
         public void SubjectNotActive()
         {
             Assert.AreEqual(0, test.Elements("Subject").Elements("Name").Count(item => item.Value.Equals("1")));
+
+        }
+
+        [Test]
+        public void SubjectCollection()
+        {
+            Assert.AreEqual(1, test.Elements("Subject").Elements("Name").Count(item => item.Value.Equals("coll1")));
 
         }
     }

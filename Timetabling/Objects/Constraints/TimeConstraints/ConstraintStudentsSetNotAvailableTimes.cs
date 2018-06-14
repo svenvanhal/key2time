@@ -50,23 +50,21 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             var query = from tf in dB.Tt_TimeOff
                         join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
-                        where tf.ItemType == 3 & cl.IsActive == true
+                        where tf.ItemType == 3 && cl.IsActive == true
                         select new { tf.day, cl.ClassName, tf.lessonIndex };
-
             var result = new List<XElement>();
             var check = new List<string>();
 
             foreach (var item in query)
             {
-                if (!check.Contains(item.ClassName))
-                {
-                    check.Add(item.ClassName);
+                // Skip if duplicate
+                if (check.Contains(item.ClassName)) continue;
+                check.Add(item.ClassName);
 
-                    var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
-                    var _daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
-                    var _hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = _daysList, Hours = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
-                }
+                var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
+                var daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
+                var hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
+                result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = daysList, Hours = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
 
             }
 
