@@ -31,7 +31,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// Construct activity objects from database.
         /// </summary>
-        private void CreateActivities()
+        private void CreateCollectionActivities()
         {
             var query = from activity in dB.tt_ActitvityGroup
                         join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
@@ -55,6 +55,17 @@ namespace Timetabling.Objects
                     AddActivity(item.First(), studentsList, teachersList, true);
             }
         }
+
+        private void CreateSingleActivities()
+        {
+            var query = from activity in dB.School_ClassTeacherSubjects
+                        join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
+                        join s in dB.Subject_SubjectGrade on activity.subjectId equals s.SubjectID
+                        join t in dB.HR_MasterData_Employees on activity.teacherId equals t.EmployeeID
+                        join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
+                        select new { activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay }
+                        
+        }
         /// <summary>
         /// Adds the activity to the list.
         /// </summary>
@@ -71,7 +82,6 @@ namespace Timetabling.Objects
             {
                 var act = new Activity
                 {
-                    LessonGroupId = item.ActivityRefID,
                     Teachers = teachersList,
                     Subject = item.subjectId,
                     Students = studentsList,
@@ -98,7 +108,7 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
-            CreateActivities();
+            CreateCollectionActivities();
             CollectionMerge();
 
             foreach (var item in Activities)
@@ -150,7 +160,7 @@ namespace Timetabling.Objects
                     };
 
                     i.Select(x => x.Id).ToList().ForEach(x => Activities.Remove(x));
-                    Activities.Add(act.Id,act);
+                    Activities.Add(act.Id, act);
                 }
             }
         }

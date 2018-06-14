@@ -49,12 +49,6 @@ namespace Timetabling.Objects
         public int TotalDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the lesson group identifier.
-        /// </summary>
-        /// <value>The lesson group identifier.</value>
-        public int LessonGroupId { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Timetabling.Objects.Activity"/> is a collection.
         /// </summary>
         /// <value><c>true</c> if a collection; otherwise, <c>false</c>.</value>
