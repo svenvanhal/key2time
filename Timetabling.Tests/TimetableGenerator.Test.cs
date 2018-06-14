@@ -30,17 +30,16 @@ namespace Timetabling.Tests
             var ttg = new TimetableGenerator();
 
             var mockAlgorithm = new Mock<TimetablingStrategy>();
-            var input = "";
 
             var previousIdentifier = ttg.CurrentRunIdentifier;
 
-            var task = ttg.RunAlgorithm(mockAlgorithm.Object, input, null);
+            var task = ttg.RunAlgorithm(mockAlgorithm.Object, null);
 
             // Verify that the identifier is refreshed
             Assert.AreNotEqual(previousIdentifier, ttg.CurrentRunIdentifier);
 
             // Verify that a Timetable task is generated
-            mockAlgorithm.Verify(mock => mock.GenerateTask(ttg.CurrentRunIdentifier, input, null, It.IsAny<CancellationToken>()), Times.Once);
+            mockAlgorithm.Verify(mock => mock.GenerateTask(ttg.CurrentRunIdentifier, null, It.IsAny<CancellationToken>()), Times.Once);
             Assert.IsInstanceOf<Task<Timetable>>(task);
         }
 

@@ -44,12 +44,12 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Current run identifier.
         /// </summary>
-        protected internal string OutputDir { get; private set; }
+        protected internal string OutputDir { get; set; }
 
         /// <summary>
         /// Activities to be scheduled.
         /// </summary>
-        protected internal IDictionary<int, Activity> Activities { get; private set; }
+        protected internal IDictionary<int, Activity> Activities { get; set; }
 
         /// <summary>
         /// FET-CL process interface.
@@ -141,7 +141,7 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         /// <param name="outputDir">Name of the subdirectory.</param>
         /// <returns>Full path to the output directory.</returns>
-        protected static string CreateOutputDirectory(string outputDir)
+        protected internal static string CreateOutputDirectory(string outputDir)
         {
             // Get working dir
             var workingDir = FetConfig.GetFetWorkingDir();
