@@ -66,13 +66,7 @@ namespace Timetabling.Helper
         /// Create string representation of arguments.
         /// </summary>
         /// <returns>String representation of arguments.</returns>
-        public override string ToString()
-        {
-
-            return ToString(OutputStyle.DoubleDashEquals);
-
-        }
-
+        public override string ToString() => ToString(OutputStyle.DoubleDashEquals);
 
         /// <summary>
         /// Create string representation based on a predefined style template.
@@ -81,11 +75,10 @@ namespace Timetabling.Helper
         /// <returns>String representation of CommandLineArguments.</returns>
         public string ToString(OutputStyle style)
         {
-
             var sb = new StringBuilder();
+
             foreach (var arg in this)
             {
-
                 // Append each argument based on the chosen style template
                 sb.AppendFormat(
                     GetOutputStyleTemplate(style),
@@ -93,8 +86,8 @@ namespace Timetabling.Helper
                     EncodeArgument(arg.Value)
                 );
             }
-            return sb.ToString();
 
+            return sb.ToString();
         }
 
         /// <summary>
@@ -105,14 +98,10 @@ namespace Timetabling.Helper
         /// <remarks><a href="https://stackoverflow.com/a/12364234">Source</a></remarks>
         public static string EncodeArgument(string original)
         {
-
             // Empty argument
-            if (string.IsNullOrEmpty(original))
-            {
-                return "\"\"";
-            }
+            if (string.IsNullOrEmpty(original)) return "\"\"";
 
-            string value = Regex.Replace(original, @"(\\*)" + "\"", @"$1\$0");
+            var value = Regex.Replace(original, @"(\\*)" + "\"", @"$1\$0");
             return Regex.Replace(value, @"^(.*\s.*?)(\\*)$", "\"$1$2$2\"", RegexOptions.Singleline);
         }
 
@@ -126,7 +115,8 @@ namespace Timetabling.Helper
 
             switch (style)
             {
-                default: // OutputStyle.DoubleDashEquals
+                case OutputStyle.DoubleDashEquals:
+                default:
                     return " --{0}={1}";
 
                 case OutputStyle.DashEquals:

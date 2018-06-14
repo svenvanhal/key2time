@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,9 +8,9 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
     public class ConstraintSubjectPreferredRooms : AbstractConstraint
     {
 
-        public List<int> rooms { get; set; } = new List<int>();
+        public List<int> Rooms { get; set; } = new List<int>();
 
-        public int subjectID { get; set; }
+        public int? SubjectId { get; set; }
 
         public ConstraintSubjectPreferredRooms()
         {
@@ -21,19 +20,19 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
         public override XElement[] Create(DataModel dB)
         {
-            var query = dB.Subject_SubjectGrade.Where(item => item.BuildingUnitTypeID != null).Select(item => new { item.SubjectID, item.BuildingUnitTypeID });
-
             var results = new List<XElement>();
+
+            var query = dB.Subject_SubjectGrade.Where(item => item.BuildingUnitTypeID != null)
+                          .Select(item => new {item.SubjectID, item.BuildingUnitTypeID});
 
             foreach (var item in query)
             {
+                var rooms = (from b in dB.School_BuildingsUnits
+                             where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
+                             select b.ID).DefaultIfEmpty().ToList();
 
-                var _rooms = (from b in dB.School_BuildingsUnits
-                    where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
-                    select b.ID).DefaultIfEmpty().ToList();
-
-                var constraint = new ConstraintSubjectPreferredRooms {rooms = _rooms, subjectID = (int) item.SubjectID}.ToXelement();
-                results.Add(constraint);
+                var roomConstraint = new ConstraintSubjectPreferredRooms { Rooms = rooms, SubjectId = item.SubjectID };
+                results.Add(roomConstraint.ToXelement());
             }
 
             return results.ToArray();
@@ -45,10 +44,10 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Subject", subjectID),
-                           new XElement("Number_of_Preferred_Rooms",rooms.Count() ));
+            constraint.Add(new XElement("Subject", SubjectId),
+                           new XElement("Number_of_Preferred_Rooms", Rooms.Count));
 
-            foreach (var room in rooms)
+            foreach (var room in Rooms)
             {
                 constraint.Add(new XElement("Preferred_Room", room));
             }

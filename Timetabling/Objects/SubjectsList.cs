@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
 
@@ -22,11 +23,16 @@ namespace Timetabling.Objects
         public override XElement Create()
         {
             var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
-                          .Select(subject => subject.SubjectID);
+                          .Select(subject => new { subject.SubjectID, subject.CollectionID });
 
+            List<int?> check = new List<int?>();
             foreach (var subject in query)
             {
-                List.Add(new XElement("Subject", new XElement("Name", subject)));
+                List.Add(new XElement("Subject", new XElement("Name", subject.SubjectID)));
+                if(subject.CollectionID != null && !check.Contains(subject.CollectionID)){
+                    check.Add(subject.CollectionID);
+                    List.Add(new XElement("Subject", new XElement("Name", "coll"+subject.CollectionID)));
+                }
             }
 
             return List;
