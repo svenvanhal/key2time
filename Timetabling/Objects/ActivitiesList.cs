@@ -49,22 +49,31 @@ namespace Timetabling.Objects
                 var studentsList = item.Select(x => x.ClassName).ToList();
                 var teachersList = item.Select(x => (int)x.teacherId).ToList();
 
+                var activity = item.First();
                 if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
-                    AddActivity(item.First(), studentsList, teachersList, false);
+                    AddActivity(activity.subjectId, studentsList, teachersList, false, activity.NumberOfLlessonsPerDay, activity.NumberOfLlessonsPerWeek, activity.CollectionID, activity.GradeName);
                 else
-                    AddActivity(item.First(), studentsList, teachersList, true);
+                    AddActivity(activity.subjectId, studentsList, teachersList, true, activity.NumberOfLlessonsPerDay, activity.NumberOfLlessonsPerWeek, activity.CollectionID, activity.GradeName);
             }
         }
 
         private void CreateSingleActivities()
         {
             var query = from activity in dB.School_ClassTeacherSubjects
-                        join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
-                        join s in dB.Subject_SubjectGrade on activity.subjectId equals s.SubjectID
-                        join t in dB.HR_MasterData_Employees on activity.teacherId equals t.EmployeeID
+                        join c in dB.School_Lookup_Class on activity.ClassID equals c.ClassID
+                        join s in dB.Subject_SubjectGrade on activity.SubjectID equals s.SubjectID
+                        join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeID
                         join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
-                        select new { activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay }
-                        
+                        select new { activity.TeacherID, activity.SubjectID, c.ClassName, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
+
+            foreach(var item in query){
+                var studentsList = new List<string>();
+                studentsList.Add(item.ClassName);
+                var teachersList = new List<int>();
+                teachersList.Add((int)item.TeacherID);
+
+                AddActivity(item.SubjectID, studentsList, teachersList, false, item.NumberOfLlessonsPerDay, item.NumberOfLlessonsPerWeek,null , null);
+            }
         }
         /// <summary>
         /// Adds the activity to the list.
@@ -73,29 +82,29 @@ namespace Timetabling.Objects
         /// <param name="studentsList">A list of all the distinct studentssets.</param>
         /// <param name="teachersList">A list of all the distinct teachersets.</param>
         /// <param name="IsColl">If set to <c>true</c>, the activity is a collection.</param>
-        private void AddActivity(dynamic item, List<string> studentsList, List<int> teachersList, bool IsColl)
+        private void AddActivity(int subjectId, List<string> studentsList, List<int> teachersList, bool IsColl, int NumberOfLessonsPerDay, int NumberOfLessonsPerWeek, int? CollectionID, string GradeName)
         {
-
+            
             var groupId = counter;
 
-            for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
+            for (var i = 1; i <= NumberOfLessonsPerWeek; i++)
             {
                 var act = new Activity
                 {
                     Teachers = teachersList,
-                    Subject = item.subjectId,
+                    Subject = subjectId,
                     Students = studentsList,
                     Id = counter,
                     GroupId = groupId,
-                    Duration = item.NumberOfLlessonsPerDay,
-                    TotalDuration = item.NumberOfLlessonsPerWeek * item.NumberOfLlessonsPerDay,
+                    Duration = NumberOfLessonsPerDay,
+                    TotalDuration = NumberOfLessonsPerWeek * NumberOfLessonsPerDay,
                     NumberLessonOfWeek = i,
                     IsCollection = IsColl
                 };
 
-                if (IsColl && item.CollectionID != null)
+                if (IsColl && CollectionID != null)
                 {
-                    act.SetCollection(item.CollectionID, item.GradeName);
+                    act.SetCollection((int) CollectionID, GradeName);
                 }
 
                 Activities.Add(counter, act);
@@ -110,7 +119,7 @@ namespace Timetabling.Objects
         {
             CreateCollectionActivities();
             CollectionMerge();
-
+            CreateSingleActivities();
             foreach (var item in Activities)
             {
                 List.Add(item.Value.ToXElement());
