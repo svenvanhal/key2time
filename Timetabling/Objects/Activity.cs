@@ -6,8 +6,16 @@ namespace Timetabling.Objects
 {
     public class Activity
     {
-
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group identifier.
+        /// </summary>
+        /// <value>The group identifier.</value>
         public int GroupId { get; set; }
         public List<int> Teachers { get; set; }
         public int Subject { get; set; }
@@ -16,10 +24,9 @@ namespace Timetabling.Objects
         public int TotalDuration { get; set; }
         public int LessonGroupId { get; set; }
         public bool IsCollection { get; set; }
-        public int CollectionId { get; set; }
+        public int CollectionId { get; set; } = -1;
         public int NumberLessonOfWeek { get; set; }
         public string CollectionString { get; set; } = "";
-
 
         public XElement ToXElement(){
            var element =  new XElement("Activity",
@@ -39,9 +46,11 @@ namespace Timetabling.Objects
         }
 
         public void SetCollection(int _CollectionId, string grade){
-            CollectionId = _CollectionId;
+            this.CollectionId = _CollectionId;
             IsCollection = true;
-            CollectionString = "coll" + _CollectionId + "-" + grade; 
+            CollectionString = "coll" + CollectionId + "-" + grade;
+        
+
         }
     }
 }

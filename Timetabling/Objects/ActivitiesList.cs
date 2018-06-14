@@ -60,7 +60,7 @@ namespace Timetabling.Objects
 
             for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
             {
-                Activity act = new Activity();
+                var act = new Activity();
                 act.LessonGroupId = item.ActivityRefID;
                 act.Teachers = teachersList;
                 act.Subject = item.subjectId;
@@ -118,7 +118,7 @@ namespace Timetabling.Objects
                     students = students.Distinct().ToList();
                     teachers = teachers.Distinct().ToList();
 
-                    Activity act = new Activity();
+                    var act = new Activity();
                     act.Teachers = teachers;
                     act.Students = students;
                     act.Id = i.First().Id; ;
@@ -128,6 +128,7 @@ namespace Timetabling.Objects
                     act.NumberLessonOfWeek = i.First().NumberLessonOfWeek;
                     act.IsCollection = true;
                     act.CollectionString = item;
+                    act.CollectionId = i.First().CollectionId;
 
                     i.Select(x => x.Id).ToList().ForEach(x => Activities.Remove(x));
                     Activities.Add(act.Id,act);

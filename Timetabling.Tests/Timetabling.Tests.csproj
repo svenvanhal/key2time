@@ -97,7 +97,6 @@
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintPeriodSectionTest.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintsSubjectPrefferedRoomsTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintActivitiesPreferredStartingTimesTest.cs" />
-    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintActivitiesSameStartingTimeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
