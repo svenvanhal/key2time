@@ -22,6 +22,12 @@ namespace Timetabling.Tests.Helper
     internal class DatabaseHelperTest
     {
 
+        [OneTimeSetUp]
+        public void SetupEffort()
+        {
+            Effort.Provider.EffortProviderConfiguration.RegisterProvider();
+        }
+
         [Test]
         public void ConstructorTest()
         {
@@ -34,32 +40,39 @@ namespace Timetabling.Tests.Helper
         [Test]
         public void SaveTimetableTest()
         {
-            var model = new DataModel(Effort.DbConnectionFactory.CreateTransient());
 
-            using (var context = new DatabaseHelper(model))
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
-                var tt = CreateTimetable();
-                Assert.DoesNotThrow(() => context.SaveTimetable(tt));
+                var model = new DataModel(conn);
+
+                using (var context = new DatabaseHelper(model))
+                {
+                    var tt = CreateTimetable();
+                    Assert.DoesNotThrow(() => context.SaveTimetable(tt));
+                }
             }
         }
 
         [Test]
         public void CreateTimetableTest()
         {
-            var model = new DataModel(Effort.DbConnectionFactory.CreateTransient());
-
-            using (var context = new DatabaseHelperExposer(model))
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
+                var model = new DataModel(conn);
 
-                // Create timetable
-                var tt = CreateTimetable();
-                context.CreateTimetable(model, tt);
+                using (var context = new DatabaseHelperExposer(model))
+                {
 
-                // Get timetable entry
-                var ttEntry = from t in model.Timetables select t;
+                    // Create timetable
+                    var tt = CreateTimetable();
+                    context.CreateTimetable(model, tt);
 
-                // Perform checks
-                Assert.AreEqual("Test Timetable", ttEntry.First().Name);
+                    // Get timetable entry
+                    var ttEntry = from t in model.Timetables select t;
+
+                    // Perform checks
+                    Assert.AreEqual("Test Timetable", ttEntry.First().Name);
+                }
             }
 
         }
@@ -67,33 +80,36 @@ namespace Timetabling.Tests.Helper
         [Test]
         public void CreateActivitiesTest()
         {
-            var model = new DataModel(Effort.DbConnectionFactory.CreateTransient());
-
-            using (var context = new DatabaseHelperExposer(model))
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
+                var model = new DataModel(conn);
 
-                // Create activities
-                var tt = CreateTimetable();
-                context.CreateActivities(model, 1000, tt);
+                using (var context = new DatabaseHelperExposer(model))
+                {
 
-                // Get timetable entry
-                var ttEntry = from a in model.TimetableActivities select a;
+                    // Create activities
+                    var tt = CreateTimetable();
+                    context.CreateActivities(model, 1000, tt);
 
-                // Verify timetable ID matches
-                Assert.AreEqual(1000, ttEntry.First().TimetableId);
+                    // Get timetable entry
+                    var ttEntry = from a in model.TimetableActivities select a;
 
-                // Verify day is parsed correctly and matches
-                Assert.AreEqual(5, ttEntry.First().Day);
+                    // Verify timetable ID matches
+                    Assert.AreEqual(1000, ttEntry.First().TimetableId);
 
-                // Verify timeslot is parsed correctly and matches
-                Assert.AreEqual(9, ttEntry.First().Timeslot);
+                    // Verify day is parsed correctly and matches
+                    Assert.AreEqual(5, ttEntry.First().Day);
 
-                // Verify subject matches
-                Assert.AreEqual(2, ttEntry.First().SubjectId);
+                    // Verify timeslot is parsed correctly and matches
+                    Assert.AreEqual(9, ttEntry.First().Timeslot);
 
-                // Verify collection params match
-                Assert.AreEqual(true, ttEntry.First().IsCollection);
-                Assert.AreEqual(259, ttEntry.First().CollectionId);
+                    // Verify subject matches
+                    Assert.AreEqual(2, ttEntry.First().SubjectId);
+
+                    // Verify collection params match
+                    Assert.AreEqual(true, ttEntry.First().IsCollection);
+                    Assert.AreEqual(259, ttEntry.First().CollectionId);
+                }
             }
 
         }
@@ -101,28 +117,31 @@ namespace Timetabling.Tests.Helper
         [Test]
         public void CreateActivityTeacherRelationsTest()
         {
-            var model = new DataModel(Effort.DbConnectionFactory.CreateTransient());
-
-            using (var context = new DatabaseHelperExposer(model))
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
+                var model = new DataModel(conn);
 
-                // Create activity / teacher relations
-                var tt = CreateTimetable();
-                context.CreateActivityTeacherRelations(model, 2, tt.Activities[0].Resource);
+                using (var context = new DatabaseHelperExposer(model))
+                {
 
-                // Get timetable entries
-                var ttEntry = from a in model.TimetableActivityTeachers orderby a.Id select a;
-                var teacherEntry1 = ttEntry.First();
-                var teacherEntry2 = ttEntry.Skip(1).First();
+                    // Create activity / teacher relations
+                    var tt = CreateTimetable();
+                    context.CreateActivityTeacherRelations(model, 2, tt.Activities[0].Resource);
 
-                // Check first teacher
-                Assert.AreEqual(2, teacherEntry1.ActivityId);
-                Assert.AreEqual(59, teacherEntry1.TeacherId);
+                    // Get timetable entries
+                    var ttEntry = from a in model.TimetableActivityTeachers orderby a.Id select a;
+                    var teacherEntry1 = ttEntry.First();
+                    var teacherEntry2 = ttEntry.Skip(1).First();
 
-                // Check second teacher
-                Assert.AreEqual(2, teacherEntry2.ActivityId);
-                Assert.AreEqual(60, teacherEntry2.TeacherId);
+                    // Check first teacher
+                    Assert.AreEqual(2, teacherEntry1.ActivityId);
+                    Assert.AreEqual(59, teacherEntry1.TeacherId);
 
+                    // Check second teacher
+                    Assert.AreEqual(2, teacherEntry2.ActivityId);
+                    Assert.AreEqual(60, teacherEntry2.TeacherId);
+
+                }
             }
 
         }
@@ -130,22 +149,25 @@ namespace Timetabling.Tests.Helper
         [Test]
         public void CreateActivityClassRelationsTest()
         {
-            var model = new DataModel(Effort.DbConnectionFactory.CreateTransient());
-
-            using (var context = new DatabaseHelperExposer(model))
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
+                var model = new DataModel(conn);
 
-                // Create activities / teacher relations
-                var tt = CreateTimetable();
-                context.CreateActivityClassRelations(model, 5, tt.Activities[0].Resource);
+                using (var context = new DatabaseHelperExposer(model))
+                {
 
-                // Get timetable entries
-                var ttEntry = from a in model.TimetableActivityClasses orderby a.Id select a;
+                    // Create activities / teacher relations
+                    var tt = CreateTimetable();
+                    context.CreateActivityClassRelations(model, 5, tt.Activities[0].Resource);
 
-                // Check student set
-                Assert.AreEqual(5, ttEntry.First().ActivityId);
-                Assert.AreEqual(9, ttEntry.First().ClassId);
+                    // Get timetable entries
+                    var ttEntry = from a in model.TimetableActivityClasses orderby a.Id select a;
 
+                    // Check student set
+                    Assert.AreEqual(5, ttEntry.First().ActivityId);
+                    Assert.AreEqual(9, ttEntry.First().ClassId);
+
+                }
             }
 
         }
@@ -189,7 +211,7 @@ namespace Timetabling.Tests.Helper
                 Activities = activities,
                 PlacedActivities = 1,
                 ConflictWeight = 0,
-                SoftConflicts = new List<string> {"Test Conflict"}
+                SoftConflicts = new List<string> { "Test Conflict" }
             };
 
             return tt;
