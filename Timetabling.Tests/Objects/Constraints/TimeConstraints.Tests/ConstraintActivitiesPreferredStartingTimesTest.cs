@@ -58,8 +58,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintActivitiesPreferredStartingTimes();
-            var constraintTest = new ConstraintActivitiesPreferredStartingTimes { days = { (Days)2 }, subject = 4, hours = { 3 }, numberOfHours = 1 };
-            var constraintTest2 = new ConstraintActivitiesPreferredStartingTimes { days = { (Days)3, (Days)3, (Days)2 }, subject = 4, hours = { 3, 4, 5 }, numberOfHours = 3 };
+            var constraintTest = new ConstraintActivitiesPreferredStartingTimes { DaysList = { (Days)2 }, SubjectID = 4, HoursList = { 3 }, NumberOfHours = 1 };
+            var constraintTest2 = new ConstraintActivitiesPreferredStartingTimes { DaysList = { (Days)3, (Days)3, (Days)2 }, SubjectID = 4, HoursList = { 3, 4, 5 }, NumberOfHours = 3 };
 
             var result = constraint.Create(test.Object);
 
