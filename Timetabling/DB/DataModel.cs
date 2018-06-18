@@ -1,18 +1,26 @@
+using System.Data.Common;
+using System.Data.Entity;
+
 namespace Timetabling.DB
 {
-	using System.Data.Entity;
+	
 	/// <summary>
 	/// Data model.
 	/// </summary>
-	public partial class DataModel : DbContext
+	public class DataModel : DbContext
 	{
+		/// <inheritdoc />
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Timetabling.DB.DataModel"/> class.
+		/// Constructs a new DataModel based on the connection string in app.config.
 		/// </summary>
-		public DataModel()
-				: base("name=DataModel")
-		{
-		}
+		public DataModel() : base("name=DataModel") {}
+
+	    /// <inheritdoc />
+	    /// <summary>
+	    /// Constructs a new DataModel based on the provider database connection.
+	    /// </summary>
+        public DataModel(DbConnection connection) : base(connection, true) {}
+
 		/// <summary>
 		/// Gets or sets the HR_MasterData_Employees
 		/// </summary>
@@ -69,12 +77,12 @@ namespace Timetabling.DB
         /// <summary>
         /// Classes for timetable activity.
         /// </summary>
-	    public virtual DbSet<TimetableActivityClassTable> TimetableActitvityClasses { get; set; }
+	    public virtual DbSet<TimetableActivityClassTable> TimetableActivityClasses { get; set; }
 
         /// <summary>
         /// Teachers per timetable activity.
         /// </summary>
-	    public virtual DbSet<TimetableActivityTeacherTable> TimetableActitvityTeachers { get; set; }
+	    public virtual DbSet<TimetableActivityTeacherTable> TimetableActivityTeachers { get; set; }
 
         /// <summary>
         /// Activities in timetable.

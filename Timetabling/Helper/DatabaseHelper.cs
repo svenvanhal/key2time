@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.Resources;
@@ -10,8 +10,22 @@ namespace Timetabling.Helper
     /// <summary>
     /// Helper functions for database interaction.
     /// </summary>
-    public class DatabaseHelper
+    public class DatabaseHelper : IDisposable
     {
+
+        /// <summary>
+        /// Data model to work with.
+        /// </summary>
+        public DataModel Model { get; set; }
+
+        /// <inheritdoc />
+        public DatabaseHelper() : this(new DataModel()) {}
+
+        /// <summary>
+        /// Constructs a new DatabaseHelper on a DataModel.
+        /// </summary>
+        /// <param name="model">Data model to perform database operations on.</param>
+        public DatabaseHelper(DataModel model) => Model = model;
 
         /// <summary>
         /// Save a timetable to the database.
@@ -21,13 +35,15 @@ namespace Timetabling.Helper
         {
 
             // Use a new data model to track our changes
-            using (var model = new DataModel())
+            using (var context = Model.Database.BeginTransaction(IsolationLevel.ReadCommitted))
             {
-                // Create timetable entry
-                var id = CreateTimetable(model, tt);
 
-                // Create activities
-                CreateActivities(model, id, tt);
+                // Create timetable entry and activities
+                var id = CreateTimetable(Model, tt);
+                CreateActivities(Model, id, tt);
+
+                // Commit transaction
+                context.Commit();
             }
 
         }
@@ -37,7 +53,7 @@ namespace Timetabling.Helper
         /// </summary>
         /// <param name="model">DataModel to work on.</param>
         /// <param name="tt">Timetable to save.</param>
-        /// <returns>Id of newly inserted timetable.</returns>
+        /// <returns>ID of newly inserted timetable.</returns>
         protected int CreateTimetable(DataModel model, Timetable tt)
         {
 
@@ -76,7 +92,7 @@ namespace Timetabling.Helper
                 {
                     SubjectId = activity.Resource.Subject,
                     Day = GetDayFromString(activity.Day),
-                    Timeslot = GetHourFromString(activity.Hour),
+                    Timeslot = int.Parse(activity.Hour),
 
                     CollectionId = activity.Resource.CollectionId,
                     IsCollection = activity.Resource.IsCollection,
@@ -112,7 +128,7 @@ namespace Timetabling.Helper
             {
 
                 // Create new activity - teacher relation
-                model.TimetableActitvityTeachers.Add(new TimetableActivityTeacherTable
+                model.TimetableActivityTeachers.Add(new TimetableActivityTeacherTable
                 {
                     ActivityId = activityId,
                     TeacherId = teacherId
@@ -138,7 +154,7 @@ namespace Timetabling.Helper
             {
 
                 // Create new activity - teacher relation
-                model.TimetableActitvityClasses.Add(new TimetableActivityClassTable
+                model.TimetableActivityClasses.Add(new TimetableActivityClassTable
                 {
                     ActivityId = activityId,
                     ClassId = classEntry.Value
@@ -164,11 +180,11 @@ namespace Timetabling.Helper
             throw new ArgumentException("Supplied string value does not represent a valid day.");
         }
 
-        /// <summary>
-        /// Parse string representation of hour to integer.
-        /// </summary>
-        /// <param name="hour">String representation of hour.</param>
-        /// <returns>Integer value of hour.</returns>
-        public int GetHourFromString(string hour) => int.Parse(hour);
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Model?.Dispose();
+            Model = null;
+        }
     }
 }
