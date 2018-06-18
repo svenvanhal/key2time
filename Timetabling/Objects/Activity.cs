@@ -34,7 +34,7 @@ namespace Timetabling.Objects
         /// Gets or sets the list of students.
         /// </summary>
         /// <value>The students.</value>
-        public List<string> Students { get; set; }
+        public Dictionary<string, int> Students { get; set; }
 
         /// <summary>
         /// Gets or sets the duration of this activity.
@@ -83,7 +83,10 @@ namespace Timetabling.Objects
                                        new XElement("Duration", Duration),
                                        new XElement("Total_Duration", TotalDuration));
 
-            Students.ForEach(item => element.Add(new XElement("Students", item)));
+            foreach(String item in Students.Keys){
+                element.Add(new XElement("Students", item));
+            }
+
             Teachers.ForEach(item => element.Add(new XElement("Teacher", item)));
 
             //if the activity is a collection, it makes a temporary subject name with prefix coll. 

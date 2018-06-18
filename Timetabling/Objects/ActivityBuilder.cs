@@ -6,7 +6,7 @@ namespace Timetabling.Objects
     public class ActivityBuilder
     {
         public int SubjectId { get; set; }
-        public List<string> StudentsList { get; set; }
+        public Dictionary<string,int> StudentsList { get; set; }
         public List<int> TeachersList { get; set; }
         public bool IsCollection { get; set; }
         public int NumberOfLessonsPerDay { get; set; }

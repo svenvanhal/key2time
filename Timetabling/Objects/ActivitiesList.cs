@@ -10,7 +10,6 @@ namespace Timetabling.Objects
     /// </summary>
     public class ActivitiesList : AbstractList
     {
-
         /// <summary>
         /// The activities.
         /// </summary>
@@ -39,16 +38,18 @@ namespace Timetabling.Objects
                         join grade in dB.School_Lookup_Grade on activity.gradeId equals grade.GradeID
                         join sub in dB.Subject_MasterData_Subject on activity.subjectId equals sub.SubjectID
                         where s.GradeID == activity.gradeId && t.IsActive == true
-                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, sub.CollectionID }
+                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, sub.CollectionID }
                         by activity.ActivityRefID into g
                         select g;
 
             foreach (var item in query)
             {
                 var activity = item.First();
+                var students = new Dictionary<string, int>();
+                item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students.Add(x.ClassName, x.ClassID));
                 ActivityBuilder activityBuilder = new ActivityBuilder
                 {
-                    StudentsList = item.Select(x => x.ClassName).ToList(),
+                    StudentsList = students,
                     TeachersList = item.Select(x => (int)x.teacherId).ToList(),
                     SubjectId = activity.subjectId,
                     NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
@@ -75,20 +76,15 @@ namespace Timetabling.Objects
                         join s in dB.Subject_SubjectGrade on activity.SubjectID equals s.SubjectID
                         join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeID
                         join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
-                        select new { activity.TeacherID, activity.SubjectID, c.ClassName, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
+                        select new { activity.TeacherID, activity.SubjectID, c.ClassName, c.ClassID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
 
             foreach (var item in query)
             {
 
-                var studentsList = new List<string>();
-                studentsList.Add(item.ClassName);
-                var teachersList = new List<int>();
-                teachersList.Add((int)item.TeacherID);
-
                 ActivityBuilder activityBuilder = new ActivityBuilder
                 {
-                    StudentsList = studentsList,
-                    TeachersList = teachersList,
+                    StudentsList = new Dictionary<string, int> { { item.ClassName, item.ClassID } },
+                    TeachersList = new List<int> { (int)item.TeacherID },
                     SubjectId = item.SubjectID,
                     NumberOfLessonsPerDay = item.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = item.NumberOfLlessonsPerWeek,
@@ -100,8 +96,6 @@ namespace Timetabling.Objects
                 counter = activityBuilder.builderCounter;
             }
         }
-
-
 
         /// <summary>
         /// Create the list with Activity XElements
@@ -137,16 +131,15 @@ namespace Timetabling.Objects
 
                 foreach (var i in group)
                 {
-                    var students = new List<string>();
+                    var students = new Dictionary<string, int>();
                     var teachers = new List<int>();
-                    i.Select(x => x.Students).ToList().ForEach(students.AddRange);
+
+                    i.Select(x => x.Students).ToList().ForEach(l => students = students.Union(l).ToDictionary(s => s.Key, s => s.Value));
                     i.Select(x => x.Teachers).ToList().ForEach(teachers.AddRange);
-                    students = students.Distinct().ToList();
-                    teachers = teachers.Distinct().ToList();
 
                     var act = new Activity
                     {
-                        Teachers = teachers,
+                        Teachers = teachers.Distinct().ToList(),
                         Students = students,
                         Id = i.First().Id,
                         GroupId = i.First().GroupId,
