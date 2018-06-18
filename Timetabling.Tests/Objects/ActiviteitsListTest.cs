@@ -46,9 +46,9 @@ namespace Timetabling.Tests.Objects
             mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
             var data3 = new List<Subject_SubjectGrade>{
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =1, CollectionID = 1 
+                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, NumberOfLlessonsPerDay =1, SubjectID =1, CollectionID = 1 
                 },
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, SubjectID =0
+                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, NumberOfLlessonsPerDay = 4,SubjectID =0
                 },
             }.AsQueryable();
 
@@ -159,7 +159,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivitySubjectRightTest()
         {
-            Assert.AreEqual(6, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(2, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
 
         }
 
@@ -173,7 +173,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivityClassRightTest()
         {
-            Assert.AreEqual(16, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
+            Assert.AreEqual(8, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
 
         }
 
