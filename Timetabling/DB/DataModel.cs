@@ -58,22 +58,22 @@ namespace Timetabling.DB
         /// <summary>
         /// Timetable table. 
         /// </summary>
-	    public virtual DbSet<TimeTable> TimeTables { get; set; }
+	    public virtual DbSet<TimetableTable> Timetables { get; set; }
 
         /// <summary>
         /// Classes for timetable activity.
         /// </summary>
-	    public virtual DbSet<TimeTableActitvityClass> TimeTableActitvityClasses { get; set; }
+	    public virtual DbSet<TimetableActitvityClassTable> TimetableActitvityClasses { get; set; }
 
         /// <summary>
         /// Teachers per timetable activity.
         /// </summary>
-	    public virtual DbSet<TimeTableActitvityTeacher> TimeTableActitvityTeachers { get; set; }
+	    public virtual DbSet<TimetableActitvityTeacherTable> TimetableActitvityTeachers { get; set; }
 
         /// <summary>
         /// Activities in timetable.
         /// </summary>
-	    public virtual DbSet<TimeTableActivity> TimeTableActivities { get; set; }
+	    public virtual DbSet<TimetableActivityTable> TimetableActivities { get; set; }
 
         /// <summary>
         /// Gets or sets Tt_GradeLesson.

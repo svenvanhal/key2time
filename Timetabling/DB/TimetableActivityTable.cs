@@ -8,7 +8,7 @@ namespace Timetabling.DB
     /// Table containing all activities for timetables.
     /// </summary>
     [Table("TimeTableActivity")]
-    public class TimeTableActivity
+    public class TimetableActivityTable
     {
 
         /// <summary>

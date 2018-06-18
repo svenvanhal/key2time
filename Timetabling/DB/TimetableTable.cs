@@ -9,7 +9,7 @@ namespace Timetabling.DB
     /// Table containing all timetables.
     /// </summary>
     [Table("TimeTable")]
-    public class TimeTable
+    public class TimetableTable
     {
 
         /// <summary>
