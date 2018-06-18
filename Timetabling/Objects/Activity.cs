@@ -34,7 +34,7 @@ namespace Timetabling.Objects
         /// Gets or sets the list of students.
         /// </summary>
         /// <value>The students.</value>
-        public List<string> Students { get; set; }
+        public Dictionary<string, int> Students { get; set; }
 
         /// <summary>
         /// Gets or sets the duration of this activity.

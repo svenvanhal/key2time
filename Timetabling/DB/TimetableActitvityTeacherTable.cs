@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// Table linking teachers and activities.
     /// </summary>
     [Table("TimeTableActitvityTeacher")]
-    public class TimetableActitvityTeacherTable
+    public class TimetableActivityTeacherTable
     {
 
         /// <summary>
