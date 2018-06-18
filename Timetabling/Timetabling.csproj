@@ -43,8 +43,8 @@
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
+    <Compile Include="DB\TimetableActivityClassTable.cs" />
     <Compile Include="DB\TimetableTable.cs" />
-    <Compile Include="DB\TimetableActitvityClassTable.cs" />
     <Compile Include="DB\TimetableActitvityTeacherTable.cs" />
     <Compile Include="DB\TimetableActivityTable.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />

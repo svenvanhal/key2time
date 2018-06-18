@@ -74,6 +74,7 @@
     <Compile Include="Algorithms\FET\FetProcessFacadeTest.cs" />
     <Compile Include="Algorithms\FET\FetConfigTest.cs" />
     <Compile Include="Helper\CommandLineArgumentsTest.cs" />
+    <Compile Include="Helper\DatabaseHelperTest.cs" />
     <Compile Include="Objects\ActiviteitsListTest.cs" />
     <Compile Include="Objects\DaysListTest.cs" />
     <Compile Include="Objects\HoursListTest.cs" />
