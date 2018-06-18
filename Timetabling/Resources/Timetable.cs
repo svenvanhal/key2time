@@ -36,12 +36,6 @@ namespace Timetabling.Resources
         public List<string> SoftConflicts { get; internal set; }
 
         /// <summary>
-        /// Describes whether this Timetable has been fully generated or just partially.
-        /// </summary>
-        [XmlIgnore]
-        public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
-
-        /// <summary>
         /// Academic Year ID.
         /// </summary>
         [XmlIgnore]
@@ -58,6 +52,11 @@ namespace Timetabling.Resources
         /// </summary>
         [XmlIgnore]
         public int SectionId { get; set; }
+
+        /// <summary>
+        /// Describes whether this Timetable has been fully generated or just partially.
+        /// </summary>
+        public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
         /// Timetable activity, consisting of an id, a day, an hour and a room.

@@ -38,6 +38,13 @@ namespace Timetabling.Tests.Helper
         }
 
         [Test]
+        public void ConstructorNoModelTest()
+        {
+            var dbHelper = new DatabaseHelper();
+            Assert.NotNull(dbHelper.Model);
+        }
+
+        [Test]
         public void SaveTimetableTest()
         {
 
@@ -49,6 +56,27 @@ namespace Timetabling.Tests.Helper
                 {
                     var tt = CreateTimetable();
                     Assert.DoesNotThrow(() => context.SaveTimetable(tt));
+                }
+            }
+        }
+
+        [Test]
+        public void SavePartialTimetableTest()
+        {
+
+            using (var conn = Effort.DbConnectionFactory.CreateTransient())
+            {
+                var model = new DataModel(conn);
+
+                using (var context = new DatabaseHelper(model))
+                {
+                    var tt = new Timetable
+                    {
+                        Activities = new List<Timetable.TimetableActivity>(),
+                        PlacedActivities = -1
+                    };
+
+                    Assert.Throws<InvalidOperationException>(() => context.SaveTimetable(tt));
                 }
             }
         }
