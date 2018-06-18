@@ -81,13 +81,9 @@ namespace Timetabling.Objects
                     Duration = NumberOfLessonsPerDay,
                     TotalDuration = NumberOfLessonsPerWeek * NumberOfLessonsPerDay,
                     NumberLessonOfWeek = i,
-                    IsCollection = IsCollection
+                    IsCollection = IsCollection,
+                    CollectionId = CollectionID,
                 };
-
-                if (IsCollection)
-                {
-                    act.SetCollection((int)CollectionID, GradeName);
-                }
 
                 activitiesList.Add(act);
                 builderCounter++;

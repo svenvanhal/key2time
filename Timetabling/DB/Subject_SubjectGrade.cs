@@ -43,6 +43,13 @@
         /// </summary>
         /// <value>The preffered room type id.</value>
         public int? BuildingUnitTypeID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection identifier.
+        /// </summary>
+        /// <value>The collection identifier.</value>
+        public int? CollectionID { get; set; }
+
 		/// <summary>
 		/// Gets or sets School_Lookup_Grade.
 		/// </summary>

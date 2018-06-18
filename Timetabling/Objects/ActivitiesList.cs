@@ -38,7 +38,7 @@ namespace Timetabling.Objects
                         join grade in dB.School_Lookup_Grade on activity.gradeId equals grade.GradeID
                         join sub in dB.Subject_MasterData_Subject on activity.subjectId equals sub.SubjectID
                         where s.GradeID == activity.gradeId && t.IsActive == true
-                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, sub.CollectionID }
+                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, s.CollectionID }
                         by activity.ActivityRefID into g
                         select g;
 
@@ -122,11 +122,11 @@ namespace Timetabling.Objects
             var clone = Activities.ToDictionary(entry => entry.Key,
                                                entry => entry.Value);
             //Select distinct collections on the colletionstring
-            var query = clone.Values.Where(item => item.CollectionString != "").Select(item => item.CollectionString).Distinct();
+            var query = clone.Values.Select(item => item.CollectionId).Distinct();
 
             foreach (var item in query)
             {
-                var list = Activities.Values.Where(x => x.CollectionString.Equals(item));
+                var list = Activities.Values.Where(x => x.CollectionId.Equals(item));
 
                 //Groups the lessons on the number of lesson of the week. 
                 var group = from a in list
@@ -151,7 +151,6 @@ namespace Timetabling.Objects
                         TotalDuration = i.First().TotalDuration,
                         NumberLessonOfWeek = i.First().NumberLessonOfWeek,
                         IsCollection = true,
-                        CollectionString = item,
                         CollectionId = i.First().CollectionId
                     };
 
