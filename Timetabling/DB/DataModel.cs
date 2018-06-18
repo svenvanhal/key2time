@@ -55,11 +55,31 @@ namespace Timetabling.DB
 		/// <value>The subject subject grade.</value>
 		public virtual DbSet<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
 
-		/// <summary>
-		/// Gets or sets Tt_GradeLesson.
-		/// </summary>
-		/// <value>Tt_GradeLesson.</value>
-		public virtual DbSet<Tt_GradeLesson> Tt_GradeLesson { get; set; }
+        /// <summary>
+        /// Timetable table. 
+        /// </summary>
+	    public virtual DbSet<TimeTable> TimeTables { get; set; }
+
+        /// <summary>
+        /// Classes for timetable activity.
+        /// </summary>
+	    public virtual DbSet<TimeTableActitvityClass> TimeTableActitvityClasses { get; set; }
+
+        /// <summary>
+        /// Teachers per timetable activity.
+        /// </summary>
+	    public virtual DbSet<TimeTableActitvityTeacher> TimeTableActitvityTeachers { get; set; }
+
+        /// <summary>
+        /// Activities in timetable.
+        /// </summary>
+	    public virtual DbSet<TimeTableActivity> TimeTableActivities { get; set; }
+
+        /// <summary>
+        /// Gets or sets Tt_GradeLesson.
+        /// </summary>
+        /// <value>Tt_GradeLesson.</value>
+        public virtual DbSet<Tt_GradeLesson> Tt_GradeLesson { get; set; }
 
 		/// <summary>
 		/// Gets or sets Tt_TimeOff.

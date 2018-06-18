@@ -43,6 +43,10 @@
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
+    <Compile Include="DB\TimeTable.cs" />
+    <Compile Include="DB\TimeTableActitvityClass.cs" />
+    <Compile Include="DB\TimeTableActitvityTeacher.cs" />
+    <Compile Include="DB\TimeTableActivity.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="TimetableGenerator.cs" />
     <Compile Include="Resources\Timetable.cs" />
@@ -103,6 +107,7 @@
       <HintPath>..\packages\System.IO.Abstractions.2.1.0.178\lib\net40\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
