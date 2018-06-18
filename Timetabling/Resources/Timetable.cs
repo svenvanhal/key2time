@@ -42,6 +42,24 @@ namespace Timetabling.Resources
         public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
+        /// Academic Year ID.
+        /// </summary>
+        [XmlIgnore]
+        public int AcademicYearId { get; set; }
+
+        /// <summary>
+        /// Quarter ID.
+        /// </summary>
+        [XmlIgnore]
+        public int QuarterId { get; set; }
+
+        /// <summary>
+        /// Section ID.
+        /// </summary>
+        [XmlIgnore]
+        public int SectionId { get; set; }
+
+        /// <summary>
         /// Timetable activity, consisting of an id, a day, an hour and a room.
         /// </summary>
         public class TimetableActivity

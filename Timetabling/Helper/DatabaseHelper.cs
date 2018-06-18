@@ -68,9 +68,9 @@ namespace Timetabling.Helper
             var timetableEntry = new TimetableTable
             {
                 Name = "",
-                AcademicYearId = 0, // TODO
-                QuarterId = 0, // TODO
-                SectionId = 0, // TODO
+                AcademicYearId = tt.AcademicYearId,
+                QuarterId = tt.QuarterId,
+                SectionId = tt.SectionId,
                 ConflictWeight = tt.ConflictWeight,
                 Conflicts = conflictText
             };

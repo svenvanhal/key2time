@@ -21,11 +21,17 @@ namespace Timetabling.DB
 	    /// </summary>
         public DataModel(DbConnection connection) : base(connection, true) {}
 
-		/// <summary>
-		/// Gets or sets the HR_MasterData_Employees
-		/// </summary>
-		/// <value>The hr master data employees.</value>
-		public virtual DbSet<HR_MasterData_Employees> HR_MasterData_Employees { get; set; }
+        /// <summary>
+        /// Information about the current academic year.
+        /// </summary>
+        /// <value>The hr master data employees.</value>
+        public virtual DbSet<AcademicQuarterTable> AcademicQuarter { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HR_MasterData_Employees
+        /// </summary>
+        /// <value>The hr master data employees.</value>
+        public virtual DbSet<HR_MasterData_Employees> HR_MasterData_Employees { get; set; }
 
 		/// <summary>
 		/// Gets or sets School_Lookup_Class.
