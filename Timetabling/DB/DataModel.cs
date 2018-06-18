@@ -25,11 +25,17 @@ namespace Timetabling.DB
 		/// <value>School_Lookup_Class.</value>
 		public virtual DbSet<School_Lookup_Class> School_Lookup_Class { get; set; }
 
-		/// <summary>
-		/// Gets or sets School_Lookup_Grade.
-		/// </summary>
-		/// <value>School_Lookup_Grade.</value>
-		public virtual DbSet<School_Lookup_Grade> School_Lookup_Grade { get; set; }
+        /// <summary>
+        /// Gets or sets School_ClassTeacherSubjects.
+        /// </summary>
+        /// <value>School_ClassTeacherSubjects.</value>
+        public virtual DbSet<School_ClassTeacherSubjects> School_ClassTeacherSubjects { get; set; }
+
+        /// <summary>
+        /// Gets or sets School_Lookup_Grade.
+        /// </summary>
+        /// <value>School_Lookup_Grade.</value>
+        public virtual DbSet<School_Lookup_Grade> School_Lookup_Grade { get; set; }
 
 		/// <summary>
 		/// Gets or sets School_Lookup_Stage.
@@ -94,10 +100,10 @@ namespace Timetabling.DB
 		public virtual DbSet<School_BuildingsUnits> School_BuildingsUnits { get; set; }
 
         /// <summary>
-        /// Gets or sets tt_ActitvityGroup.
+        /// Gets or sets Tt_ActitvityGroup.
         /// </summary>
         /// <value></value>
-	    public virtual DbSet<tt_ActitvityGroup> tt_ActitvityGroup { get; set; }
+	    public virtual DbSet<Tt_ActitvityGroup> tt_ActitvityGroup { get; set; }
 
         /// <summary>
         /// Creates the datamodel

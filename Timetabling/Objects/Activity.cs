@@ -49,12 +49,6 @@ namespace Timetabling.Objects
         public int TotalDuration { get; set; }
 
         /// <summary>
-        /// Gets or sets the lesson group identifier.
-        /// </summary>
-        /// <value>The lesson group identifier.</value>
-        public int LessonGroupId { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether this <see cref="T:Timetabling.Objects.Activity"/> is a collection.
         /// </summary>
         /// <value><c>true</c> if a collection; otherwise, <c>false</c>.</value>
@@ -89,7 +83,10 @@ namespace Timetabling.Objects
                                        new XElement("Duration", Duration),
                                        new XElement("Total_Duration", TotalDuration));
 
-            Students.ForEach(item => element.Add(new XElement("Students", item)));
+            foreach(String item in Students.Keys){
+                element.Add(new XElement("Students", item));
+            }
+
             Teachers.ForEach(item => element.Add(new XElement("Teacher", item)));
 
             //if the activity is a collection, it makes a temporary subject name with prefix coll. 

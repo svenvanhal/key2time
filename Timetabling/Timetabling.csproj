@@ -88,6 +88,8 @@
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
     <Compile Include="DB\tt_ActitvityGroup.cs" />
     <Compile Include="Objects\Activity.cs" />
+    <Compile Include="DB\School_ClassTeacherSubjects.cs" />
+    <Compile Include="Objects\ActivityBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

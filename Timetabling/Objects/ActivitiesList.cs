@@ -10,12 +10,12 @@ namespace Timetabling.Objects
     /// </summary>
     public class ActivitiesList : AbstractList
     {
-
         /// <summary>
         /// The activities.
         /// </summary>
         public IDictionary<int, Activity> Activities { get; }
 
+        private int counter = 1;
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.ActivitiesList"/> class.
         /// </summary>
@@ -26,12 +26,10 @@ namespace Timetabling.Objects
             Activities = new Dictionary<int, Activity>();
         }
 
-        private int counter = 1;
-
         /// <summary>
-        /// Construct activity objects from database.
+        /// Creates the collection activities.
         /// </summary>
-        private void CreateActivities()
+        private void CreateCollectionActivities()
         {
             var query = from activity in dB.tt_ActitvityGroup
                         join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
@@ -40,56 +38,66 @@ namespace Timetabling.Objects
                         join grade in dB.School_Lookup_Grade on activity.gradeId equals grade.GradeID
                         join sub in dB.Subject_MasterData_Subject on activity.subjectId equals sub.SubjectID
                         where s.GradeID == activity.gradeId && t.IsActive == true
-                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, sub.CollectionID }
+                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, sub.CollectionID }
                         by activity.ActivityRefID into g
                         select g;
 
             foreach (var item in query)
             {
-                var studentsList = item.Select(x => x.ClassName).ToList();
-                var teachersList = item.Select(x => (int)x.teacherId).ToList();
+                var activity = item.First();
+                var students = new Dictionary<string, int>();
+                item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students.Add(x.ClassName, x.ClassID));
 
-                if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
-                    AddActivity(item.First(), studentsList, teachersList, false);
-                else
-                    AddActivity(item.First(), studentsList, teachersList, true);
-            }
-        }
-        /// <summary>
-        /// Adds the activity to the list.
-        /// </summary>
-        /// <param name="item">The item used in the query.</param>
-        /// <param name="studentsList">A list of all the distinct studentssets.</param>
-        /// <param name="teachersList">A list of all the distinct teachersets.</param>
-        /// <param name="IsColl">If set to <c>true</c>, the activity is a collection.</param>
-        private void AddActivity(dynamic item, List<string> studentsList, List<int> teachersList, bool IsColl)
-        {
-
-            var groupId = counter;
-
-            for (var i = 1; i <= item.NumberOfLlessonsPerWeek; i++)
-            {
-                var act = new Activity
+                ActivityBuilder activityBuilder = new ActivityBuilder
                 {
-                    LessonGroupId = item.ActivityRefID,
-                    Teachers = teachersList,
-                    Subject = item.subjectId,
-                    Students = studentsList,
-                    Id = counter,
-                    GroupId = groupId,
-                    Duration = item.NumberOfLlessonsPerDay,
-                    TotalDuration = item.NumberOfLlessonsPerWeek * item.NumberOfLlessonsPerDay,
-                    NumberLessonOfWeek = i,
-                    IsCollection = IsColl
+                    StudentsList = students,
+                    TeachersList = item.Select(x => (int)x.teacherId).ToList(),
+                    SubjectId = activity.subjectId,
+                    NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
+                    NumberOfLessonsPerWeek = activity.NumberOfLlessonsPerWeek,
+                    CollectionID = activity.CollectionID,
+                    GradeName = activity.GradeName,
+                    builderCounter = counter
                 };
 
-                if (IsColl && item.CollectionID != null)
-                {
-                    act.SetCollection(item.CollectionID, item.GradeName);
-                }
+                if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
+                    activityBuilder.IsCollection = false;
+                else
+                    activityBuilder.IsCollection = true;
 
-                Activities.Add(counter, act);
-                counter++;
+                activityBuilder.GetResults().ForEach(x => Activities.Add(x.Id, x));
+                counter = activityBuilder.builderCounter;
+            }
+        }
+
+        /// <summary>
+        /// Creates the single activities.
+        /// </summary>
+        private void CreateSingleActivities()
+        {
+            var query = from activity in dB.School_ClassTeacherSubjects
+                        join c in dB.School_Lookup_Class on activity.ClassID equals c.ClassID
+                        join s in dB.Subject_SubjectGrade on activity.SubjectID equals s.SubjectID
+                        join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeID
+                        join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
+                        select new { activity.TeacherID, activity.SubjectID, c.ClassName, c.ClassID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
+
+            foreach (var item in query)
+            {
+
+                ActivityBuilder activityBuilder = new ActivityBuilder
+                {
+                    StudentsList = new Dictionary<string, int> { { item.ClassName, item.ClassID } },
+                    TeachersList = new List<int> { (int)item.TeacherID },
+                    SubjectId = item.SubjectID,
+                    NumberOfLessonsPerDay = item.NumberOfLlessonsPerDay,
+                    NumberOfLessonsPerWeek = item.NumberOfLlessonsPerWeek,
+                    IsCollection = false,
+                    builderCounter = counter
+                };
+
+                activityBuilder.GetResults().ForEach(x => Activities.Add(x.Id, x));
+                counter = activityBuilder.builderCounter;
             }
         }
 
@@ -98,13 +106,11 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
-            CreateActivities();
+            CreateCollectionActivities();
             CollectionMerge();
+            CreateSingleActivities();
 
-            foreach (var item in Activities)
-            {
-                List.Add(item.Value.ToXElement());
-            }
+            Activities.ToList().ForEach(item => List.Add(item.Value.ToXElement()));
             return List;
         }
 
@@ -117,6 +123,7 @@ namespace Timetabling.Objects
                                                entry => entry.Value);
             //Select distinct collections on the colletionstring
             var query = clone.Values.Where(item => item.CollectionString != "").Select(item => item.CollectionString).Distinct();
+
             foreach (var item in query)
             {
                 var list = Activities.Values.Where(x => x.CollectionString.Equals(item));
@@ -128,16 +135,15 @@ namespace Timetabling.Objects
 
                 foreach (var i in group)
                 {
-                    var students = new List<string>();
+                    var students = new Dictionary<string, int>();
                     var teachers = new List<int>();
-                    i.Select(x => x.Students).ToList().ForEach(students.AddRange);
+
+                    i.Select(x => x.Students).ToList().ForEach(l => students = students.Union(l).ToDictionary(s => s.Key, s => s.Value));
                     i.Select(x => x.Teachers).ToList().ForEach(teachers.AddRange);
-                    students = students.Distinct().ToList();
-                    teachers = teachers.Distinct().ToList();
 
                     var act = new Activity
                     {
-                        Teachers = teachers,
+                        Teachers = teachers.Distinct().ToList(),
                         Students = students,
                         Id = i.First().Id,
                         GroupId = i.First().GroupId,
@@ -150,11 +156,9 @@ namespace Timetabling.Objects
                     };
 
                     i.Select(x => x.Id).ToList().ForEach(x => Activities.Remove(x));
-                    Activities.Add(act.Id,act);
+                    Activities.Add(act.Id, act);
                 }
             }
         }
-
     }
-
 }
