@@ -95,6 +95,21 @@ namespace Timetabling.Tests.Objects
             mockSet6.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.ElementType).Returns(data6.ElementType);
             mockSet6.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.GetEnumerator()).Returns(data6.GetEnumerator());
 
+            var data7 = new List<School_ClassTeacherSubjects>{
+                new School_ClassTeacherSubjects{SubjectID = 1, ClassID = 1, TeacherID = 0
+                 },
+                new School_ClassTeacherSubjects{SubjectID = 0, ClassID = 2, TeacherID = 4
+                 }
+             }.AsQueryable();
+
+            var mockSet7 = new Mock<DbSet<School_ClassTeacherSubjects>>();
+            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.Provider).Returns(data7.Provider);
+            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.Expression).Returns(data7.Expression);
+            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.ElementType).Returns(data7.ElementType);
+            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.GetEnumerator()).Returns(data7.GetEnumerator());
+
+
+
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.tt_ActitvityGroup).Returns(mockSet.Object);
             mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSet2.Object);
@@ -102,7 +117,7 @@ namespace Timetabling.Tests.Objects
             mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSet4.Object);
             mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSet5.Object);
             mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet6.Object);
-
+            mockDB.Setup(item => item.School_ClassTeacherSubjects).Returns(mockSet7.Object);
 
             list = new ActivitiesList(mockDB.Object);
             test = list.Create();
@@ -130,7 +145,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivityTeacherRightTest()
         {
-            Assert.AreEqual(4, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(8, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
 
         }
 
@@ -144,7 +159,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivitySubjectRightTest()
         {
-            Assert.AreEqual(6, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(12, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
 
         }
 
@@ -158,7 +173,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivityClassRightTest()
         {
-            Assert.AreEqual(10, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
+            Assert.AreEqual(16, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("test2")));
 
         }
 
