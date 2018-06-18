@@ -38,7 +38,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
             var data3 = new List<Subject_SubjectGrade>{
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, NumberOfLlessonsPerDay =1, SubjectID =1
+                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, NumberOfLlessonsPerDay =1, SubjectID =1,  CollectionID = 1 
                 },
                 new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, NumberOfLlessonsPerDay =2,SubjectID =0
                 },
@@ -75,7 +75,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet5.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(data5.GetEnumerator());
 
             var data6 = new List<Subject_MasterData_Subject>{
-                new Subject_MasterData_Subject{SubjectID = 1, CollectionID = 1 , IsActive = true
+                new Subject_MasterData_Subject{SubjectID = 1, IsActive = true
                  },
                 new Subject_MasterData_Subject{SubjectID = 0
                  }

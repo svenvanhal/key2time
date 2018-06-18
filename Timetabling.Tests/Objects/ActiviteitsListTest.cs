@@ -46,7 +46,7 @@ namespace Timetabling.Tests.Objects
             mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
             var data3 = new List<Subject_SubjectGrade>{
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =1
+                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =1, CollectionID = 1 
                 },
                 new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, SubjectID =0
                 },
@@ -59,7 +59,7 @@ namespace Timetabling.Tests.Objects
             mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
             var data4 = new List<HR_MasterData_Employees>{
-                new HR_MasterData_Employees{EmployeeID = 0, IsActive = true, IsTeacher =true
+                new HR_MasterData_Employees{EmployeeID = 0, IsActive = true, IsTeacher =true,
                 },
                 new HR_MasterData_Employees{EmployeeID = 4, IsActive = true, IsTeacher =true
                 },
@@ -83,7 +83,7 @@ namespace Timetabling.Tests.Objects
             mockSet5.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(data5.GetEnumerator());
 
             var data6 = new List<Subject_MasterData_Subject>{
-                new Subject_MasterData_Subject{SubjectID = 1, CollectionID = 1 , IsActive = true
+                new Subject_MasterData_Subject{SubjectID = 1,  IsActive = true
                  },
                 new Subject_MasterData_Subject{SubjectID = 0
                  }
@@ -159,7 +159,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivitySubjectRightTest()
         {
-            Assert.AreEqual(12, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(6, test.Elements("Activity").Elements("Subject").Count(item => item.Value.Equals("0")));
 
         }
 
