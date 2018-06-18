@@ -31,8 +31,12 @@ namespace Timetabling.Helper
         /// Save a timetable to the database.
         /// </summary>
         /// <param name="tt">Timetable object</param>
+        /// <exception cref="InvalidOperationException">Throws InvalidOperationException when attempting to save a partial timetable.</exception>
         public void SaveTimetable(Timetable tt)
         {
+
+            // Cancel if timetable is partial
+            if (tt.IsPartial) throw new InvalidOperationException("Partial timetables cannot be saved to the database.");
 
             // Use a new data model to track our changes
             using (var context = Model.Database.BeginTransaction(IsolationLevel.ReadCommitted))
@@ -57,14 +61,18 @@ namespace Timetabling.Helper
         protected int CreateTimetable(DataModel model, Timetable tt)
         {
 
+            // Join soft conflicts into one string
+            var conflictText = tt.SoftConflicts == null || tt.SoftConflicts.Count == 0 ? "" : string.Join(Environment.NewLine, tt.SoftConflicts.ToArray());
+
             // Create timetable entry
             var timetableEntry = new TimetableTable
             {
-                Name = "Test Timetable",
-                CreationDate = DateTime.Now,
-                AcademicYearId = 0,
-                QuarterId = 0,
-                SectionId = 0
+                Name = "",
+                AcademicYearId = 0, // TODO
+                QuarterId = 0, // TODO
+                SectionId = 0, // TODO
+                ConflictWeight = tt.ConflictWeight,
+                Conflicts = conflictText
             };
 
             // Save to database

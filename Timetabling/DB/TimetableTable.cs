@@ -43,9 +43,15 @@ namespace Timetabling.DB
         public int AcademicYearId { get; set; }
 
         /// <summary>
-        /// Creation date of timetable.
+        /// All conflict messages for this timetable.
         /// </summary>
-        [Column("creattionDate", TypeName = "datetime2")]
-        public DateTime CreationDate { get; set; }
+        [Column("conflicts")]
+        public string Conflicts { get; set; }
+
+        /// <summary>
+        /// Total conflict weight for this timetable.
+        /// </summary>
+        [Column("conflictWeight")]
+        public double ConflictWeight { get; set; }
     }
 }
