@@ -46,14 +46,24 @@ namespace Timetabling.Objects
 
             foreach (var item in query)
             {
-                var studentsList = item.Select(x => x.ClassName).ToList();
-                var teachersList = item.Select(x => (int)x.teacherId).ToList();
-
                 var activity = item.First();
+                AddActivityParams addActivityParams = new AddActivityParams
+                {
+                    StudentsList = item.Select(x => x.ClassName).ToList(),
+                    TeachersList = item.Select(x => (int)x.teacherId).ToList(),
+                    SubjectId = activity.subjectId,
+                    NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
+                    NumberOfLessonsPerWeek = activity.NumberOfLlessonsPerWeek,
+                    CollectionID = activity.CollectionID,
+                    GradeName = activity.GradeName
+                };
+
                 if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
-                    AddActivity(activity.subjectId, studentsList, teachersList, false, activity.NumberOfLlessonsPerDay, activity.NumberOfLlessonsPerWeek, activity.CollectionID, activity.GradeName);
+                    addActivityParams.IsCollection = false;
                 else
-                    AddActivity(activity.subjectId, studentsList, teachersList, true, activity.NumberOfLlessonsPerDay, activity.NumberOfLlessonsPerWeek, activity.CollectionID, activity.GradeName);
+                    addActivityParams.IsCollection = true;
+
+                AddActivity(addActivityParams);
             }
         }
 
@@ -66,45 +76,54 @@ namespace Timetabling.Objects
                         join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
                         select new { activity.TeacherID, activity.SubjectID, c.ClassName, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
 
-            foreach(var item in query){
+            foreach (var item in query)
+            {
+
                 var studentsList = new List<string>();
                 studentsList.Add(item.ClassName);
                 var teachersList = new List<int>();
                 teachersList.Add((int)item.TeacherID);
 
-                AddActivity(item.SubjectID, studentsList, teachersList, false, item.NumberOfLlessonsPerDay, item.NumberOfLlessonsPerWeek,null , null);
+                AddActivityParams addActivityParams = new AddActivityParams
+                {
+                    StudentsList = studentsList,
+                    TeachersList = teachersList,
+                    SubjectId = item.SubjectID,
+                    NumberOfLessonsPerDay = item.NumberOfLlessonsPerDay,
+                    NumberOfLessonsPerWeek = item.NumberOfLlessonsPerWeek,
+                    IsCollection = false
+                };
+                AddActivity(addActivityParams);
             }
         }
+
         /// <summary>
         /// Adds the activity to the list.
         /// </summary>
-        /// <param name="item">The item used in the query.</param>
-        /// <param name="studentsList">A list of all the distinct studentssets.</param>
-        /// <param name="teachersList">A list of all the distinct teachersets.</param>
-        /// <param name="IsColl">If set to <c>true</c>, the activity is a collection.</param>
-        private void AddActivity(int subjectId, List<string> studentsList, List<int> teachersList, bool IsColl, int NumberOfLessonsPerDay, int NumberOfLessonsPerWeek, int? CollectionID, string GradeName)
+        /// <param name="activity">Activity parameters object.</param>
+        private void AddActivity(AddActivityParams activity)
         {
-            
+
             var groupId = counter;
 
-            for (var i = 1; i <= NumberOfLessonsPerWeek; i++)
+            for (var i = 1; i <= activity.NumberOfLessonsPerWeek; i++)
             {
                 var act = new Activity
                 {
-                    Teachers = teachersList,
-                    Subject = subjectId,
-                    Students = studentsList,
+                    Teachers = activity.TeachersList,
+                    Subject = activity.SubjectId,
+                    Students = activity.StudentsList,
                     Id = counter,
                     GroupId = groupId,
-                    Duration = NumberOfLessonsPerDay,
-                    TotalDuration = NumberOfLessonsPerWeek * NumberOfLessonsPerDay,
+                    Duration = activity.NumberOfLessonsPerDay,
+                    TotalDuration = activity.NumberOfLessonsPerWeek * activity.NumberOfLessonsPerDay,
                     NumberLessonOfWeek = i,
-                    IsCollection = IsColl
+                    IsCollection = activity.IsCollection
                 };
 
-                if (IsColl && CollectionID != null)
+                if (activity.IsCollection)
                 {
-                    act.SetCollection((int) CollectionID, GradeName);
+                    act.SetCollection((int)activity.CollectionID, activity.GradeName);
                 }
 
                 Activities.Add(counter, act);
@@ -120,10 +139,8 @@ namespace Timetabling.Objects
             CreateCollectionActivities();
             CollectionMerge();
             CreateSingleActivities();
-            foreach (var item in Activities)
-            {
-                List.Add(item.Value.ToXElement());
-            }
+
+            Activities.ToList().ForEach(item => List.Add(item.Value.ToXElement()));
             return List;
         }
 
@@ -136,6 +153,7 @@ namespace Timetabling.Objects
                                                entry => entry.Value);
             //Select distinct collections on the colletionstring
             var query = clone.Values.Where(item => item.CollectionString != "").Select(item => item.CollectionString).Distinct();
+
             foreach (var item in query)
             {
                 var list = Activities.Values.Where(x => x.CollectionString.Equals(item));
@@ -173,7 +191,5 @@ namespace Timetabling.Objects
                 }
             }
         }
-
     }
-
 }
