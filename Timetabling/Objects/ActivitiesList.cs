@@ -27,7 +27,7 @@ namespace Timetabling.Objects
         }
 
         /// <summary>
-        /// Construct activity objects from database.
+        /// Creates the collection activities.
         /// </summary>
         private void CreateCollectionActivities()
         {
@@ -47,6 +47,7 @@ namespace Timetabling.Objects
                 var activity = item.First();
                 var students = new Dictionary<string, int>();
                 item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students.Add(x.ClassName, x.ClassID));
+
                 ActivityBuilder activityBuilder = new ActivityBuilder
                 {
                     StudentsList = students,
@@ -69,6 +70,9 @@ namespace Timetabling.Objects
             }
         }
 
+        /// <summary>
+        /// Creates the single activities.
+        /// </summary>
         private void CreateSingleActivities()
         {
             var query = from activity in dB.School_ClassTeacherSubjects
