@@ -66,11 +66,6 @@
         /// <value>The is multi per day.</value>
         public bool? IsMultiPerDay { get; set; }
 
-        /// <summary>
-        /// Gets or sets the collection identifier.
-        /// </summary>
-        /// <value>The collection identifier.</value>
-        public int? CollectionID { get; set; }
 
         /// <summary>
         /// Gets or sets Subject_SubjectGrade.

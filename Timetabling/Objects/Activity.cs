@@ -58,19 +58,13 @@ namespace Timetabling.Objects
         /// Gets or sets the collection identifier.
         /// </summary>
         /// <value>The collection identifier.</value>
-        public int CollectionId { get; set; } = -1;
+        public int? CollectionId { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets which lesson of the group it is by the number of lesson of the week.
         /// </summary>
         /// <value>The number lesson of week.</value>
         public int NumberLessonOfWeek { get; set; }
-
-        /// <summary>
-        /// Gets or sets the collection string, created by SetCollection
-        /// </summary>
-        /// <value>The collection string.</value>
-        public string CollectionString { get; set; } = "";
 
         /// <summary>
         /// Returns the XElement representation of activity
@@ -99,19 +93,6 @@ namespace Timetabling.Objects
                 element.Add(new XElement("Subject", Subject));
             }
             return element;
-        }
-
-        /// <summary>
-        /// Sets a collection and creates the collectionstring, which is based on the collectionId and grade.
-        /// </summary>
-        /// <param name="_CollectionId">Collection identifier.</param>
-        /// <param name="grade">Grade.</param>
-        public void SetCollection(int _CollectionId, string grade){
-            this.CollectionId = _CollectionId;
-            IsCollection = true;
-            CollectionString = "coll" + CollectionId + "-" + grade;
-        
-
         }
     }
 }
