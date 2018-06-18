@@ -1,11 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
 using System.IO;
-using System.Threading;
-using Moq;
-using NUnit.Framework.Internal;
 using Timetabling.Algorithms.FET;
-using Timetabling.DB;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
