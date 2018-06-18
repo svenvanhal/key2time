@@ -71,7 +71,7 @@ namespace Timetabling.Tests.Helper
                     var ttEntry = from t in model.Timetables select t;
 
                     // Perform checks
-                    Assert.AreEqual("Test Timetable", ttEntry.First().Name);
+                    Assert.AreEqual("Auto-generated Timetable", ttEntry.First().Name);
                 }
             }
 

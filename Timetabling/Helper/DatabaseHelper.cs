@@ -19,7 +19,7 @@ namespace Timetabling.Helper
         public DataModel Model { get; set; }
 
         /// <inheritdoc />
-        public DatabaseHelper() : this(new DataModel()) {}
+        public DatabaseHelper() : this(new DataModel()) { }
 
         /// <summary>
         /// Constructs a new DatabaseHelper on a DataModel.
@@ -67,7 +67,7 @@ namespace Timetabling.Helper
             // Create timetable entry
             var timetableEntry = new TimetableTable
             {
-                Name = "",
+                Name = "Auto-generated Timetable",
                 AcademicYearId = tt.AcademicYearId,
                 QuarterId = tt.QuarterId,
                 SectionId = tt.SectionId,
