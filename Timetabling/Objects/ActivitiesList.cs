@@ -16,6 +16,7 @@ namespace Timetabling.Objects
         /// </summary>
         public IDictionary<int, Activity> Activities { get; }
 
+        private int counter = 1;
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.ActivitiesList"/> class.
         /// </summary>
@@ -25,8 +26,6 @@ namespace Timetabling.Objects
             SetListElement("Activities_List");
             Activities = new Dictionary<int, Activity>();
         }
-
-        private int counter = 1;
 
         /// <summary>
         /// Construct activity objects from database.
@@ -47,7 +46,7 @@ namespace Timetabling.Objects
             foreach (var item in query)
             {
                 var activity = item.First();
-                AddActivityParams addActivityParams = new AddActivityParams
+                ActivityBuilder activityBuilder = new ActivityBuilder
                 {
                     StudentsList = item.Select(x => x.ClassName).ToList(),
                     TeachersList = item.Select(x => (int)x.teacherId).ToList(),
@@ -55,15 +54,17 @@ namespace Timetabling.Objects
                     NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = activity.NumberOfLlessonsPerWeek,
                     CollectionID = activity.CollectionID,
-                    GradeName = activity.GradeName
+                    GradeName = activity.GradeName,
+                    builderCounter = counter
                 };
 
                 if (item.Count() == 1) //Checks if there are more than one item in a group, if not, than it is not a collection
-                    addActivityParams.IsCollection = false;
+                    activityBuilder.IsCollection = false;
                 else
-                    addActivityParams.IsCollection = true;
+                    activityBuilder.IsCollection = true;
 
-                AddActivity(addActivityParams);
+                activityBuilder.GetResults().ForEach(x => Activities.Add(x.Id, x));
+                counter = activityBuilder.builderCounter;
             }
         }
 
@@ -84,52 +85,23 @@ namespace Timetabling.Objects
                 var teachersList = new List<int>();
                 teachersList.Add((int)item.TeacherID);
 
-                AddActivityParams addActivityParams = new AddActivityParams
+                ActivityBuilder activityBuilder = new ActivityBuilder
                 {
                     StudentsList = studentsList,
                     TeachersList = teachersList,
                     SubjectId = item.SubjectID,
                     NumberOfLessonsPerDay = item.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = item.NumberOfLlessonsPerWeek,
-                    IsCollection = false
+                    IsCollection = false,
+                    builderCounter = counter
                 };
-                AddActivity(addActivityParams);
+
+                activityBuilder.GetResults().ForEach(x => Activities.Add(x.Id, x));
+                counter = activityBuilder.builderCounter;
             }
         }
 
-        /// <summary>
-        /// Adds the activity to the list.
-        /// </summary>
-        /// <param name="activity">Activity parameters object.</param>
-        private void AddActivity(AddActivityParams activity)
-        {
 
-            var groupId = counter;
-
-            for (var i = 1; i <= activity.NumberOfLessonsPerWeek; i++)
-            {
-                var act = new Activity
-                {
-                    Teachers = activity.TeachersList,
-                    Subject = activity.SubjectId,
-                    Students = activity.StudentsList,
-                    Id = counter,
-                    GroupId = groupId,
-                    Duration = activity.NumberOfLessonsPerDay,
-                    TotalDuration = activity.NumberOfLessonsPerWeek * activity.NumberOfLessonsPerDay,
-                    NumberLessonOfWeek = i,
-                    IsCollection = activity.IsCollection
-                };
-
-                if (activity.IsCollection)
-                {
-                    act.SetCollection((int)activity.CollectionID, activity.GradeName);
-                }
-
-                Activities.Add(counter, act);
-                counter++;
-            }
-        }
 
         /// <summary>
         /// Create the list with Activity XElements
