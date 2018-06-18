@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Timetabling;
 using Timetabling.Algorithms.FET;
 using Timetabling.DB;
+using Timetabling.Helper;
 using Timetabling.Resources;
 
 namespace Implementation
@@ -47,6 +48,8 @@ namespace Implementation
             Console.WriteLine(tt);
 
             // Save to database here
+            var dbHelper = new DatabaseHelper();
+            dbHelper.SaveTimetable(tt);
         }
 
         public static void OnError(Task<Timetable> t)

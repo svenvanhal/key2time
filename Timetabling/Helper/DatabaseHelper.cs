@@ -23,13 +23,11 @@ namespace Timetabling.Helper
             // Use a new data model to track our changes
             using (var model = new DataModel())
             {
-
-                // Create timetable row
+                // Create timetable entry
                 var id = CreateTimetable(model, tt);
 
                 // Create activities
                 CreateActivities(model, id, tt);
-
             }
 
         }
@@ -60,15 +58,20 @@ namespace Timetabling.Helper
             return timetableEntry.Id;
         }
 
+        /// <summary>
+        /// Create activity entries for a timetable in the database.
+        /// </summary>
+        /// <param name="model">Data model</param>
+        /// <param name="ttId">Timetable to link the activities to</param>
+        /// <param name="tt">Timetable object</param>
         protected void CreateActivities(DataModel model, int ttId, Timetable tt)
         {
 
-            var activities = new List<TimetableActivityTable>();
-
-
+            // Iterate over all activities in timetable
             foreach (var activity in tt.Activities)
             {
 
+                // Create new activity
                 var activityEntry = new TimetableActivityTable
                 {
                     SubjectId = activity.Resource.Subject,
@@ -81,7 +84,7 @@ namespace Timetabling.Helper
                     TimetableId = ttId
                 };
 
-                // Save to database
+                // Save activity to database
                 model.TimetableActivities.Add(activityEntry);
                 model.SaveChanges();
 
@@ -92,10 +95,6 @@ namespace Timetabling.Helper
                 CreateActivityClassRelations(model, activityEntry.Id, activity.Resource);
 
             }
-
-            // Save to database
-            model.TimetableActivities.AddRange(activities);
-            model.SaveChanges();
 
         }
 
