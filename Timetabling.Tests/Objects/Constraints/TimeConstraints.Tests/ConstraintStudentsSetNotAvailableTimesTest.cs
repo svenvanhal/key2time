@@ -55,8 +55,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintStudentsSetNotAvailableTimes();
-            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2 }, Students = "testGrade", Hours = { 3 },NumberOfHours =1 ,weight = 100 };
-            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { Days = { (Days)2, (Days)2 }, Students = "testGrade", Hours = { 3,2 }, NumberOfHours = 2, weight = 100 };
+            var constraintTest = new ConstraintStudentsSetNotAvailableTimes { DaysList = { (Days)2 }, Students = "testGrade", HoursList = { 3 },NumberOfHours =1 ,weight = 100 };
+            var constraintTest2 = new ConstraintStudentsSetNotAvailableTimes { DaysList = { (Days)2, (Days)2 }, Students = "testGrade", HoursList = { 3,2 }, NumberOfHours = 2, weight = 100 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));

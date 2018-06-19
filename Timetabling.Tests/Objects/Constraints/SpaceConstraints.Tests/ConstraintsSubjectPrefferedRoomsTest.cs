@@ -57,8 +57,8 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
         [Test()]
         public void TestCreate(){
             var constraint = new ConstraintSubjectPreferredRooms();
-            var constraintTest = new ConstraintSubjectPreferredRooms {Rooms = {1}, SubjectId = 2 };
-            var constraintTest2 = new ConstraintSubjectPreferredRooms { Rooms = { 1 }, SubjectId = 3 };
+            var constraintTest = new ConstraintSubjectPreferredRooms {Rooms = {1}, SubjectID = 2 };
+            var constraintTest2 = new ConstraintSubjectPreferredRooms { Rooms = { 1 }, SubjectID = 3 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));

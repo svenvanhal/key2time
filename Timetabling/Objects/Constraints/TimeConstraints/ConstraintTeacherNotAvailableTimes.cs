@@ -12,24 +12,24 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
     public class ConstraintTeacherNotAvailableTimes : AbstractConstraint
     {
 
-        public int numberOfHours { get; set; } = 0;
+        public int NumberOfHours { get; set; } = 0;
         /// <summary>
         /// Gets or sets the teacher id.
         /// </summary>
         /// <value>The teacher.</value>
-        public int teacher { get; set; }
+        public int Teacher { get; set; }
 
         /// <summary>
         /// Gets or sets the day.
         /// </summary>
         /// <value>The day.</value>
-        public List<Days> days { get; set; } = new List<Days>();
+        public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
-        public List<int> hours { get; set; } = new List<int>();
+        public List<int> HoursList { get; set; } = new List<int>();
 
         /// <summary>
         /// Initializes a new instance of the
@@ -66,7 +66,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     var oneTeacherTimeOff = query.Where(x => x.ItemId.Equals(item.ItemId)).Select(x => new { x.day, x.lessonIndex });
                     var _daysList = oneTeacherTimeOff.Select(x => (Days)x.day).ToList();
                     var _hoursList = oneTeacherTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintTeacherNotAvailableTimes { teacher = item.ItemId, days = _daysList, hours = _hoursList, numberOfHours = _hoursList.Count }.ToXelement());
+                    result.Add(new ConstraintTeacherNotAvailableTimes { Teacher = item.ItemId, DaysList = _daysList, HoursList = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
                 }
 
             }
@@ -81,14 +81,14 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement ToXelement()
         {
             
-            constraint.Add(new XElement("Teacher", teacher),
-                           new XElement("Number_of_Not_Available_Times", numberOfHours));
-            for (int i = 0; i < numberOfHours; i++)
+            constraint.Add(new XElement("Teacher", Teacher),
+                           new XElement("Number_of_Not_Available_Times", NumberOfHours));
+            for (int i = 0; i < NumberOfHours; i++)
             {
 
                 constraint.Add(new XElement("Not_Available_Time",
-                                            new XElement("Day", days[i]),
-                                            new XElement("Hour", hours[i])));
+                                            new XElement("Day", DaysList[i]),
+                                            new XElement("Hour", HoursList[i])));
             }
             return constraint;
         }

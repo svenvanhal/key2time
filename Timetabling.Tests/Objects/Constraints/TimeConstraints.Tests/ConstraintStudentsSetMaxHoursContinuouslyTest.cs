@@ -47,16 +47,16 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         [Test()]
         public void TestConstruct()
         {
-            var constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
+            var constraint = new ConstraintStudentsSetMaxHoursContinuously { NumberOfHours = 1, GradeName = "test" };
             Assert.AreEqual(100, constraint.weight);
-            Assert.AreEqual("test", constraint.gradeName);
-            Assert.AreEqual(1, constraint.numberOfHours);
+            Assert.AreEqual("test", constraint.GradeName);
+            Assert.AreEqual(1, constraint.NumberOfHours);
         }
 
         [Test()]
         public void TesTtoXElement()
         {
-            var constraint = new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = 1, gradeName = "test" };
+            var constraint = new ConstraintStudentsSetMaxHoursContinuously { NumberOfHours = 1, GradeName = "test" };
             Assert.AreEqual("<ConstraintStudentsSetMaxHoursContinuously>" + System.Environment.NewLine + "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine + "  <Maximum_Hours_Continuously>1</Maximum_Hours_Continuously>" + System.Environment.NewLine + "  <Students>test</Students>" + System.Environment.NewLine + "</ConstraintStudentsSetMaxHoursContinuously>", constraint.ToXelement().ToString());
         }
 
@@ -64,8 +64,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintStudentsSetMaxHoursContinuously();
-            var constrainTtest = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade", numberOfHours = 3 };
-            var constrainTtest2 = new ConstraintStudentsSetMaxHoursContinuously { gradeName = "testGrade2", numberOfHours = 3 };
+            var constrainTtest = new ConstraintStudentsSetMaxHoursContinuously { GradeName = "testGrade", NumberOfHours = 3 };
+            var constrainTtest2 = new ConstraintStudentsSetMaxHoursContinuously { GradeName = "testGrade2", NumberOfHours = 3 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constrainTtest.ToXelement().ToString())));
