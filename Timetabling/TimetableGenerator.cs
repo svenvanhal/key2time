@@ -11,7 +11,7 @@ namespace Timetabling
     /// <summary>
     /// Program entrypoint.
     /// </summary>
-    public class TimetableGenerator
+    public class TimetableGenerator : IDisposable
     {
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -30,12 +30,6 @@ namespace Timetabling
         public TimetableGenerator()
         {
             TokenSource = new CancellationTokenSource();
-        }
-
-        /// <inheritdoc />
-        ~TimetableGenerator()
-        {
-            TokenSource.Dispose();
         }
 
         /// <summary>
@@ -70,5 +64,11 @@ namespace Timetabling
             Logger.Info($"Generated new identifier - {CurrentRunIdentifier}");
         }
 
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            TokenSource?.Dispose();
+            TokenSource = null;
+        }
     }
 }

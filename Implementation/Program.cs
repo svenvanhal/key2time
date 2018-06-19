@@ -14,7 +14,7 @@ namespace Implementation
     {
         static void Main(string[] args)
         {
-            
+
             // Get information about academic year, quarter and section
             var meta = GetMeta();
 
@@ -34,8 +34,11 @@ namespace Implementation
         public Task<Timetable> Start()
         {
             // Create algorithm task
-            var generator = new TimetableGenerator();
-            return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
+            using (var generator = new TimetableGenerator())
+            {
+                return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
+            }
+
         }
 
         private static IList<int> GetMeta()
@@ -73,7 +76,7 @@ namespace Implementation
             {
                 dbHelper.SaveTimetable(tt);
             }
-                
+
         }
 
         public static void OnError(Task<Timetable> t)
