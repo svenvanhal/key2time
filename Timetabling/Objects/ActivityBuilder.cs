@@ -69,7 +69,8 @@ namespace Timetabling.Objects
 
             var groupId = builderCounter;
 
-            for (var i = 1; i <= NumberOfLessonsPerWeek; i++)
+            var NumberOfActivities = Math.Ceiling( (double) NumberOfLessonsPerWeek/ (double) NumberOfLessonsPerDay);
+            for (var i = 1; i <= NumberOfActivities; i++)
             {
                 var act = new Activity
                 {
@@ -79,12 +80,21 @@ namespace Timetabling.Objects
                     Id = builderCounter,
                     GroupId = groupId,
                     Duration = NumberOfLessonsPerDay,
-                    TotalDuration = NumberOfLessonsPerWeek * NumberOfLessonsPerDay,
+                    TotalDuration = NumberOfLessonsPerWeek,
                     NumberLessonOfWeek = i,
                     IsCollection = IsCollection,
                     CollectionId = CollectionID,
                 };
-
+                if (i == NumberOfLessonsPerWeek)
+                {
+                    if (NumberOfLessonsPerWeek / NumberOfLessonsPerDay % 2 == 0)
+                        act.Duration = NumberOfLessonsPerDay;
+                    else
+                    {
+                        act.Duration = 1;
+                    }
+                }
+               
                 activitiesList.Add(act);
                 builderCounter++;
             }
