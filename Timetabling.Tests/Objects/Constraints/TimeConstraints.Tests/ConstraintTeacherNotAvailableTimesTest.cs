@@ -38,8 +38,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
             mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);
-            mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSetEmp.Object);
+            mockDB.Setup(item => item.TimesOff).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Employees).Returns(mockSetEmp.Object);
 
             test = mockDB;
 

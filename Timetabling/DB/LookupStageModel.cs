@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// School lookup stage.
     /// </summary>
-    [Table("School_Lookup_Stage")]
+    [Table("StagesLookup")]
     public class LookupStageModel
 	{
 

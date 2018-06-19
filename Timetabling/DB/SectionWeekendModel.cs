@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Section week end.
     /// </summary>
-    [Table("Section_WeekEnd")]
+    [Table("Weekends")]
     public class SectionWeekendModel
 	{
 		/// <summary>

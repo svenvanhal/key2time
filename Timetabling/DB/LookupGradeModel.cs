@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// School lookup grade.
     /// </summary>
-    [Table("School_Lookup_Grade")]
+    [Table("GradesLookup")]
     public class LookupGradeModel
 	{
 

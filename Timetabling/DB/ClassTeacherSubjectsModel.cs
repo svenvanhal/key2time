@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Table defining the relationships between classes, teachers and subjects.
     /// </summary>
-    [Table("School_ClassTeacherSubjects")]
+    [Table("ClassTeacherSubjects")]
     public class ClassTeacherSubjectsModel
     {
 

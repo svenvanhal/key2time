@@ -51,12 +51,12 @@ namespace Timetabling.Objects
         private void CreateCollectionActivities()
         {
             // Retrieve all collection activities
-            var query = from activity in dB.tt_ActitvityGroup
-                        join c in dB.School_Lookup_Class on activity.ClassId equals c.ClassId
-                        join s in dB.Subject_SubjectGrade on activity.SubjectId equals s.SubjectId
-                        join t in dB.HR_MasterData_Employees on activity.TeacherId equals t.EmployeeId
-                        join grade in dB.School_Lookup_Grade on activity.GradeId equals grade.GradeId
-                        join sub in dB.Subject_MasterData_Subject on activity.SubjectId equals sub.SubjectId
+            var query = from activity in dB.ActitvityGroups
+                        join c in dB.ClassesLookup on activity.ClassId equals c.ClassId
+                        join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
+                        join t in dB.Employees on activity.TeacherId equals t.EmployeeId
+                        join grade in dB.GradesLookup on activity.GradeId equals grade.GradeId
+                        join sub in dB.Subjects on activity.SubjectId equals sub.SubjectId
                         where s.GradeId == activity.GradeId && t.IsActive == true
                         group new { ActivityRefID = activity.ActivityRefId, teacherId = activity.TeacherId, grade.GradeName, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, activity.Id, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
                         by activity.ActivityRefId into g
@@ -96,11 +96,11 @@ namespace Timetabling.Objects
         private void CreateSingleActivities()
         {
             // Retrieve all single activities to be created
-            var query = from activity in dB.School_ClassTeacherSubjects
-                        join c in dB.School_Lookup_Class on activity.ClassId equals c.ClassId
-                        join s in dB.Subject_SubjectGrade on activity.SubjectId equals s.SubjectId
-                        join t in dB.HR_MasterData_Employees on activity.TeacherId equals t.EmployeeId
-                        join grade in dB.School_Lookup_Grade on c.GradeId equals grade.GradeId
+            var query = from activity in dB.ClassTeacherSubjects
+                        join c in dB.ClassesLookup on activity.ClassId equals c.ClassId
+                        join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
+                        join t in dB.Employees on activity.TeacherId equals t.EmployeeId
+                        join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
                         where c.GradeId == s.GradeId
                         select new { TeacherID = activity.TeacherId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay };
 

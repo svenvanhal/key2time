@@ -6,7 +6,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Tt actitvity group.
     /// </summary>
-    [Table("tt_ActitvityGroup")]
+    [Table("ActitvityGroups")]
     public class ActivityGroupModel
     {
         

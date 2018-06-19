@@ -48,8 +48,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from tf in dB.Tt_TimeOff
-                        join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassId
+            var query = from tf in dB.TimesOff
+                        join cl in dB.ClassesLookup on tf.ItemId equals cl.ClassId
                         where tf.ItemType == 3 && cl.IsActive == true
                         select new { day = tf.Day, cl.ClassName, lessonIndex = tf.LessonIndex };
             var result = new List<XElement>();

@@ -31,7 +31,7 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Employees).Returns(mockSet.Object);
 
             var list = new TeachersList(mockDB.Object);
             test = list.Create();

@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Subject subject grade.
     /// </summary>
-    [Table("Subject_SubjectGrade")]
+    [Table("SubjectGrades")]
     public class SubjectGradeModel
 	{
 		/// <summary>

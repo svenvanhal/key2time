@@ -30,7 +30,7 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.School_BuildingsUnits).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Buildings).Returns(mockSet.Object);
             var list = new RoomsList(mockDB.Object);
             test = list.Create();
         }

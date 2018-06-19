@@ -21,7 +21,7 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
-            var query = dB.School_BuildingsUnits.Where(room => room.IsActive == true)
+            var query = dB.Buildings.Where(room => room.IsActive == true)
                           .Select(room => room.Id);
 
             foreach (var room in query)

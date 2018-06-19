@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Subject master data subject.
     /// </summary>
-    [Table("Subject_MasterData_Subject")]
+    [Table("Subjects")]
     public class SubjectModel
     {
 

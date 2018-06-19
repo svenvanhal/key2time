@@ -6,7 +6,7 @@ namespace Timetabling.DB
     /// <summary>
     /// School buildings units.
     /// </summary>
-    [Table("School_BuildingsUnits")]
+    [Table("Buildings")]
     public class BuildingModel
 	{
 		/// <summary>

@@ -31,49 +31,49 @@ namespace Timetabling.DB
         /// Gets or sets the EmployeeModel
         /// </summary>
         /// <value>The hr master data employees.</value>
-        public virtual DbSet<EmployeeModel> HR_MasterData_Employees { get; set; }
+        public virtual DbSet<EmployeeModel> Employees { get; set; }
 
 		/// <summary>
 		/// Gets or sets LookupClassModel.
 		/// </summary>
 		/// <value>LookupClassModel.</value>
-		public virtual DbSet<LookupClassModel> School_Lookup_Class { get; set; }
+		public virtual DbSet<LookupClassModel> ClassesLookup { get; set; }
 
         /// <summary>
         /// Gets or sets ClassTeacherSubjectsModel.
         /// </summary>
         /// <value>ClassTeacherSubjectsModel.</value>
-        public virtual DbSet<ClassTeacherSubjectsModel> School_ClassTeacherSubjects { get; set; }
+        public virtual DbSet<ClassTeacherSubjectsModel> ClassTeacherSubjects { get; set; }
 
         /// <summary>
         /// Gets or sets LookupGradeModel.
         /// </summary>
         /// <value>LookupGradeModel.</value>
-        public virtual DbSet<LookupGradeModel> School_Lookup_Grade { get; set; }
+        public virtual DbSet<LookupGradeModel> GradesLookup { get; set; }
 
 		/// <summary>
 		/// Gets or sets LookupStageModel.
 		/// </summary>
 		/// <value>LookupStageModel.</value>
-		public virtual DbSet<LookupStageModel> School_Lookup_Stage { get; set; }
+		public virtual DbSet<LookupStageModel> StagesLookup { get; set; }
 
 		/// <summary>
 		/// Gets or sets the section week end.
 		/// </summary>
 		/// <value>The section week end.</value>
-		public virtual DbSet<SectionWeekendModel> Section_WeekEnd { get; set; }
+		public virtual DbSet<SectionWeekendModel> Weekends { get; set; }
 
 		/// <summary>
 		/// Gets or sets SubjectModel.
 		/// </summary>
 		/// <value>SubjectModel.</value>
-		public virtual DbSet<SubjectModel> Subject_MasterData_Subject { get; set; }
+		public virtual DbSet<SubjectModel> Subjects { get; set; }
 
 		/// <summary>
 		/// Gets or sets SubjectGradeModel.
 		/// </summary>
 		/// <value>The subject subject grade.</value>
-		public virtual DbSet<SubjectGradeModel> Subject_SubjectGrade { get; set; }
+		public virtual DbSet<SubjectGradeModel> SubjectGrades { get; set; }
 
         /// <summary>
         /// Timetable table. 
@@ -99,25 +99,25 @@ namespace Timetabling.DB
         /// Gets or sets GradeLessonModel.
         /// </summary>
         /// <value>GradeLessonModel.</value>
-        public virtual DbSet<GradeLessonModel> Tt_GradeLesson { get; set; }
+        public virtual DbSet<GradeLessonModel> GradeLessons { get; set; }
 
 		/// <summary>
 		/// Gets or sets TimeOffModel.
 		/// </summary>
 		/// <value>TimeOffModel.</value>
-		public virtual DbSet<TimeOffModel> Tt_TimeOff { get; set; }
+		public virtual DbSet<TimeOffModel> TimesOff { get; set; }
 
 		/// <summary>
 		/// Gets or sets BuildingModel.
 		/// </summary>
 		/// <value>The school buildings units.</value>
-		public virtual DbSet<BuildingModel> School_BuildingsUnits { get; set; }
+		public virtual DbSet<BuildingModel> Buildings { get; set; }
 
         /// <summary>
         /// Gets or sets ActivityGroupModel.
         /// </summary>
         /// <value></value>
-	    public virtual DbSet<ActivityGroupModel> tt_ActitvityGroup { get; set; }
+	    public virtual DbSet<ActivityGroupModel> ActitvityGroups { get; set; }
 
 	}
 }

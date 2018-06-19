@@ -38,8 +38,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSetAc.As<IQueryable<ActivityGroupModel>>().Setup(m => m.GetEnumerator()).Returns(dataAc.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);
-            mockDB.Setup(item => item.tt_ActitvityGroup).Returns(mockSetAc.Object);
+            mockDB.Setup(item => item.TimesOff).Returns(mockSet.Object);
+            mockDB.Setup(item => item.ActitvityGroups).Returns(mockSetAc.Object);
 
             test = mockDB;
 

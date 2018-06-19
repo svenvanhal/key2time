@@ -38,8 +38,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSetGrade.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(dataGrade.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Tt_GradeLesson).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSetGrade.Object);
+            mockDB.Setup(item => item.GradeLessons).Returns(mockSet.Object);
+            mockDB.Setup(item => item.GradesLookup).Returns(mockSetGrade.Object);
 
             test = mockDB;
         }

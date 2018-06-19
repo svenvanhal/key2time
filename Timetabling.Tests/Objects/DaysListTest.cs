@@ -30,7 +30,7 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<SectionWeekendModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Section_WeekEnd).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Weekends).Returns(mockSet.Object);
 
             var list = new DaysList(mockDB.Object);
             test = list.Create();

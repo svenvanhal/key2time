@@ -111,13 +111,13 @@ namespace Timetabling.Tests.Objects
 
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.tt_ActitvityGroup).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_Lookup_Class).Returns(mockSet2.Object);
-            mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet3.Object);
-            mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSet4.Object);
-            mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSet5.Object);
-            mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet6.Object);
-            mockDB.Setup(item => item.School_ClassTeacherSubjects).Returns(mockSet7.Object);
+            mockDB.Setup(item => item.ActitvityGroups).Returns(mockSet.Object);
+            mockDB.Setup(item => item.ClassesLookup).Returns(mockSet2.Object);
+            mockDB.Setup(item => item.SubjectGrades).Returns(mockSet3.Object);
+            mockDB.Setup(item => item.Employees).Returns(mockSet4.Object);
+            mockDB.Setup(item => item.GradesLookup).Returns(mockSet5.Object);
+            mockDB.Setup(item => item.Subjects).Returns(mockSet6.Object);
+            mockDB.Setup(item => item.ClassTeacherSubjects).Returns(mockSet7.Object);
 
             list = new ActivitiesList(mockDB.Object);
             test = list.Create();

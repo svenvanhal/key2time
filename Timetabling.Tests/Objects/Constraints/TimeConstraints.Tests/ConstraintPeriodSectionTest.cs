@@ -50,9 +50,9 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSetWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.GetEnumerator()).Returns(dataWeekend.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Section_WeekEnd).Returns(mockSetWeekend.Object);
-            mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_Lookup_Stage).Returns(mockSetStage.Object);
+            mockDB.Setup(item => item.Weekends).Returns(mockSetWeekend.Object);
+            mockDB.Setup(item => item.GradesLookup).Returns(mockSet.Object);
+            mockDB.Setup(item => item.StagesLookup).Returns(mockSetStage.Object);
 
             test = mockDB;
         }

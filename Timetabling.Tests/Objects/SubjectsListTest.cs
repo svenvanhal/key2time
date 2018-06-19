@@ -45,8 +45,8 @@ namespace Timetabling.Tests.Objects
             mockSet3.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet.Object);
-            mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet3.Object);
+            mockDB.Setup(item => item.Subjects).Returns(mockSet.Object);
+            mockDB.Setup(item => item.SubjectGrades).Returns(mockSet3.Object);
 
             var list = new SubjectsList(mockDB.Object);
             test = list.Create();
