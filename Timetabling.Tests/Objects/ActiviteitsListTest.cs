@@ -45,18 +45,18 @@ namespace Timetabling.Tests.Objects
             mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.ElementType).Returns(data2.ElementType);
             mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
-            var data3 = new List<SubjectGradeTable>{
-                new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 4, NumberOfLlessonsPerDay =1, SubjectID =1, CollectionID = 1 
+            var data3 = new List<SubjectGradeModel>{
+                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay =1, SubjectId =1, CollectionId = 1 
                 },
-                new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 6, NumberOfLlessonsPerDay = 4,SubjectID =0
+                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4,SubjectId =0
                 },
             }.AsQueryable();
 
-            var mockSet3 = new Mock<DbSet<SubjectGradeTable>>();
-            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Provider).Returns(data3.Provider);
-            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Expression).Returns(data3.Expression);
-            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.ElementType).Returns(data3.ElementType);
-            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
+            var mockSet3 = new Mock<DbSet<SubjectGradeModel>>();
+            mockSet3.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Provider).Returns(data3.Provider);
+            mockSet3.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Expression).Returns(data3.Expression);
+            mockSet3.As<IQueryable<SubjectGradeModel>>().Setup(m => m.ElementType).Returns(data3.ElementType);
+            mockSet3.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
             var data4 = new List<EmployeeModel>{
                 new EmployeeModel{EmployeeId = 0, IsActive = true, IsTeacher =true,

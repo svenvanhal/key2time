@@ -17,16 +17,16 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
         [SetUp]
         public void Init()
         {
-            var data = new List<SubjectGradeTable>{
-                new SubjectGradeTable{BuildingUnitTypeID = 1, GradeID = 1, SubjectID = 2
+            var data = new List<SubjectGradeModel>{
+                new SubjectGradeModel{BuildingUnitTypeId = 1, GradeId = 1, SubjectId = 2
                 },
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<SubjectGradeTable>>();
-            mockSet.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<SubjectGradeTable>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<SubjectGradeTable>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<SubjectGradeModel>>();
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<BuildingModel>{
                 new BuildingModel{ID =1, IsActive = true, TypeId = 1

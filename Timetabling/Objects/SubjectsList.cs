@@ -25,7 +25,7 @@ namespace Timetabling.Objects
             var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
                           .Select(subject => new { SubjectID = subject.SubjectId });
 
-            var query2 = dB.Subject_SubjectGrade.Select(coll => coll.CollectionID).Distinct();
+            var query2 = dB.Subject_SubjectGrade.Select(coll => coll.CollectionId).Distinct();
 
             List<int?> check = new List<int?>();
             foreach (var subject in query)

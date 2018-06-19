@@ -70,15 +70,15 @@ namespace Timetabling.DB
 		public virtual DbSet<SubjectModel> Subject_MasterData_Subject { get; set; }
 
 		/// <summary>
-		/// Gets or sets SubjectGradeTable.
+		/// Gets or sets SubjectGradeModel.
 		/// </summary>
 		/// <value>The subject subject grade.</value>
-		public virtual DbSet<SubjectGradeTable> Subject_SubjectGrade { get; set; }
+		public virtual DbSet<SubjectGradeModel> Subject_SubjectGrade { get; set; }
 
         /// <summary>
         /// Timetable table. 
         /// </summary>
-	    public virtual DbSet<TimetableTable> Timetables { get; set; }
+	    public virtual DbSet<TimetableModel> Timetables { get; set; }
 
         /// <summary>
         /// Classes for timetable activity.

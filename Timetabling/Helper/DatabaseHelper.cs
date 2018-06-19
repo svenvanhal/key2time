@@ -73,7 +73,7 @@ namespace Timetabling.Helper
             var conflictText = tt.SoftConflicts == null || tt.SoftConflicts.Count == 0 ? "" : string.Join(Environment.NewLine, tt.SoftConflicts.ToArray());
 
             // Create timetable entry
-            var timetableEntry = new TimetableTable
+            var timetableEntry = new TimetableModel
             {
                 Name = $"{tt.AcademicYearId} - {tt.QuarterId} - {tt.SectionId}",
                 AcademicYearId = tt.AcademicYearId,
