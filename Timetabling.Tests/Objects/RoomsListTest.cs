@@ -18,8 +18,8 @@ namespace Timetabling.Tests.Objects
         public void Init()
         {
             var data = new List<BuildingModel>{
-                new BuildingModel{ID = 0,  IsActive = true},
-                new BuildingModel{ID = 1, IsActive = false},
+                new BuildingModel{Id = 0,  IsActive = true},
+                new BuildingModel{Id = 1, IsActive = false},
 
             }.AsQueryable();
 

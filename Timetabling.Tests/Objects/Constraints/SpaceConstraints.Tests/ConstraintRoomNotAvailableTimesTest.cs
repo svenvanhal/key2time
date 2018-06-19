@@ -28,7 +28,7 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
             mockSet.As<IQueryable<TimeOffModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataEmp = new List<BuildingModel>{
-                new BuildingModel{ID = 4, IsActive = true},
+                new BuildingModel{Id = 4, IsActive = true},
             }.AsQueryable();
 
             var mockSetEmp = new Mock<DbSet<BuildingModel>>();

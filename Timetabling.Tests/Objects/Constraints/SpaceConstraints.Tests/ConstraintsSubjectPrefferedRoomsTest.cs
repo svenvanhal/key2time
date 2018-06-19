@@ -29,7 +29,7 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
             mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<BuildingModel>{
-                new BuildingModel{ID =1, IsActive = true, TypeId = 1
+                new BuildingModel{Id =1, IsActive = true, TypeId = 1
                 },
             }.AsQueryable();
 
