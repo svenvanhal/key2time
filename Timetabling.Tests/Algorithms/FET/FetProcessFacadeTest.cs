@@ -111,8 +111,7 @@ namespace Timetabling.Tests.Algorithms.FET
 
             var task = _fpi.TaskCompletionSource.Task;
 
-            // Fail if the task did not exit successfully
-            task.ContinueWith(_ => Assert.Fail(), TaskContinuationOptions.NotOnRanToCompletion);
+            task.Wait();
         }
 
         [Test]
