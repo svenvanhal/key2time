@@ -24,13 +24,13 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// Gets or sets the day.
         /// </summary>
         /// <value>The day.</value>
-        public List<Days> Days { get; set; } = new List<Days>();
+        public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
-        public List<int> Hours { get; set; } = new List<int>();
+        public List<int> HoursList { get; set; } = new List<int>();
 
         /// <summary>
         /// Initializes a new instance of the
@@ -64,7 +64,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                 var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
                 var daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
                 var hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
-                result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = daysList, Hours = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
+                result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, DaysList = daysList, HoursList = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
 
             }
 
@@ -84,8 +84,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             for (var i = 0; i < NumberOfHours; i++)
             {
                 constraint.Add(new XElement("Not_Available_Time",
-                                            new XElement("Day", Days[i]),
-                                            new XElement("Hour", Hours[i])));
+                                            new XElement("Day", DaysList[i]),
+                                            new XElement("Hour", HoursList[i])));
             }
             return constraint;
         }

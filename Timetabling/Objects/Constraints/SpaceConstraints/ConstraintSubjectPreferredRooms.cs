@@ -7,17 +7,33 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 {
     public class ConstraintSubjectPreferredRooms : AbstractConstraint
     {
-
+        /// <summary>
+        /// Gets or sets the list of preffered rooms
+        /// </summary>
+        /// <value>The rooms.</value>
         public List<int> Rooms { get; set; } = new List<int>();
 
-        public int? SubjectId { get; set; }
+        /// <summary>
+        /// Gets or sets the subject identifier.
+        /// </summary>
+        /// <value>The subject identifier.</value>
+        public int? SubjectID { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Timetabling.Objects.Constraints.SpaceConstraints.ConstraintSubjectPreferredRooms"/> class.
+        /// </summary>
         public ConstraintSubjectPreferredRooms()
         {
             SetElement("ConstraintSubjectPreferredRooms");
             SetWeight(100);
         }
 
+        /// <summary>
+        /// Create the specified constraints list of preffered rooms from the datamodel
+        /// </summary>
+        /// <returns>The created consraints</returns>
+        /// <param name="dB">D b.</param>
         public override XElement[] Create(DataModel dB)
         {
             var results = new List<XElement>();
@@ -31,7 +47,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
                              where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
                              select b.ID).DefaultIfEmpty().ToList();
 
-                var roomConstraint = new ConstraintSubjectPreferredRooms { Rooms = rooms, SubjectId = item.SubjectID };
+                var roomConstraint = new ConstraintSubjectPreferredRooms { Rooms = rooms, SubjectID = item.SubjectID };
                 results.Add(roomConstraint.ToXelement());
             }
 
@@ -39,12 +55,12 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         }
 
         /// <summary>
-        /// Tos the xelement.
+        /// Return the XElement representation
         /// </summary>
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Subject", SubjectId),
+            constraint.Add(new XElement("Subject", SubjectID),
                            new XElement("Number_of_Preferred_Rooms", Rooms.Count));
 
             foreach (var room in Rooms)

@@ -16,13 +16,13 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// Gets or sets the number of hours.
         /// </summary>
         /// <value>The number of hours.</value>
-        public int numberOfHours { get; set; } = 0;
+        public int NumberOfHours { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the name of the grade.
         /// </summary>
         /// <value>The name of the grade.</value>
-        public string gradeName { get; set; } = "";
+        public string GradeName { get; set; } = "";
 
         /// <summary>
         /// Initializes a new instance of the
@@ -40,8 +40,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Maximum_Hours_Continuously", numberOfHours),
-                           new XElement("Students", gradeName));
+            constraint.Add(new XElement("Maximum_Hours_Continuously", NumberOfHours),
+                           new XElement("Students", GradeName));
             return constraint;
         }
 
@@ -57,7 +57,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                         select new { g.numberOfLessons, l.GradeName };
 
             var result = new List<XElement>();
-            query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursContinuously { numberOfHours = item.numberOfLessons, gradeName = item.GradeName }.ToXelement()));
+            query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursContinuously { NumberOfHours = item.numberOfLessons, GradeName = item.GradeName }.ToXelement()));
 
             return result.ToArray();
         }

@@ -19,7 +19,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <summary>
         /// Days for which this constraint holds.
         /// </summary>
-        public List<int> Days { get; set; } = new List<int>();
+        public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
         /// Numer of hours for which this constraint holds.
@@ -67,7 +67,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                 result.Add(new ConstraintPeriodSection
                 {
                     Students = item.GradeName,
-                    Days = temp.ToList(),
+                    DaysList = temp.Select(day => (Days) day).ToList(),
                     NumberOfHours = hours.numberOfHours
                 }.ToXelement());
             }
@@ -83,10 +83,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
 
             constraint.Add(new XElement("Students", Students),
-                           new XElement("Number_of_Not_Available_Times", NumberOfHours * Days.Count));
+                           new XElement("Number_of_Not_Available_Times", NumberOfHours * DaysList.Count));
             
             //For each hour of each day of the weekend, a not available time is added
-            foreach (Days day in Days)
+            foreach (var day in DaysList)
             {
                 for (var i = 1; i <= NumberOfHours; i++)
                 {

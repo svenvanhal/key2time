@@ -12,25 +12,25 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
     public class ConstraintRoomNotAvailableTimes : AbstractConstraint
     {
 
-        int numberOfHours = 1;
+        int NumberOfHours = 1;
 
         /// <summary>
         /// Gets or sets the room id.
         /// </summary>
         /// <value>The room.</value>
-        public int room { get; set; }
+        public int Room { get; set; }
 
         /// <summary>
         /// Gets or sets the day.
         /// </summary>
         /// <value>The day.</value>
-        public Days day { get; set; }
+        public Days Day { get; set; }
 
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
-        public int hour { get; set; }
+        public int Hour { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the
@@ -56,7 +56,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
                         select new { tf.day, tf.ItemId, tf.lessonIndex };
 
             var result = new List<XElement>();
-            query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintRoomNotAvailableTimes { room = item.ItemId, day = (Days)item.day, hour = item.lessonIndex }.ToXelement()));
+            query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintRoomNotAvailableTimes { Room = item.ItemId, Day = (Days)item.day, Hour = item.lessonIndex }.ToXelement()));
 
             return result.ToArray();
         }
@@ -67,11 +67,11 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Room", room),
-                           new XElement("Number_of_Not_Available_Times", numberOfHours),
+            constraint.Add(new XElement("Room", Room),
+                           new XElement("Number_of_Not_Available_Times", NumberOfHours),
                            new XElement("Not_Available_Time",
-                                        new XElement("Day", day),
-                                        new XElement("Hour", hour)));
+                                        new XElement("Day", Day),
+                                        new XElement("Hour", Hour)));
             return constraint;
         }
 

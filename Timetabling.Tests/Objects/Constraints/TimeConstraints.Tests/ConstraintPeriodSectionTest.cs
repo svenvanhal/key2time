@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Timetabling.DB;
 using System.Data.Entity;
 using Timetabling.Objects.Constraints.TimeConstraints;
+using Timetabling.Objects;
 
 namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
@@ -68,8 +69,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintPeriodSection();
-            var constraintTest = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 9, Students = "test" };
-            var constraintTestFail = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 9, Students = "not" };
+            var constraintTest = new ConstraintPeriodSection { DaysList = new List<Days> { 0 }, NumberOfHours = 9, Students = "test" };
+            var constraintTestFail = new ConstraintPeriodSection { DaysList = new List<Days> { 0 }, NumberOfHours = 9, Students = "not" };
 
             var result = constraint.Create(test.Object);
 
