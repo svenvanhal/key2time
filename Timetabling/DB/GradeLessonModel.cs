@@ -2,10 +2,11 @@
 
 namespace Timetabling.DB
 {
-	/// <summary>
-	/// Grade / lesson relationship table.
-	/// </summary>
-	public class GradeLessonModel
+    /// <summary>
+    /// Grade / lesson relationship table.
+    /// </summary>
+    [Table("tt_GradeLesson")]
+    public class GradeLessonModel
 	{
 		/// <summary>
 		/// Gets or sets the identifier.

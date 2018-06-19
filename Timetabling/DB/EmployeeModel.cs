@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Information about employees.
     /// </summary>
-    [Table("Employees")]
+    [Table("HR_MasterData_Employees")]
     public class EmployeeModel
     {
 

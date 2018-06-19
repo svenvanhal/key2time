@@ -6,7 +6,7 @@ namespace Timetabling.DB
     /// <summary>
     /// Time off table.
     /// </summary>
-    [Table("tt_TimeOff")]
+    [Table("Tt_TimeOff")]
     public class TimeOffModel
 	{
 		/// <summary>
