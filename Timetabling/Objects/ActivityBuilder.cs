@@ -70,7 +70,6 @@ namespace Timetabling.Objects
             var groupId = builderCounter;
 
             var NumberOfActivities = Math.Ceiling( (double) NumberOfLessonsPerWeek/ (double) NumberOfLessonsPerDay);
-
             for (var i = 1; i <= NumberOfActivities; i++)
             {
                 var act = new Activity
