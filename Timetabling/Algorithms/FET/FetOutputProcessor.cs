@@ -29,8 +29,12 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         public string OutputDir { get; protected set; }
 
+        /// <summary>
+        /// Filesystem to perform output processing operations on.
+        /// </summary>
+        protected internal readonly IFileSystem FileSystem;
+
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
-        private readonly IFileSystem _fs;
         private readonly string _baseDir;
 
         /// <inheritdoc />
@@ -46,7 +50,7 @@ namespace Timetabling.Algorithms.FET
         /// <param name="fileSystem">Filesystem to use.</param>
         internal FetOutputProcessor(string inputName, string outputDir, IFileSystem fileSystem)
         {
-            _fs = fileSystem;
+            FileSystem = fileSystem;
             _baseDir = outputDir;
 
             InputName = inputName;
@@ -65,10 +69,10 @@ namespace Timetabling.Algorithms.FET
 
             Timetable tt;
 
-            var outputPath = _fs.Path.Combine(OutputDir, $"{ InputName }_activities.xml");
+            var outputPath = FileSystem.Path.Combine(OutputDir, $"{ InputName }_activities.xml");
 
             // Deserialize XML
-            using (var outputFileStream = _fs.File.OpenRead(outputPath))
+            using (var outputFileStream = FileSystem.File.OpenRead(outputPath))
             {
                 tt = XmlToTimetable(outputFileStream, activities);
                 Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
@@ -91,7 +95,7 @@ namespace Timetabling.Algorithms.FET
             Logger.Info("Cleaning up output dir");
 
             // List all files in output directory
-            _fs.Directory.Delete(_baseDir, true);
+            FileSystem.Directory.Delete(_baseDir, true);
         }
 
         /// <summary>
@@ -131,11 +135,11 @@ namespace Timetabling.Algorithms.FET
         /// <returns>Directory path to FET output files.</returns>
         protected string GetOutputPath(string outputDir)
         {
-            var partialDir = _fs.Path.Combine(outputDir, $"{InputName}-highest");
+            var partialDir = FileSystem.Path.Combine(outputDir, $"{InputName}-highest");
 
             // Check if has partial results and set flag accordingly
-            _partial = _fs.Directory.Exists(partialDir);
-            return _partial ? partialDir : _fs.Path.Combine(outputDir, InputName);
+            _partial = FileSystem.Directory.Exists(partialDir);
+            return _partial ? partialDir : FileSystem.Path.Combine(outputDir, InputName);
         }
 
         /// <summary>
@@ -145,10 +149,10 @@ namespace Timetabling.Algorithms.FET
         /// <returns>List of soft conflicts.</returns>
         protected Timetable AddMetadata(Timetable tt)
         {
-            var softConstraintsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
-            if (tt == null || !_fs.File.Exists(softConstraintsFile)) return tt;
+            var softConstraintsFile = FileSystem.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
+            if (tt == null || !FileSystem.File.Exists(softConstraintsFile)) return tt;
 
-            using (var stream = _fs.File.OpenRead(softConstraintsFile))
+            using (var stream = FileSystem.File.OpenRead(softConstraintsFile))
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)

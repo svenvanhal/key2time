@@ -27,9 +27,9 @@ namespace Timetabling
         protected CancellationTokenSource TokenSource;
 
         /// <inheritdoc />
-        public TimetableGenerator()
+        public TimetableGenerator(CancellationTokenSource source = null)
         {
-            TokenSource = new CancellationTokenSource();
+            TokenSource = source ?? new CancellationTokenSource();
         }
 
         /// <inheritdoc />

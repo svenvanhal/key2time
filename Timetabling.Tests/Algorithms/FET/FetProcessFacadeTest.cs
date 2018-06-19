@@ -53,6 +53,21 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
+        public void StopProcessTest()
+        {
+            var expected = _fpi.Process.StartInfo;
+            _fpi.StartProcess();
+            _fpi.StopProcess();
+
+            // HasExited fails after process has been killed (why though??)
+            // So when this throws an InvalidOperationException, the process has been terminated
+            Assert.Throws<InvalidOperationException>(() => Assert.True(_fpi.Process.HasExited));
+
+            // Verify that the ProcessStartInfo matches the original (one of the few unique bits of information left on the Process object)
+            Assert.AreEqual(expected, _fpi.Process.StartInfo);
+        }
+
+        [Test]
         public void TerminateProcessTest()
         {
             var expected = _fpi.Process.StartInfo;

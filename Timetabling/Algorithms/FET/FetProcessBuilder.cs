@@ -82,6 +82,7 @@ namespace Timetabling.Algorithms.FET
         /// Set the FET-CL input file.
         /// </summary>
         /// <param name="inputFile">Path to file.</param>
+        /// <exception cref="FileNotFoundException">Throws FileNotFoundException when the FET-CL input file cannot be found.</exception>
         public void SetInputFile(string inputFile)
         {
             if(!_fs.File.Exists(inputFile)) throw new FileNotFoundException("The FET-CL input file could not be found.");
@@ -93,6 +94,7 @@ namespace Timetabling.Algorithms.FET
         /// Set the FET-CL output directory.
         /// </summary>
         /// <param name="outputDir">Path to directory.</param>
+        /// <exception cref="DirectoryNotFoundException">Throws DirectoryNotFoundException when the FET-CL output directory cannot be found.</exception>
         public void SetOutputDir(string outputDir)
         {
             if (!_fs.Directory.Exists(outputDir)) throw new DirectoryNotFoundException("The FET-CL output directory does not exist.");
@@ -104,6 +106,7 @@ namespace Timetabling.Algorithms.FET
         /// Set the timetable generation timeout.
         /// </summary>
         /// <param name="seconds">Amount of seconds before timeout. Default: 2000000000</param>
+        /// <exception cref="ArgumentOutOfRangeException">Throws ArgumentOutOfRangeException when the timeout is too low.</exception>
         public void SetTimeout(int seconds)
         {
             if (seconds < 1) throw new ArgumentOutOfRangeException(nameof(seconds), "The timetable generation timeout cannot be less than one second.");
@@ -115,9 +118,10 @@ namespace Timetabling.Algorithms.FET
         /// Set the FET output language. Also applies to error messages.
         /// </summary>
         /// <param name="language">Language. Default: en_US.</param>
+        /// <exception cref="ArgumentNullException">Throws ArgumentNullException when language is null.</exception>
         public void SetLanguage(FetLanguage language)
         {
-            if (language == null) throw new ArgumentOutOfRangeException(nameof(language), "Invalid language passed. Defaulting to en_US.");
+            if (language == null) throw new ArgumentNullException(nameof(language), "Invalid language passed. Defaulting to en_US.");
 
             SetArgument("language", language.ToString());
         }

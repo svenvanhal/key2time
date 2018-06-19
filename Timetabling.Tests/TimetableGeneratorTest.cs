@@ -43,5 +43,16 @@ namespace Timetabling.Tests
             Assert.IsInstanceOf<Task<Timetable>>(task);
         }
 
+        [Test]
+        public void StopAlgorithmTest()
+        {
+            var tokenSource = new CancellationTokenSource();
+            var ttg = new TimetableGenerator(tokenSource);
+
+            ttg.StopAlgorithm();
+
+            Assert.IsTrue(tokenSource.IsCancellationRequested);
+        }
+
     }
 }

@@ -14,7 +14,7 @@ namespace Timetabling.XML
         /// <summary>
         /// Document the XmlCreator is operating on.
         /// </summary>
-	    public XDocument Document { get; }
+	    public XDocument Document { get; internal set; }
 
         /// <summary>
         /// Root element of the document.

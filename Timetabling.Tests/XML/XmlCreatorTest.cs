@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Moq;
 using Timetabling.XML;
 
 namespace Timetabling.Tests.XML
@@ -36,6 +37,15 @@ namespace Timetabling.Tests.XML
 
             xmlCreator.AddToRoot(list.ToArray());
             Assert.AreEqual(2, xmlCreator.Document.Elements("fet").Elements("test").Count());
+        }
+
+        [Test]
+        public void FetVersionTest()
+        {
+            var version = "1.0.0";
+            var xmlCreator = new XmlCreator(version);
+
+            Assert.AreEqual(version, xmlCreator.Root.Attribute("version").Value);
         }
     }
 }

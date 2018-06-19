@@ -92,7 +92,7 @@
     <Compile Include="Objects\YearsListTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\TimetableTest.cs" />
-    <Compile Include="TimetableGenerator.Test.cs" />
+    <Compile Include="TimetableGeneratorTest.cs" />
     <Compile Include="XML\XmlCreatorTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintMinDaysBetweenActivitiesTest.cs" />

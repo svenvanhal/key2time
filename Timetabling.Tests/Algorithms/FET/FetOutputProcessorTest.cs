@@ -12,17 +12,24 @@ using Timetabling.Resources;
 namespace Timetabling.Tests.Algorithms.FET
 {
 
+    internal class FetOutputProcessorExposer : FetOutputProcessor
+    {
+        public FetOutputProcessorExposer(string inputName, string outputDir) : base(inputName, outputDir, new FileSystem()) { }
+        public new Timetable XmlToTimetable(Stream fileStream, IDictionary<int, Activity> activities) => base.XmlToTimetable(fileStream, activities);
+        public new List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
+        public new void ParseMetaLine(string line, Timetable tt) => base.ParseMetaLine(line, tt);
+        public new void AddMetadata(Timetable tt) => base.AddMetadata(tt);
+    }
+
     [TestFixture]
     internal class FetOutputProcessorTest
     {
 
-        internal class FetOutputProcessorExposer : FetOutputProcessor
+        [Test]
+        public void ConstructorTest()
         {
-            public FetOutputProcessorExposer(string inputName, string outputDir) : base(inputName, outputDir, new FileSystem()) { }
-            public new Timetable XmlToTimetable(Stream fileStream, IDictionary<int, Activity> activities) => base.XmlToTimetable(fileStream, activities);
-            public new List<string> ParseSoftConflicts(StreamReader reader) => base.ParseSoftConflicts(reader);
-            public new void ParseMetaLine(string line, Timetable tt) => base.ParseMetaLine(line, tt);
-            public new void AddMetadata(Timetable tt) => base.AddMetadata(tt);
+            var outputProcessor = new FetOutputProcessor("input", "output");
+            Assert.IsNotNull(outputProcessor.FileSystem);
         }
 
         [Test]

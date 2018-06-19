@@ -117,6 +117,15 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
+        public void SetLanguageNullTest()
+        {
+            var fpb = new FetProcessBuilderExposer();
+            fpb.SetLanguage(null);
+
+            Assert.Throws<ArgumentNullException>(() => fpb.GetArgument("language"));
+        }
+
+        [Test]
         public void DebugOnTest()
         {
             var fpb = new FetProcessBuilderExposer();
