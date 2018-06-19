@@ -75,7 +75,7 @@ namespace Timetabling.Helper
             // Create timetable entry
             var timetableEntry = new TimetableTable
             {
-                Name = "Auto-generated Timetable",
+                Name = $"{tt.AcademicYearId} - {tt.QuarterId} - {tt.SectionId}",
                 AcademicYearId = tt.AcademicYearId,
                 QuarterId = tt.QuarterId,
                 SectionId = tt.SectionId,

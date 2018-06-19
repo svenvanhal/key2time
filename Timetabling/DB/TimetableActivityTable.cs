@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Timetabling.DB
@@ -14,17 +13,12 @@ namespace Timetabling.DB
         /// <summary>
         /// Activity ID
         /// </summary>
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         /// <summary>
         /// Timetable to which this activity belongs.
         /// </summary>
-        [Key]
-        [Column("timeTableRefId", Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column("timeTableRefId")]
         public int TimetableId { get; set; }
 
         /// <summary>
@@ -36,7 +30,6 @@ namespace Timetabling.DB
         /// <summary>
         /// Whether or not this activity is for a collection of subjects.
         /// </summary>
-        [Key]
         [Column("isCollection", Order = 2)]
         public bool IsCollection { get; set; }
 
@@ -49,17 +42,13 @@ namespace Timetabling.DB
         /// <summary>
         /// The day this activity is scheduled for.
         /// </summary>
-        [Key]
-        [Column("dayIndex", Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column("dayIndex")]
         public int Day { get; set; }
 
         /// <summary>
         /// The timeslot this activity is scheduled for.
         /// </summary>
-        [Key]
-        [Column("timeSlotOrder", Order = 4)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column("timeSlotOrder")]
         public int Timeslot { get; set; }
     }
 }

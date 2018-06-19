@@ -13,7 +13,6 @@ namespace Timetabling.DB
         /// <summary>
         /// ID.
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         /// <summary>

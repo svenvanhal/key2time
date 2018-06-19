@@ -76,6 +76,7 @@ namespace Timetabling.Tests.Helper
                         PlacedActivities = -1
                     };
 
+                    // Should throw InvalidOperationException
                     Assert.Throws<InvalidOperationException>(() => context.SaveTimetable(tt));
                 }
             }
@@ -99,7 +100,7 @@ namespace Timetabling.Tests.Helper
                     var ttEntry = from t in model.Timetables select t;
 
                     // Perform checks
-                    Assert.AreEqual("Auto-generated Timetable", ttEntry.First().Name);
+                    Assert.IsNotEmpty(ttEntry.First().Name);
                 }
             }
 

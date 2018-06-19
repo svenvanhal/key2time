@@ -46,7 +46,7 @@
     <Compile Include="DB\AcademicQuarterTable.cs" />
     <Compile Include="DB\TimetableActivityClassTable.cs" />
     <Compile Include="DB\TimetableTable.cs" />
-    <Compile Include="DB\TimetableActitvityTeacherTable.cs" />
+    <Compile Include="DB\TimetableActivityTeacherTable.cs" />
     <Compile Include="DB\TimetableActivityTable.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="TimetableGenerator.cs" />
