@@ -46,7 +46,7 @@ namespace Timetabling.Algorithms.FET
         public static string GetFetExecutableLocation(string defaultValue = "lib/fet/fet-cl")
         {
             var setting = GetSetting("FetExecutableLocation");
-            return setting ?? defaultValue;
+            return setting == null ? defaultValue : Environment.ExpandEnvironmentVariables(setting);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Timetabling.Algorithms.FET
             if (defaultValue == null) defaultValue = Path.Combine(Path.GetTempPath(), "timetabling");
             var setting = GetSetting("FetWorkingDir");
 
-            return setting ?? defaultValue;
+            return setting == null ? defaultValue : Environment.ExpandEnvironmentVariables(setting);
         }
 
     }
