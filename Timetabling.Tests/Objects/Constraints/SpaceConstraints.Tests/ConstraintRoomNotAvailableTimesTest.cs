@@ -27,15 +27,15 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
             mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var dataEmp = new List<School_BuildingsUnits>{
-                new School_BuildingsUnits{ID = 4, IsActive = true},
+            var dataEmp = new List<BuildingModel>{
+                new BuildingModel{ID = 4, IsActive = true},
             }.AsQueryable();
 
-            var mockSetEmp = new Mock<DbSet<School_BuildingsUnits>>();
-            mockSetEmp.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Provider).Returns(dataEmp.Provider);
-            mockSetEmp.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Expression).Returns(dataEmp.Expression);
-            mockSetEmp.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.ElementType).Returns(dataEmp.ElementType);
-            mockSetEmp.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
+            var mockSetEmp = new Mock<DbSet<BuildingModel>>();
+            mockSetEmp.As<IQueryable<BuildingModel>>().Setup(m => m.Provider).Returns(dataEmp.Provider);
+            mockSetEmp.As<IQueryable<BuildingModel>>().Setup(m => m.Expression).Returns(dataEmp.Expression);
+            mockSetEmp.As<IQueryable<BuildingModel>>().Setup(m => m.ElementType).Returns(dataEmp.ElementType);
+            mockSetEmp.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);

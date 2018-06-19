@@ -51,7 +51,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         {
             var query = from tf in dB.Tt_TimeOff
                         where tf.ItemType == 4
-                        join e in dB.School_BuildingsUnits on tf.ItemId equals e.ID
+                        join e in dB.School_BuildingsUnits on tf.ItemId equals e.Id
                         where e.IsActive == true
                         select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex };
 

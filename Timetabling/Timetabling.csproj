@@ -54,7 +54,7 @@
     <Compile Include="Helper\CommandLineArguments.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\EmployeeModel.cs" />
-    <Compile Include="DB\School_Lookup_Class.cs" />
+    <Compile Include="DB\LookupClassModel.cs" />
     <Compile Include="DB\School_Lookup_Grade.cs" />
     <Compile Include="DB\School_Lookup_Stage.cs" />
     <Compile Include="DB\Section_WeekEnd.cs" />
@@ -83,13 +83,13 @@
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivities.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimes.cs" />
-    <Compile Include="DB\School_BuildingsUnits.cs" />
+    <Compile Include="DB\BuildingModel.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
     <Compile Include="DB\ActivityGroupModel.cs" />
     <Compile Include="Objects\Activity.cs" />
-    <Compile Include="DB\School_ClassTeacherSubjects.cs" />
+    <Compile Include="DB\ClassTeacherSubjectsModel.cs" />
     <Compile Include="Objects\ActivityBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

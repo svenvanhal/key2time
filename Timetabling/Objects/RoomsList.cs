@@ -22,7 +22,7 @@ namespace Timetabling.Objects
         public override XElement Create()
         {
             var query = dB.School_BuildingsUnits.Where(room => room.IsActive == true)
-                          .Select(room => room.ID);
+                          .Select(room => room.Id);
 
             foreach (var room in query)
             {

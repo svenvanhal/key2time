@@ -44,8 +44,8 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
             foreach (var item in query)
             {
                 var rooms = (from b in dB.School_BuildingsUnits
-                             where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
-                             select b.ID).DefaultIfEmpty().ToList();
+                             where b.TypeId == item.BuildingUnitTypeID && b.IsActive == true
+                             select b.Id).DefaultIfEmpty().ToList();
 
                 var roomConstraint = new ConstraintSubjectPreferredRooms { Rooms = rooms, SubjectID = item.SubjectID };
                 results.Add(roomConstraint.ToXelement());

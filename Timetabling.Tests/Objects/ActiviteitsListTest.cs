@@ -34,16 +34,16 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<ActivityGroupModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<ActivityGroupModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var data2 = new List<School_Lookup_Class>{
-                new School_Lookup_Class{ClassName = "test", ClassID = 1, GradeID = 60},
-                new School_Lookup_Class{ClassName = "test2", ClassID = 2, GradeID = 60},
+            var data2 = new List<LookupClassModel>{
+                new LookupClassModel{ClassName = "test", ClassId = 1, GradeId = 60},
+                new LookupClassModel{ClassName = "test2", ClassId = 2, GradeId = 60},
             }.AsQueryable();
 
-            var mockSet2 = new Mock<DbSet<School_Lookup_Class>>();
-            mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.Provider).Returns(data2.Provider);
-            mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.Expression).Returns(data2.Expression);
-            mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.ElementType).Returns(data2.ElementType);
-            mockSet2.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
+            var mockSet2 = new Mock<DbSet<LookupClassModel>>();
+            mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.Provider).Returns(data2.Provider);
+            mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.Expression).Returns(data2.Expression);
+            mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.ElementType).Returns(data2.ElementType);
+            mockSet2.As<IQueryable<LookupClassModel>>().Setup(m => m.GetEnumerator()).Returns(data2.GetEnumerator());
 
             var data3 = new List<SubjectGradeTable>{
                 new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 4, NumberOfLlessonsPerDay =1, SubjectID =1, CollectionID = 1 
@@ -95,18 +95,18 @@ namespace Timetabling.Tests.Objects
             mockSet6.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.ElementType).Returns(data6.ElementType);
             mockSet6.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.GetEnumerator()).Returns(data6.GetEnumerator());
 
-            var data7 = new List<School_ClassTeacherSubjects>{
-                new School_ClassTeacherSubjects{SubjectID = 1, ClassID = 1, TeacherID = 0
+            var data7 = new List<ClassTeacherSubjectsModel>{
+                new ClassTeacherSubjectsModel{SubjectId = 1, ClassId = 1, TeacherId = 0
                  },
-                new School_ClassTeacherSubjects{SubjectID = 0, ClassID = 2, TeacherID = 4
+                new ClassTeacherSubjectsModel{SubjectId = 0, ClassId = 2, TeacherId = 4
                  }
              }.AsQueryable();
 
-            var mockSet7 = new Mock<DbSet<School_ClassTeacherSubjects>>();
-            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.Provider).Returns(data7.Provider);
-            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.Expression).Returns(data7.Expression);
-            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.ElementType).Returns(data7.ElementType);
-            mockSet7.As<IQueryable<School_ClassTeacherSubjects>>().Setup(m => m.GetEnumerator()).Returns(data7.GetEnumerator());
+            var mockSet7 = new Mock<DbSet<ClassTeacherSubjectsModel>>();
+            mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.Provider).Returns(data7.Provider);
+            mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.Expression).Returns(data7.Expression);
+            mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.ElementType).Returns(data7.ElementType);
+            mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.GetEnumerator()).Returns(data7.GetEnumerator());
 
 
 

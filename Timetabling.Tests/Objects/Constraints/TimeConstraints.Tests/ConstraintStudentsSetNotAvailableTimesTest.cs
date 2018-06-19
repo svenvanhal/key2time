@@ -27,15 +27,15 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var dataClass = new List<School_Lookup_Class>{
-                new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 100, IsActive = true},
+            var dataClass = new List<LookupClassModel>{
+                new LookupClassModel{ClassId = 4, ClassName = "testGrade", TimeOffConstraint = 100, IsActive = true},
             }.AsQueryable();
 
-            var mockSetClass = new Mock<DbSet<School_Lookup_Class>>();
-            mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.Provider).Returns(dataClass.Provider);
-            mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.Expression).Returns(dataClass.Expression);
-            mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
-            mockSetClass.As<IQueryable<School_Lookup_Class>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
+            var mockSetClass = new Mock<DbSet<LookupClassModel>>();
+            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.Provider).Returns(dataClass.Provider);
+            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.Expression).Returns(dataClass.Expression);
+            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
+            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);

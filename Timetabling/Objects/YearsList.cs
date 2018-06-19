@@ -24,7 +24,7 @@ namespace Timetabling.Objects
         public override XElement Create()
         {
             var query = from g in dB.School_Lookup_Grade
-                        join c in dB.School_Lookup_Class on g.GradeID equals c.GradeID into t
+                        join c in dB.School_Lookup_Class on g.GradeID equals c.GradeId into t
                         from c in t.DefaultIfEmpty()
                         select new { g.GradeName, c.ClassName };
 

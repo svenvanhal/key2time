@@ -34,16 +34,16 @@ namespace Timetabling.DB
         public virtual DbSet<EmployeeModel> HR_MasterData_Employees { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_Lookup_Class.
+		/// Gets or sets LookupClassModel.
 		/// </summary>
-		/// <value>School_Lookup_Class.</value>
-		public virtual DbSet<School_Lookup_Class> School_Lookup_Class { get; set; }
+		/// <value>LookupClassModel.</value>
+		public virtual DbSet<LookupClassModel> School_Lookup_Class { get; set; }
 
         /// <summary>
-        /// Gets or sets School_ClassTeacherSubjects.
+        /// Gets or sets ClassTeacherSubjectsModel.
         /// </summary>
-        /// <value>School_ClassTeacherSubjects.</value>
-        public virtual DbSet<School_ClassTeacherSubjects> School_ClassTeacherSubjects { get; set; }
+        /// <value>ClassTeacherSubjectsModel.</value>
+        public virtual DbSet<ClassTeacherSubjectsModel> School_ClassTeacherSubjects { get; set; }
 
         /// <summary>
         /// Gets or sets School_Lookup_Grade.
@@ -108,10 +108,10 @@ namespace Timetabling.DB
 		public virtual DbSet<TimeOffTable> Tt_TimeOff { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_BuildingsUnits.
+		/// Gets or sets BuildingModel.
 		/// </summary>
 		/// <value>The school buildings units.</value>
-		public virtual DbSet<School_BuildingsUnits> School_BuildingsUnits { get; set; }
+		public virtual DbSet<BuildingModel> School_BuildingsUnits { get; set; }
 
         /// <summary>
         /// Gets or sets ActivityGroupModel.
@@ -125,16 +125,6 @@ namespace Timetabling.DB
         /// <param name="modelBuilder">Model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
-            modelBuilder.Entity<EmployeeModel>()
-                    .HasMany(e => e.HR_MasterData_Employees1)
-                    .WithOptional(e => e.HR_MasterData_Employees2)
-                    .HasForeignKey(e => e.SupervisorId);
-
-            modelBuilder.Entity<EmployeeModel>()
-                    .HasMany(e => e.School_Lookup_Class)
-                    .WithOptional(e => e.HR_MasterData_Employees)
-                    .HasForeignKey(e => e.SupervisorID);
-
 
             modelBuilder.Entity<School_Lookup_Grade>()
 					.HasMany(e => e.Subject_SubjectGrade)
