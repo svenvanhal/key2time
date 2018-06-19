@@ -53,7 +53,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Starts process and logs output.
         /// </summary>
-        public virtual Task StartProcess()
+        public Task StartProcess()
         {
             Logger.Info("Starting FET process");
 
@@ -84,7 +84,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Gracefully stops process.
         /// </summary>
-        public virtual void StopProcess()
+        public void StopProcess()
         {
             Logger.Info("Stopping FET process");
 
@@ -108,7 +108,7 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Kill process.
         /// </summary>
-        public virtual void KillProcess()
+        public void KillProcess()
         {
             Logger.Info("Killing FET process");
 
