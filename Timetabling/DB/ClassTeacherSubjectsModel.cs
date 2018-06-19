@@ -23,7 +23,7 @@ namespace Timetabling.DB
         /// Subject ID.
         /// </summary>
         [Key]
-        [Column("SubjectID", Order = 1)]
+        [Column("SubjectId", Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SubjectId { get; set; }
 

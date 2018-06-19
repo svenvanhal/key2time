@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// Time off table.
     /// </summary>
     [Table("tt_TimeOff")]
-    public class TimeOffTable
+    public class TimeOffModel
 	{
 		/// <summary>
 		/// Gets or sets the identifier.

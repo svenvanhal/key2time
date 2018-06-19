@@ -108,7 +108,7 @@ namespace Timetabling.Helper
                 Logger.Info("Processing activity " + activity.Id);
 
                 // Create new activity
-                var activityEntry = new TimetableActivityTable
+                var activityEntry = new TimetableActivityModel
                 {
                     SubjectId = activity.Resource.Subject,
                     Day = GetDayFromString(activity.Day),
@@ -153,7 +153,7 @@ namespace Timetabling.Helper
             {
 
                 // Create new activity - teacher relation
-                model.TimetableActivityTeachers.AddOrUpdate(new TimetableActivityTeacherTable
+                model.TimetableActivityTeachers.AddOrUpdate(new TimetableActivityTeacherModel
                 {
                     ActivityId = activityId,
                     TeacherId = teacherId
@@ -184,7 +184,7 @@ namespace Timetabling.Helper
                 Logger.Info($"Creating new activity / class relation: {activityId} - {classEntry.Value}");
 
                 // Create new activity - teacher relation
-                model.TimetableActivityClasses.AddOrUpdate(new TimetableActivityClassTable
+                model.TimetableActivityClasses.AddOrUpdate(new TimetableActivityClassModel
                 {
                     ActivityId = activityId,
                     ClassId = classEntry.Value

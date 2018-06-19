@@ -55,8 +55,8 @@ namespace Timetabling.Objects
                         join c in dB.School_Lookup_Class on activity.ClassId equals c.ClassId
                         join s in dB.Subject_SubjectGrade on activity.SubjectId equals s.SubjectID
                         join t in dB.HR_MasterData_Employees on activity.TeacherId equals t.EmployeeId
-                        join grade in dB.School_Lookup_Grade on activity.GradeId equals grade.GradeID
-                        join sub in dB.Subject_MasterData_Subject on activity.SubjectId equals sub.SubjectID
+                        join grade in dB.School_Lookup_Grade on activity.GradeId equals grade.GradeId
+                        join sub in dB.Subject_MasterData_Subject on activity.SubjectId equals sub.SubjectId
                         where s.GradeID == activity.GradeId && t.IsActive == true
                         group new { ActivityRefID = activity.ActivityRefId, teacherId = activity.TeacherId, grade.GradeName, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, s.CollectionID }
                         by activity.ActivityRefId into g
@@ -100,7 +100,7 @@ namespace Timetabling.Objects
                         join c in dB.School_Lookup_Class on activity.ClassId equals c.ClassId
                         join s in dB.Subject_SubjectGrade on activity.SubjectId equals s.SubjectID
                         join t in dB.HR_MasterData_Employees on activity.TeacherId equals t.EmployeeId
-                        join grade in dB.School_Lookup_Grade on c.GradeId equals grade.GradeID
+                        join grade in dB.School_Lookup_Grade on c.GradeId equals grade.GradeId
                         where c.GradeId == s.GradeID
                         select new { TeacherID = activity.TeacherId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
 

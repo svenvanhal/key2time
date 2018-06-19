@@ -30,7 +30,7 @@ namespace Timetabling.DB
         /// Gets or sets the grade identifier.
         /// </summary>
         /// <value>The grade identifier.</value>
-        [Column("GradeID")]
+        [Column("GradeId")]
         public int? GradeId { get; set; }
 
         /// <summary>

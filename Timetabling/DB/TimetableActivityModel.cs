@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// Table containing all activities for timetables.
     /// </summary>
     [Table("TimeTableActivity")]
-    public class TimetableActivityTable
+    public class TimetableActivityModel
     {
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Timetabling.DB
         /// <summary>
         /// The Day this activity is scheduled for.
         /// </summary>
-        [Column("dayIndex")]
+        [Column("DayIndex")]
         public int Day { get; set; }
 
         /// <summary>

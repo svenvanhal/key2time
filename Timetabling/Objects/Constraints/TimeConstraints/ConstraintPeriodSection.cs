@@ -44,10 +44,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement[] Create(DataModel dB)
         {
             var query = from grade in dB.School_Lookup_Grade
-                        join stage in dB.School_Lookup_Stage on grade.StageID equals stage.StageID
-                        join weekend in dB.Section_WeekEnd on stage.SectionID equals weekend.sectionId
+                        join stage in dB.School_Lookup_Stage on grade.StageId equals stage.StageId
+                        join weekend in dB.Section_WeekEnd on stage.SectionId equals weekend.SectionId
                         where grade.IsActive == true
-                        select new { grade.GradeName, weekend.dayIndex };
+                        select new { grade.GradeName, dayIndex = weekend.DayIndex };
 
             var hours = new HoursList(dB);
             hours.Create();

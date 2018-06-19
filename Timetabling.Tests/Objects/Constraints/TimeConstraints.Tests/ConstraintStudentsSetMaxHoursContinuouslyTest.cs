@@ -27,15 +27,15 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet.As<IQueryable<GradeLessonModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
 
-            var dataGrade = new List<School_Lookup_Grade>{
-                new School_Lookup_Grade{GradeID = 0, GradeName = "testGrade"},
+            var dataGrade = new List<LookupGradeModel>{
+                new LookupGradeModel{GradeId = 0, GradeName = "testGrade"},
             }.AsQueryable();
 
-            var mockSetGrade = new Mock<DbSet<School_Lookup_Grade>>();
-            mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Provider).Returns(dataGrade.Provider);
-            mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Expression).Returns(dataGrade.Expression);
-            mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.ElementType).Returns(dataGrade.ElementType);
-            mockSetGrade.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(dataGrade.GetEnumerator());
+            var mockSetGrade = new Mock<DbSet<LookupGradeModel>>();
+            mockSetGrade.As<IQueryable<LookupGradeModel>>().Setup(m => m.Provider).Returns(dataGrade.Provider);
+            mockSetGrade.As<IQueryable<LookupGradeModel>>().Setup(m => m.Expression).Returns(dataGrade.Expression);
+            mockSetGrade.As<IQueryable<LookupGradeModel>>().Setup(m => m.ElementType).Returns(dataGrade.ElementType);
+            mockSetGrade.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(dataGrade.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_GradeLesson).Returns(mockSet.Object);

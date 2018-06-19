@@ -18,18 +18,18 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<Subject_MasterData_Subject>{
-                new Subject_MasterData_Subject{SubjectID = 0,  IsActive = true},
-                new Subject_MasterData_Subject{SubjectID = 1, IsActive = false},
-                new Subject_MasterData_Subject{SubjectID = 2, IsActive = true},
+            var data = new List<SubjectModel>{
+                new SubjectModel{SubjectId = 0,  IsActive = true},
+                new SubjectModel{SubjectId = 1, IsActive = false},
+                new SubjectModel{SubjectId = 2, IsActive = true},
 
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<Subject_MasterData_Subject>>();
-            mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<SubjectModel>>();
+            mockSet.As<IQueryable<SubjectModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<SubjectModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<SubjectModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<SubjectModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var data3 = new List<SubjectGradeTable>{
                 new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =0, CollectionID = 1

@@ -54,21 +54,21 @@ namespace Timetabling.DB
         public int? CollectionID { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_Lookup_Grade.
+		/// Gets or sets LookupGradeModel.
 		/// </summary>
-		/// <value>School_Lookup_Grade.</value>
-		public virtual School_Lookup_Grade School_Lookup_Grade { get; set; }
+		/// <value>LookupGradeModel.</value>
+		public virtual LookupGradeModel LookupGradeModel { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_Lookup_Grade1.
+		/// Gets or sets LookupGrade1.
 		/// </summary>
 		/// <value>The school lookup grade1.</value>
-		public virtual School_Lookup_Grade School_Lookup_Grade1 { get; set; }
+		public virtual LookupGradeModel LookupGrade1 { get; set; }
 
 		/// <summary>
-		/// Gets or sets Subject_MasterData_Subject.
+		/// Gets or sets SubjectModel.
 		/// </summary>
-		/// <value>Subject_MasterData_Subject.</value>
-		public virtual Subject_MasterData_Subject Subject_MasterData_Subject { get; set; }
+		/// <value>SubjectModel.</value>
+		public virtual SubjectModel Subject_MasterData_Subject { get; set; }
 	}
 }

@@ -2,11 +2,12 @@
 
 namespace Timetabling.DB
 {
-	
-	/// <summary>
-	/// School buildings units.
-	/// </summary>
-	public class BuildingModel
+
+    /// <summary>
+    /// School buildings units.
+    /// </summary>
+    [Table("School_BuildingsUnits")]
+    public class BuildingModel
 	{
 		/// <summary>
 		/// Gets or sets the identifier.

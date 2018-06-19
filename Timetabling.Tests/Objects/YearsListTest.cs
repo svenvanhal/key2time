@@ -18,17 +18,17 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<School_Lookup_Grade>{
-                new School_Lookup_Grade{GradeID = 0,  GradeName = "test", IsActive = true},
-                new School_Lookup_Grade{GradeID = 1, GradeName = "test2", IsActive = true},
+            var data = new List<LookupGradeModel>{
+                new LookupGradeModel{GradeId = 0,  GradeName = "test", IsActive = true},
+                new LookupGradeModel{GradeId = 1, GradeName = "test2", IsActive = true},
 
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<School_Lookup_Grade>>();
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<LookupGradeModel>>();
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<LookupClassModel>{
                 new LookupClassModel{GradeId = 0, ClassId = 0 ,IsActive = true, ClassName = "classTest1"},

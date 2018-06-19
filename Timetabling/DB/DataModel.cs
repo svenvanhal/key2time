@@ -46,28 +46,28 @@ namespace Timetabling.DB
         public virtual DbSet<ClassTeacherSubjectsModel> School_ClassTeacherSubjects { get; set; }
 
         /// <summary>
-        /// Gets or sets School_Lookup_Grade.
+        /// Gets or sets LookupGradeModel.
         /// </summary>
-        /// <value>School_Lookup_Grade.</value>
-        public virtual DbSet<School_Lookup_Grade> School_Lookup_Grade { get; set; }
+        /// <value>LookupGradeModel.</value>
+        public virtual DbSet<LookupGradeModel> School_Lookup_Grade { get; set; }
 
 		/// <summary>
-		/// Gets or sets School_Lookup_Stage.
+		/// Gets or sets LookupStageModel.
 		/// </summary>
-		/// <value>School_Lookup_Stage.</value>
-		public virtual DbSet<School_Lookup_Stage> School_Lookup_Stage { get; set; }
+		/// <value>LookupStageModel.</value>
+		public virtual DbSet<LookupStageModel> School_Lookup_Stage { get; set; }
 
 		/// <summary>
 		/// Gets or sets the section week end.
 		/// </summary>
 		/// <value>The section week end.</value>
-		public virtual DbSet<Section_WeekEnd> Section_WeekEnd { get; set; }
+		public virtual DbSet<SectionWeekendModel> Section_WeekEnd { get; set; }
 
 		/// <summary>
-		/// Gets or sets Subject_MasterData_Subject.
+		/// Gets or sets SubjectModel.
 		/// </summary>
-		/// <value>Subject_MasterData_Subject.</value>
-		public virtual DbSet<Subject_MasterData_Subject> Subject_MasterData_Subject { get; set; }
+		/// <value>SubjectModel.</value>
+		public virtual DbSet<SubjectModel> Subject_MasterData_Subject { get; set; }
 
 		/// <summary>
 		/// Gets or sets SubjectGradeTable.
@@ -83,17 +83,17 @@ namespace Timetabling.DB
         /// <summary>
         /// Classes for timetable activity.
         /// </summary>
-	    public virtual DbSet<TimetableActivityClassTable> TimetableActivityClasses { get; set; }
+	    public virtual DbSet<TimetableActivityClassModel> TimetableActivityClasses { get; set; }
 
         /// <summary>
         /// Teachers per timetable activity.
         /// </summary>
-	    public virtual DbSet<TimetableActivityTeacherTable> TimetableActivityTeachers { get; set; }
+	    public virtual DbSet<TimetableActivityTeacherModel> TimetableActivityTeachers { get; set; }
 
         /// <summary>
         /// Activities in timetable.
         /// </summary>
-	    public virtual DbSet<TimetableActivityTable> TimetableActivities { get; set; }
+	    public virtual DbSet<TimetableActivityModel> TimetableActivities { get; set; }
 
         /// <summary>
         /// Gets or sets GradeLessonModel.
@@ -102,10 +102,10 @@ namespace Timetabling.DB
         public virtual DbSet<GradeLessonModel> Tt_GradeLesson { get; set; }
 
 		/// <summary>
-		/// Gets or sets TimeOffTable.
+		/// Gets or sets TimeOffModel.
 		/// </summary>
-		/// <value>TimeOffTable.</value>
-		public virtual DbSet<TimeOffTable> Tt_TimeOff { get; set; }
+		/// <value>TimeOffModel.</value>
+		public virtual DbSet<TimeOffModel> Tt_TimeOff { get; set; }
 
 		/// <summary>
 		/// Gets or sets BuildingModel.
@@ -119,22 +119,5 @@ namespace Timetabling.DB
         /// <value></value>
 	    public virtual DbSet<ActivityGroupModel> tt_ActitvityGroup { get; set; }
 
-        /// <summary>
-        /// Creates the datamodel
-        /// </summary>
-        /// <param name="modelBuilder">Model builder.</param>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
-
-            modelBuilder.Entity<School_Lookup_Grade>()
-					.HasMany(e => e.Subject_SubjectGrade)
-					.WithOptional(e => e.School_Lookup_Grade)
-					.HasForeignKey(e => e.GradeID);
-
-			modelBuilder.Entity<School_Lookup_Grade>()
-					.HasMany(e => e.Subject_SubjectGrade1)
-					.WithOptional(e => e.School_Lookup_Grade1)
-					.HasForeignKey(e => e.GradeID);
-		}
 	}
 }
