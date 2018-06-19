@@ -57,9 +57,9 @@ namespace Timetabling.Objects
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
                         join grade in dB.GradesLookup on activity.GradeId equals grade.GradeId
                         join sub in dB.Subjects on activity.SubjectId equals sub.SubjectId
-                        where s.GradeId == activity.GradeId && t.IsActive == true
+                        where s.GradeId == activity.GradeId && t.IsActive == true && grade.StageId == dB.StageId
                         group new { ActivityRefID = activity.ActivityRefId, teacherId = activity.TeacherId, grade.GradeName, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, activity.Id, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
-                        by activity.ActivityRefId into g
+                                    by activity.ActivityRefId into g
                         select g;
 
             // Iterate over collections
@@ -101,7 +101,7 @@ namespace Timetabling.Objects
                         join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
                         join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
-                        where c.GradeId == s.GradeId
+                        where c.GradeId == s.GradeId && grade.StageId == dB.StageId
                         select new { TeacherID = activity.TeacherId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay };
 
             // Iterate over single activities

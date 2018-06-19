@@ -12,6 +12,8 @@ namespace Implementation
 {
     class Program
     {
+        public static int StageId = 4;
+
         static void Main(string[] args)
         {
 
@@ -34,16 +36,17 @@ namespace Implementation
         public Task<Timetable> Start()
         {
             // Create algorithm task
+            using (var model = new DataModel(StageId))
             using (var generator = new TimetableGenerator())
             {
-                return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
+                return generator.RunAlgorithm(new FetAlgorithm(), model);
             }
 
         }
 
         private static IList<int> GetMeta()
         {
-            using (var model = new DataModel())
+            using (var model = new DataModel(StageId))
             {
 
                 // Get academic year id, section id and quarter id.

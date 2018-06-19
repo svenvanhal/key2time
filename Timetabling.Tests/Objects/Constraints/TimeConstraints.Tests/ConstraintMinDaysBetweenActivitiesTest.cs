@@ -64,7 +64,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet4.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(data4.GetEnumerator());
 
             var data5 = new List<LookupGradeModel>{
-                new LookupGradeModel{GradeId = 60, IsActive = true, GradeName = "gradeTest"
+                new LookupGradeModel{GradeId = 60, IsActive = true, GradeName = "gradeTest", StageId = 4
                  }
              }.AsQueryable();
 
@@ -100,7 +100,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.ElementType).Returns(data7.ElementType);
             mockSet7.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.GetEnumerator()).Returns(data7.GetEnumerator());
 
-            var mockDB = new Mock<DataModel>();
+            var mockDB = new Mock<DataModel>(4);
             mockDB.Setup(item => item.ActitvityGroups).Returns(mockSet.Object);
             mockDB.Setup(item => item.ClassesLookup).Returns(mockSet2.Object);
             mockDB.Setup(item => item.SubjectGrades).Returns(mockSet3.Object);

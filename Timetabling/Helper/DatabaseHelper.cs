@@ -22,7 +22,7 @@ namespace Timetabling.Helper
         public DataModel Model { get; set; }
 
         /// <inheritdoc />
-        public DatabaseHelper() : this(new DataModel()) { }
+        public DatabaseHelper() : this(new DataModel(0)) { }
 
         /// <summary>
         /// Constructs a new DatabaseHelper on a DataModel.
