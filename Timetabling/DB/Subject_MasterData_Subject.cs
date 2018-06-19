@@ -12,7 +12,7 @@
         /// </summary>
         public Subject_MasterData_Subject()
         {
-            Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
+            Subject_SubjectGrade = new HashSet<SubjectGradeTable>();
         }
 
         /// <summary>
@@ -61,16 +61,16 @@
         public bool? IsShared { get; set; }
 
         /// <summary>
-        /// Gets or sets the is multi per day.
+        /// Gets or sets the is multi per Day.
         /// </summary>
-        /// <value>The is multi per day.</value>
+        /// <value>The is multi per Day.</value>
         public bool? IsMultiPerDay { get; set; }
 
 
         /// <summary>
-        /// Gets or sets Subject_SubjectGrade.
+        /// Gets or sets SubjectGradeTable.
         /// </summary>
-        /// <value>Subject_SubjectGrade.</value>
-        public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
+        /// <value>SubjectGradeTable.</value>
+        public virtual ICollection<SubjectGradeTable> Subject_SubjectGrade { get; set; }
     }
 }

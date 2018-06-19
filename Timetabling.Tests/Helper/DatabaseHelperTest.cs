@@ -126,7 +126,7 @@ namespace Timetabling.Tests.Helper
                     // Verify timetable ID matches
                     Assert.AreEqual(1000, ttEntry.First().TimetableId);
 
-                    // Verify day is parsed correctly and matches
+                    // Verify Day is parsed correctly and matches
                     Assert.AreEqual(5, ttEntry.First().Day);
 
                     // Verify timeslot is parsed correctly and matches

@@ -18,7 +18,7 @@ namespace Timetabling.Objects
         public DaysList(DataModel _db) : base(_db) => SetListElement("Days_List");
 
         /// <summary>
-        /// Create this number of days element, and adds each day
+        /// Create this number of days element, and adds each Day
         /// </summary>
         public override XElement Create()
         {

@@ -31,18 +31,18 @@ namespace Timetabling.Tests.Objects
             mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Subject_MasterData_Subject>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var data3 = new List<Subject_SubjectGrade>{
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =0, CollectionID = 1
+            var data3 = new List<SubjectGradeTable>{
+                new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 4, SubjectID =0, CollectionID = 1
                 },
-                new Subject_SubjectGrade{GradeID = 60, NumberOfLlessonsPerWeek = 6, SubjectID =1
+                new SubjectGradeTable{GradeID = 60, NumberOfLlessonsPerWeek = 6, SubjectID =1
                 },
             }.AsQueryable();
 
-            var mockSet3 = new Mock<DbSet<Subject_SubjectGrade>>();
-            mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.Provider).Returns(data3.Provider);
-            mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.Expression).Returns(data3.Expression);
-            mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.ElementType).Returns(data3.ElementType);
-            mockSet3.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
+            var mockSet3 = new Mock<DbSet<SubjectGradeTable>>();
+            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Provider).Returns(data3.Provider);
+            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.Expression).Returns(data3.Expression);
+            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.ElementType).Returns(data3.ElementType);
+            mockSet3.As<IQueryable<SubjectGradeTable>>().Setup(m => m.GetEnumerator()).Returns(data3.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Subject_MasterData_Subject).Returns(mockSet.Object);

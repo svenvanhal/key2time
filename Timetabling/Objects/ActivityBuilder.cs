@@ -34,9 +34,9 @@ namespace Timetabling.Objects
         public bool IsCollection { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of lessons per day.
+        /// Gets or sets the number of lessons per Day.
         /// </summary>
-        /// <value>The number of lessons per day.</value>
+        /// <value>The number of lessons per Day.</value>
         public int NumberOfLessonsPerDay { get; set; }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Timetabling.Objects
                 if (i == NumberOfLessonsPerWeek) act.Duration = NumberOfLessonsPerWeek / NumberOfLessonsPerDay % 2 == 0 ? NumberOfLessonsPerDay : 1;
 
                 // Store activity
-                Activities[act.Id] = act;
+                Activities.Add(act);
                 ActivityCounter++;
             }
         }

@@ -1,18 +1,21 @@
-﻿namespace Timetabling.DB
-{
-	using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-	/// <summary>
-	/// Subject subject grade.
-	/// </summary>
-	public partial class Subject_SubjectGrade
+namespace Timetabling.DB
+{
+
+    /// <summary>
+    /// Subject subject grade.
+    /// </summary>
+    [Table("Subject_SubjectGrade")]
+    public class SubjectGradeTable
 	{
 		/// <summary>
 		/// Gets or sets the subject grade identifier.
 		/// </summary>
 		/// <value>The subject grade identifier.</value>
-		[Key]
-		public int SubjectGradeID { get; set; }
+		[Column("SubjectGradeID"), Key]
+		public int SubjectGradeId { get; set; }
 
 		/// <summary>
 		/// Gets or sets the subject identifier.
@@ -33,9 +36,9 @@
 		public int NumberOfLlessonsPerWeek { get; set; }
 
 		/// <summary>
-		/// Gets or sets the number of llessons per day.
+		/// Gets or sets the number of llessons per Day.
 		/// </summary>
-		/// <value>The number of llessons per day.</value>
+		/// <value>The number of llessons per Day.</value>
 		public int NumberOfLlessonsPerDay { get; set; }
 
         /// <summary>

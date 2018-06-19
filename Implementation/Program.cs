@@ -49,7 +49,7 @@ namespace Implementation
                 // Get academic year id, section id and quarter id.
                 var row = from aq in model.AcademicQuarter
                           where aq.IsActive == true
-                          select new List<int> { aq.AcademicYearID ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
+                          select new List<int> { aq.AcademicYearId ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
 
                 return row.Any() ? row.First() : null;
             }

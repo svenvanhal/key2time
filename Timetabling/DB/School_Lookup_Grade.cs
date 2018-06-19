@@ -17,8 +17,8 @@
 		public School_Lookup_Grade()
 		{
 			School_Lookup_Class = new HashSet<School_Lookup_Class>();
-			Subject_SubjectGrade = new HashSet<Subject_SubjectGrade>();
-			Subject_SubjectGrade1 = new HashSet<Subject_SubjectGrade>();
+			Subject_SubjectGrade = new HashSet<SubjectGradeTable>();
+			Subject_SubjectGrade1 = new HashSet<SubjectGradeTable>();
 		}
 
 		/// <summary>
@@ -61,15 +61,15 @@
 		public virtual School_Lookup_Stage School_Lookup_Stage { get; set; }
 
 		/// <summary>
-		/// Gets or sets the Subject_SubjectGrade.
+		/// Gets or sets the SubjectGradeTable.
 		/// </summary>
-		/// <value>The Subject_SubjectGrade.</value>
-		public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade { get; set; }
+		/// <value>The SubjectGradeTable.</value>
+		public virtual ICollection<SubjectGradeTable> Subject_SubjectGrade { get; set; }
 
 		/// <summary>
-		/// Gets or sets Subject_SubjectGrade.
+		/// Gets or sets SubjectGradeTable.
 		/// </summary>
-		/// <value>The Subject_SubjectGrade.</value>
-		public virtual ICollection<Subject_SubjectGrade> Subject_SubjectGrade1 { get; set; }
+		/// <value>The SubjectGradeTable.</value>
+		public virtual ICollection<SubjectGradeTable> Subject_SubjectGrade1 { get; set; }
 	}
 }

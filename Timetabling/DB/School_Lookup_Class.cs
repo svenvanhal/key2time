@@ -65,10 +65,10 @@
 		public bool? IsHome { get; set; }
 
 		/// <summary>
-		/// Gets or sets the HR_MasterData_Employees.
+		/// Gets or sets the EmployeeModel.
 		/// </summary>
-		/// <value>The HR_MasterData_Employees.</value>
-		public virtual HR_MasterData_Employees HR_MasterData_Employees { get; set; }
+		/// <value>The EmployeeModel.</value>
+		public virtual EmployeeModel HR_MasterData_Employees { get; set; }
 
 		/// <summary>
 		/// Gets or sets the School_Lookup_Grade.

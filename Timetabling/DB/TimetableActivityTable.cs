@@ -24,7 +24,7 @@ namespace Timetabling.DB
         /// <summary>
         /// Subject of activity.
         /// </summary>
-        [Column("subjectId")]
+        [Column("SubjectId")]
         public long? SubjectId { get; set; }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Timetabling.DB
         public int? CollectionId { get; set; }
 
         /// <summary>
-        /// The day this activity is scheduled for.
+        /// The Day this activity is scheduled for.
         /// </summary>
         [Column("dayIndex")]
         public int Day { get; set; }

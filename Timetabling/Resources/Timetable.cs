@@ -59,7 +59,7 @@ namespace Timetabling.Resources
         public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
-        /// Timetable activity, consisting of an id, a day, an hour and a room.
+        /// Timetable activity, consisting of an id, a Day, an hour and a room.
         /// </summary>
         public class TimetableActivity
         {

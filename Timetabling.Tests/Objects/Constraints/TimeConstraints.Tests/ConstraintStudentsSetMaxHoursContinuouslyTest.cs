@@ -16,15 +16,15 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         [SetUp]
         public void Init()
         {
-            var data = new List<Tt_GradeLesson>{
-                new Tt_GradeLesson{gradeId = 0, numberOfLessons = 3},
+            var data = new List<GradeLessonModel>{
+                new GradeLessonModel{GradeId = 0, NumberOfLessons = 3},
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<Tt_GradeLesson>>();
-            mockSet.As<IQueryable<Tt_GradeLesson>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Tt_GradeLesson>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Tt_GradeLesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Tt_GradeLesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<GradeLessonModel>>();
+            mockSet.As<IQueryable<GradeLessonModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<GradeLessonModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<GradeLessonModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<GradeLessonModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
 
             var dataGrade = new List<School_Lookup_Grade>{

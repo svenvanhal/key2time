@@ -43,7 +43,7 @@
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
-    <Compile Include="DB\AcademicQuarterTable.cs" />
+    <Compile Include="DB\AcademicQuarterModel.cs" />
     <Compile Include="DB\TimetableActivityClassTable.cs" />
     <Compile Include="DB\TimetableTable.cs" />
     <Compile Include="DB\TimetableActivityTeacherTable.cs" />
@@ -53,15 +53,15 @@
     <Compile Include="Resources\Timetable.cs" />
     <Compile Include="Helper\CommandLineArguments.cs" />
     <Compile Include="DB\DataModel.cs" />
-    <Compile Include="DB\HR_MasterData_Employees.cs" />
+    <Compile Include="DB\EmployeeModel.cs" />
     <Compile Include="DB\School_Lookup_Class.cs" />
     <Compile Include="DB\School_Lookup_Grade.cs" />
     <Compile Include="DB\School_Lookup_Stage.cs" />
     <Compile Include="DB\Section_WeekEnd.cs" />
     <Compile Include="DB\Subject_MasterData_Subject.cs" />
-    <Compile Include="DB\Subject_SubjectGrade.cs" />
-    <Compile Include="DB\Tt_GradeLesson.cs" />
-    <Compile Include="DB\Tt_TimeOff.cs" />
+    <Compile Include="DB\SubjectGradeTable.cs" />
+    <Compile Include="DB\GradeLessonModel.cs" />
+    <Compile Include="DB\TimeOffTable.cs" />
     <Compile Include="Algorithms\FET\FetConfig.cs" />
     <Compile Include="XML\XmlCreator.cs" />
     <Compile Include="Objects\TeachersList.cs" />
@@ -87,7 +87,7 @@
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSection.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintSubjectPreferredRooms.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimes.cs" />
-    <Compile Include="DB\tt_ActitvityGroup.cs" />
+    <Compile Include="DB\ActivityGroupModel.cs" />
     <Compile Include="Objects\Activity.cs" />
     <Compile Include="DB\School_ClassTeacherSubjects.cs" />
     <Compile Include="Objects\ActivityBuilder.cs" />

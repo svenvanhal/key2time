@@ -21,9 +21,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public string Students { get; set; }
 
         /// <summary>
-        /// Gets or sets the day.
+        /// Gets or sets the Day.
         /// </summary>
-        /// <value>The day.</value>
+        /// <value>The Day.</value>
         public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             var query = from tf in dB.Tt_TimeOff
                         join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
                         where tf.ItemType == 3 && cl.IsActive == true
-                        select new { tf.day, cl.ClassName, tf.lessonIndex };
+                        select new { day = tf.Day, cl.ClassName, lessonIndex = tf.LessonIndex };
             var result = new List<XElement>();
             var check = new List<string>();
 

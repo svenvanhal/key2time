@@ -52,14 +52,14 @@ namespace Timetabling.Objects
         {
             // Retrieve all collection activities
             var query = from activity in dB.tt_ActitvityGroup
-                        join c in dB.School_Lookup_Class on activity.classId equals c.ClassID
-                        join s in dB.Subject_SubjectGrade on activity.subjectId equals s.SubjectID
-                        join t in dB.HR_MasterData_Employees on activity.teacherId equals t.EmployeeID
-                        join grade in dB.School_Lookup_Grade on activity.gradeId equals grade.GradeID
-                        join sub in dB.Subject_MasterData_Subject on activity.subjectId equals sub.SubjectID
-                        where s.GradeID == activity.gradeId && t.IsActive == true
-                        group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, s.CollectionID }
-                        by activity.ActivityRefID into g
+                        join c in dB.School_Lookup_Class on activity.ClassId equals c.ClassID
+                        join s in dB.Subject_SubjectGrade on activity.SubjectId equals s.SubjectID
+                        join t in dB.HR_MasterData_Employees on activity.TeacherId equals t.EmployeeId
+                        join grade in dB.School_Lookup_Grade on activity.GradeId equals grade.GradeID
+                        join sub in dB.Subject_MasterData_Subject on activity.SubjectId equals sub.SubjectID
+                        where s.GradeID == activity.GradeId && t.IsActive == true
+                        group new { ActivityRefID = activity.ActivityRefId, teacherId = activity.TeacherId, grade.GradeName, subjectId = activity.SubjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, s.CollectionID }
+                        by activity.ActivityRefId into g
                         select g;
 
             // Iterate over collections
@@ -99,7 +99,7 @@ namespace Timetabling.Objects
             var query = from activity in dB.School_ClassTeacherSubjects
                         join c in dB.School_Lookup_Class on activity.ClassID equals c.ClassID
                         join s in dB.Subject_SubjectGrade on activity.SubjectID equals s.SubjectID
-                        join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeID
+                        join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeId
                         join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
                         where c.GradeID == s.GradeID
                         select new { activity.TeacherID, activity.SubjectID, c.ClassName, c.ClassID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };

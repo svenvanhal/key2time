@@ -17,15 +17,15 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         [SetUp]
         public void Init()
         {
-            var data = new List<Tt_TimeOff>{
-                new Tt_TimeOff{ItemId = 4, day = 2, lessonIndex = 3, ItemType = 3},
+            var data = new List<TimeOffTable>{
+                new TimeOffTable{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 3},
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<Tt_TimeOff>>();
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<TimeOffTable>>();
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var dataClass = new List<School_Lookup_Class>{
                 new School_Lookup_Class{ClassID = 4, ClassName = "testGrade", timeOffConstraint = 100, IsActive = true},

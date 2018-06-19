@@ -23,7 +23,7 @@ namespace Timetabling.Objects
         public override XElement Create()
         {
             var query = dB.HR_MasterData_Employees.Where(teacher => teacher.IsTeacher == true && teacher.IsActive == true)
-                          .Select(teacher => teacher.EmployeeID);
+                          .Select(teacher => teacher.EmployeeId);
 
             foreach (var item in query)
             {

@@ -17,25 +17,25 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
         [SetUp]
         public void Init()
         {
-            var data = new List<Tt_TimeOff>{
-                new Tt_TimeOff{ItemId = 4, day = 2, lessonIndex = 3, ItemType = 1},
+            var data = new List<TimeOffTable>{
+                new TimeOffTable{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 1},
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<Tt_TimeOff>>();
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Tt_TimeOff>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<TimeOffTable>>();
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<TimeOffTable>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var dataEmp = new List<HR_MasterData_Employees>{
-                new HR_MasterData_Employees{EmployeeID = 4, IsActive = true, timeOffConstraint=50, IsTeacher =true},
+            var dataEmp = new List<EmployeeModel>{
+                new EmployeeModel{EmployeeId = 4, IsActive = true, TimeOffConstraint=50, IsTeacher =true},
             }.AsQueryable();
 
-            var mockSetEmp = new Mock<DbSet<HR_MasterData_Employees>>();
-            mockSetEmp.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.Provider).Returns(dataEmp.Provider);
-            mockSetEmp.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.Expression).Returns(dataEmp.Expression);
-            mockSetEmp.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.ElementType).Returns(dataEmp.ElementType);
-            mockSetEmp.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
+            var mockSetEmp = new Mock<DbSet<EmployeeModel>>();
+            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.Provider).Returns(dataEmp.Provider);
+            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.Expression).Returns(dataEmp.Expression);
+            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.ElementType).Returns(dataEmp.ElementType);
+            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
             mockDB.Setup(item => item.Tt_TimeOff).Returns(mockSet.Object);

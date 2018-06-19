@@ -24,7 +24,7 @@ namespace Timetabling.DB
         /// <summary>
         /// Class ID.
         /// </summary>
-        [Column("classId")]
+        [Column("ClassId")]
         public long ClassId { get; set; }
     }
 }

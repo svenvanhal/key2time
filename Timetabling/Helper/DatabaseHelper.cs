@@ -208,7 +208,7 @@ namespace Timetabling.Helper
             if (Enum.TryParse(day, true, out Days result)) return (int)result;
 
             // Throw exception if failed
-            throw new ArgumentException("Supplied string value does not represent a valid day.");
+            throw new ArgumentException("Supplied string value does not represent a valid Day.");
         }
 
         /// <inheritdoc />
