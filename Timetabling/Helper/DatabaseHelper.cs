@@ -50,6 +50,7 @@ namespace Timetabling.Helper
                 // Create timetable entry and activities
                 var id = CreateTimetable(Model, tt);
 
+                // Create activities (including relations with teachers and classes) for this timetable
                 CreateActivities(Model, id, tt);
 
                 // Commit transaction
@@ -80,7 +81,8 @@ namespace Timetabling.Helper
                 QuarterId = tt.QuarterId,
                 SectionId = tt.SectionId,
                 ConflictWeight = tt.ConflictWeight,
-                Conflicts = conflictText
+                Conflicts = conflictText,
+                OutputDir = tt.OutputFolder
             };
 
             // Save to database
