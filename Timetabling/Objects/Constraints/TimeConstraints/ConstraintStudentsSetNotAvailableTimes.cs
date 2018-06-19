@@ -10,10 +10,12 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
     /// </summary>
     internal class ConstraintStudentsSetNotAvailableTimes : AbstractConstraint
     {
+        
         /// <summary>
         /// The number of hours is always 1;
         /// </summary>
         public int NumberOfHours { get; set; } = 0;
+        
         /// <summary>
         /// Gets or sets the students.
         /// </summary>
