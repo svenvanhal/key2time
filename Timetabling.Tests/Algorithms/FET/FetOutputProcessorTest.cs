@@ -51,31 +51,6 @@ namespace Timetabling.Tests.Algorithms.FET
         }
 
         [Test]
-        public void CleanupOutputDirTest()
-        {
-
-            // Create dummy FET output
-            var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData>
-            {
-                { @"outputdir/Hopwood_activities.xml", new MockFileData("Generated timetable") },
-                { @"outputdir/Hopwood_data_and_timetable.fet", new MockFileData("Original FET file") },
-                { @"outputdir/Hopwood_soft_conflicts.txt", new MockFileData("Soft conflicts in solution") },
-            });
-
-            var fopDir = fileSystem.Path.Combine(fileSystem.Directory.GetCurrentDirectory(), "outputdir");
-            var fop = new FetOutputProcessor("Hopwood", fopDir, fileSystem);
-
-            Assert.IsTrue(fileSystem.Directory.Exists(fopDir));
-
-            // Run
-            fop.CleanupOutputDir();
-
-            // Check that we have found all 163 activities
-            Assert.IsFalse(fileSystem.Directory.Exists(fopDir));
-
-        }
-
-        [Test]
         public void XmlToTimetableTest()
         {
 
