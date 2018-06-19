@@ -21,7 +21,7 @@ namespace Timetabling.DB
         /// Gets or sets the subject identifier.
         /// </summary>
         /// <value>The subject identifier.</value>
-        [Column("SubjectID")]
+        [Column("SubjectId")]
         public int? SubjectId { get; set; }
 
         /// <summary>
