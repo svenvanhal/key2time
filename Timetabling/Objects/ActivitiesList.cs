@@ -41,6 +41,7 @@ namespace Timetabling.Objects
                         group new { activity.ActivityRefID, activity.teacherId, grade.GradeName, activity.subjectId, c.ClassName, c.ClassID, activity.Id, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay, s.CollectionID }
                         by activity.ActivityRefID into g
                         select g;
+            
             foreach (var item in query)
             {
                 var activity = item.First();
@@ -54,7 +55,7 @@ namespace Timetabling.Objects
                     SubjectId = activity.subjectId,
                     NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = activity.NumberOfLlessonsPerWeek,
-                    CollectionID = activity.CollectionID,  
+                    CollectionID = activity.CollectionID,
                     GradeName = activity.GradeName,
                     builderCounter = counter
                 };
@@ -79,9 +80,10 @@ namespace Timetabling.Objects
                         join s in dB.Subject_SubjectGrade on activity.SubjectID equals s.SubjectID
                         join t in dB.HR_MasterData_Employees on activity.TeacherID equals t.EmployeeID
                         join grade in dB.School_Lookup_Grade on c.GradeID equals grade.GradeID
+                        where c.GradeID == s.GradeID
                         select new { activity.TeacherID, activity.SubjectID, c.ClassName, c.ClassID, s.NumberOfLlessonsPerWeek, s.NumberOfLlessonsPerDay };
 
-            foreach (var item in query.Distinct())
+            foreach (var item in query)
             {
 
                 ActivityBuilder activityBuilder = new ActivityBuilder
