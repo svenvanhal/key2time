@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Timetabling.DB
 {
 
     /// <summary>
     /// Information about the current academic year.
     /// </summary>
+    [Table("Academic_Quarter")]
     public class AcademicQuarterTable
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity.Migrations;
 using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.Resources;
@@ -12,6 +13,8 @@ namespace Timetabling.Helper
     /// </summary>
     public class DatabaseHelper : IDisposable
     {
+
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Data model to work with.
@@ -35,6 +38,8 @@ namespace Timetabling.Helper
         public void SaveTimetable(Timetable tt)
         {
 
+            Logger.Info("Saving timetable.");
+
             // Cancel if timetable is partial
             if (tt.IsPartial) throw new InvalidOperationException("Partial timetables cannot be saved to the database.");
 
@@ -44,6 +49,7 @@ namespace Timetabling.Helper
 
                 // Create timetable entry and activities
                 var id = CreateTimetable(Model, tt);
+
                 CreateActivities(Model, id, tt);
 
                 // Commit transaction
@@ -60,6 +66,8 @@ namespace Timetabling.Helper
         /// <returns>ID of newly inserted timetable.</returns>
         protected int CreateTimetable(DataModel model, Timetable tt)
         {
+
+            Logger.Info("Creating timetable.");
 
             // Join soft conflicts into one string
             var conflictText = tt.SoftConflicts == null || tt.SoftConflicts.Count == 0 ? "" : string.Join(Environment.NewLine, tt.SoftConflicts.ToArray());
@@ -91,9 +99,13 @@ namespace Timetabling.Helper
         protected void CreateActivities(DataModel model, int ttId, Timetable tt)
         {
 
+            Logger.Info("Creating activities.");
+
             // Iterate over all activities in timetable
             foreach (var activity in tt.Activities)
             {
+
+                Logger.Info("Processing activity " + activity.Id);
 
                 // Create new activity
                 var activityEntry = new TimetableActivityTable
@@ -112,12 +124,15 @@ namespace Timetabling.Helper
                 model.TimetableActivities.Add(activityEntry);
                 model.SaveChanges();
 
+                Console.WriteLine(activityEntry.Id);
+
                 // Create activity - teacher relations
                 CreateActivityTeacherRelations(model, activityEntry.Id, activity.Resource);
 
                 // Create activity - class relations
                 CreateActivityClassRelations(model, activityEntry.Id, activity.Resource);
 
+                Logger.Info("Done processing activity " + activity.Id + "\r\n");
             }
 
         }
@@ -131,16 +146,19 @@ namespace Timetabling.Helper
         protected void CreateActivityTeacherRelations(DataModel model, int activityId, Activity activity)
         {
 
+            Logger.Info("Creating activity / teacher relations.");
+
             // Iterate over teachers in activity
             foreach (var teacherId in activity.Teachers)
             {
 
                 // Create new activity - teacher relation
-                model.TimetableActivityTeachers.Add(new TimetableActivityTeacherTable
+                model.TimetableActivityTeachers.AddOrUpdate(new TimetableActivityTeacherTable
                 {
                     ActivityId = activityId,
                     TeacherId = teacherId
                 });
+
             }
 
             // Save changes to database
@@ -157,16 +175,21 @@ namespace Timetabling.Helper
         protected void CreateActivityClassRelations(DataModel model, int activityId, Activity activity)
         {
 
+            Logger.Info("Creating activity / class relations.");
+
             // Iterate over teachers in activity
             foreach (var classEntry in activity.Students)
             {
 
+                Logger.Info($"Creating new activity / class relation: {activityId} - {classEntry.Value}");
+
                 // Create new activity - teacher relation
-                model.TimetableActivityClasses.Add(new TimetableActivityClassTable
+                model.TimetableActivityClasses.AddOrUpdate(new TimetableActivityClassTable
                 {
                     ActivityId = activityId,
                     ClassId = classEntry.Value
                 });
+
             }
 
             // Save changes to database

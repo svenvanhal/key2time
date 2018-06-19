@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Timetabling;
@@ -37,29 +38,32 @@ namespace Implementation
             return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
         }
 
-        private static int[] GetMeta()
+        private static IList<int> GetMeta()
         {
             using (var model = new DataModel())
             {
 
                 // Get academic year id, section id and quarter id.
-                var res = from row in model.AcademicQuarter
-                          where row.IsActive == true && row.AcademicYearID != null && row.QuarterId != null && row.SectionId != null
-                          select new[] { row.AcademicYearID ?? 0, row.QuarterId ?? 0, row.SectionId ?? 0 };
+                var row = from aq in model.AcademicQuarter
+                          where aq.IsActive == true
+                          select new List<int> { aq.AcademicYearID ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
 
-                return res.First();
+                return row.Any() ? row.First() : null;
             }
         }
 
-        public static void OnSuccess(Task<Timetable> t, int[] meta)
+        public static void OnSuccess(Task<Timetable> t, IList<int> meta)
         {
 
             var tt = t.Result;
 
             // Update timetable with metadata
-            tt.AcademicYearId = meta[0];
-            tt.QuarterId = meta[1];
-            tt.SectionId = meta[2];
+            if (meta?.Count == 3)
+            {
+                tt.AcademicYearId = meta[0];
+                tt.QuarterId = meta[1];
+                tt.SectionId = meta[2];
+            }
 
             Console.WriteLine("The timetable has been generated sucessfully.");
             Console.WriteLine(tt);
