@@ -46,7 +46,7 @@ namespace Timetabling.Objects
             {
                 var activity = item.First();
                 var students = new Dictionary<string, int>();
-                item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students.Add(x.ClassName, x.ClassID));
+                item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students[x.ClassName] = x.ClassID);
 
                 ActivityBuilder activityBuilder = new ActivityBuilder
                 {
