@@ -52,5 +52,11 @@ namespace Timetabling.DB
         /// </summary>
         [Column("conflictWeight")]
         public double ConflictWeight { get; set; }
+
+        /// <summary>
+        /// Path to the timetable source output directory.
+        /// </summary>
+        [Column("outputDir"), StringLength(260)]
+        public string OutputDir { get; set; }
     }
 }
