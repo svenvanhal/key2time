@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace Timetabling.Objects
 {
+
+    /// <summary>
+    /// Generates a number of lessons for a single configuration.
+    /// </summary>
     public class ActivityBuilder
     {
         /// <summary>
@@ -45,7 +49,7 @@ namespace Timetabling.Objects
         /// Gets or sets the collection identifier.
         /// </summary>
         /// <value>The collection identifier.</value>
-        public int? CollectionID { get; set; }
+        public int? CollectionId { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the grade.
@@ -57,48 +61,12 @@ namespace Timetabling.Objects
         /// Gets or sets the builder counter for the id.
         /// </summary>
         /// <value>The builder counter.</value>
-        public int builderCounter { get; set; }
-
-        private List<Activity> activitiesList { set; get; } = new List<Activity>();
+        public int ActivityCounter { get; set; }
 
         /// <summary>
-        /// Adds the activity to the list.
+        /// Internal list to keep track of the generated activities.
         /// </summary>
-        private void CreateActivities()
-        {
-
-            var groupId = builderCounter;
-
-            var NumberOfActivities = Math.Ceiling( (double) NumberOfLessonsPerWeek/ (double) NumberOfLessonsPerDay);
-            for (var i = 1; i <= NumberOfActivities; i++)
-            {
-                var act = new Activity
-                {
-                    Teachers = TeachersList,
-                    Subject = SubjectId,
-                    Students = StudentsList,
-                    Id = builderCounter,
-                    GroupId = groupId,
-                    Duration = NumberOfLessonsPerDay,
-                    TotalDuration = NumberOfLessonsPerWeek,
-                    NumberLessonOfWeek = i,
-                    IsCollection = IsCollection,
-                    CollectionId = CollectionID,
-                };
-                if (i == NumberOfLessonsPerWeek)
-                {
-                    if (NumberOfLessonsPerWeek / NumberOfLessonsPerDay % 2 == 0)
-                        act.Duration = NumberOfLessonsPerDay;
-                    else
-                    {
-                        act.Duration = 1;
-                    }
-                }
-               
-                activitiesList.Add(act);
-                builderCounter++;
-            }
-        }
+        protected readonly List<Activity> Activities = new List<Activity>();
 
         /// <summary>
         /// Creates the activities and returns the result 
@@ -107,7 +75,42 @@ namespace Timetabling.Objects
         public List<Activity> GetResults()
         {
             CreateActivities();
-            return activitiesList;
+            return Activities;
         }
+
+        /// <summary>
+        /// Adds the activity to the list.
+        /// </summary>
+        private void CreateActivities()
+        {
+            var groupId = ActivityCounter;
+            var numberOfActivities = Math.Ceiling( (double) NumberOfLessonsPerWeek/ (double) NumberOfLessonsPerDay);
+
+            // Generate the required amount of activities for this subject
+            for (var i = 1; i <= numberOfActivities; i++)
+            {
+                var act = new Activity
+                {
+                    Teachers = TeachersList,
+                    Subject = SubjectId,
+                    Students = StudentsList,
+                    Id = ActivityCounter,
+                    GroupId = groupId,
+                    Duration = NumberOfLessonsPerDay,
+                    TotalDuration = NumberOfLessonsPerWeek,
+                    NumberLessonOfWeek = i,
+                    IsCollection = IsCollection,
+                    CollectionId = CollectionId,
+                };
+
+                // Update the duration if this lesson is the final lesson on the week and not all hours have been filled
+                if (i == NumberOfLessonsPerWeek) act.Duration = NumberOfLessonsPerWeek / NumberOfLessonsPerDay % 2 == 0 ? NumberOfLessonsPerDay : 1;
+
+                // Store activity
+                Activities[act.Id] = act;
+                ActivityCounter++;
+            }
+        }
+
     }
 }
