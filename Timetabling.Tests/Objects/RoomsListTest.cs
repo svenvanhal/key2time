@@ -17,21 +17,8 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<BuildingModel>{
-                new BuildingModel{Id = 0,  IsActive = true},
-                new BuildingModel{Id = 1, IsActive = false},
-
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<BuildingModel>>();
-            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Buildings).Returns(mockSet.Object);
-            var list = new RoomsList(mockDB.Object);
+            var TestDataModel = new TestDataModel();
+            var list = new RoomsList(TestDataModel.MockDataModel.Object);
             test = list.Create();
         }
 

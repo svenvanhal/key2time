@@ -51,7 +51,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement[] Create(DataModel dB)
         {
             var query = from tf in dB.TimesOff
-                        join activity in dB.ActitvityGroups on tf.ItemId equals activity.SubjectId
+                        join activity in dB.ClassTeacherSubjects on tf.ItemId equals activity.SubjectId
                         where tf.ItemType == 2
                         select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex };
 

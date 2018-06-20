@@ -17,31 +17,7 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
         [SetUp]
         public void Init()
         {
-            var data = new List<TimeOffModel>{
-                new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 1},
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<TimeOffModel>>();
-            mockSet.As<IQueryable<TimeOffModel>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<TimeOffModel>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<TimeOffModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<TimeOffModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var dataEmp = new List<EmployeeModel>{
-                new EmployeeModel{EmployeeId = 4, IsActive = true, TimeOffConstraint=50, IsTeacher =true},
-            }.AsQueryable();
-
-            var mockSetEmp = new Mock<DbSet<EmployeeModel>>();
-            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.Provider).Returns(dataEmp.Provider);
-            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.Expression).Returns(dataEmp.Expression);
-            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.ElementType).Returns(dataEmp.ElementType);
-            mockSetEmp.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(dataEmp.GetEnumerator());
-
-            var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.TimesOff).Returns(mockSet.Object);
-            mockDB.Setup(item => item.Employees).Returns(mockSetEmp.Object);
-
-            test = mockDB;
+            test = new TestDataModel().MockDataModel;
 
         }
 

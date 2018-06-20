@@ -17,24 +17,9 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<SectionWeekendModel>{
-                new SectionWeekendModel{DayIndex = 0, SectionId =1},
-                new SectionWeekendModel{DayIndex = 1, SectionId= 1},
-                new SectionWeekendModel{DayIndex = 3,SectionId = 1}
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<SectionWeekendModel>>();
-            mockSet.As<IQueryable<SectionWeekendModel>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<SectionWeekendModel>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<SectionWeekendModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<SectionWeekendModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Weekends).Returns(mockSet.Object);
-
-            var list = new DaysList(mockDB.Object);
+            var TestDataModel = new TestDataModel(); 
+            var list = new DaysList(TestDataModel.MockDataModel.Object);
             test = list.Create();
-
         }
 
         [Test]

@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
-using Moq;
+
 using Timetabling.Objects;
 using System.Xml.Linq;
-using Timetabling.DB;
+
 
 namespace Timetabling.Tests.Objects
 {
@@ -11,14 +11,16 @@ namespace Timetabling.Tests.Objects
     {
 
         XElement test;
+        TimeConstraintsList TimeConstraintsList;
 
         [SetUp]
         public void Init()
         {
-            var mockDB = new Mock<DataModel>();
+            var TestDataModel = new TestDataModel();
 
-            var list = new TimeConstraintsList(mockDB.Object);
-            test = list.List;
+            TimeConstraintsList = new TimeConstraintsList(TestDataModel.MockDataModel.Object);
+            TimeConstraintsList.Create();
+            test = TimeConstraintsList.List;
         }
 
         [Test]
@@ -27,5 +29,10 @@ namespace Timetabling.Tests.Objects
             Assert.AreEqual("Time_Constraints_List", test.Name.ToString());
         }
 
+        [Test]
+        public void CreateTest()
+        {
+            Assert.AreEqual(2, TimeConstraintsList.Constraints.Count);
+        }
     }
 }

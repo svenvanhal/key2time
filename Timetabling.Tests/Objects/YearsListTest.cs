@@ -18,35 +18,9 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<LookupGradeModel>{
-                new LookupGradeModel{GradeId = 0,  GradeName = "test", IsActive = true},
-                new LookupGradeModel{GradeId = 1, GradeName = "test2", IsActive = true},
-
-            }.AsQueryable();
-
-            var mockSet = new Mock<DbSet<LookupGradeModel>>();
-            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var dataClass = new List<LookupClassModel>{
-                new LookupClassModel{GradeId = 0, ClassId = 0 ,IsActive = true, ClassName = "classTest1"},
-                new LookupClassModel{GradeId = 1, ClassId = 1, IsActive = true, ClassName = "classTest2"},
-
-            }.AsQueryable();
-
-            var mockSetClass = new Mock<DbSet<LookupClassModel>>();
-            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.Provider).Returns(dataClass.Provider);
-            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.Expression).Returns(dataClass.Expression);
-            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
-            mockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
-
-            var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.GradesLookup).Returns(mockSet.Object);
-            mockDB.Setup(item => item.ClassesLookup).Returns(mockSetClass.Object);
-
-            var list = new YearsList(mockDB.Object);
+           
+            var TestDataModel = new TestDataModel();
+            var list = new YearsList(TestDataModel.MockDataModel.Object);
             test = list.Create();
         }
 
@@ -61,7 +35,7 @@ namespace Timetabling.Tests.Objects
         public void ClassRightTest()
         {
 
-            Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Name").Count(item => item.Value.Equals("classTest1")));
+            Assert.AreEqual(1, test.Elements("Year").Elements("Group").Elements("Name").Count(item => item.Value.Equals("test")));
             Assert.AreEqual(0, test.Elements("Year").Elements("Group").Elements("Name").Count(item => item.Value.Equals("notclassTest1")));
 
         }
@@ -70,8 +44,8 @@ namespace Timetabling.Tests.Objects
         public void GradeRightTest()
         {
 
-            Assert.AreEqual(1, test.Elements("Year").Elements("Name").Count(item => item.Value.Equals("test")));
-            Assert.AreEqual(0, test.Elements("Year").Elements("Name").Count(item => item.Value.Equals("noTtest")));
+            Assert.AreEqual(1, test.Elements("Year").Elements("Name").Count(item => item.Value.Equals("gradeTest")));
+            Assert.AreEqual(0, test.Elements("Year").Elements("Name").Count(item => item.Value.Equals("noTest")));
 
         }
     }

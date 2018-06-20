@@ -77,7 +77,6 @@
     <Compile Include="Objects\SpaceConstraintsList.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintBasicCompulsorySpace.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintBasicCompulsoryTime.cs" />
-    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetMaxHoursContinuously.cs" />
     <Compile Include="Objects\RoomsList.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetNotAvailableTimes.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimes.cs" />

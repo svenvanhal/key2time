@@ -96,7 +96,6 @@
     <Compile Include="Helper\XmlCreatorTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintBasicCompulsoryTimeTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintMinDaysBetweenActivitiesTest.cs" />
-    <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetMaxHoursContinuouslyTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintStudentsSetNotAvailableTimesTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintTeacherNotAvailableTimesTest.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintBasicCompulsorySpaceTest.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintPeriodSectionTest.cs" />
     <Compile Include="Objects\Constraints\SpaceConstraints.Tests\ConstraintsSubjectPrefferedRoomsTest.cs" />
     <Compile Include="Objects\Constraints\TimeConstraints.Tests\ConstraintActivitiesPreferredStartingTimesTest.cs" />
+    <Compile Include="Objects\TestDataModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
