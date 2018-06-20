@@ -139,7 +139,7 @@ namespace Timetabling.Algorithms.FET
             if (tt == null || !FileSystem.File.Exists(softConstraintsFile)) return tt;
 
             // Read the soft conflicts file, line by line
-            using (var stream = _fs.File.OpenRead(softConstraintsFile))
+            using (var stream = FileSystem.File.OpenRead(softConstraintsFile))
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
