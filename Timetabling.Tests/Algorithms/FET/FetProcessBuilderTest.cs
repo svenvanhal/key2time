@@ -101,8 +101,11 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void SetInvalidTimeoutTest()
         {
-            var fpb = new FetProcessBuilder();
-            Assert.Throws<ArgumentOutOfRangeException>(() => fpb.SetTimeout(0));
+            var defaultTimeout = "2000000000";
+
+            var fpb = new FetProcessBuilderExposer();
+            fpb.SetTimeout(0);
+            Assert.AreEqual(defaultTimeout, fpb.GetArgument("timelimitseconds"));
         }
 
         [Test]

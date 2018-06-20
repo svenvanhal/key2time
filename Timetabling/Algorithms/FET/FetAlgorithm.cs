@@ -132,6 +132,9 @@ namespace Timetabling.Algorithms.FET
             // Change default language
             processBuilder.SetLanguage(FetConfig.GetFetLanguage());
 
+            // Set timeout
+            processBuilder.SetTimeout(FetConfig.GetTimeout());
+
             return processBuilder.CreateProcess();
         }
 

@@ -106,10 +106,10 @@ namespace Timetabling.Algorithms.FET
         /// Set the timetable generation timeout.
         /// </summary>
         /// <param name="seconds">Amount of seconds before timeout. Default: 2000000000</param>
-        /// <exception cref="ArgumentOutOfRangeException">Throws ArgumentOutOfRangeException when the timeout is too low.</exception>
-        public void SetTimeout(int seconds)
+        public void SetTimeout(int seconds = 2000000000)
         {
-            if (seconds < 1) throw new ArgumentOutOfRangeException(nameof(seconds), "The timetable generation timeout cannot be less than one second.");
+            // FET-CL default value when timeout out of range
+            if (seconds < 1) seconds = 2000000000;
 
             SetArgument("timelimitseconds", seconds.ToString());
         }
