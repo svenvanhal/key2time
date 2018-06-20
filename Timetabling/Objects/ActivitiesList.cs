@@ -59,7 +59,7 @@ namespace Timetabling.Objects
                         join sub in dB.Subjects on activity.SubjectId equals sub.SubjectId
                         where s.GradeId == c.GradeId && t.IsActive == true && grade.StageId == dB.StageId && s.CollectionId != null
                         group new { teacherId = activity.TeacherId, grade.GradeId, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
-by new { s.CollectionId, s.GradeId } into g
+            by new { s.CollectionId, s.GradeId, activity.ClassId } into g
                         select g;
 
             // Iterate over collections
@@ -137,7 +137,7 @@ by new { s.CollectionId, s.GradeId } into g
 
             foreach (var item in query)
             {
-                var list = Activities.Values.Where(x => x.CollectionId != 0 && x.CollectionId.Equals(item));
+                var list = Activities.Values.Where(x => x.CollectionId != 0 && x.CollectionId.Equals(item) && x.IsCollection==true);
 
                 // Groups the lessons by the number of lesson of the week. 
                 var group = from a in list
