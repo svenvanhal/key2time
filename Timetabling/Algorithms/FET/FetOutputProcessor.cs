@@ -131,11 +131,36 @@ namespace Timetabling.Algorithms.FET
         /// <returns>List of soft conflicts.</returns>
         protected Timetable AddMetadata(Timetable tt)
         {
-            var softConstraintsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
-            if (tt == null || !_fs.File.Exists(softConstraintsFile)) return tt;
+            // Find soft conflicts file
+            var softConflictsFile = _fs.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
+            if (tt == null || !_fs.File.Exists(softConflictsFile)) return tt;
 
-            // Read the soft conflicts file, line by line
-            using (var stream = _fs.File.OpenRead(softConstraintsFile))
+            // Process soft conflicts file
+            Stream stream = null;
+            try
+            {
+                stream = _fs.File.OpenRead(softConflictsFile);
+                ProcessFile(stream, tt);
+            }
+            finally { stream?.Dispose(); }
+
+            // Set output folder (one up is the root directory for this run)
+            tt.OutputFolder = Directory.GetParent(_baseDir).FullName;
+
+            // Update placed activities count when there are activities
+            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
+
+            return tt;
+        }
+
+        /// <summary>
+        /// Processes the soft conflict file and adds information to the timetable.
+        /// </summary>
+        /// <param name="stream">Filestream with soft conflicts file</param>
+        /// <param name="tt">Timetable object to work on</param>
+        /// <returns></returns>
+        protected void ProcessFile(Stream stream, Timetable tt)
+        {
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
@@ -148,16 +173,9 @@ namespace Timetabling.Algorithms.FET
                     ParseMetaLine(line, tt);
                 }
 
+                // Parse soft conflicts
                 tt.SoftConflicts = ParseSoftConflicts(reader);
             }
-
-            // Update placed activities count when there are activities
-            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
-
-            // Set output folder (one up is the root directory for this run)
-            tt.OutputFolder = Directory.GetParent(_baseDir).FullName;
-
-            return tt;
         }
 
         /// <summary>
