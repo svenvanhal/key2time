@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Timetabling.DB;
 using System.Linq;
-using System.Xml.Linq;
 using Moq;
 using System.Data.Entity;
+using Effort.Provider;
 
 namespace Timetabling.Tests.Objects
 {
@@ -14,6 +13,9 @@ namespace Timetabling.Tests.Objects
 
         public TestDataModel()
         {
+
+            EffortProviderConfiguration.RegisterProvider();
+
             var DataActivityGroup = new List<ActivityGroupModel>{
                 new ActivityGroupModel{ ClassId = 1, SubjectId = 1,  TeacherId = 0, GradeId = 60, ActivityRefId = 1, Id = 1},
                 new ActivityGroupModel{ ClassId = 2, SubjectId = 0,  TeacherId = 4, GradeId = 60, ActivityRefId = 2},

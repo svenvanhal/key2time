@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Effort.Provider;
 using Moq;
 using NUnit.Framework;
 using Timetabling.DB;
@@ -22,9 +23,9 @@ namespace Timetabling.Tests.Helper
     {
 
         [SetUp]
-        public void SetupEffort()
+        public void Setup()
         {
-            Effort.Provider.EffortProviderConfiguration.RegisterProvider();
+            EffortProviderConfiguration.RegisterProvider();
         }
 
         [Test]
