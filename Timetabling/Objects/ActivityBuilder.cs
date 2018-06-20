@@ -101,22 +101,19 @@ namespace Timetabling.Objects
                     IsCollection = IsCollection,
                     CollectionId = CollectionId,
                 };
-              
+
 
                 // Update the duration if this lesson is the final lesson on the week and not all hours have been filled
-                if (i == numberOfActivities)
+                if (i == (int) numberOfActivities)
                 {
                     var LastDuration = NumberOfLessonsPerWeek % NumberOfLessonsPerDay;
-                  
                     act.Duration = LastDuration == 0 ? NumberOfLessonsPerDay : LastDuration;
-                  
-
                 }
-                    // Store activity
-                    Activities.Add(act);
-                    ActivityCounter++;
-                }
+                // Store activity
+                Activities.Add(act);
+                ActivityCounter++;
             }
-
         }
+
     }
+}
