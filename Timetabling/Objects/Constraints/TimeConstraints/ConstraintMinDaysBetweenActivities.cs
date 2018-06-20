@@ -27,7 +27,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// Gets or sets the minimum days. If not specified, it will be 1.
         /// </summary>
         /// <value>The minimum days.</value>
-        int MinimumDays { get; set; } = 1;
+        public int MinimumDays { get; set; } = 1;
 
         /// <summary>
         /// Initializes a new instance of the
