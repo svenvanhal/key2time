@@ -20,9 +20,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public int Teacher { get; set; }
 
         /// <summary>
-        /// Gets or sets the day.
+        /// Gets or sets the Day.
         /// </summary>
-        /// <value>The day.</value>
+        /// <value>The Day.</value>
         public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
@@ -47,11 +47,11 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from tf in dB.Tt_TimeOff
+            var query = from tf in dB.TimesOff
                         where tf.ItemType == 1
-                        join e in dB.HR_MasterData_Employees on tf.ItemId equals e.EmployeeID
+                        join e in dB.Employees on tf.ItemId equals e.EmployeeId
                         where e.IsActive == true && e.IsTeacher == true
-                        select new { tf.day, tf.ItemId, tf.lessonIndex, e.timeOffConstraint };
+                        select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex, timeOffConstraint = e.TimeOffConstraint };
 
             var result = new List<XElement>();
 

@@ -7,12 +7,13 @@ namespace Timetabling.DB
     /// Information about the current academic year.
     /// </summary>
     [Table("Academic_Quarter")]
-    public class AcademicQuarterTable
+    public class AcademicQuarterModel
     {
+
         /// <summary>
         /// Row ID.
         /// </summary>
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Whether or not this set is active.
@@ -22,7 +23,8 @@ namespace Timetabling.DB
         /// <summary>
         /// Academic Year ID.
         /// </summary>
-        public int? AcademicYearID { get; set; }
+        [Column("AcademicYearID")]
+        public int? AcademicYearId { get; set; }
 
         /// <summary>
         /// Quarter ID.

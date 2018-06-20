@@ -21,9 +21,9 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         public int Room { get; set; }
 
         /// <summary>
-        /// Gets or sets the day.
+        /// Gets or sets the Day.
         /// </summary>
-        /// <value>The day.</value>
+        /// <value>The Day.</value>
         public Days Day { get; set; }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         /// <param name="dB">Datamodel.</param>
 		public override XElement[] Create(DataModel dB)
         {
-            var query = from tf in dB.Tt_TimeOff
+            var query = from tf in dB.TimesOff
                         where tf.ItemType == 4
-                        join e in dB.School_BuildingsUnits on tf.ItemId equals e.ID
+                        join e in dB.Buildings on tf.ItemId equals e.Id
                         where e.IsActive == true
-                        select new { tf.day, tf.ItemId, tf.lessonIndex };
+                        select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex };
 
             var result = new List<XElement>();
             query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintRoomNotAvailableTimes { Room = item.ItemId, Day = (Days)item.day, Hour = item.lessonIndex }.ToXelement()));

@@ -22,10 +22,10 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
-            var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
-                          .Select(subject => new { subject.SubjectID });
+            var query = dB.Subjects.Where(subject => subject.IsActive == true)
+                          .Select(subject => new { SubjectID = subject.SubjectId });
 
-            var query2 = dB.Subject_SubjectGrade.Select(coll => coll.CollectionID).Distinct();
+            var query2 = dB.SubjectGrades.Select(coll => coll.CollectionId).Distinct();
 
             List<int?> check = new List<int?>();
             foreach (var subject in query)

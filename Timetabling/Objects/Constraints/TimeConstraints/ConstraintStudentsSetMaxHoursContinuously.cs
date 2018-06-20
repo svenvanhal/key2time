@@ -52,9 +52,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from g in dB.Tt_GradeLesson
-                        join l in dB.School_Lookup_Grade on g.gradeId equals l.GradeID
-                        select new { g.numberOfLessons, l.GradeName };
+            var query = from g in dB.GradeLessons
+                        join l in dB.GradesLookup on g.GradeId equals l.GradeId
+                        select new { numberOfLessons = g.NumberOfLessons, l.GradeName };
 
             var result = new List<XElement>();
             query.AsEnumerable().ToList().ForEach(item => result.Add(new ConstraintStudentsSetMaxHoursContinuously { NumberOfHours = item.numberOfLessons, GradeName = item.GradeName }.ToXelement()));

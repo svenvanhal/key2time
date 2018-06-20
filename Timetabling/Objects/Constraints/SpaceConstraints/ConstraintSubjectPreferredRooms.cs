@@ -38,14 +38,14 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
         {
             var results = new List<XElement>();
 
-            var query = dB.Subject_SubjectGrade.Where(item => item.BuildingUnitTypeID != null)
-                          .Select(item => new {item.SubjectID, item.BuildingUnitTypeID});
+            var query = dB.SubjectGrades.Where(item => item.BuildingUnitTypeId != null)
+                          .Select(item => new {SubjectID = item.SubjectId, BuildingUnitTypeID = item.BuildingUnitTypeId});
 
             foreach (var item in query)
             {
-                var rooms = (from b in dB.School_BuildingsUnits
-                             where b.TypeID == item.BuildingUnitTypeID && b.IsActive == true
-                             select b.ID).DefaultIfEmpty().ToList();
+                var rooms = (from b in dB.Buildings
+                             where b.TypeId == item.BuildingUnitTypeID && b.IsActive == true
+                             select b.Id).DefaultIfEmpty().ToList();
 
                 var roomConstraint = new ConstraintSubjectPreferredRooms { Rooms = rooms, SubjectID = item.SubjectID };
                 results.Add(roomConstraint.ToXelement());

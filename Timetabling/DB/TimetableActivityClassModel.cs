@@ -7,7 +7,7 @@ namespace Timetabling.DB
     /// Table linking classes and activities.
     /// </summary>
     [Table("TimeTableActitvityClass")]
-    public class TimetableActivityClassTable
+    public class TimetableActivityClassModel
     {
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Timetabling.DB
         /// <summary>
         /// Class ID.
         /// </summary>
-        [Column("classId")]
+        [Column("ClassId")]
         public long ClassId { get; set; }
     }
 }

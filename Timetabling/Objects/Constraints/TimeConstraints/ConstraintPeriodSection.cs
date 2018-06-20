@@ -43,11 +43,11 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from grade in dB.School_Lookup_Grade
-                        join stage in dB.School_Lookup_Stage on grade.StageID equals stage.StageID
-                        join weekend in dB.Section_WeekEnd on stage.SectionID equals weekend.sectionId
+            var query = from grade in dB.GradesLookup
+                        join stage in dB.StagesLookup on grade.StageId equals stage.StageId
+                        join weekend in dB.Weekends on stage.SectionId equals weekend.SectionId
                         where grade.IsActive == true
-                        select new { grade.GradeName, weekend.dayIndex };
+                        select new { grade.GradeName, dayIndex = weekend.DayIndex };
 
             var hours = new HoursList(dB);
             hours.Create();
@@ -85,7 +85,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             constraint.Add(new XElement("Students", Students),
                            new XElement("Number_of_Not_Available_Times", NumberOfHours * DaysList.Count));
             
-            //For each hour of each day of the weekend, a not available time is added
+            //For each hour of each Day of the weekend, a not available time is added
             foreach (var day in DaysList)
             {
                 for (var i = 1; i <= NumberOfHours; i++)

@@ -54,12 +54,18 @@ namespace Timetabling.Resources
         public int SectionId { get; set; }
 
         /// <summary>
+        /// Folder where the timetable generation logs are stored.
+        /// </summary>
+        [XmlIgnore]
+        public string OutputFolder { get; set; }
+
+        /// <summary>
         /// Describes whether this Timetable has been fully generated or just partially.
         /// </summary>
         public bool IsPartial => Activities != null && PlacedActivities < Activities.Count;
 
         /// <summary>
-        /// Timetable activity, consisting of an id, a day, an hour and a room.
+        /// Timetable activity, consisting of an id, a Day, an hour and a room.
         /// </summary>
         public class TimetableActivity
         {

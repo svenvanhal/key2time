@@ -8,7 +8,7 @@ namespace Timetabling.DB
     /// Table containing all timetables.
     /// </summary>
     [Table("TimeTable")]
-    public class TimetableTable
+    public class TimetableModel
     {
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Timetabling.DB
         /// <summary>
         /// Section ID.
         /// </summary>
-        [Column("sectionId")]
+        [Column("SectionId")]
         public int SectionId { get; set; }
 
         /// <summary>
@@ -52,5 +52,11 @@ namespace Timetabling.DB
         /// </summary>
         [Column("conflictWeight")]
         public double ConflictWeight { get; set; }
+
+        /// <summary>
+        /// Path to the timetable source output directory.
+        /// </summary>
+        [Column("outputDir"), StringLength(260)]
+        public string OutputDir { get; set; }
     }
 }

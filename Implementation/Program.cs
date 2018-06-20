@@ -12,9 +12,11 @@ namespace Implementation
 {
     class Program
     {
+        public static int StageId = 4;
+
         static void Main(string[] args)
         {
-            
+
             // Get information about academic year, quarter and section
             var meta = GetMeta();
 
@@ -34,19 +36,23 @@ namespace Implementation
         public Task<Timetable> Start()
         {
             // Create algorithm task
-            var generator = new TimetableGenerator();
-            return generator.RunAlgorithm(new FetAlgorithm(), new DataModel());
+            using (var model = new DataModel(StageId))
+            using (var generator = new TimetableGenerator())
+            {
+                return generator.RunAlgorithm(new FetAlgorithm(), model);
+            }
+
         }
 
         private static IList<int> GetMeta()
         {
-            using (var model = new DataModel())
+            using (var model = new DataModel(StageId))
             {
 
                 // Get academic year id, section id and quarter id.
                 var row = from aq in model.AcademicQuarter
                           where aq.IsActive == true
-                          select new List<int> { aq.AcademicYearID ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
+                          select new List<int> { aq.AcademicYearId ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
 
                 return row.Any() ? row.First() : null;
             }
@@ -73,7 +79,7 @@ namespace Implementation
             {
                 dbHelper.SaveTimetable(tt);
             }
-                
+
         }
 
         public static void OnError(Task<Timetable> t)
