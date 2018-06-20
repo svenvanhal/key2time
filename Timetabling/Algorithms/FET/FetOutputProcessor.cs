@@ -73,7 +73,7 @@ namespace Timetabling.Algorithms.FET
 
             // Deserialize XML
             Timetable tt;
-            using (var outputFileStream = _fs.File.OpenRead(outputPath))
+            using (var outputFileStream = FileSystem.File.OpenRead(outputPath))
             {
                 tt = XmlToTimetable(outputFileStream, activities);
                 Logger.Info($"Found a { (_partial ? "partial" : "full") } timetable with { tt.Activities.Count } activities in FET output.");
