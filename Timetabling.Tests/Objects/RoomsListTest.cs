@@ -17,20 +17,20 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<School_BuildingsUnits>{
-                new School_BuildingsUnits{ID = 0,  IsActive = true},
-                new School_BuildingsUnits{ID = 1, IsActive = false},
+            var data = new List<BuildingModel>{
+                new BuildingModel{Id = 0,  IsActive = true},
+                new BuildingModel{Id = 1, IsActive = false},
 
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<School_BuildingsUnits>>();
-            mockSet.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<BuildingModel>>();
+            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.School_BuildingsUnits).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Buildings).Returns(mockSet.Object);
             var list = new RoomsList(mockDB.Object);
             test = list.Create();
         }

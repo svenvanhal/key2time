@@ -18,20 +18,20 @@ namespace Timetabling.Tests.Objects
         [SetUp]
         public void Init()
         {
-            var data = new List<HR_MasterData_Employees>{
-                new HR_MasterData_Employees{EmployeeID = 0, IsTeacher = true, IsActive = true},
-                new HR_MasterData_Employees{EmployeeID = 1, IsTeacher = false, IsActive = true},
-                new HR_MasterData_Employees{EmployeeID = 2, IsTeacher = true, IsActive = false},
+            var data = new List<EmployeeModel>{
+                new EmployeeModel{EmployeeId = 0, IsTeacher = true, IsActive = true},
+                new EmployeeModel{EmployeeId = 1, IsTeacher = false, IsActive = true},
+                new EmployeeModel{EmployeeId = 2, IsTeacher = true, IsActive = false},
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<HR_MasterData_Employees>>();
-            mockSet.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<HR_MasterData_Employees>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<EmployeeModel>>();
+            mockSet.As<IQueryable<EmployeeModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<EmployeeModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<EmployeeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.HR_MasterData_Employees).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Employees).Returns(mockSet.Object);
 
             var list = new TeachersList(mockDB.Object);
             test = list.Create();

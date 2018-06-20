@@ -4,7 +4,7 @@ using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.XML;
 
-namespace Implementation
+namespace Timetabling.Algorithms.FET
 {
 
     internal class FetInputGenerator
@@ -50,7 +50,6 @@ namespace Implementation
         /// <summary>
         /// Generates a .FET file for use in the algorithm.
         /// </summary>
-        /// <param name="dataModel">Datamodel to construct objects from.</param>
         /// <param name="outputDir">Output directory for the FET file.</param>
         /// <returns>Filename of the generated .FET file.</returns>
         public string GenerateFetFile(string outputDir)

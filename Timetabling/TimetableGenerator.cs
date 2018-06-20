@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.Algorithms;
-using Timetabling.Objects;
+using Timetabling.DB;
 using Timetabling.Resources;
 
 namespace Timetabling
@@ -12,7 +11,7 @@ namespace Timetabling
     /// <summary>
     /// Program entrypoint.
     /// </summary>
-    public class TimetableGenerator
+    public class TimetableGenerator : IDisposable
     {
 
         private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -33,16 +32,10 @@ namespace Timetabling
             TokenSource = new CancellationTokenSource();
         }
 
-        /// <inheritdoc />
-        ~TimetableGenerator()
-        {
-            TokenSource.Dispose();
-        }
-
         /// <summary>
         /// Run an algorithm on an input file.
         /// </summary>
-        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, string inputfile, IDictionary<int, Activity> activities)
+        public Task<Timetable> RunAlgorithm(TimetablingStrategy strategy, DataModel model)
         {
             Logger.Info($"Starting {strategy.GetType().Name} algorithm run");
 
@@ -50,7 +43,7 @@ namespace Timetabling
             RefreshIdentifier();
 
             // Generate timetable
-            return strategy.GenerateTask(CurrentRunIdentifier, inputfile, activities, TokenSource.Token);
+            return strategy.GenerateTask(CurrentRunIdentifier, model, TokenSource.Token);
         }
 
         /// <summary>
@@ -71,5 +64,11 @@ namespace Timetabling
             Logger.Info($"Generated new identifier - {CurrentRunIdentifier}");
         }
 
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            TokenSource?.Dispose();
+            TokenSource = null;
+        }
     }
 }

@@ -15,19 +15,19 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// Gets or sets the number of activities.
         /// </summary>
         /// <value>The number of activities.</value>
-        public int numberOfActivities { get; set; }
+        public int NumberOfActivities { get; set; }
 
         /// <summary>
         /// Gets or sets the group identifier.
         /// </summary>
         /// <value>The group identifier.</value>
-        public int groupId { get; set; }
+        public int GroupID { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum days. If not specified, it will be 1.
         /// </summary>
         /// <value>The minimum days.</value>
-        int minDays { get; set; } = 1;
+        int MinimumDays { get; set; } = 1;
 
         /// <summary>
         /// Initializes a new instance of the
@@ -52,7 +52,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             var query = from activity in activitiesList.Activities.Values
                         select new { id = activity.GroupId, duration = activity.TotalDuration, length = activity.Duration };
 
-            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { groupId = item.id, numberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
+            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
             return result;
         }
 
@@ -63,13 +63,13 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement ToXelement()
         {
             constraint.Add(new XElement("Consecutive_If_Same_Day", true));
-            constraint.Add(new XElement("Number_of_Activities", numberOfActivities));
-            for (int i = 0; i < numberOfActivities; i++)
+            constraint.Add(new XElement("Number_of_Activities", NumberOfActivities));
+            for (int i = 0; i < NumberOfActivities; i++)
             {
-                constraint.Add(new XElement("Activity_Id", groupId + i));
+                constraint.Add(new XElement("Activity_Id", GroupID + i));
 
             }
-            constraint.Add(new XElement("MinDays", minDays));
+            constraint.Add(new XElement("MinDays", MinimumDays));
             return constraint;
         }
     }

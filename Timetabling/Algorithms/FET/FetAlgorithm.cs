@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Timetabling.DB;
 using Timetabling.Objects;
 using Timetabling.Resources;
 
@@ -43,7 +44,12 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Output directory.
         /// </summary>
-        protected internal string OutputDir { get; private set; }
+        protected internal string OutputDir { get; set; }
+
+        /// <summary>
+        /// Activities to be scheduled.
+        /// </summary>
+        protected internal IDictionary<int, Activity> Activities { get; set; }
 
         /// <summary>
         /// Facade to interact with the FET-CL process.
@@ -55,7 +61,7 @@ namespace Timetabling.Algorithms.FET
         private TaskCompletionSource<Timetable> _tcs;
 
         /// <inheritdoc />
-        protected internal override Task<Timetable> GenerateTask(string identifier, string input, IDictionary<int, Activity> activities, CancellationToken t)
+        protected internal override Task<Timetable> GenerateTask(string identifier, DataModel input, CancellationToken t)
         {
             Identifier = identifier;
             _tcs = new TaskCompletionSource<Timetable>(t);
@@ -71,7 +77,7 @@ namespace Timetabling.Algorithms.FET
                 else if (task.IsCanceled) _tcs.SetCanceled();
 
                 // Try and get result on success
-                else _tcs.SetResult(GetResult(activities));
+                else _tcs.SetResult(GetResult(Activities));
             });
 
             return _tcs.Task;
@@ -80,15 +86,20 @@ namespace Timetabling.Algorithms.FET
         /// <summary>
         /// Initialize the algorithm by creating a FET-CL process.
         /// </summary>
-        /// <param name="input">Path to input file</param>
+        /// <param name="model">Data model to generate the input file from</param>
         /// <param name="t">Cancellation token</param>
-        protected internal void Initialize(string input, CancellationToken t)
+        protected internal void Initialize(DataModel model, CancellationToken t)
         {
             Logger.Info("Initializing FET algorithm");
 
+            var generator = new FetInputGenerator(model);
+
             // Set parameters
-            InputFile = input;
             OutputDir = CreateOutputDirectory(Identifier);
+            InputFile = generator.GenerateFetFile(OutputDir);
+
+            // Store activities
+            Activities = generator.GetActivities();
 
             // Create process interface and register exit handler
             ProcessFacade = new FetProcessFacade(CreateProcess(), t);
@@ -131,7 +142,7 @@ namespace Timetabling.Algorithms.FET
         /// </summary>
         /// <param name="outputDir">Name of the subdirectory.</param>
         /// <returns>Full path to the output directory.</returns>
-        protected static string CreateOutputDirectory(string outputDir)
+        protected internal static string CreateOutputDirectory(string outputDir)
         {
             // Get working dir
             var workingDir = FetConfig.GetFetWorkingDir();

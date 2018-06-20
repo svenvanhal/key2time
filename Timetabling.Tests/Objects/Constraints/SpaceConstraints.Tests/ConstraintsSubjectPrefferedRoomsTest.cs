@@ -17,31 +17,31 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
         [SetUp]
         public void Init()
         {
-            var data = new List<Subject_SubjectGrade>{
-                new Subject_SubjectGrade{BuildingUnitTypeID = 1, GradeID = 1, SubjectID = 2
+            var data = new List<SubjectGradeModel>{
+                new SubjectGradeModel{BuildingUnitTypeId = 1, GradeId = 1, SubjectId = 2
                 },
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<Subject_SubjectGrade>>();
-            mockSet.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Subject_SubjectGrade>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<SubjectGradeModel>>();
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var dataClass = new List<School_BuildingsUnits>{
-                new School_BuildingsUnits{ID =1, IsActive = true, TypeID = 1
+            var dataClass = new List<BuildingModel>{
+                new BuildingModel{Id =1, IsActive = true, TypeId = 1
                 },
             }.AsQueryable();
 
-            var mockSetClass = new Mock<DbSet<School_BuildingsUnits>>();
-            mockSetClass.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Provider).Returns(dataClass.Provider);
-            mockSetClass.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.Expression).Returns(dataClass.Expression);
-            mockSetClass.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
-            mockSetClass.As<IQueryable<School_BuildingsUnits>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
+            var mockSetClass = new Mock<DbSet<BuildingModel>>();
+            mockSetClass.As<IQueryable<BuildingModel>>().Setup(m => m.Provider).Returns(dataClass.Provider);
+            mockSetClass.As<IQueryable<BuildingModel>>().Setup(m => m.Expression).Returns(dataClass.Expression);
+            mockSetClass.As<IQueryable<BuildingModel>>().Setup(m => m.ElementType).Returns(dataClass.ElementType);
+            mockSetClass.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(dataClass.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Subject_SubjectGrade).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_BuildingsUnits).Returns(mockSetClass.Object);
+            mockDB.Setup(item => item.SubjectGrades).Returns(mockSet.Object);
+            mockDB.Setup(item => item.Buildings).Returns(mockSetClass.Object);
 
             test = mockDB;
         }
@@ -57,8 +57,8 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
         [Test()]
         public void TestCreate(){
             var constraint = new ConstraintSubjectPreferredRooms();
-            var constraintTest = new ConstraintSubjectPreferredRooms {rooms = {1}, subjectID = 2 };
-            var constraintTest2 = new ConstraintSubjectPreferredRooms { rooms = { 1 }, subjectID = 3 };
+            var constraintTest = new ConstraintSubjectPreferredRooms {Rooms = {1}, SubjectID = 2 };
+            var constraintTest2 = new ConstraintSubjectPreferredRooms { Rooms = { 1 }, SubjectID = 3 };
 
             var result = constraint.Create(test.Object);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));

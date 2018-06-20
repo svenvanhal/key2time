@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Timetabling.DB;
 using System.Data.Entity;
 using Timetabling.Objects.Constraints.TimeConstraints;
+using Timetabling.Objects;
 
 namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
 {
@@ -16,42 +17,42 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         [SetUp]
         public void Init()
         {
-            var data = new List<School_Lookup_Grade>{
-                new School_Lookup_Grade{ GradeName = "test", GradeID = 0, IsActive = true, StageID = 1},
+            var data = new List<LookupGradeModel>{
+                new LookupGradeModel{ GradeName = "test", GradeId = 0, IsActive = true, StageId = 1},
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<School_Lookup_Grade>>();
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<School_Lookup_Grade>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+            var mockSet = new Mock<DbSet<LookupGradeModel>>();
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
 
-            var dataStage = new List<School_Lookup_Stage>{
-                new School_Lookup_Stage{IsActive = true, SectionID = 2, StageID = 1
+            var dataStage = new List<LookupStageModel>{
+                new LookupStageModel{IsActive = true, SectionId = 2, StageId = 1
                 },
             }.AsQueryable();
 
-            var mockSetStage = new Mock<DbSet<School_Lookup_Stage>>();
-            mockSetStage.As<IQueryable<School_Lookup_Stage>>().Setup(m => m.Provider).Returns(dataStage.Provider);
-            mockSetStage.As<IQueryable<School_Lookup_Stage>>().Setup(m => m.Expression).Returns(dataStage.Expression);
-            mockSetStage.As<IQueryable<School_Lookup_Stage>>().Setup(m => m.ElementType).Returns(dataStage.ElementType);
-            mockSetStage.As<IQueryable<School_Lookup_Stage>>().Setup(m => m.GetEnumerator()).Returns(dataStage.GetEnumerator());
+            var mockSetStage = new Mock<DbSet<LookupStageModel>>();
+            mockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.Provider).Returns(dataStage.Provider);
+            mockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.Expression).Returns(dataStage.Expression);
+            mockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.ElementType).Returns(dataStage.ElementType);
+            mockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.GetEnumerator()).Returns(dataStage.GetEnumerator());
 
-            var dataWeekend = new List<Section_WeekEnd>{
-                new Section_WeekEnd{dayIndex = 0, dayName = "Sunday", sectionId =2},
+            var dataWeekend = new List<SectionWeekendModel>{
+                new SectionWeekendModel{DayIndex = 0, DayName = "Sunday", SectionId =2},
             }.AsQueryable();
 
-            var mockSetWeekend = new Mock<DbSet<Section_WeekEnd>>();
-            mockSetWeekend.As<IQueryable<Section_WeekEnd>>().Setup(m => m.Provider).Returns(dataWeekend.Provider);
-            mockSetWeekend.As<IQueryable<Section_WeekEnd>>().Setup(m => m.Expression).Returns(dataWeekend.Expression);
-            mockSetWeekend.As<IQueryable<Section_WeekEnd>>().Setup(m => m.ElementType).Returns(dataWeekend.ElementType);
-            mockSetWeekend.As<IQueryable<Section_WeekEnd>>().Setup(m => m.GetEnumerator()).Returns(dataWeekend.GetEnumerator());
+            var mockSetWeekend = new Mock<DbSet<SectionWeekendModel>>();
+            mockSetWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.Provider).Returns(dataWeekend.Provider);
+            mockSetWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.Expression).Returns(dataWeekend.Expression);
+            mockSetWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.ElementType).Returns(dataWeekend.ElementType);
+            mockSetWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.GetEnumerator()).Returns(dataWeekend.GetEnumerator());
 
             var mockDB = new Mock<DataModel>();
-            mockDB.Setup(item => item.Section_WeekEnd).Returns(mockSetWeekend.Object);
-            mockDB.Setup(item => item.School_Lookup_Grade).Returns(mockSet.Object);
-            mockDB.Setup(item => item.School_Lookup_Stage).Returns(mockSetStage.Object);
+            mockDB.Setup(item => item.Weekends).Returns(mockSetWeekend.Object);
+            mockDB.Setup(item => item.GradesLookup).Returns(mockSet.Object);
+            mockDB.Setup(item => item.StagesLookup).Returns(mockSetStage.Object);
 
             test = mockDB;
         }
@@ -68,8 +69,8 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
         public void CreateTest()
         {
             var constraint = new ConstraintPeriodSection();
-            var constraintTest = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 9, Students = "test" };
-            var constraintTestFail = new ConstraintPeriodSection { Days = new List<int> { 0 }, NumberOfHours = 9, Students = "not" };
+            var constraintTest = new ConstraintPeriodSection { DaysList = new List<Days> { 0 }, NumberOfHours = 9, Students = "test" };
+            var constraintTestFail = new ConstraintPeriodSection { DaysList = new List<Days> { 0 }, NumberOfHours = 9, Students = "not" };
 
             var result = constraint.Create(test.Object);
 

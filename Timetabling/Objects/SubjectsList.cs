@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
 
@@ -9,7 +10,7 @@ namespace Timetabling.Objects
     /// </summary>
     public class SubjectsList : AbstractList
     {
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.SubjectsList"/> class.
         /// </summary>
@@ -21,14 +22,19 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
-            var query = dB.Subject_MasterData_Subject.Where(subject => subject.IsActive == true)
-                          .Select(subject => subject.SubjectID);
+            var query = dB.Subjects.Where(subject => subject.IsActive == true)
+                          .Select(subject => new { SubjectID = subject.SubjectId });
 
+            var query2 = dB.SubjectGrades.Select(coll => coll.CollectionId).Distinct();
+
+            List<int?> check = new List<int?>();
             foreach (var subject in query)
             {
-                List.Add(new XElement("Subject", new XElement("Name", subject)));
+                List.Add(new XElement("Subject", new XElement("Name", subject.SubjectID)));
             }
-
+            query2.ToList().ForEach( item => List.Add(new XElement("Subject", new XElement("Name", "coll" + item))));
+       
+                  
             return List;
         }
 

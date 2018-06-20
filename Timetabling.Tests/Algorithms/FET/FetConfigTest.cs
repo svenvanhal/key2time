@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.IO;
+using NUnit.Framework;
 using Timetabling.Algorithms.FET;
 
 namespace Timetabling.Tests.Algorithms.FET
@@ -16,15 +17,17 @@ namespace Timetabling.Tests.Algorithms.FET
         [Test]
         public void DefaultsTest()
         {
-            var expectedFetExecutablePath = @"lib/fet/fet-cl";
             var expectedFetLanguage = FetLanguage.US_English;
-            var expectedFetWorkingDir = @"%TEMP%/Timetabling";
             var expectedTimeout = 0;
 
-            Assert.AreEqual(expectedFetExecutablePath, FetConfig.GetFetExecutableLocation());
+            var expectedFetExecutablePath = @"lib/fet/fet-cl";
+            var expectedFetWorkingDir = Path.Combine(Path.GetTempPath(), "timetabling");
+
             Assert.AreEqual(expectedFetLanguage, FetConfig.GetFetLanguage());
-            Assert.AreEqual(expectedFetWorkingDir, FetConfig.GetFetWorkingDir());
             Assert.AreEqual(expectedTimeout, FetConfig.GetTimeout());
+
+            Assert.IsTrue(Path.GetFullPath(expectedFetExecutablePath).Equals(Path.GetFullPath(FetConfig.GetFetExecutableLocation())));
+            Assert.IsTrue(Path.GetFullPath(expectedFetWorkingDir).Equals(Path.GetFullPath(FetConfig.GetFetWorkingDir())));
         }
 
     }

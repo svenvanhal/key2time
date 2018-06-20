@@ -40,5 +40,7 @@ namespace Timetabling.Objects
         /// The Saturday enum as 6.
         /// </summary>
         Saturday
+
     };
+
 }

@@ -15,24 +15,24 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <summary>
         /// The subject.
         /// </summary>
-        public int subject;
+        public int SubjectID;
 
         /// <summary>
         /// The number of hours.
         /// </summary>
-        public int numberOfHours;
+        public int NumberOfHours;
 
         /// <summary>
         /// Gets or sets the list of days.
         /// </summary>
         /// <value>The days.</value>
-        public List<Days> days { get; set; } = new List<Days>();
+        public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
         /// Gets or sets the list of hours.
         /// </summary>
         /// <value>The hours.</value>
-        public List<int> hours { get; set; } = new List<int>();
+        public List<int> HoursList { get; set; } = new List<int>();
 
         /// <summary>
         /// Initializes a new instance of the
@@ -51,10 +51,10 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from tf in dB.Tt_TimeOff
-                        join activity in dB.tt_ActitvityGroup on tf.ItemId equals activity.subjectId
+            var query = from tf in dB.TimesOff
+                        join activity in dB.ActitvityGroups on tf.ItemId equals activity.SubjectId
                         where tf.ItemType == 2
-                        select new { tf.day, tf.ItemId, tf.lessonIndex };
+                        select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex };
 
             var result = new List<XElement>();
 
@@ -69,7 +69,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     var subjectTimeOff = query.Where(x => x.ItemId.Equals(item.ItemId)).Select(x => new { x.day, x.lessonIndex });
                     var _daysList = subjectTimeOff.Select(x => (Days)x.day).ToList();
                     var _hoursList = subjectTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintActivitiesPreferredStartingTimes { subject = item.ItemId, days = _daysList, hours = _hoursList, numberOfHours = _hoursList.Count }.ToXelement());
+                    result.Add(new ConstraintActivitiesPreferredStartingTimes { SubjectID = item.ItemId, DaysList = _daysList, HoursList = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
                 }
             }
             return result.ToArray();
@@ -81,13 +81,13 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Subject_Name", subject),
-                           new XElement("Number_of_Preferred_Starting_Times", numberOfHours));
-            for (int i = 0; i < numberOfHours; i++)
+            constraint.Add(new XElement("Subject_Name", SubjectID),
+                           new XElement("Number_of_Preferred_Starting_Times", NumberOfHours));
+            for (int i = 0; i < NumberOfHours; i++)
             {
                 constraint.Add(new XElement("Preferred_Starting_Time",
-                                            new XElement("Preferred_Starting_Day", days[i]),
-                                            new XElement("Preferred_Starting_Hour", hours[i])));
+                                            new XElement("Preferred_Starting_Day", DaysList[i]),
+                                            new XElement("Preferred_Starting_Hour", HoursList[i])));
             }
             return constraint;
         }

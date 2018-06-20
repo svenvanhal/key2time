@@ -21,16 +21,16 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public string Students { get; set; }
 
         /// <summary>
-        /// Gets or sets the day.
+        /// Gets or sets the Day.
         /// </summary>
-        /// <value>The day.</value>
-        public List<Days> Days { get; set; } = new List<Days>();
+        /// <value>The Day.</value>
+        public List<Days> DaysList { get; set; } = new List<Days>();
 
         /// <summary>
         /// Gets or sets the hour.
         /// </summary>
         /// <value>The hour.</value>
-        public List<int> Hours { get; set; } = new List<int>();
+        public List<int> HoursList { get; set; } = new List<int>();
 
         /// <summary>
         /// Initializes a new instance of the
@@ -48,25 +48,23 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <param name="dB">Datamodel.</param>
         public override XElement[] Create(DataModel dB)
         {
-            var query = from tf in dB.Tt_TimeOff
-                        join cl in dB.School_Lookup_Class on tf.ItemId equals cl.ClassID
-                        where tf.ItemType == 3 & cl.IsActive == true
-                        select new { tf.day, cl.ClassName, tf.lessonIndex };
-
+            var query = from tf in dB.TimesOff
+                        join cl in dB.ClassesLookup on tf.ItemId equals cl.ClassId
+                        where tf.ItemType == 3 && cl.IsActive == true
+                        select new { day = tf.Day, cl.ClassName, lessonIndex = tf.LessonIndex };
             var result = new List<XElement>();
             var check = new List<string>();
 
             foreach (var item in query)
             {
-                if (!check.Contains(item.ClassName))
-                {
-                    check.Add(item.ClassName);
+                // Skip if duplicate
+                if (check.Contains(item.ClassName)) continue;
+                check.Add(item.ClassName);
 
-                    var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
-                    var _daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
-                    var _hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, Days = _daysList, Hours = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
-                }
+                var oneStudentSetTimeOff = query.Where(x => x.ClassName.Equals(item.ClassName)).Select(x => new { x.day, x.lessonIndex });
+                var daysList = oneStudentSetTimeOff.Select(x => (Days)x.day).ToList();
+                var hoursList = oneStudentSetTimeOff.Select(x => x.lessonIndex).ToList();
+                result.Add(new ConstraintStudentsSetNotAvailableTimes { Students = item.ClassName, DaysList = daysList, HoursList = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
 
             }
 
@@ -86,8 +84,8 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             for (var i = 0; i < NumberOfHours; i++)
             {
                 constraint.Add(new XElement("Not_Available_Time",
-                                            new XElement("Day", Days[i]),
-                                            new XElement("Hour", Hours[i])));
+                                            new XElement("Day", DaysList[i]),
+                                            new XElement("Hour", HoursList[i])));
             }
             return constraint;
         }
