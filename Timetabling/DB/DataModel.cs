@@ -18,9 +18,9 @@ namespace Timetabling.DB
         /// <summary>
         /// Constructs a new DataModel based on the connection string in app.config.
         /// </summary>
-        public DataModel(int _StageId) : base("name=DataModel")
+        public DataModel(int stageId) : base("name=DataModel")
         {
-            StageId = _StageId;
+            StageId = stageId;
         }
 
         /// <inheritdoc />
