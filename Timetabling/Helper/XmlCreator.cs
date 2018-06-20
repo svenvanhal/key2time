@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 
-namespace Timetabling.XML
+namespace Timetabling.Helper
 {
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace Timetabling.XML
 		public XElement Root { get; set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:Timetabling.XML.XmlCreator"/> class.
+		/// Initializes a new instance of the <see cref="T:Timetabling.Helper.XmlCreator"/> class.
 		/// </summary>
 		public XmlCreator(string fetVersion = null)
 		{

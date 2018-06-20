@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Timetabling.Algorithms;
-using Timetabling.Resources;
+using Timetabling.Objects;
 
 namespace Timetabling.Tests
 {

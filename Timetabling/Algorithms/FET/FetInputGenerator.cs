@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Timetabling.DB;
+using Timetabling.Helper;
 using Timetabling.Objects;
-using Timetabling.XML;
 
 namespace Timetabling.Algorithms.FET
 {

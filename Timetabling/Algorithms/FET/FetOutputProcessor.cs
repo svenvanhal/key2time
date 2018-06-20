@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
 {

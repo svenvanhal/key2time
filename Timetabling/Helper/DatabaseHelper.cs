@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.Entity.Migrations;
 using Timetabling.DB;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Helper
 {

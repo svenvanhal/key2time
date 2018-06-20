@@ -6,7 +6,6 @@ using NUnit.Framework;
 using Timetabling.DB;
 using Timetabling.Helper;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Tests.Helper
 {

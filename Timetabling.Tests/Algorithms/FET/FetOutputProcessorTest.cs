@@ -7,7 +7,6 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Text;
 using Timetabling.Algorithms.FET;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Tests.Algorithms.FET
 {

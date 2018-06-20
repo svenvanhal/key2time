@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.DB;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
 {

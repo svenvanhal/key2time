@@ -6,7 +6,7 @@ using Timetabling;
 using Timetabling.Algorithms.FET;
 using Timetabling.DB;
 using Timetabling.Helper;
-using Timetabling.Resources;
+using Timetabling.Objects;
 
 namespace Implementation
 {
@@ -14,7 +14,7 @@ namespace Implementation
     {
         static void Main(string[] args)
         {
-
+            
             // Get information about academic year, quarter and section
             var meta = GetMeta();
 

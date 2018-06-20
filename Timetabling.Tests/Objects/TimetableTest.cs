@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Timetabling.Resources;
+using Timetabling.Objects;
 
-namespace Timetabling.Tests.Resources
+namespace Timetabling.Tests.Objects
 {
 
     class TimetableTest
@@ -17,7 +17,7 @@ namespace Timetabling.Tests.Resources
                 PlacedActivities = 1,
                 Activities = new List<Timetable.TimetableActivity>
                 {
-                    { new Timetable.TimetableActivity() }
+                    new Timetable.TimetableActivity()
                 }
             };
 
@@ -31,10 +31,7 @@ namespace Timetabling.Tests.Resources
             var tt = new Timetable
             {
                 PlacedActivities = 0,
-                Activities = new List<Timetable.TimetableActivity>
-                {
-                    { new Timetable.TimetableActivity() }
-                }
+                Activities = new List<Timetable.TimetableActivity> { new Timetable.TimetableActivity() }
             };
 
             Assert.IsTrue(tt.IsPartial);
