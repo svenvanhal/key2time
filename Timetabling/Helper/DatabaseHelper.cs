@@ -216,19 +216,9 @@ namespace Timetabling.Helper
         /// <inheritdoc />
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Dispose of resources.
-        /// </summary>
-        /// <param name="disposing">Indicates whether the method call comes from a Dispose method (true) or from a finalizer (false).</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposing) return;
             Model?.Dispose();
             Model = null;
         }
+
     }
 }
