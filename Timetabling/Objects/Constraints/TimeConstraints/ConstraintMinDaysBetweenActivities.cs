@@ -52,7 +52,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             var query = from activity in activitiesList.Activities.Values
                         select new { id = activity.GroupId, duration = activity.TotalDuration, length = activity.Duration };
 
-            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
+            var result = query.Distinct().Where(item => item.duration / item.length != 1).Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
             return result;
         }
 

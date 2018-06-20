@@ -84,8 +84,7 @@ namespace Timetabling.Objects
         private void CreateActivities()
         {
             var groupId = ActivityCounter;
-            var numberOfActivities = Math.Ceiling( (double) NumberOfLessonsPerWeek/ (double) NumberOfLessonsPerDay);
-
+            var numberOfActivities = Math.Ceiling((double)NumberOfLessonsPerWeek / (double)NumberOfLessonsPerDay);
             // Generate the required amount of activities for this subject
             for (var i = 1; i <= numberOfActivities; i++)
             {
@@ -102,15 +101,22 @@ namespace Timetabling.Objects
                     IsCollection = IsCollection,
                     CollectionId = CollectionId,
                 };
+              
 
                 // Update the duration if this lesson is the final lesson on the week and not all hours have been filled
-                if (i == NumberOfLessonsPerWeek) act.Duration = NumberOfLessonsPerWeek / NumberOfLessonsPerDay % 2 == 0 ? NumberOfLessonsPerDay : 1;
+                if (i == numberOfActivities)
+                {
+                    var LastDuration = NumberOfLessonsPerWeek % NumberOfLessonsPerDay;
+                  
+                    act.Duration = LastDuration == 0 ? NumberOfLessonsPerDay : LastDuration;
+                  
 
-                // Store activity
-                Activities.Add(act);
-                ActivityCounter++;
+                }
+                    // Store activity
+                    Activities.Add(act);
+                    ActivityCounter++;
+                }
             }
-        }
 
+        }
     }
-}
