@@ -50,7 +50,7 @@
     <Compile Include="DB\TimetableActivityModel.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="TimetableGenerator.cs" />
-    <Compile Include="Resources\Timetable.cs" />
+    <Compile Include="Objects\Timetable.cs" />
     <Compile Include="Helper\CommandLineArguments.cs" />
     <Compile Include="DB\DataModel.cs" />
     <Compile Include="DB\EmployeeModel.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="DB\GradeLessonModel.cs" />
     <Compile Include="DB\TimeOffModel.cs" />
     <Compile Include="Algorithms\FET\FetConfig.cs" />
-    <Compile Include="XML\XmlCreator.cs" />
+    <Compile Include="Helper\XmlCreator.cs" />
     <Compile Include="Objects\TeachersList.cs" />
     <Compile Include="Objects\AbstractList.cs" />
     <Compile Include="Objects\SubjectsList.cs" />
