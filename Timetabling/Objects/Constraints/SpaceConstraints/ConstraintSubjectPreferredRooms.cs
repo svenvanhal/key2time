@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Timetabling.Objects.Constraints.SpaceConstraints
 {
+    /// <summary>
+    /// Constraint subject preferred rooms.
+    /// </summary>
     public class ConstraintSubjectPreferredRooms : AbstractConstraint
     {
         /// <summary>

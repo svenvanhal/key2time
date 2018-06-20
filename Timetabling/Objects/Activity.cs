@@ -4,6 +4,9 @@ using System.Xml.Linq;
 
 namespace Timetabling.Objects
 {
+    /// <summary>
+    /// An activity object.
+    /// </summary>
     public class Activity
     {
         /// <summary>

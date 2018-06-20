@@ -9,8 +9,11 @@ namespace Timetabling.DB
     /// </summary>
     public class DataModel : DbContext
     {
-
+        /// <summary>
+        /// The stage identifier.
+        /// </summary>
         public int StageId;
+
         /// <inheritdoc />
         /// <summary>
         /// Constructs a new DataModel based on the connection string in app.config.
