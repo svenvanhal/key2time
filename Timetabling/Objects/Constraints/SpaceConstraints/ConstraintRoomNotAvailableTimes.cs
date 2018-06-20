@@ -12,7 +12,10 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
     public class ConstraintRoomNotAvailableTimes : AbstractConstraint
     {
 
-        int NumberOfHours = 1;
+        /// <summary>
+        /// The number of hours is always 1;
+        /// </summary>
+        public int NumberOfHours { get; set; } = 1;
 
         /// <summary>
         /// Gets or sets the room id.

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Timetabling.Algorithms;
 using Timetabling.DB;
-using Timetabling.Resources;
+using Timetabling.Objects;
 
 namespace Timetabling
 {

@@ -1,10 +1,10 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Timetabling.XML;
+using NUnit.Framework;
+using Timetabling.Helper;
 
-namespace Timetabling.Tests.XML
+namespace Timetabling.Tests.Helper
 {
     [TestFixture]
     internal class XmlCreatorTest

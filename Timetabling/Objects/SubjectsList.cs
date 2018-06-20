@@ -27,7 +27,6 @@ namespace Timetabling.Objects
 
             var query2 = dB.SubjectGrades.Select(coll => coll.CollectionId).Distinct();
 
-            List<int?> check = new List<int?>();
             foreach (var subject in query)
             {
                 List.Add(new XElement("Subject", new XElement("Name", subject.SubjectID)));

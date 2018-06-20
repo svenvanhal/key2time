@@ -12,7 +12,11 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
     public class ConstraintTeacherNotAvailableTimes : AbstractConstraint
     {
 
+        /// <summary>
+        /// The number of hours is always 1;
+        /// </summary>
         public int NumberOfHours { get; set; } = 0;
+        
         /// <summary>
         /// Gets or sets the teacher id.
         /// </summary>
@@ -64,9 +68,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     check.Add(item.ItemId);
 
                     var oneTeacherTimeOff = query.Where(x => x.ItemId.Equals(item.ItemId)).Select(x => new { x.day, x.lessonIndex });
-                    var _daysList = oneTeacherTimeOff.Select(x => (Days)x.day).ToList();
-                    var _hoursList = oneTeacherTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintTeacherNotAvailableTimes { Teacher = item.ItemId, DaysList = _daysList, HoursList = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
+                    var daysList = oneTeacherTimeOff.Select(x => (Days)x.day).ToList();
+                    var hoursList = oneTeacherTimeOff.Select(x => x.lessonIndex).ToList();
+                    result.Add(new ConstraintTeacherNotAvailableTimes { Teacher = item.ItemId, DaysList = daysList, HoursList = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
                 }
 
             }

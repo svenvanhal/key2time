@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
 using System.Linq;
 using System.Collections.Generic;
@@ -15,12 +14,12 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <summary>
         /// The subject.
         /// </summary>
-        public int SubjectID;
+        public int SubjectId { get; set; }
 
         /// <summary>
         /// The number of hours.
         /// </summary>
-        public int NumberOfHours;
+        public int NumberOfHours { get; set; }
 
         /// <summary>
         /// Gets or sets the list of days.
@@ -67,9 +66,9 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
                     check.Add(item.ItemId);
 
                     var subjectTimeOff = query.Where(x => x.ItemId.Equals(item.ItemId)).Select(x => new { x.day, x.lessonIndex });
-                    var _daysList = subjectTimeOff.Select(x => (Days)x.day).ToList();
-                    var _hoursList = subjectTimeOff.Select(x => x.lessonIndex).ToList();
-                    result.Add(new ConstraintActivitiesPreferredStartingTimes { SubjectID = item.ItemId, DaysList = _daysList, HoursList = _hoursList, NumberOfHours = _hoursList.Count }.ToXelement());
+                    var daysList = subjectTimeOff.Select(x => (Days)x.day).ToList();
+                    var hoursList = subjectTimeOff.Select(x => x.lessonIndex).ToList();
+                    result.Add(new ConstraintActivitiesPreferredStartingTimes { SubjectId = item.ItemId, DaysList = daysList, HoursList = hoursList, NumberOfHours = hoursList.Count }.ToXelement());
                 }
             }
             return result.ToArray();
@@ -81,7 +80,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Subject_Name", SubjectID),
+            constraint.Add(new XElement("Subject_Name", SubjectId),
                            new XElement("Number_of_Preferred_Starting_Times", NumberOfHours));
             for (int i = 0; i < NumberOfHours; i++)
             {

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using System.Xml.Schema;
-using Timetabling.Objects;
+using System.Xml.Serialization;
 
-namespace Timetabling.Resources
+namespace Timetabling.Objects
 {
 
     /// <remarks/>

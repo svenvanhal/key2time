@@ -27,7 +27,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// Gets or sets the minimum days. If not specified, it will be 1.
         /// </summary>
         /// <value>The minimum days.</value>
-        int MinimumDays { get; set; } = 1;
+        public int MinimumDays { get; set; } = 1;
 
         /// <summary>
         /// Initializes a new instance of the
@@ -52,7 +52,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             var query = from activity in activitiesList.Activities.Values
                         select new { id = activity.GroupId, duration = activity.TotalDuration, length = activity.Duration };
 
-            var result = query.Distinct().Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
+            var result = query.Distinct().Where(item => item.duration / item.length != 1).Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
             return result;
         }
 

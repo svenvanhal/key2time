@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using Timetabling.Objects;
-using Timetabling.Resources;
 
 namespace Timetabling.Algorithms.FET
 {
@@ -138,11 +137,36 @@ namespace Timetabling.Algorithms.FET
         /// <exception cref="FileNotFoundException">Throws FileNotFoundException when the soft_conflicts.txt file is not in the FET output directory.</exception>
         protected Timetable AddMetadata(Timetable tt)
         {
-            var softConstraintsFile = FileSystem.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
-            if (tt == null || !FileSystem.File.Exists(softConstraintsFile)) return tt;
+            // Find soft conflicts file
+            var softConflictsFile = FileSystem.Path.Combine(OutputDir, $"{InputName}_soft_conflicts.txt");
+            if (tt == null || !FileSystem.File.Exists(softConflictsFile)) return tt;
 
-            // Read the soft conflicts file, line by line
-            using (var stream = FileSystem.File.OpenRead(softConstraintsFile))
+            // Process soft conflicts file
+            Stream stream = null;
+            try
+            {
+                stream = FileSystem.File.OpenRead(softConflictsFile);
+                ProcessFile(stream, tt);
+            }
+            finally { stream?.Dispose(); }
+
+            // Set output folder (one up is the root directory for this run)
+            tt.OutputFolder = Directory.GetParent(_baseDir).FullName;
+
+            // Update placed activities count when there are activities
+            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
+
+            return tt;
+        }
+
+        /// <summary>
+        /// Processes the soft conflict file and adds information to the timetable.
+        /// </summary>
+        /// <param name="stream">Filestream with soft conflicts file</param>
+        /// <param name="tt">Timetable object to work on</param>
+        /// <returns></returns>
+        protected void ProcessFile(Stream stream, Timetable tt)
+        {
             using (var reader = new StreamReader(stream))
             {
                 while (!reader.EndOfStream)
@@ -155,16 +179,9 @@ namespace Timetabling.Algorithms.FET
                     ParseMetaLine(line, tt);
                 }
 
+                // Parse soft conflicts
                 tt.SoftConflicts = ParseSoftConflicts(reader);
             }
-
-            // Update placed activities count when there are activities
-            if (tt.Activities != null && tt.Activities.Count > tt.PlacedActivities) tt.PlacedActivities = tt.Activities.Count;
-
-            // Set output folder (one up is the root directory for this run)
-            tt.OutputFolder = Directory.GetParent(_baseDir).FullName;
-
-            return tt;
         }
 
         /// <summary>
