@@ -12,7 +12,7 @@ namespace Implementation
 {
     class Program
     {
-        public static int StageId = 4;
+        public static int StageId = 2;
 
         static void Main(string[] args)
         {
