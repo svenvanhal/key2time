@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\FET\FetAlgorithmTest.cs" />
+    <Compile Include="Algorithms\FET\FetInputGeneratorTest.cs" />
     <Compile Include="Algorithms\FET\FetOutputProcessorTest.cs" />
     <Compile Include="Algorithms\FET\FetProcessBuilderTest.cs" />
     <Compile Include="Algorithms\FET\FetProcessFacadeTest.cs" />
