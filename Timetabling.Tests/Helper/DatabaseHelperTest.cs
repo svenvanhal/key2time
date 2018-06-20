@@ -21,7 +21,7 @@ namespace Timetabling.Tests.Helper
     internal class DatabaseHelperTest
     {
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetupEffort()
         {
             Effort.Provider.EffortProviderConfiguration.RegisterProvider();
