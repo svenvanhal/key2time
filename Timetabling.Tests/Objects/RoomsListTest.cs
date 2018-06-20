@@ -32,7 +32,7 @@ namespace Timetabling.Tests.Objects
         public void RoomRightTest()
         {
 
-            Assert.AreEqual(1, test.Elements("Room").Count());
+            Assert.AreEqual(2, test.Elements("Room").Count());
 
         }
     }
