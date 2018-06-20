@@ -32,6 +32,20 @@ namespace Timetabling.Tests.Algorithms.FET
             var model = new TestDataModel().MockDataModel;
             var inputGenerator = new FetInputGenerator(model.Object);
 
+            // Generate FET file
+            Directory.CreateDirectory("testdir");
+            inputGenerator.GenerateFetFile("testdir");
+            Directory.Delete("testdir", true);
+
+            // Verify that the activities are generated
+            Assert.IsTrue(inputGenerator.GetActivities().Count > 0);
+        }
+
+        [Test]
+        public void GetActivitiesNullTest()
+        {
+            var inputGenerator = new FetInputGenerator(null);
+
             // The activities can't be retrieved if the FET file has not been generated
             Assert.Throws<InvalidOperationException>(() => inputGenerator.GetActivities());
         }

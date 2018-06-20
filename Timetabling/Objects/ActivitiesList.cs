@@ -16,7 +16,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// The activities.
         /// </summary>
-        public IDictionary<int, Activity> Activities { get; }
+        public IDictionary<int, Activity> Activities { get; set; }
 
         private int _counter = 1;
 
@@ -25,11 +25,7 @@ namespace Timetabling.Objects
         /// Initializes a new ActivitiesList.
         /// </summary>
         /// <param name="model">Database model</param>
-        public ActivitiesList(DataModel model) : base(model)
-        {
-            SetListElement("Activities_List");
-            Activities = new Dictionary<int, Activity>();
-        }
+        public ActivitiesList(DataModel model) : base(model) => SetListElement("Activities_List");
 
         /// <inheritdoc />
         /// <summary>
@@ -37,6 +33,8 @@ namespace Timetabling.Objects
         /// </summary>
         public override XElement Create()
         {
+            Activities = new Dictionary<int, Activity>();
+
             CreateCollectionActivities();
             CollectionMerge();
             CreateSingleActivities();

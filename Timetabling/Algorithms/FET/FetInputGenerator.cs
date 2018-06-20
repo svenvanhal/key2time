@@ -78,7 +78,7 @@ namespace Timetabling.Algorithms.FET
 
         public IDictionary<int, Activity> GetActivities()
         {
-            if (ActivitiesList?.Activities == null) throw new InvalidOperationException("The activities list has not yet been generated.");
+            if (ActivitiesList.Activities == null) throw new InvalidOperationException("The activities list has not yet been generated.");
             return ActivitiesList.Activities;
         }
 
