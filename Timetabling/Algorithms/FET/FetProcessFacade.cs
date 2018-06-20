@@ -51,7 +51,7 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Starts process and logs output.
+        /// Starts process, handles result and logs stdout.
         /// </summary>
         public virtual Task StartProcess()
         {
@@ -82,7 +82,7 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Gracefully stops process.
+        /// Gracefully stops process. Kills process if it has not stopped after five seconds.
         /// </summary>
         public virtual void StopProcess()
         {

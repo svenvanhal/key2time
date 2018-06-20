@@ -1,9 +1,12 @@
 ﻿namespace Timetabling.Algorithms.FET
 {
 
-#pragma warning disable 1591
+    /// <summary>
+    /// Maps C# objects to FET-CL language strings.
+    /// </summary>
     public sealed class FetLanguage
     {
+#pragma warning disable 1591
         public static readonly FetLanguage Arabic = new FetLanguage("ar");
         public static readonly FetLanguage Catalan = new FetLanguage("ca");
         public static readonly FetLanguage Czech = new FetLanguage("cs");
@@ -40,6 +43,7 @@
         public static readonly FetLanguage Vietnamese = new FetLanguage("vi");
         public static readonly FetLanguage Simplified_Chinese = new FetLanguage("zh_CN");
         public static readonly FetLanguage Traditional_Chinese = new FetLanguage("zh_TW");
+#pragma warning restore 1591
 
         private readonly string _languageName;
 
@@ -48,6 +52,5 @@
         /// <inheritdoc />
         public override string ToString() => _languageName;
     }
-#pragma warning restore 1591
 
 }

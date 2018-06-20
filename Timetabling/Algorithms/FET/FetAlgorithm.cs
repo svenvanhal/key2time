@@ -42,7 +42,7 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Current run identifier.
+        /// Output directory.
         /// </summary>
         protected internal string OutputDir { get; set; }
 
@@ -52,7 +52,7 @@ namespace Timetabling.Algorithms.FET
         protected internal IDictionary<int, Activity> Activities { get; set; }
 
         /// <summary>
-        /// FET-CL process interface.
+        /// Facade to interact with the FET-CL process.
         /// </summary>
         internal FetProcessFacade ProcessFacade;
 
@@ -84,7 +84,7 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Initialize the algorithm. Builds FET process with process facade.
+        /// Initialize the algorithm by creating a FET-CL process.
         /// </summary>
         /// <param name="model">Data model to generate the input file from</param>
         /// <param name="t">Cancellation token</param>
@@ -106,9 +106,9 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Process FET algorithm output.
+        /// Retrieve the timetable from the FET algorithm output.
         /// </summary>
-        /// <returns>Timetable</returns>
+        /// <returns>Timetable object</returns>
         protected internal Timetable GetResult(IDictionary<int,Activity> activities)
         {
             Logger.Info("Retrieving FET algorithm results");
@@ -137,7 +137,8 @@ namespace Timetabling.Algorithms.FET
         }
 
         /// <summary>
-        /// Creates a temporary directory to store the intermediary algorithm output.
+        /// Creates a temporary directory in the to store the intermediary algorithm output.
+        /// The working directory can be changed in app.config.
         /// </summary>
         /// <param name="outputDir">Name of the subdirectory.</param>
         /// <returns>Full path to the output directory.</returns>
