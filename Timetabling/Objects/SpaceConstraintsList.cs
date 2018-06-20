@@ -16,7 +16,7 @@ namespace Timetabling.Objects
         /// <summary>
         /// List of constraints in this list.
         /// </summary>
-        protected readonly List<AbstractConstraint> Constraints;
+        public readonly List<AbstractConstraint> Constraints;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Timetabling.Objects.SpaceConstraintsList"/> class.
