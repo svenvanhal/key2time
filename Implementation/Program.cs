@@ -16,15 +16,15 @@ namespace Implementation
 
         static void Main(string[] args)
         {
-            
+
             // Get information about academic year, quarter and section
-            var meta = GetMeta();
+            var academicYear = GetAcademicYear();
 
             // Start program by creating a Task<Timetable>
             var task = new Program().Start();
 
             // Attach handlers
-            task.ContinueWith(t => OnSuccess(t, meta), TaskContinuationOptions.OnlyOnRanToCompletion);
+            task.ContinueWith(t => OnSuccess(t, academicYear, StageId, 0), TaskContinuationOptions.OnlyOnRanToCompletion);
             task.ContinueWith(OnCanceled, TaskContinuationOptions.OnlyOnCanceled);
             task.ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted);
 
@@ -43,32 +43,31 @@ namespace Implementation
 
         }
 
-        private static IList<int> GetMeta()
+        private static int GetAcademicYear()
         {
             using (var model = new DataModel(StageId))
             {
 
                 // Get academic year id, section id and quarter id.
-                var row = from aq in model.AcademicQuarter
-                          where aq.IsActive == true
-                          select new List<int> { aq.AcademicYearId ?? 0, aq.QuarterId ?? 0, aq.SectionId ?? 0 };
+                var row = from ay in model.AcademicYear
+                          where ay.IsActive == true
+                          select ay.AcademicYearId;
 
-                return row.Any() ? row.First() : null;
+                if (!row.Any()) throw new InvalidOperationException("No active academic year found.");
+
+                return row.First();
             }
         }
 
-        public static void OnSuccess(Task<Timetable> t, IList<int> meta)
+        public static void OnSuccess(Task<Timetable> t, int academicYearId, int stageId, int quarterId)
         {
 
             var tt = t.Result;
 
             // Update timetable with metadata
-            if (meta?.Count == 3)
-            {
-                tt.AcademicYearId = meta[0];
-                tt.QuarterId = meta[1];
-                tt.SectionId = meta[2];
-            }
+            tt.AcademicYearId = academicYearId;
+            tt.SectionId = stageId;
+            tt.QuarterId = quarterId;
 
             Console.WriteLine("The timetable has been generated sucessfully.");
             Console.WriteLine(tt);

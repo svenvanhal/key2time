@@ -41,7 +41,7 @@ namespace Timetabling.DB
         /// Information about the current academic year.
         /// </summary>
         /// <value>The hr master data employees.</value>
-        public virtual DbSet<AcademicQuarterModel> AcademicQuarter { get; set; }
+        public virtual DbSet<AcademicYearModel> AcademicYear { get; set; }
 
         /// <summary>
         /// Gets or sets the EmployeeModel

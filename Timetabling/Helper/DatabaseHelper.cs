@@ -78,7 +78,7 @@ namespace Timetabling.Helper
                 Name = $"{tt.AcademicYearId} - {tt.QuarterId} - {tt.SectionId}",
                 AcademicYearId = tt.AcademicYearId,
                 QuarterId = tt.QuarterId,
-                SectionId = tt.SectionId,
+                SectionId = model.StageId,
                 ConflictWeight = tt.ConflictWeight,
                 Conflicts = conflictText,
                 OutputDir = tt.OutputFolder

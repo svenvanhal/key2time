@@ -43,7 +43,7 @@
     <Compile Include="Algorithms\FET\FetProcessFacade.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Algorithms\TimetablingStrategy.cs" />
-    <Compile Include="DB\AcademicQuarterModel.cs" />
+    <Compile Include="DB\AcademicYearModel.cs" />
     <Compile Include="DB\TimetableActivityClassModel.cs" />
     <Compile Include="DB\TimetableModel.cs" />
     <Compile Include="DB\TimetableActivityTeacherModel.cs" />
