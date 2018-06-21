@@ -26,7 +26,7 @@ namespace Timetabling.DB
         /// <summary>
         /// Section ID.
         /// </summary>
-        [Column("SectionId")]
+        [Column("sectionId")]
         public int SectionId { get; set; }
 
         /// <summary>

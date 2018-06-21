@@ -78,7 +78,7 @@ namespace Timetabling.Helper
                 Name = $"{tt.AcademicYearId} - {tt.QuarterId} - {tt.SectionId}",
                 AcademicYearId = tt.AcademicYearId,
                 QuarterId = tt.QuarterId,
-                SectionId = model.StageIds[0],
+                SectionId = model.StageIds?[0] ?? 0,
                 ConflictWeight = tt.ConflictWeight,
                 Conflicts = conflictText,
                 OutputDir = tt.OutputFolder
@@ -106,8 +106,6 @@ namespace Timetabling.Helper
             foreach (var activity in tt.Activities)
             {
 
-                Logger.Info("Processing activity " + activity.Id);
-
                 // Create new activity
                 var activityEntry = new TimetableActivityModel
                 {
@@ -133,7 +131,6 @@ namespace Timetabling.Helper
                 // Create activity - class relations
                 CreateActivityClassRelations(model, activityEntry.Id, activity.Resource);
 
-                Logger.Info("Done processing activity " + activity.Id + "\r\n");
             }
 
         }
@@ -146,8 +143,6 @@ namespace Timetabling.Helper
         /// <param name="activity">Source activity.</param>
         protected void CreateActivityTeacherRelations(DataModel model, int activityId, Activity activity)
         {
-
-            Logger.Info("Creating activity / teacher relations.");
 
             // Iterate over teachers in activity
             foreach (var teacherId in activity.Teachers)
@@ -176,13 +171,9 @@ namespace Timetabling.Helper
         protected void CreateActivityClassRelations(DataModel model, int activityId, Activity activity)
         {
 
-            Logger.Info("Creating activity / class relations.");
-
             // Iterate over teachers in activity
             foreach (var classEntry in activity.Students)
             {
-
-                Logger.Info($"Creating new activity / class relation: {activityId} - {classEntry.Value}");
 
                 // Create new activity - teacher relation
                 model.TimetableActivityClasses.AddOrUpdate(new TimetableActivityClassModel
