@@ -2,9 +2,9 @@
 using System.Linq;
 using NUnit.Framework;
 using Timetabling.Objects;
-using Timetabling.Objects.Constraints.TimeConstraints;
+using Timetabling.Objects.Constraints;
 
-namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
+namespace Timetabling.Tests.Objects.Constraints
 {
 
     internal class ConstraintPeriodSectionTest

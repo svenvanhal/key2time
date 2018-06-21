@@ -1,9 +1,9 @@
-﻿using System.Xml.Linq;
-using Timetabling.DB;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints
+namespace Timetabling.Objects.Constraints
 {
     /// <summary>
     /// Constraint specifing the time off of the studentset.
@@ -36,7 +36,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintStudentsSetNotAvailableTimes"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintStudentsSetNotAvailableTimes"/> class.
         /// </summary>
         public ConstraintStudentsSetNotAvailableTimes()
         {

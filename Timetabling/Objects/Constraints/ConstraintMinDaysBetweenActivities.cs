@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Linq;
 using System.Xml.Linq;
 using Timetabling.DB;
-using System.Linq;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints
+namespace Timetabling.Objects.Constraints
 {
     /// <summary>
     /// Constraint that specifies the minimum days between two lessons/activities
@@ -31,7 +30,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintMinDaysBetweenActivities"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintMinDaysBetweenActivities"/> class.
         /// </summary>
         public ConstraintMinDaysBetweenActivities()
         {

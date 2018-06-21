@@ -1,9 +1,9 @@
-﻿using System.Xml.Linq;
-using Timetabling.DB;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.Objects.Constraints.TimeConstraints
+namespace Timetabling.Objects.Constraints
 {
     /// <summary>
     /// Constraint period section. This constraints creates the timeoff for the weekends
@@ -28,7 +28,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintPeriodSection"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintPeriodSection"/> class.
         /// </summary>
         public ConstraintPeriodSection()
         {

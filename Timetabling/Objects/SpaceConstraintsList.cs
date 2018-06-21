@@ -2,7 +2,6 @@
 using System.Xml.Linq;
 using Timetabling.DB;
 using Timetabling.Objects.Constraints;
-using Timetabling.Objects.Constraints.SpaceConstraints;
 
 namespace Timetabling.Objects
 {

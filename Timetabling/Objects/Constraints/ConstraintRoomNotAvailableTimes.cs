@@ -1,9 +1,9 @@
-using System.Xml.Linq;
-using System.Linq;
-using Timetabling.DB;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.Objects.Constraints.SpaceConstraints
+namespace Timetabling.Objects.Constraints
 {
 
     /// <summary>
@@ -37,7 +37,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.SpaceConstraints.ConstraintRoomNotAvailableTimes"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintRoomNotAvailableTimes"/> class.
         /// </summary>
         public ConstraintRoomNotAvailableTimes()
         {

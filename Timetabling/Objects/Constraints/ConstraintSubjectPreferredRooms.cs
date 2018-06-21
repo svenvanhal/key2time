@@ -1,9 +1,9 @@
-﻿using System.Xml.Linq;
-using Timetabling.DB;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System.Xml.Linq;
+using Timetabling.DB;
 
-namespace Timetabling.Objects.Constraints.SpaceConstraints
+namespace Timetabling.Objects.Constraints
 {
     /// <summary>
     /// Constraint subject preferred rooms.
@@ -24,7 +24,7 @@ namespace Timetabling.Objects.Constraints.SpaceConstraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.SpaceConstraints.ConstraintSubjectPreferredRooms"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintSubjectPreferredRooms"/> class.
         /// </summary>
         public ConstraintSubjectPreferredRooms()
         {

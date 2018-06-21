@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using Timetabling.Objects.Constraints.SpaceConstraints;
+using Timetabling.Objects.Constraints;
 
-namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints
+namespace Timetabling.Tests.Objects.Constraints
 {
 
     internal class ConstraintBasicCompulsorySpaceTest
