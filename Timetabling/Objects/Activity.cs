@@ -70,6 +70,12 @@ namespace Timetabling.Objects
         public int NumberLessonOfWeek { get; set; }
 
         /// <summary>
+        /// Gets or sets the grade identifier.
+        /// </summary>
+        /// <value>The grade identifier.</value>
+        public int GradeId { get; set; }
+
+        /// <summary>
         /// Returns the XElement representation of activity
         /// </summary>
         /// <returns>The XE lement.</returns>

@@ -52,7 +52,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public override XElement[] Create(DataModel dB)
         {
             var query = from tf in dB.TimesOff
-                        where tf.ItemType == 1
+                        where tf.ItemType == 3
                         join e in dB.Employees on tf.ItemId equals e.EmployeeId
                         where e.IsActive == true && e.IsTeacher == true
                         select new { day = tf.Day, tf.ItemId, lessonIndex = tf.LessonIndex, timeOffConstraint = e.TimeOffConstraint };

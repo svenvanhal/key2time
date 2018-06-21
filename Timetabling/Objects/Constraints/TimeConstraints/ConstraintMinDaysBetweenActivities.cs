@@ -1,6 +1,8 @@
-﻿using System.Xml.Linq;
+﻿using System;
+using System.Xml.Linq;
 using Timetabling.DB;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Timetabling.Objects.Constraints.TimeConstraints
 {
@@ -35,7 +37,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public ConstraintMinDaysBetweenActivities()
         {
             SetElement("ConstraintMinDaysBetweenActivities");
-            SetWeight(95);
+            SetWeight(60);
         }
 
         /// <summary>
@@ -49,10 +51,19 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             activitiesList.Create();
 
             var query = from activity in activitiesList.Activities.Values
-                        select new { id = activity.GroupId, duration = activity.TotalDuration, length = activity.Duration };
+                        group new { id = activity.GroupId, activity.TotalDuration, activity.Duration }
+                        by activity.GroupId into g
+                        where g.Count() > 1
+                        select g;
 
-            var result = query.Distinct().Where(item => item.duration / item.length != 1).Select(item => new ConstraintMinDaysBetweenActivities { GroupID = item.id, NumberOfActivities = item.duration / item.length }.ToXelement()).ToArray();
-            return result;
+            var result = new List<ConstraintMinDaysBetweenActivities>();
+            foreach (var item in query)
+            {
+                var firstElement = item.First();
+                result.Add(new ConstraintMinDaysBetweenActivities { GroupID = firstElement.id, NumberOfActivities = (int)Math.Ceiling(firstElement.TotalDuration / (double)firstElement.Duration) });
+            }
+            return result.Select(item => item.ToXelement()).ToArray();
+
         }
 
         /// <summary>
@@ -61,7 +72,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Consecutive_If_Same_Day", true));
+            constraint.Add(new XElement("Consecutive_If_Same_Day", false));
             constraint.Add(new XElement("Number_of_Activities", NumberOfActivities));
             for (int i = 0; i < NumberOfActivities; i++)
             {

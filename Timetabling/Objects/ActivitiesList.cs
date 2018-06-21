@@ -49,15 +49,15 @@ namespace Timetabling.Objects
         private void CreateCollectionActivities()
         {
             // Retrieve all collection activities
-            var query = from activity in dB.ActitvityGroups
+            var query = from activity in dB.ClassTeacherSubjects
                         join c in dB.ClassesLookup on activity.ClassId equals c.ClassId
                         join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
-                        join grade in dB.GradesLookup on activity.GradeId equals grade.GradeId
+                        join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
                         join sub in dB.Subjects on activity.SubjectId equals sub.SubjectId
-                        where s.GradeId == activity.GradeId && t.IsActive == true && grade.StageId == dB.StageId
-                        group new { ActivityRefID = activity.ActivityRefId, teacherId = activity.TeacherId, grade.GradeName, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, activity.Id, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
-                                    by activity.ActivityRefId into g
+                        where s.GradeId == c.GradeId && t.IsActive == true && grade.StageId == dB.StageId && s.CollectionId != null
+                        group new { teacherId = activity.TeacherId, grade.GradeId, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
+            by new { s.CollectionId, s.GradeId, activity.ClassId } into g
                         select g;
 
             // Iterate over collections
@@ -65,7 +65,7 @@ namespace Timetabling.Objects
             {
                 var activity = item.First();
                 var students = new Dictionary<string, int>();
-                item.Select(x => new { x.ClassName, x.ClassID }).ToList().ForEach(x => students[x.ClassName] = x.ClassID);
+                item.Select(x => new { x.ClassName, x.ClassID, x.GradeId }).ToList().ForEach(x => students[x.ClassName] = x.ClassID);
 
                 // Create all activities for this collection
                 var activityBuilder = new ActivityBuilder
@@ -75,9 +75,8 @@ namespace Timetabling.Objects
                     SubjectId = activity.subjectId,
                     NumberOfLessonsPerDay = activity.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = activity.NumberOfLlessonsPerWeek,
-                    GradeName = activity.GradeName,
                     ActivityCounter = _counter,
-
+                    GradeId = item.First().GradeId,
                     // Activity is a collection if there are more than one items in a group
                     IsCollection = item.Count() > 1,
                     CollectionId = activity.CollectionID
@@ -99,18 +98,18 @@ namespace Timetabling.Objects
                         join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
                         join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
-                        where c.GradeId == s.GradeId && grade.StageId == dB.StageId
-                        select new { TeacherID = activity.TeacherId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay };
+                        where c.GradeId == s.GradeId && grade.StageId == dB.StageId && s.CollectionId == null
+                        select new { TeacherID = activity.TeacherId, GradeID = c.GradeId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay };
 
             // Iterate over single activities
-            foreach (var item in query.Distinct())
+            foreach (var item in query)
             {
-
                 var activityBuilder = new ActivityBuilder
                 {
                     StudentsList = new Dictionary<string, int> { { item.ClassName, item.ClassID } },
-                    TeachersList = new List<int> { (int)item.TeacherID },
+                    TeachersList = new List<int> { (int)item.TeacherID }.Distinct().ToList(),
                     SubjectId = item.SubjectID,
+                    GradeId = (int)item.GradeID,
                     NumberOfLessonsPerDay = item.NumberOfLlessonsPerDay,
                     NumberOfLessonsPerWeek = item.NumberOfLlessonsPerWeek,
                     IsCollection = false,
@@ -131,16 +130,16 @@ namespace Timetabling.Objects
             // Duplicate activities collection to allow modifications
             var clone = Activities.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-            // Select distinct collections from the collectionstring
+            // Select distinct collection id's
             var query = clone.Values.Select(item => item.CollectionId).Distinct();
 
             foreach (var item in query)
             {
-                var list = Activities.Values.Where(x => x.CollectionId.Equals(item));
+                var list = Activities.Values.Where(x => x.CollectionId != 0 && x.CollectionId.Equals(item) && x.IsCollection==true);
 
                 // Groups the lessons by the number of lesson of the week. 
                 var group = from a in list
-                            group a by a.NumberLessonOfWeek into g
+                            group a by new { a.NumberLessonOfWeek, a.GradeId } into g
                             select g;
 
                 foreach (var i in group)

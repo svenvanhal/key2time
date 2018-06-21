@@ -55,7 +55,7 @@ namespace Timetabling.Objects
         /// Gets or sets the name of the grade.
         /// </summary>
         /// <value>The name of the grade.</value>
-        public string GradeName { get; set; }
+        public int GradeId { get; set; }
 
         /// <summary>
         /// Gets or sets the builder counter for the id.
@@ -95,6 +95,7 @@ namespace Timetabling.Objects
                     Students = StudentsList,
                     Id = ActivityCounter,
                     GroupId = groupId,
+                    GradeId = GradeId,
                     Duration = NumberOfLessonsPerDay,
                     TotalDuration = NumberOfLessonsPerWeek,
                     NumberLessonOfWeek = i,
