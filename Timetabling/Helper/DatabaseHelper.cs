@@ -21,7 +21,7 @@ namespace Timetabling.Helper
         public DataModel Model { get; set; }
 
         /// <inheritdoc />
-        public DatabaseHelper() : this(new DataModel(0)) { }
+        public DatabaseHelper() : this(new DataModel()) { }
 
         /// <summary>
         /// Constructs a new DatabaseHelper on a DataModel.
@@ -78,7 +78,7 @@ namespace Timetabling.Helper
                 Name = $"{tt.AcademicYearId} - {tt.QuarterId} - {tt.SectionId}",
                 AcademicYearId = tt.AcademicYearId,
                 QuarterId = tt.QuarterId,
-                SectionId = model.StageId,
+                SectionId = model.StageIds[0],
                 ConflictWeight = tt.ConflictWeight,
                 Conflicts = conflictText,
                 OutputDir = tt.OutputFolder

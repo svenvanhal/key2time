@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.Entity;
 
@@ -12,15 +13,15 @@ namespace Timetabling.DB
         /// <summary>
         /// The stage identifier.
         /// </summary>
-        public int StageId;
+        public List<int> StageIds;
 
         /// <inheritdoc />
         /// <summary>
         /// Constructs a new DataModel based on the connection string in app.config.
         /// </summary>
-        public DataModel(int stageId) : base("name=DataModel")
+        public DataModel(List<int> stageIds) : base("name=DataModel")
         {
-            StageId = stageId;
+            StageIds = stageIds;
         }
 
         /// <inheritdoc />

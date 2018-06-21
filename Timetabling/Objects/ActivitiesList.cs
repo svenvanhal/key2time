@@ -55,7 +55,8 @@ namespace Timetabling.Objects
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
                         join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
                         join sub in dB.Subjects on activity.SubjectId equals sub.SubjectId
-                        where s.GradeId == c.GradeId && t.IsActive == true && grade.StageId == dB.StageId && s.CollectionId != null
+                        join stage in dB.StageIds on grade.StageId equals stage
+                        where s.GradeId == c.GradeId && t.IsActive == true && s.CollectionId != null
                         group new { teacherId = activity.TeacherId, grade.GradeId, subjectId = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay, CollectionID = s.CollectionId }
             by new { s.CollectionId, s.GradeId, activity.ClassId } into g
                         select g;
@@ -98,7 +99,8 @@ namespace Timetabling.Objects
                         join s in dB.SubjectGrades on activity.SubjectId equals s.SubjectId
                         join t in dB.Employees on activity.TeacherId equals t.EmployeeId
                         join grade in dB.GradesLookup on c.GradeId equals grade.GradeId
-                        where c.GradeId == s.GradeId && grade.StageId == dB.StageId && s.CollectionId == null
+                        join stage in dB.StageIds on grade.StageId equals stage
+                        where c.GradeId == s.GradeId && s.CollectionId == null
                         select new { TeacherID = activity.TeacherId, GradeID = c.GradeId, SubjectID = activity.SubjectId, c.ClassName, ClassID = c.ClassId, NumberOfLlessonsPerWeek = s.NumberOfLessonsPerWeek, NumberOfLlessonsPerDay = s.NumberOfLessonsPerDay };
 
             // Iterate over single activities
@@ -135,7 +137,7 @@ namespace Timetabling.Objects
 
             foreach (var item in query)
             {
-                var list = Activities.Values.Where(x => x.CollectionId != 0 && x.CollectionId.Equals(item) && x.IsCollection==true);
+                var list = Activities.Values.Where(x => x.CollectionId != 0 && x.CollectionId.Equals(item) && x.IsCollection == true);
 
                 // Groups the lessons by the number of lesson of the week. 
                 var group = from a in list

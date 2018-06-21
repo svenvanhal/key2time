@@ -12,7 +12,7 @@ namespace Implementation
 {
     class Program
     {
-        public static int StageId = 2;
+        public static List<int> StageIds = new List<int>{{2}};
 
         static void Main(string[] args)
         {
@@ -24,7 +24,7 @@ namespace Implementation
             var task = new Program().Start();
 
             // Attach handlers
-            task.ContinueWith(t => OnSuccess(t, academicYear, StageId, 0), TaskContinuationOptions.OnlyOnRanToCompletion);
+            task.ContinueWith(t => OnSuccess(t, academicYear, StageIds[0], 0), TaskContinuationOptions.OnlyOnRanToCompletion);
             task.ContinueWith(OnCanceled, TaskContinuationOptions.OnlyOnCanceled);
             task.ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted);
 
@@ -35,7 +35,7 @@ namespace Implementation
         public Task<Timetable> Start()
         {
             // Create algorithm task
-            using (var model = new DataModel(StageId))
+            using (var model = new DataModel(StageIds))
             using (var generator = new TimetableGenerator())
             {
                 return generator.RunAlgorithm(new FetAlgorithm(), model);
@@ -45,7 +45,7 @@ namespace Implementation
 
         private static int GetAcademicYear()
         {
-            using (var model = new DataModel(StageId))
+            using (var model = new DataModel())
             {
 
                 // Get academic year id, section id and quarter id.

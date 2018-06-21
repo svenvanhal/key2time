@@ -143,7 +143,7 @@ namespace Timetabling.Tests.Objects
             MockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.ElementType).Returns(DataStage.ElementType);
             MockSetStage.As<IQueryable<LookupStageModel>>().Setup(m => m.GetEnumerator()).Returns(DataStage.GetEnumerator());
 
-            MockDataModel = new Mock<DataModel>(4);
+            MockDataModel = new Mock<DataModel>(new List<int> { { 4 } });
             MockDataModel.Setup(item => item.ActitvityGroups).Returns(MockSetActivityGroup.Object);
             MockDataModel.Setup(item => item.ClassesLookup).Returns(MockSetClass.Object);
             MockDataModel.Setup(item => item.SubjectGrades).Returns(MockSetSubjectGrade.Object);
