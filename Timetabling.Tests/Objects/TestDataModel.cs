@@ -45,6 +45,10 @@ namespace Timetabling.Tests.Objects
                 },
                 new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4,SubjectId =0
                 },
+                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay =1, SubjectId =1, CollectionId = 2, BuildingUnitTypeId =1
+                },
+                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay =1, SubjectId =1, CollectionId = 2, BuildingUnitTypeId =1
+                }
             }.AsQueryable();
 
             var MockSetSubjectGrade = new Mock<DbSet<SubjectGradeModel>>();

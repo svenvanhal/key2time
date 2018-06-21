@@ -47,7 +47,7 @@ namespace Timetabling.Tests.Objects
         [Test]
         public void ActivityTeacherRightTest()
         {
-            Assert.AreEqual(4, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
+            Assert.AreEqual(8, test.Elements("Activity").Elements("Teacher").Count(item => item.Value.Equals("0")));
 
         }
 
@@ -85,5 +85,15 @@ namespace Timetabling.Tests.Objects
             Assert.AreEqual(0, test.Elements("Activity").Elements("Students").Count(item => item.Value.Equals("wrong")));
 
         }
+
+        [Test]
+        public void ActivityCollection()
+        {
+
+            list.Activities.ToList().ForEach(item => System.Console.WriteLine(item.Key + " " + item.Value.IsCollection));
+            Assert.AreEqual(true, list.Activities[5].IsCollection);
+
+        }
+
     }
 }
