@@ -50,7 +50,10 @@ namespace Timetabling.Tests.Helper
 
             using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
-                var model = new DataModel(conn);
+                var model = new DataModel(conn)
+                {
+                    StageIds = new List<int> { 1 }
+                };
 
                 using (var context = new DatabaseHelper(model))
                 {
@@ -87,7 +90,10 @@ namespace Timetabling.Tests.Helper
         {
             using (var conn = Effort.DbConnectionFactory.CreateTransient())
             {
-                var model = new DataModel(conn);
+                var model = new DataModel(conn)
+                {
+                    StageIds = new List<int> { 1 }
+                };
 
                 using (var context = new DatabaseHelperExposer(model))
                 {
