@@ -91,7 +91,7 @@ The FET algorithm is configured by an XML file containing all resources, activit
 N.B.: the FET constraint system is rather complicated and its behaviour might not be intuitive when combining constraints. Make sure to test a new constraint thoroughly before using it in production.
 
 ### Upgrading FET
-The project currently bundles [FET 5.36.0](https://lalescu.ro/liviu/fet/news.html). To upgrade FET, execute the following steps:
+The project currently bundles [FET 5.36.0](https://lalescu.ro/liviu/fet/news.html). To upgrade FET, perform the following steps:
 
   1. Download the latest FET release from the [download page](https://lalescu.ro/liviu/fet/download.html).
   1. Upgrade the FET binaries in `Implementation` project by replacing the relevant files in `lib/fet/`.
