@@ -18,7 +18,10 @@ namespace Timetabling.Tests.Objects
                 Activities = new List<Timetable.TimetableActivity>
                 {
                     new Timetable.TimetableActivity()
-                }
+                },
+                AcademicYearId = 1,
+                QuarterId = 1,
+                SectionId = 1
             };
 
             Assert.IsFalse(tt.IsPartial);
@@ -46,7 +49,8 @@ namespace Timetabling.Tests.Objects
                 Activities = null
             };
 
-            Assert.DoesNotThrow(() => {
+            Assert.DoesNotThrow(() =>
+            {
                 var _ = tt.IsPartial;
             });
         }

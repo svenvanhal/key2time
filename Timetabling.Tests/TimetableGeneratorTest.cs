@@ -9,7 +9,7 @@ namespace Timetabling.Tests
 {
 
     [TestFixture]
-    public class TimetableGeneratorTest
+    internal class TimetableGeneratorTest
     {
 
         [Test]
@@ -52,6 +52,15 @@ namespace Timetabling.Tests
             ttg.StopAlgorithm();
 
             Assert.IsTrue(tokenSource.IsCancellationRequested);
+        }
+
+        [Test]
+        public void DisposeTest()
+        {
+            var ttg = new TimetableGenerator();
+            ttg.Dispose();
+            
+            Assert.IsNull(ttg.TokenSource);
         }
 
     }
