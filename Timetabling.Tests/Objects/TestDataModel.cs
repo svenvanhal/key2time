@@ -42,7 +42,9 @@ namespace Timetabling.Tests.Objects
             var DataSubjectGrade = new List<SubjectGradeModel>{
                 new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay = 1, SubjectId = 1, CollectionId = 1, BuildingUnitTypeId = 1 },
                 new SubjectGradeModel{ GradeId = 2,  NumberOfLessonsPerWeek = 8, NumberOfLessonsPerDay = 1, SubjectId = 1 },
-                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4, SubjectId = 0 }
+                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4, SubjectId = 0 },
+                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay = 1, SubjectId = 1, CollectionId = 2, BuildingUnitTypeId = 1 },
+                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay = 1, SubjectId = 1, CollectionId = 2, BuildingUnitTypeId = 1 }
             }.AsQueryable();
 
             var MockSetSubjectGrade = new Mock<DbSet<SubjectGradeModel>>();
