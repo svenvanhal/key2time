@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using Moq;
 using Timetabling.Objects;
 using System.Xml.Linq;
-using System.Linq;
 
 namespace Timetabling.Tests.Objects
 {
