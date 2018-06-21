@@ -30,7 +30,6 @@ namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
             var constraintTest = new ConstraintActivitiesPreferredStartingTimes { TimeOffArray = array, SubjectId = 1, };
             var result = constraint.Create(test.Object);
 
-            result.ToList().ForEach(System.Console.WriteLine);
             Assert.AreEqual(1, result.Count(item => item.ToString().Equals(constraintTest.ToXelement().ToString())));
         }
     }
