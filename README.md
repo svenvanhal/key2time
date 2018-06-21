@@ -17,9 +17,66 @@ Prerequisites: a MS SQL database with a compatible schema.
 ## Usage
 
 ### Creating timetables
+To generate timetables, include the `Timetabling` project in your solution. To fully utilize this library, the following four classes are relevant:
+
+ * `Timetabling.TimetableGenerator`
+ * `Timetabling.DB.DataModel`
+ * A `Timetabling.Algorithms.TimetablingStrategy` subclass, e.g. `Timetabling.Algorithms.FetAlgorithm`
+ * `Timetabling.Helper.DatabaseHelper` (optional, to save the generated timetable)
+ 
+The timetabling algorithm runs asynchronous and is wrapped in a `Task<Timetable>` ([docs](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap)). To create the task, execute the `TimetableGenerator.RunAlgorithm(strategy, model)` method with a `TimetablingStrategy` and a `DataModel`:
+
+```
+using (var model = new DataModel(StageId))
+using (var generator = new TimetableGenerator())
+{
+    Task<Timetable> task = generator.RunAlgorithm(new FetAlgorithm(), model);
+}
+```
+
+The algorithm has now started running in the background. By attaching task continuation handlers, the task output can be processed:
+
+```
+task.ContinueWith(OnSuccess, TaskContinuationOptions.OnlyOnRanToCompletion);
+task.ContinueWith(OnCanceled, TaskContinuationOptions.OnlyOnCanceled);
+task.ContinueWith(OnError, TaskContinuationOptions.OnlyOnFaulted);
+```
+
+Use `DatabaseHelper` to save the timetable to the database. The `OnSuccess` handler could be used for this purpose:
+
+```
+public static void OnSuccess(Task<Timetable> task)
+{
+
+    using (var db = new DatabaseHelper())
+    {
+        Timetable tt = task.Result;
+        db.SaveTimetable(tt);
+    }
+
+}
+```
+
+By default, the `DatabaseHelper` operates on a new database connection. A `DataModel` can be passed to its constructor to override that behavior.
 
 #### Add metadata
+Currently, not all required meta data about the timetable (e.g. `AcademicYearId`, `SectionId` and `QuarterId`) is retrieved from the database. This data can therefore optionally be set (and consequently saved to the database) by altering the `OnSuccess` handler:
 
+```
+public static void OnSuccess(Task<Timetable> task)
+{
+
+    Timetable tt = task.Result;
+
+    // Set meta data
+    tt.AcademicYearId = 1;
+    tt.QuarterId = 2;
+    tt.SectionId = 3;
+
+    // Save to database here
+
+}
+```
 
 ### Adding constraints
 
