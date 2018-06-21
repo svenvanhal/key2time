@@ -78,8 +78,17 @@ public static void OnSuccess(Task<Timetable> task)
 }
 ```
 
-### Adding constraints
+#### Working example
+An example implementation (aptly named `Implementation`) project is included in the solution.
 
+### Adding constraints
+The FET algorithm is configured by an XML file containing all resources, activities to schedule and constraints. To add a new constraint, perform the following steps:
+
+ 1. Add a constraint class which extends `AbstractConstraint` in `Timetabling.Objects.Constraints`. Please refer to existing FET input files and the documentation at [this page](http://timetabling.de/manual/FET-manual.en.html) for the correct XML constraint output.
+ 2. Update `Timetabling.Algorithms.FET.FetInputGenerator` to include your new constraint.
+ 3. Add tests in `Timetabling.Tests.Objects.Constraints` for the new constraint.
+
+N.B.: the FET constraint system is rather complicated and its behaviour might not be intuitive when combining constraints. Make sure to test a new constraint thoroughly before using it in production.
 
 ### Upgrading FET
 The project currently bundles [FET 5.36.0](https://lalescu.ro/liviu/fet/news.html). To upgrade FET, execute the following steps:
@@ -88,8 +97,6 @@ The project currently bundles [FET 5.36.0](https://lalescu.ro/liviu/fet/news.htm
   1. Upgrade the FET binaries in `Implementation` project by replacing the relevant files in `lib/fet/`.
   1. Upgrade the FET binaries in `Timetabling.Tests` project by replacing the relevant files in `lib/fet/`.
   1. If the FET file structure has remained unchanged, the version number in `Timetabling.Algorithms.FET.FetInputGenerator` should be changed as well.
-  
-### 
 
 ## Remarks
 
