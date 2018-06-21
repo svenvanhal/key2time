@@ -1,6 +1,9 @@
 ﻿using NUnit.Framework;
 using System.IO;
+using System.Threading;
 using Timetabling.Algorithms.FET;
+using Timetabling.Objects;
+using Timetabling.Tests.Objects;
 
 namespace Timetabling.Tests.Algorithms.FET
 {
@@ -8,6 +11,16 @@ namespace Timetabling.Tests.Algorithms.FET
     [TestFixture]
     internal class FetAlgorithmTest
     {
+
+        [Test]
+        public void IntegrationTest()
+        {
+            var algo = new FetAlgorithm();
+            var model = new TestDataModel().MockDataModel;
+            var task = algo.GenerateTask("testIdentifier", model.Object, CancellationToken.None);
+            task.Wait();
+            Assert.IsInstanceOf<Timetable>(task.Result);
+        }
 
         [Test]
         public void CreateProcessTest()

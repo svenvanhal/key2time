@@ -1,20 +1,20 @@
 ﻿using NUnit.Framework;
 using Timetabling.Objects.Constraints.SpaceConstraints;
 
-namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints
 {
-    [TestFixture()]
+
     internal class ConstraintBasicCompulsorySpaceTest
     {
 
-        [Test()]
+        [Test]
         public void TestWeight()
         {
             var constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
             Assert.AreEqual("100", constraintBasicCompulsorySpace.ToXelement().Element("Weight_Percentage").Value);
         }
 
-        [Test()]
+        [Test]
         public void TestToXElement()
         {
             var constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();
@@ -22,7 +22,7 @@ namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints.Tests
                             "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine + "</ConstraintBasicCompulsorySpace>", constraintBasicCompulsorySpace.ToXelement().ToString());
         }
 
-        [Test()]
+        [Test]
         public void TestToXElementHasElement()
         {
             var constraintBasicCompulsorySpace = new ConstraintBasicCompulsorySpace();

@@ -18,9 +18,8 @@ namespace Timetabling.Tests.Objects
 
             var DataActivityGroup = new List<ActivityGroupModel>{
                 new ActivityGroupModel{ ClassId = 1, SubjectId = 1,  TeacherId = 0, GradeId = 60, ActivityRefId = 1, Id = 1},
-                new ActivityGroupModel{ ClassId = 2, SubjectId = 0,  TeacherId = 4, GradeId = 60, ActivityRefId = 2},
+                new ActivityGroupModel{ ClassId = 2, SubjectId = 0,  TeacherId = 4, GradeId = 60, ActivityRefId = 2 },
                 new ActivityGroupModel{ ClassId = 2, SubjectId = 1,  TeacherId = 4, GradeId = 60, ActivityRefId = 1, Id = 3},
-
             }.AsQueryable();
 
             var MockSetActivityGroup = new Mock<DbSet<ActivityGroupModel>>();
@@ -30,8 +29,8 @@ namespace Timetabling.Tests.Objects
             MockSetActivityGroup.As<IQueryable<ActivityGroupModel>>().Setup(m => m.GetEnumerator()).Returns(DataActivityGroup.GetEnumerator());
 
             var DataClass = new List<LookupClassModel>{
-                new LookupClassModel{ClassName = "test", ClassId = 1, GradeId = 60, IsActive = true},
-                new LookupClassModel{ClassName = "test2", ClassId = 2, GradeId = 60},
+                new LookupClassModel{ ClassName = "test", ClassId = 1, GradeId = 60, IsActive = true },
+                new LookupClassModel{ ClassName = "test2", ClassId = 2, GradeId = 60 },
             }.AsQueryable();
 
             var MockSetClass = new Mock<DbSet<LookupClassModel>>();
@@ -41,10 +40,8 @@ namespace Timetabling.Tests.Objects
             MockSetClass.As<IQueryable<LookupClassModel>>().Setup(m => m.GetEnumerator()).Returns(DataClass.GetEnumerator());
 
             var DataSubjectGrade = new List<SubjectGradeModel>{
-                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay =1, SubjectId =1, CollectionId = 1, BuildingUnitTypeId =1
-                },
-                new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4,SubjectId =0
-                },
+                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay = 1, SubjectId = 1, CollectionId = 1, BuildingUnitTypeId = 1 },
+                new SubjectGradeModel{ GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4, SubjectId = 0 }
             }.AsQueryable();
 
             var MockSetSubjectGrade = new Mock<DbSet<SubjectGradeModel>>();
@@ -54,10 +51,8 @@ namespace Timetabling.Tests.Objects
             MockSetSubjectGrade.As<IQueryable<SubjectGradeModel>>().Setup(m => m.GetEnumerator()).Returns(DataSubjectGrade.GetEnumerator());
 
             var DataEmployees = new List<EmployeeModel>{
-                new EmployeeModel{EmployeeId = 0, IsActive = true, IsTeacher =true,
-                },
-                new EmployeeModel{EmployeeId = 4, IsActive = true, IsTeacher =true
-                },
+                new EmployeeModel{ EmployeeId = 0, IsActive = true, IsTeacher = true },
+                new EmployeeModel{ EmployeeId = 4, IsActive = true, IsTeacher = true },
             }.AsQueryable();
 
             var MockSetEmployees = new Mock<DbSet<EmployeeModel>>();
@@ -67,9 +62,8 @@ namespace Timetabling.Tests.Objects
             MockSetEmployees.As<IQueryable<EmployeeModel>>().Setup(m => m.GetEnumerator()).Returns(DataEmployees.GetEnumerator());
 
             var DataGrades = new List<LookupGradeModel>{
-                new LookupGradeModel{GradeId = 60, IsActive = true, GradeName = "gradeTest", StageId = 4
-                 }
-             }.AsQueryable();
+                new LookupGradeModel{ GradeId = 60, IsActive = true, GradeName = "gradeTest", StageId = 4 }
+            }.AsQueryable();
 
             var MockSetGrades = new Mock<DbSet<LookupGradeModel>>();
             MockSetGrades.As<IQueryable<LookupGradeModel>>().Setup(m => m.Provider).Returns(DataGrades.Provider);
@@ -78,11 +72,10 @@ namespace Timetabling.Tests.Objects
             MockSetGrades.As<IQueryable<LookupGradeModel>>().Setup(m => m.GetEnumerator()).Returns(DataGrades.GetEnumerator());
 
             var DataSubjects = new List<SubjectModel>{
-                new SubjectModel{SubjectId = 1,  IsActive = true
-                 },
-                new SubjectModel{SubjectId = 0, IsActive = false
-                 }
-             }.AsQueryable();
+                new SubjectModel{ SubjectId = 0, IsActive = true },
+                new SubjectModel{ SubjectId = 1, IsActive = true },
+                new SubjectModel{ SubjectId = 2, IsActive = false }
+            }.AsQueryable();
 
             var MockSetSubjects = new Mock<DbSet<SubjectModel>>();
             MockSetSubjects.As<IQueryable<SubjectModel>>().Setup(m => m.Provider).Returns(DataSubjects.Provider);
@@ -91,11 +84,9 @@ namespace Timetabling.Tests.Objects
             MockSetSubjects.As<IQueryable<SubjectModel>>().Setup(m => m.GetEnumerator()).Returns(DataSubjects.GetEnumerator());
 
             var DataClassTeacherSubject = new List<ClassTeacherSubjectsModel>{
-                new ClassTeacherSubjectsModel{SubjectId = 1, ClassId = 1, TeacherId = 0
-                 },
-                new ClassTeacherSubjectsModel{SubjectId = 0, ClassId = 2, TeacherId = 4
-                 },
-             }.AsQueryable();
+                new ClassTeacherSubjectsModel{ SubjectId = 1, ClassId = 1, TeacherId = 0 },
+                new ClassTeacherSubjectsModel{ SubjectId = 0, ClassId = 2, TeacherId = 4 },
+            }.AsQueryable();
 
             var MockSetClassTeacherSubject = new Mock<DbSet<ClassTeacherSubjectsModel>>();
             MockSetClassTeacherSubject.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.Provider).Returns(DataClassTeacherSubject.Provider);
@@ -104,10 +95,10 @@ namespace Timetabling.Tests.Objects
             MockSetClassTeacherSubject.As<IQueryable<ClassTeacherSubjectsModel>>().Setup(m => m.GetEnumerator()).Returns(DataClassTeacherSubject.GetEnumerator());
 
             var DataTimeOff = new List<TimeOffModel>{
-                new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 4},
-                new TimeOffModel{ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 2},
-                new TimeOffModel{ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 3},
-                new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 1},
+                new TimeOffModel{ ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 4 },
+                new TimeOffModel{ ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 2 },
+                new TimeOffModel{ ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 3 },
+                new TimeOffModel{ ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 1 },
             }.AsQueryable();
 
             var MockSetTimeOff = new Mock<DbSet<TimeOffModel>>();
@@ -117,10 +108,8 @@ namespace Timetabling.Tests.Objects
             MockSetTimeOff.As<IQueryable<TimeOffModel>>().Setup(m => m.GetEnumerator()).Returns(DataTimeOff.GetEnumerator());
 
             var DataBuildings = new List<BuildingModel>{
-                new BuildingModel{Id = 4, IsActive = true},
-                new BuildingModel{Id =1, IsActive = true, TypeId = 1
-                },
-
+                new BuildingModel{ Id = 4, IsActive = true },
+                new BuildingModel{ Id = 1, IsActive = true, TypeId = 1 },
             }.AsQueryable();
 
             var MockSetBuildings = new Mock<DbSet<BuildingModel>>();
@@ -130,9 +119,9 @@ namespace Timetabling.Tests.Objects
             MockSetBuildings.As<IQueryable<BuildingModel>>().Setup(m => m.GetEnumerator()).Returns(DataBuildings.GetEnumerator());
 
             var DataSectionWeekend = new List<SectionWeekendModel>{
-                new SectionWeekendModel{DayIndex = 0, SectionId = 1},
-                new SectionWeekendModel{DayIndex = 1, SectionId = 1},
-                new SectionWeekendModel{DayIndex = 3, SectionId = 1}
+                new SectionWeekendModel{ DayIndex = 0, SectionId = 1 },
+                new SectionWeekendModel{ DayIndex = 1, SectionId = 1 },
+                new SectionWeekendModel{ DayIndex = 3, SectionId = 1 }
             }.AsQueryable();
 
             var MockSetSectionWeekend = new Mock<DbSet<SectionWeekendModel>>();
@@ -142,8 +131,7 @@ namespace Timetabling.Tests.Objects
             MockSetSectionWeekend.As<IQueryable<SectionWeekendModel>>().Setup(m => m.GetEnumerator()).Returns(DataSectionWeekend.GetEnumerator());
 
             var DataStage = new List<LookupStageModel>{
-                new LookupStageModel{IsActive = true, SectionId = 1, StageId = 4
-                },
+                new LookupStageModel{ IsActive = true, SectionId = 1, StageId = 4 },
             }.AsQueryable();
 
             var MockSetStage = new Mock<DbSet<LookupStageModel>>();

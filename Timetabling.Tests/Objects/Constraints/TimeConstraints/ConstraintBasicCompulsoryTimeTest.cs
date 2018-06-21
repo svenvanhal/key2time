@@ -1,28 +1,28 @@
 ﻿using NUnit.Framework;
 using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Tests.Objects.Constraints.TimeConstraints.Tests
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
 {
 
-    [TestFixture()]
+    [TestFixture]
     internal class ConstraintBasicCompulsoryTimeTest
     {
 
-        [Test()]
+        [Test]
         public void TestWeight()
         {
             var constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
             Assert.AreEqual(100, constraintBasicCompulsoryTime.weight);
         }
 
-        [Test()]
+        [Test]
         public void TestToXElement()
         {
             var constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
             Assert.AreEqual("<ConstraintBasicCompulsoryTime>" + System.Environment.NewLine + "  <Weight_Percentage>100</Weight_Percentage>" + System.Environment.NewLine + "</ConstraintBasicCompulsoryTime>", constraintBasicCompulsoryTime.ToXelement().ToString());
         }
 
-        [Test()]
+        [Test]
         public void TestToXElementHasElement()
         {
             var constraintBasicCompulsoryTime = new ConstraintBasicCompulsoryTime();
