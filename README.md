@@ -59,6 +59,9 @@ public static void OnSuccess(Task<Timetable> task)
 
 By default, the `DatabaseHelper` operates on a new database connection. A `DataModel` can be passed to its constructor to override that behavior.
 
+#### Canceling the algorithm
+All algorithm tasks created by `TimetableGenerator.RunAlgorithm(strategy, model)` can be canceled by calling `TimetableGenerator.StopAlgorithm()`.
+
 #### Add metadata
 Currently, not all required meta data about the timetable (e.g. `AcademicYearId`, `SectionId` and `QuarterId`) is retrieved from the database. This data can therefore optionally be set (and consequently saved to the database) by altering the `OnSuccess` handler:
 
