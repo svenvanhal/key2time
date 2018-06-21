@@ -50,7 +50,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
-    <None Include="connection.config.example" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lib\fet\fet-cl.exe">
