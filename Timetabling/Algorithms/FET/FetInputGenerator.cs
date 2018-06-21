@@ -11,7 +11,7 @@ namespace Timetabling.Algorithms.FET
     {
 
         // The FET input format version
-        private const string FetVersion = "5.35.7";
+        private const string FetVersion = "5.36.0";
 
         public DataModel Model { get; }
 
