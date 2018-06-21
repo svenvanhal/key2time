@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using Timetabling.Objects.Constraints;
+using Timetabling.Objects.Constraints.SpaceConstraints;
 
-namespace Timetabling.Tests.Objects.Constraints
+namespace Timetabling.Tests.Objects.Constraints.SpaceConstraints
 {
 
     public class ConstraintSubjectPrefferedRoomsTest

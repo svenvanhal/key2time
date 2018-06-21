@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using Timetabling.DB;
 
-namespace Timetabling.Objects.Constraints
+namespace Timetabling.Objects.Constraints.TimeConstraints
 {
 	
     /// <summary>
@@ -11,7 +11,7 @@ namespace Timetabling.Objects.Constraints
 	{
         
 	    /// <summary>
-        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.Constraints.ConstraintBasicCompulsoryTime"/> class.
+        /// Initializes a new instance of the <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintBasicCompulsoryTime"/> class.
         /// </summary>
 		public ConstraintBasicCompulsoryTime() 
 		{

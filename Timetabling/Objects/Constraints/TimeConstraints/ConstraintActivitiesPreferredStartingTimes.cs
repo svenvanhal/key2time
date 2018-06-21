@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Timetabling.DB;
+using System.Linq;
+using System.Collections.Generic;
 
-namespace Timetabling.Objects.Constraints
+namespace Timetabling.Objects.Constraints.TimeConstraints
 {
 
     /// <summary>
@@ -35,7 +35,7 @@ namespace Timetabling.Objects.Constraints
 
         /// <summary>
         /// Initializes a new instance of the
-        /// <see cref="T:Timetabling.Objects.Constraints.ConstraintActivitiesPreferredStartingTimes"/> class.
+        /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintActivitiesPreferredStartingTimes"/> class.
         /// </summary>
         public ConstraintActivitiesPreferredStartingTimes()
         {

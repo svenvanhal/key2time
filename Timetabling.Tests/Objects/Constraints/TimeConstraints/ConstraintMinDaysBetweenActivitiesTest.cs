@@ -2,9 +2,9 @@
 using Moq;
 using NUnit.Framework;
 using Timetabling.DB;
-using Timetabling.Objects.Constraints;
+using Timetabling.Objects.Constraints.TimeConstraints;
 
-namespace Timetabling.Tests.Objects.Constraints
+namespace Timetabling.Tests.Objects.Constraints.TimeConstraints
 {
     internal class ConstraintMinDaysBetweenActivitiesTest
     {

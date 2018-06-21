@@ -95,16 +95,16 @@
     <Compile Include="Objects\TimetableTest.cs" />
     <Compile Include="TimetableGeneratorTest.cs" />
     <Compile Include="Helper\XmlCreatorTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintBasicCompulsoryTimeTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintMinDaysBetweenActivitiesTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintStudentsSetNotAvailableTimesTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintTeacherNotAvailableTimesTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintBasicCompulsorySpaceTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintRoomNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintBasicCompulsoryTimeTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintMinDaysBetweenActivitiesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintStudentsSetNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintTeacherNotAvailableTimesTest.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintBasicCompulsorySpaceTest.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintRoomNotAvailableTimesTest.cs" />
     <Compile Include="Objects\RoomsListTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintPeriodSectionTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintsSubjectPrefferedRoomsTest.cs" />
-    <Compile Include="Objects\Constraints\ConstraintActivitiesPreferredStartingTimesTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintPeriodSectionTest.cs" />
+    <Compile Include="Objects\Constraints\SpaceConstraints\ConstraintsSubjectPrefferedRoomsTest.cs" />
+    <Compile Include="Objects\Constraints\TimeConstraints\ConstraintActivitiesPreferredStartingTimesTest.cs" />
     <Compile Include="Objects\TestDataModel.cs" />
   </ItemGroup>
   <ItemGroup>
