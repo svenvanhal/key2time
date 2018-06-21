@@ -39,11 +39,11 @@ namespace Timetabling.Objects
         private void CreateConstraints()
         {
             List.Add(new ConstraintBasicCompulsoryTime().ToXelement());
-          //  Constraints.Add(new ConstraintTeacherNotAvailableTimes());
-           // Constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
+            Constraints.Add(new ConstraintTeacherNotAvailableTimes());
+            Constraints.Add(new ConstraintStudentsSetNotAvailableTimes());
             Constraints.Add(new ConstraintMinDaysBetweenActivities());
             Constraints.Add(new ConstraintPeriodSection());
-            //Constraints.Add(new ConstraintActivitiesPreferredStartingTimes());
+            Constraints.Add(new ConstraintActivitiesPreferredStartingTimes());
         }
 
     }

@@ -70,7 +70,7 @@ namespace Timetabling.Algorithms.FET
             try
             {
                 // Set parent control handler to prevent terminating the entire program when generating a CtrlEvent
-                SetConsoleCtrlHandler(_ => true, true);
+                    SetConsoleCtrlHandler(_ => true, true);
 
                 // Start process
                 Process.Start();

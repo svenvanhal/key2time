@@ -29,7 +29,7 @@ namespace Timetabling.Tests.Objects
 
         [Test]
         public void CreateTest(){
-            Assert.AreEqual(2, spaceConstraintsList.Constraints.Count);
+            Assert.AreEqual(1, spaceConstraintsList.Constraints.Count);
         }
 
     }

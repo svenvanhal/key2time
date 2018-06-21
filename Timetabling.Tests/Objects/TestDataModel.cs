@@ -41,6 +41,8 @@ namespace Timetabling.Tests.Objects
             var DataSubjectGrade = new List<SubjectGradeModel>{
                 new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 4, NumberOfLessonsPerDay =1, SubjectId =1, CollectionId = 1, BuildingUnitTypeId =1
                 },
+                new SubjectGradeModel{GradeId = 2, NumberOfLessonsPerWeek = 8, NumberOfLessonsPerDay =1, SubjectId =1, 
+                },
                 new SubjectGradeModel{GradeId = 60, NumberOfLessonsPerWeek = 6, NumberOfLessonsPerDay = 4,SubjectId =0
                 },
             }.AsQueryable();
@@ -104,8 +106,8 @@ namespace Timetabling.Tests.Objects
             var DataTimeOff = new List<TimeOffModel>{
                 new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 4},
                 new TimeOffModel{ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 2},
-                new TimeOffModel{ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 3},
-                new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 1},
+                new TimeOffModel{ItemId = 1, Day = 2, LessonIndex = 3, ItemType = 1},
+                new TimeOffModel{ItemId = 4, Day = 2, LessonIndex = 3, ItemType = 3},
             }.AsQueryable();
 
             var MockSetTimeOff = new Mock<DbSet<TimeOffModel>>();

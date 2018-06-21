@@ -30,8 +30,6 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <value>The minimum days.</value>
         public int MinimumDays { get; set; } = 1;
 
-        public int Duration { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the
         /// <see cref="T:Timetabling.Objects.Constraints.TimeConstraints.ConstraintMinDaysBetweenActivities"/> class.
@@ -39,7 +37,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         public ConstraintMinDaysBetweenActivities()
         {
             SetElement("ConstraintMinDaysBetweenActivities");
-            SetWeight(95);
+            SetWeight(60);
         }
 
         /// <summary>
@@ -62,7 +60,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
             foreach (var item in query)
             {
                 var firstElement = item.First();
-                result.Add(new ConstraintMinDaysBetweenActivities { GroupID = firstElement.id, NumberOfActivities = (int)Math.Ceiling(firstElement.TotalDuration / (double)firstElement.Duration), Duration = firstElement.Duration });
+                result.Add(new ConstraintMinDaysBetweenActivities { GroupID = firstElement.id, NumberOfActivities = (int)Math.Ceiling(firstElement.TotalDuration / (double)firstElement.Duration) });
             }
             return result.Select(item => item.ToXelement()).ToArray();
 
@@ -74,7 +72,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         /// <returns>The xelement.</returns>
         public override XElement ToXelement()
         {
-            constraint.Add(new XElement("Consecutive_If_Same_Day", Duration>1));
+            constraint.Add(new XElement("Consecutive_If_Same_Day", false));
             constraint.Add(new XElement("Number_of_Activities", NumberOfActivities));
             for (int i = 0; i < NumberOfActivities; i++)
             {

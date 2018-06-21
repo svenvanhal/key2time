@@ -52,7 +52,7 @@ namespace Timetabling.Objects.Constraints.TimeConstraints
         {
             var query = from tf in dB.TimesOff
                         join cl in dB.ClassesLookup on tf.ItemId equals cl.ClassId
-                        where tf.ItemType == 3 && cl.IsActive == true
+                        where tf.ItemType == 1 && cl.IsActive == true
                         select new { day = tf.Day, cl.ClassName, lessonIndex = tf.LessonIndex };
             var result = new List<XElement>();
             var check = new List<string>();
